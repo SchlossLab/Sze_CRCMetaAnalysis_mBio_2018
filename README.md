@@ -3,7 +3,7 @@
 At this moment in time the abstract has not been written but am working 
 through the raw data.  Also currently contacting authors for permission
 to use their metadata and raw sequencing files for the completion of this
-project.
+project.  I will also update the dependency folder shortly.
 
 ### Overview
 	project
