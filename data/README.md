@@ -58,3 +58,6 @@
 * Flemer B, et al.
 	* not public need to ask for raw sequences
 	* pwtoole@ucc.ie (Paul O'Toole)
+* Lu Y, et al.
+        * SRP064975
+	* Adenoma, CRC, normal can be worked out from paper
