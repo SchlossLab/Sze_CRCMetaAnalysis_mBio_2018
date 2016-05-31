@@ -1,0 +1,3 @@
+set.current(inputdir=data/mothur, outputdir=data/mothur, processors=8)
+get.groups(count=gf_cdiff.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, fasta=gf_cdiff.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, taxonomy=gf_cdiff.trim.contigs.good.unique.good.filter.unique.precluster.pick.v4.wang.pick.taxonomy, groups=MOCK1-MOCK2-MOCK3-MOCK4)
+seq.error(fasta=current, count=current, reference=data/references/HMP_MOCK.v4.fasta, aligned=F, processors=8)
