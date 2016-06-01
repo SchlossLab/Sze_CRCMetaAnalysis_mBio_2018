@@ -48,4 +48,5 @@ project.  I will also update the dependency folder shortly.
 * R (v. 3.2.5) should be located in the user's PATH  
 
 #### Running analysis  
-```git clone https://github.com/SchlossLab/Sze_CRCMetaAnalysis_XXXX_2016.git  make write.paper```
+```git clone https://github.com/SchlossLab/Sze_CRCMetaAnalysis_XXXX_2016.git```  
+```make write.paper```
