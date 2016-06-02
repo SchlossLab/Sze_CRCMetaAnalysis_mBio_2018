@@ -44,7 +44,8 @@ project.  I will also update the dependency folder shortly.
 ### How to regenerate this repository
 #### Dependencies and locations  
 * Gnu Make should be located in the user's PATH  
-* mothur (v1.37.0) should be located in the user's PATH  
+* mothur (v1.37.4) should be located in the user's PATH
+	* Note v1.37.0 causes all sorts of headaches  	
 * R (v. 3.2.5) should be located in the user's PATH  
 
 #### Running analysis  
