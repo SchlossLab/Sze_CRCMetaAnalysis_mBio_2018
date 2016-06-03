@@ -3,13 +3,13 @@
 
 # Feces
 
-* Baxter N, et al. *mothur sequence clean up in *
+* Baxter N, et al. *mothur sequence clean up in*
 	* SRP062005
 	* Normal, adenoma, CRC
 * Zeller G, et al. *mothur sequence clean up in process* 
 	* ERP005534
 	* Normal, adenoma, CRC
-* Brim H, et al. **-mothur processing completed**
+* Brim H, et al. **mothur processing completed**
 	* SRP031463
 	* Normal, Adenomas
 * Chen H-M, et al.
