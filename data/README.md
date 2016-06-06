@@ -45,10 +45,7 @@
 	* combination of three studies
 * Mira-Pascual L, et al.
 	* not public need to ask for raw sequences
-	* https://www.researchgate.net/profile/Raul_Cabrera-Rubio2/info
-* Castellarin, et al.
-	* SRP007584
-	* normal, CRC
+	* https://www.researchgate.net/profile/Raul_Cabrera-Rubio2/info  
 * Marchesi,et al.
 	* not public need to ask for raw sequences
 	* H.Tjalsma@labgk.umcn.nl (Harold)
