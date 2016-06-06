@@ -61,3 +61,7 @@
 * Lu Y, et al.  
 	* SRP064975
 	* Adenoma, CRC, normal can be worked out from paper
+* Dejea, et al.  
+	* Data not public need to ask for raw sequences
+	* normal, CRC
+	* csears@jhmi.edu (Cynthia L. Sears)
