@@ -39,10 +39,7 @@
 	* tokeku@med.unc.edu (Temitope O Keku)
 *  Sanapareddy N, et al.
 	*  SRP004518
-	*  normal, colorectal adenomas
-* Pagnini C, et al.
-	* not public need to ask for raw sequences
-	* cristiano.pagnini@uniroma1.it (Cristiano)
+	*  normal, colorectal adenomas  
 * Geng J, et al.
 	* SRP041558, SRP016877, SRP012940
 	* combination of three studies
