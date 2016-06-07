@@ -40,7 +40,7 @@
 *  Sanapareddy N, et al. *Fodor will get the oligo file and clarify questions - check back in a week*
 	*  SRP004518
 	*  normal, colorectal adenomas  
-* Geng J, et al.
+* Geng J, et al. *downloaded*
 	* SRP041558, SRP016877, SRP012940
 	* combination of three studies
 * Mira-Pascual L, et al. *Need to wait for original data (1 month) will get to us*
@@ -52,7 +52,7 @@
 * Flemer B, et al.
 	* not public need to ask for raw sequences
 	* pwtoole@ucc.ie (Paul O'Toole)
-* Lu Y, et al.  
+* Lu Y, et al.  *downloaded*
 	* SRP064975
 	* Adenoma, CRC, normal can be worked out from paper
 * Dejea, et al.  
