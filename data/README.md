@@ -3,7 +3,7 @@
 
 # Feces
 
-* Baxter N, et al. *mothur sequence clean up in*
+* Baxter N, et al. *mothur sequence clean up in process*
 	* SRP062005
 	* Normal, adenoma, CRC
 * Zeller G, et al. *mothur sequence clean up in process* 
@@ -15,19 +15,19 @@
 * Chen H-M, et al.
 	* not public need to ask for raw sequences
 	* jingyanfang@yahoo.com or jingyuanfang2007@126.com
-* Weir et al.
+* Weir et al. *Will get data to us - check back at end of week*
 	* ERP002217
 	* Normal, CRC
-* Wu N, et al.
+* Wu N, et al. 
 	* PRJNA168081
 	* Normal, CRC
 * Sobhani I, et al.
 	* not public need to ask for raw sequences
 	* iradj.sobhani@hmn.aphp.fr (Iradj)
-* Ahn J, et al.
+* Ahn J, et al. *Need to get all data through dbGap*
 	* not public need to ask for raw sequences
 	* jiyoung.ahn@nyumc.org (Jiyoung) or liying.yang@nyumc.org (Liying)
-*  Goedert, JJ, et al.
+*  Goedert, JJ, et al. *Ravel will get oligo file if available*
 	*  not public need to ask for raw sequences
 	*  goedertj@mail.nih.gov (James)
 
@@ -37,13 +37,13 @@
 * McCoy AN, et al.
 	* not public need to ask for raw sequences
 	* tokeku@med.unc.edu (Temitope O Keku)
-*  Sanapareddy N, et al.
+*  Sanapareddy N, et al. *Fodor will get the oligo file and clarify questions*
 	*  SRP004518
 	*  normal, colorectal adenomas  
 * Geng J, et al.
 	* SRP041558, SRP016877, SRP012940
 	* combination of three studies
-* Mira-Pascual L, et al.
+* Mira-Pascual L, et al. *Need to wait for original data (1 month) will get to us*
 	* not public need to ask for raw sequences
 	* https://www.researchgate.net/profile/Raul_Cabrera-Rubio2/info  
 * Marchesi,et al.
