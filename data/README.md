@@ -37,7 +37,7 @@
 * McCoy AN, et al.
 	* not public need to ask for raw sequences
 	* tokeku@med.unc.edu (Temitope O Keku)
-*  Sanapareddy N, et al. *Fodor will get the oligo file and clarify questions*
+*  Sanapareddy N, et al. *Fodor will get the oligo file and clarify questions - check back in a week*
 	*  SRP004518
 	*  normal, colorectal adenomas  
 * Geng J, et al.
