@@ -49,7 +49,7 @@
 * Marchesi,et al.
 	* not public need to ask for raw sequences
 	* H.Tjalsma@labgk.umcn.nl (Harold)
-* Flemer B, et al.
+* Flemer B, et al. *On vacation need to recontact after ASM*
 	* not public need to ask for raw sequences
 	* pwtoole@ucc.ie (Paul O'Toole)
 * Lu Y, et al.  *downloaded*
