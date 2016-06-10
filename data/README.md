@@ -41,27 +41,35 @@
 
 
 # Tissue
+
 * McCoy AN, et al.
 	* not public need to ask for raw sequences
-	* tokeku@med.unc.edu (Temitope O Keku)
+	* tokeku@med.unc.edu (Temitope O Keku)  
+
 *  Sanapareddy N, et al. *Fodor will get the oligo file and clarify questions - check back in a week*
 	*  SRP004518
 	*  normal, colorectal adenomas  
+  
 * Geng J, et al. *downloaded*
 	* SRP041558, SRP016877, SRP012940
 	* combination of three studies
+  
 * Mira-Pascual L, et al. *Need to wait for original data (1 month) will get to us*
 	* not public need to ask for raw sequences
-	* https://www.researchgate.net/profile/Raul_Cabrera-Rubio2/info  
+	* https://www.researchgate.net/profile/Raul_Cabrera-Rubio2/info   
+  
 * Marchesi,et al.
 	* not public need to ask for raw sequences
-	* H.Tjalsma@labgk.umcn.nl (Harold)
+	* H.Tjalsma@labgk.umcn.nl (Harold)  
+  
 * Flemer B, et al. *On vacation need to recontact after ASM*
 	* not public need to ask for raw sequences
-	* pwtoole@ucc.ie (Paul O'Toole)
+	* pwtoole@ucc.ie (Paul O'Toole)  
+  
 * Lu Y, et al.  *downloaded*
 	* SRP064975
-	* Adenoma, CRC, normal can be worked out from paper
+	* Adenoma, CRC, normal can be worked out from paper  
+  
 * Dejea, et al.  *Dr. Cynthia Sears provided relevant information*
 	* PRJNA258534
 	* normal, CRC
