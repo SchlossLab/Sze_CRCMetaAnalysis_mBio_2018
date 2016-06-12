@@ -1,6 +1,8 @@
 #!bash
 
 DIR=data/raw/brim/test
+OLIGO=data/process/brim
+REF=data/references
 
 rm -f $DIR/*.sra
 
@@ -23,11 +25,31 @@ cat $DIR/*.fastq > $DIR/combined.fastq
 # Run mothur on the combined file
 mothur "#fastq.info(fastq=$DIR/combined.fastq);
 	summary.seqs(fasta=current, processors=8);
-	trim.seqs(fasta=current, oligos=brim.oligos, qfile=$DIR/combined.qual, minlength=200, maxambig=0, maxhomop=8, bdiffs=1, qwindowaverage=35, qwindowsize=50)
-
-
-
-
+	trim.seqs(fasta=current, oligos=$OLIGO/brim.oligos, qfile=$DIR/combined.qual, minlength=200, maxambig=0, maxhomop=8, bdiffs=1, qwindowaverage=35, qwindowsize=50);
+	unique.seqs(fasta=$DIR/combined.trim.fasta);
+	count.seqs(name=current, group=$DIR/combined.groups);
+	summary.seqs(fasta=$DIR/combined.trim.unique.fasta, count=current);
+	align.seqs(fasta=$DIR/combined.trim.unique.fasta, reference=$DIR/silva.seed.align, flip=T, processors=8);
+	summary.seqs(fasta=current, count=$DIR/combined.trim.count_table);
+	screen.seqs(fasta=$DIR/combined.trim.unique.align, count=$DIR/combined.trim.count_table, summary=$DIR/combined.trim.unique.summary, end=13862, optimize=start, criteria=95, maxhomop=8, processors=8);
+	filter.seqs(fasta=$DIR/combined.trim.unique.good.align, vertical=T, trump=.);
+	unique.seqs(fasta=current, count=current);
+	summary.seqs(fasta=current, count=current);
+	pre.cluster(fasta=$DIR/combined.trim.unique.good.filter.unique.fasta, count=$DIR/combined.trim.unique.good.filter.count_table, diffs=2);
+	chimera.uchime(fasta=$DIR/combined.trim.unique.good.filter.unique.precluster.fasta, count=$DIR/combined.trim.unique.good.filter.unique.precluster.count_table, dereplicate=t, processors=8);
+	remove.seqs(fasta=current, accnos=current);
+	summary.seqs(fasta=current, count=current);
+	classify.seqs(fasta=$DIR/combined.trim.unique.good.filter.unique.precluster.pick.fasta, count=$DIR/combined.trim.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80, processors=8);
+	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+	cluster.split(fasta=current, count=current, taxonomy=current, splitmethod=classify, taxlevel=4, cutoff=0.15);
+	make.shared(list=current, count=current, label=0.03);
+	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
+	count.groups();
+	system(mv combined.trim.unique.good.filter.unique.precluster.pick.pick.an.unique_list.shared brim.shared);
+	sub.sample(shared=$DIR/brim.shared, size=20000);
+	dist.shared(shared=$DIR/brim.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
+	summary.single(shared=$DIR/brim.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
 
 
