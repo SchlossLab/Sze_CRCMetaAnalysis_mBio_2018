@@ -5,6 +5,9 @@ TABLES = results/tables
 PROC = data/process
 FINAL = submission/
 
+#all : $(REFS)/silva.seed.align $(REFS)/silva.v4.align $(REFS)/trainset14_032015.%
+#.PHONY: all
+
 # utility function to print various variables. For example, running the
 # following at the command line:
 #
@@ -33,27 +36,27 @@ print-%:
 # also contains the reference taxonomy. We will limit the databases to only
 # include bacterial sequences.
 
-$(REFS)/silva.seed.align :
-	wget -N http://mothur.org/w/images/1/15/Silva.seed_v123.tgz
-	tar xvzf Silva.seed_v123.tgz silva.seed_v123.align silva.seed_v123.tax
-	mothur "#get.lineage(fasta=silva.seed_v123.align, taxonomy=silva.seed_v123.tax, taxon=Bacteria);degap.seqs(fasta=silva.seed_v123.pick.align, processors=8)"
-	mv silva.seed_v123.pick.align $(REFS)/silva.seed.align
-	rm Silva.seed_v123.tgz silva.seed_v123.*
+#$(REFS)/silva.seed.align :
+#	wget -N http://mothur.org/w/images/1/15/Silva.seed_v123.tgz
+#	tar xvzf Silva.seed_v123.tgz silva.seed_v123.align silva.seed_v123.tax
+#	mothur "#get.lineage(fasta=silva.seed_v123.align, taxonomy=silva.seed_v123.tax, taxon=Bacteria);degap.seqs(fasta=silva.seed_v123.pick.align, processors=8)"
+#	mv silva.seed_v123.pick.align $(REFS)/silva.seed.align
+#	rm Silva.seed_v123.tgz silva.seed_v123.*
 
-$(REFS)/silva.v4.align : $(REFS)/silva.seed.align
-	mothur "#pcr.seqs(fasta=$(REFS)/silva.seed.align, start=11894, end=25319, keepdots=F, processors=8)"
-	mv $(REFS)/silva.seed.pcr.align $(REFS)/silva.v4.align
+#$(REFS)/silva.v4.align : $(REFS)/silva.seed.align
+#	mothur "#pcr.seqs(fasta=$(REFS)/silva.seed.align, start=11894, end=25319, keepdots=F, processors=8)"
+#	mv $(REFS)/silva.seed.pcr.align $(REFS)/silva.v4.align
 
 # Next, we want the RDP reference taxonomy. The current version is v10 and we
 # use a "special" pds version of the database files, which are described at
 # http://blog.mothur.org/2014/10/28/RDP-v10-reference-files/
 
-$(REFS)/trainset14_032015.% :
-	wget -N http://www.mothur.org/w/images/8/88/Trainset14_032015.pds.tgz
-	tar xvzf Trainset14_032015.pds.tgz trainset14_032015.pds/trainset14_032015.pds.*
-	mv trainset14_032015.pds/* $(REFS)/
-	rmdir trainset14_032015.pds
-	rm Trainset14_032015.pds.tgz
+#$(REFS)/trainset14_032015.% :
+#	wget -N http://www.mothur.org/w/images/8/88/Trainset14_032015.pds.tgz
+#	tar xvzf Trainset14_032015.pds.tgz trainset14_032015.pds/trainset14_032015.pds.*
+#	mv trainset14_032015.pds/* $(REFS)/
+#	rmdir trainset14_032015.pds
+#	rm Trainset14_032015.pds.tgz
 
 ################################################################################
 #
@@ -66,15 +69,31 @@ $(REFS)/trainset14_032015.% :
 
 # Change gf_cdiff to the * part of your *.files file that lives in data/raw/
 BASIC_STEM = data/raw/
-STUB = $(foreach S, $(STUDIES), $(BASIC_STEM)$(S)/$(S))
+STUB = $(foreach S, $(STUDIES), $(BASIC_STEM)$(S)/test/$(S))
 
 ALPHA = $(addsuffix .groups.ave-std.summary,$(STUB))
 BETA = $(addsuffix .braycurtis.0.03.lt.ave.dist,$(STUB))
-SHARED = $(addsuffix .0.03.shared,$(STUB))
+SHARED = $(addsuffix .shared,$(STUB))
 SUBSHARED = $(addsuffix .0.03.subsample.shared,$(STUB))
 FASTA = $(addsuffix .rep.fasta,$(STUB))
 TAXONOMY = $(addsuffix .taxonomy,$(STUB))
 METADATA = $(addsuffix .metadata,$(STUB))
+#TEST = code/$(notdir $(STUB)).batch
+#TEST = data/%.groups.ave-std.summary
+
+.SECONDEXPANSION:
+$(STUB).groups.ave-std.summary\
+	$(STUB).braycurtis.0.03.lt.ave.dist\
+	$(STUB).shared\
+	$(STUB).0.03.subsample.shared\
+	$(STUB).rep.fasta\
+	$(STUB).taxonomy\
+	$(STUB).metadata : code/$(notdir $(STUB)).batch code/$(notdir $(STUB)).R\
+			$(REFS)/silva.seed.align $(REFS)/silva.v4.align\
+			$(REFS)/trainset14_032015.pds.fasta\
+			$(REFS)/trainset14_032015.pds.tax
+	bash $<
+
 
 
 
@@ -91,9 +110,9 @@ METADATA = $(addsuffix .metadata,$(STUB))
 # Edit code/get_good_seqs.batch to include the proper name of your *files file
 
 #$(BASIC_STEM).denovo.uchime.pick.pick.count_table $(BASIC_STEM).pick.pick.fasta $(BASIC_STEM).pick.v4.wang.pick.taxonomy : code/get_good_seqs.batch\
-					data/references/silva.v4.align\
-					data/references/trainset14_032015.pds.fasta\
-					data/references/trainset14_032015.pds.tax
+#					data/references/silva.v4.align\
+#					data/references/trainset14_032015.pds.fasta\
+#					data/references/trainset14_032015.pds.tax
 #	mothur code/get_good_seqs.batch;\
 #	rm data/process/*.map
 

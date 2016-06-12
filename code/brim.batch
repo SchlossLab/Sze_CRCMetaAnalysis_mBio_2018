@@ -16,10 +16,10 @@ do
 	#Removes any potential endings from text read in
 	target=${FILE//[$'\t\r\n']}
 	wget -r -q -np -nd -k -P $DIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP031/SRP031463/$target
-done <BrimToKeep.txt
+done <$DIR/BrimToKeep.txt
 
 # Unzips and combines the .fastq files
-fastq-dump *.sra -O $DIR
+fastq-dump $DIR/*.sra -O $DIR
 cat $DIR/*.fastq > $DIR/combined.fastq
 
 # Run mothur on the combined file
@@ -29,7 +29,7 @@ mothur "#fastq.info(fastq=$DIR/combined.fastq);
 	unique.seqs(fasta=$DIR/combined.trim.fasta);
 	count.seqs(name=current, group=$DIR/combined.groups);
 	summary.seqs(fasta=$DIR/combined.trim.unique.fasta, count=current);
-	align.seqs(fasta=$DIR/combined.trim.unique.fasta, reference=$DIR/silva.seed.align, flip=T, processors=8);
+	align.seqs(fasta=$DIR/combined.trim.unique.fasta, reference=$REF/silva.seed.align, flip=T, processors=8);
 	summary.seqs(fasta=current, count=$DIR/combined.trim.count_table);
 	screen.seqs(fasta=$DIR/combined.trim.unique.align, count=$DIR/combined.trim.count_table, summary=$DIR/combined.trim.unique.summary, end=13862, optimize=start, criteria=95, maxhomop=8, processors=8);
 	filter.seqs(fasta=$DIR/combined.trim.unique.good.align, vertical=T, trump=.);
@@ -45,11 +45,23 @@ mothur "#fastq.info(fastq=$DIR/combined.fastq);
 	make.shared(list=current, count=current, label=0.03);
 	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
 	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
-	count.groups();
-	system(mv combined.trim.unique.good.filter.unique.precluster.pick.pick.an.unique_list.shared brim.shared);
-	sub.sample(shared=$DIR/brim.shared, size=20000);
+	count.groups();"
+
+R -e "source('code/brim.R')"
+
+mothur "#sub.sample(shared=$DIR/brim.shared, label=0.03);
 	dist.shared(shared=$DIR/brim.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
 	summary.single(shared=$DIR/brim.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
+
+mv $DIR/*.cons.taxonomy $DIR/brim.taxonomy
+mv $DIR/*0.03.rep.fasta $DIR/brim.rep.seqs
+
+rm $DIR/combined.unique.*
+rm $DIR/*fasta
+rm $DIR/*qual
+
+
+
 
 
 
