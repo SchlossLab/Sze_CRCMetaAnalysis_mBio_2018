@@ -1,3 +1,4 @@
+STUDIES = brim
 REFS = data/references
 FIGS = results/figures
 TABLES = results/tables
@@ -64,7 +65,23 @@ $(REFS)/trainset14_032015.% :
 ################################################################################
 
 # Change gf_cdiff to the * part of your *.files file that lives in data/raw/
-BASIC_STEM = data/mothur/gf_cdiff.trim.contigs.good.unique.good.filter.unique.precluster
+BASIC_STEM = data/raw/
+STUB = $(foreach S, $(STUDIES), $(BASIC_STEM)$(S)/$(S))
+
+ALPHA = $(addsuffix .groups.ave-std.summary,$(STUB))
+BETA = $(addsuffix .braycurtis.0.03.lt.ave.dist,$(STUB))
+SHARED = $(addsuffix .0.03.shared,$(STUB))
+SUBSHARED = $(addsuffix .0.03.subsample.shared,$(STUB))
+FASTA = $(addsuffix .rep.fasta,$(STUB))
+TAXONOMY = $(addsuffix .taxonomy,$(STUB))
+METADATA = $(addsuffix .metadata,$(STUB))
+
+
+
+
+
+
+
 
 
 # here we go from the raw fastq files and the files file to generate a fasta,
@@ -72,12 +89,13 @@ BASIC_STEM = data/mothur/gf_cdiff.trim.contigs.good.unique.good.filter.unique.pr
 # any non bacterial sequences.
 
 # Edit code/get_good_seqs.batch to include the proper name of your *files file
-$(BASIC_STEM).denovo.uchime.pick.pick.count_table $(BASIC_STEM).pick.pick.fasta $(BASIC_STEM).pick.v4.wang.pick.taxonomy : code/get_good_seqs.batch\
+
+#$(BASIC_STEM).denovo.uchime.pick.pick.count_table $(BASIC_STEM).pick.pick.fasta $(BASIC_STEM).pick.v4.wang.pick.taxonomy : code/get_good_seqs.batch\
 					data/references/silva.v4.align\
 					data/references/trainset14_032015.pds.fasta\
 					data/references/trainset14_032015.pds.tax
-	mothur code/get_good_seqs.batch;\
-	rm data/process/*.map
+#	mothur code/get_good_seqs.batch;\
+#	rm data/process/*.map
 
 
 
@@ -87,14 +105,14 @@ $(BASIC_STEM).denovo.uchime.pick.pick.count_table $(BASIC_STEM).pick.pick.fasta 
 # Edit code/get_shared_otus.batch to include the proper root name of your files file
 # Edit code/get_shared_otus.batch to include the proper group names to remove
 
-$(BASIC_STEM).pick.pick.pick.an.unique_list.shared $(BASIC_STEM).pick.pick.pick.an.unique_list.0.03.cons.taxonomy : code/get_shared_otus.batch\
-					$(BASIC_STEM).denovo.uchime.pick.pick.count_table\
-					$(BASIC_STEM).pick.pick.fasta\
-					$(BASIC_STEM).pick.v4.wang.pick.taxonomy
-	mothur code/get_shared_otus.batch
-	rm $(BASIC_STEM).denovo.uchime.pick.pick.pick.count_table
-	rm $(BASIC_STEM).pick.pick.pick.fasta
-	rm $(BASIC_STEM).pick.v4.wang.pick.pick.taxonomy;
+#$(BASIC_STEM).pick.pick.pick.an.unique_list.shared $(BASIC_STEM).pick.pick.pick.an.unique_list.0.03.cons.taxonomy : code/get_shared_otus.batch\
+#					$(BASIC_STEM).denovo.uchime.pick.pick.count_table\
+#					$(BASIC_STEM).pick.pick.fasta\
+#					$(BASIC_STEM).pick.v4.wang.pick.taxonomy
+#	mothur code/get_shared_otus.batch
+#	rm $(BASIC_STEM).denovo.uchime.pick.pick.pick.count_table
+#	rm $(BASIC_STEM).pick.pick.pick.fasta
+#	rm $(BASIC_STEM).pick.v4.wang.pick.pick.taxonomy;
 
 
 # now we want to get the sequencing error as seen in the mock community samples
@@ -102,11 +120,11 @@ $(BASIC_STEM).pick.pick.pick.an.unique_list.shared $(BASIC_STEM).pick.pick.pick.
 # Edit code/get_error.batch to include the proper root name of your files file
 # Edit code/get_error.batch to include the proper group names for your mocks
 
-$(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
-					$(BASIC_STEM).denovo.uchime.pick.pick.count_table\
-					$(BASIC_STEM).pick.pick.fasta\
-					$(REFS)HMP_MOCK.v4.fasta
-	mothur code/get_error.batch
+#$(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
+#					$(BASIC_STEM).denovo.uchime.pick.pick.count_table\
+#					$(BASIC_STEM).pick.pick.fasta\
+#					$(REFS)HMP_MOCK.v4.fasta
+#	mothur code/get_error.batch
 
 
 
@@ -129,16 +147,16 @@ $(BASIC_STEM).pick.pick.pick.error.summary : code/get_error.batch\
 ################################################################################
 
 
-$(FINAL)/study.% : 			\ #include data files that are needed for paper
-						$(FINAL)/peerj.csl\
-						$(FINAL)/references.bib\
-						$(FINAL)/study.Rmd
-	R -e 'render("$(FINAL)/study.Rmd", clean=FALSE)'
-	mv $(FINAL)/study.knit.md $@
-	rm $(FINAL)/study.utf8.md
+#$(FINAL)/study.% : 			\ #include data files that are needed for paper
+#						$(FINAL)/peerj.csl\
+#						$(FINAL)/references.bib\
+#						$(FINAL)/study.Rmd
+#	R -e 'render("$(FINAL)/study.Rmd", clean=FALSE)'
+#	mv $(FINAL)/study.knit.md $@
+#	rm $(FINAL)/study.utf8.md
 
-write.paper : $(TABLES)/table_1.pdf $(TABLES)/table_2.pdf\ #customize to include
-				$(FIGS)/figure_1.pdf $(FIGS)/figure_2.pdf\	# appropriate tables and
-				$(FIGS)/figure_3.pdf $(FIGS)/figure_4.pdf\	# figures
-				$(FINAL)/study.Rmd $(FINAL)/study.md\
-				$(FINAL)/study.tex $(FINAL)/study.pdf
+#write.paper : $(TABLES)/table_1.pdf $(TABLES)/table_2.pdf\ #customize to include
+#				$(FIGS)/figure_1.pdf $(FIGS)/figure_2.pdf\	# appropriate tables and
+#				$(FIGS)/figure_3.pdf $(FIGS)/figure_4.pdf\	# figures
+#				$(FINAL)/study.Rmd $(FINAL)/study.md\
+#				$(FINAL)/study.tex $(FINAL)/study.pdf
