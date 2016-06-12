@@ -1,0 +1,34 @@
+#!bash
+
+DIR=data/raw/brim/test
+
+rm -f $DIR/*.sra
+
+# Need to add a preamble about the data set and what it encompasses.
+# Also need to add author information and other such stuff.
+# e.g. type of sequencer used and other such data
+
+# Downloading only a specific set of files from the sra
+while IFS= read -r FILE
+do
+	#Removes any potential endings from text read in
+	target=${FILE//[$'\t\r\n']}
+	wget -r -q -np -nd -k -P $DIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP031/SRP031463/$target
+done <BrimToKeep.txt
+
+# Unzips and combines the .fastq files
+fastq-dump *.sra -O $DIR
+cat $DIR/*.fastq > $DIR/combined.fastq
+
+# Run mothur on the combined file
+mothur "#fastq.info(fastq=$DIR/combined.fastq);
+	summary.seqs(fasta=current, processors=8);
+	trim.seqs(fasta=current, oligos=brim.oligos, qfile=$DIR/combined.qual, minlength=200, maxambig=0, maxhomop=8, bdiffs=1, qwindowaverage=35, qwindowsize=50)
+
+
+
+
+
+
+
+
