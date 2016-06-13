@@ -1,5 +1,9 @@
 #!bash
 
+# Load needed R 
+module load R/3.2.5
+
+#Define respective directory short cuts
 DIR=data/raw/brim/test
 OLIGO=data/process/brim
 REF=data/references
