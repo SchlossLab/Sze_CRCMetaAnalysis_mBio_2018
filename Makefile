@@ -68,8 +68,8 @@ print-%:
 ################################################################################
 
 # Change gf_cdiff to the * part of your *.files file that lives in data/raw/
-BASIC_STEM = data/raw/
-STUB = $(foreach S, $(STUDIES), $(BASIC_STEM)$(S)/test/$(S))
+BASIC_STEM = data/process/
+STUB = $(foreach S, $(STUDIES), $(BASIC_STEM)$(S)/$(S))
 
 ALPHA = $(addsuffix .groups.ave-std.summary,$(STUB))
 BETA = $(addsuffix .braycurtis.0.03.lt.ave.dist,$(STUB))
