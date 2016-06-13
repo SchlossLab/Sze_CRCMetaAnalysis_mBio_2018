@@ -1,0 +1,41 @@
+#!bash
+
+DIR=data/raw/tissue/geng
+REF=data/references
+
+# Need to add in a bunch of stuff on the study and what they were looking for.
+# Might adjust parameters to those set by authors of original manuscript
+# (Geng, J et al 2013).  mothur default for 454 allowed only an average of
+# 855 sequence per sample. Author method leave ~1,190 sequences per sample. 
+# The SRA project ID is SRP016877.
+
+# Download the data set
+#wget -r -q -np -nd -k -P $DIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP016/SRP016877/
+
+# Convert to fasta files that will be used
+#for sample in $DIR/*.sra
+#do
+#	fastq-dump $sample -O $DIR
+#	fastq=${sample//sra/fastq}
+#
+#	mothur "#fastq.info(fastq=$fastq);
+#		trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=6, qwindowaverage=25, qwindowsize=50, minlength=200, maxlength=400, processors=8)"
+#done
+
+# Combined the seperate fasta files  to one file
+#cat $DIR/*trim.fasta > $DIR/geng.fasta
+
+# Create a group file
+#grep '^>' $DIR/geng.fasta | cut -c 2- > $DIR/header.txt
+#sed 's/\..*//g' $DIR/header.txt > $DIR/group.txt
+#paste --delimiters='\t' $DIR/header.txt $DIR/group.txt > $DIR/geng.groups
+
+# Remove unessary files
+#rm -f $DIR/*.sra $DIR/*.fastq $DIR/*.scrap.* $DIR/*.trim.* $DIR/SRR*fasta $DIR/SRR*qual $DIR/header.txt $DIR/group.txt
+
+# Run mothur for sequencing processing on combined file
+mothur "#unique.seqs(fasta=$DIR/geng.fasta);
+	align.seqs(fasta=current, reference=$REF/silva.seed.align, processors=8);
+	count.seqs(name=current, group=$DIR/geng.groups)"
+
+
