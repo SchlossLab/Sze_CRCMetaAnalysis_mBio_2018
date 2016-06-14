@@ -1,0 +1,89 @@
+#!bash
+
+# Load needed R
+module load R/3.3.0
+
+#Define respective directory short cuts
+DOWNDIR=data/raw/dejea
+WORKDIR=data/process/dejea
+REF=data/references
+
+rm -f $DOWNDIR/*.sra
+
+# Need to add a preamble about the data set and what it encompasses.
+# Also need to add author information and other such stuff.
+# e.g. type of sequencer used and other such data
+
+# Downloading only a specific set of files from the sra
+wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP045/SRP045685/
+
+# Convert to fasta files that will be used
+for sample in $DOWNDIR/*.sra
+do
+	fastq-dump $sample -O $WORKDIR
+	fastq=${sample//sra/fastq}
+	fastq=${fastq//raw/process}
+
+	mothur "#fastq.info(fastq=$fastq);
+		trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=6, qwindowaverage=25, qwindowsize=50, minlength=200, maxlength=400, processors=8)"
+done
+
+# Combined the seperate fasta files  to one file
+cat $WORKDIR/*trim.fasta > $WORKDIR/combined.fasta
+
+# Create a group file
+grep '^>' $WORKDIR/combined.fasta | cut -c 2- > $WORKDIR/header.txt
+sed 's/\..*//g' $WORKDIR/header.txt > $WORKDIR/group.txt
+paste --delimiters='\t' $WORKDIR/header.txt $WORKDIR/group.txt > $WORKDIR/combined.groups
+
+# Remove unessary files
+rm -f $WORKDIR/*.fastq $WORKDIR/*.scrap.* $WORKDIR/*.trim.* $WORKDIR/SRR*fasta $WORKDIR/SRR*qual $WORKDIR/header.txt $WORKDIR/group.txt
+
+# Run mothur on the combined file
+#mothur "#fastq.info(fastq=$WORKDIR/combined.fastq);
+#	summary.seqs(fasta=current, processors=8);
+#	trim.seqs(fasta=current, oligos=$WORKDIR/brim.oligos, qfile=$WORKDIR/combined.qual, minlength=200, maxambig=0, maxhomop=8, bdiffs=1, qwindowaverage=35, qwindowsize=50);
+#	unique.seqs(fasta=$WORKDIR/combined.trim.fasta);
+#	count.seqs(name=current, group=$WORKDIR/combined.groups);
+#	summary.seqs(fasta=$WORKDIR/combined.trim.unique.fasta, count=current);
+#	align.seqs(fasta=$WORKDIR/combined.trim.unique.fasta, reference=$REF/silva.seed.align, flip=T, processors=8);
+#	summary.seqs(fasta=current, count=$WORKDIR/combined.trim.count_table);
+#	screen.seqs(fasta=$WORKDIR/combined.trim.unique.align, count=$WORKDIR/combined.trim.count_table, summary=$WORKDIR/combined.trim.unique.summary, end=13862, optimize=start, criteria=95, maxhomop=8, processors=8);
+#	filter.seqs(fasta=$WORKDIR/combined.trim.unique.good.align, vertical=T, trump=.);
+#	unique.seqs(fasta=current, count=current);
+#	summary.seqs(fasta=current, count=current);
+#	pre.cluster(fasta=$WORKDIR/combined.trim.unique.good.filter.unique.fasta, count=$WORKDIR/combined.trim.unique.good.filter.count_table, diffs=2);
+#	chimera.uchime(fasta=$WORKDIR/combined.trim.unique.good.filter.unique.precluster.fasta, count=$WORKDIR/combined.trim.unique.good.filter.unique.precluster.count_table, dereplicate=t, processors=8);
+#	remove.seqs(fasta=current, accnos=current);
+#	summary.seqs(fasta=current, count=current);
+#	classify.seqs(fasta=$WORKDIR/combined.trim.unique.good.filter.unique.precluster.pick.fasta, count=$WORKDIR/combined.trim.unique.good.filter.unique.precluster.denovo.uchime.pick.count_table, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80, processors=8);
+#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+#	cluster.split(fasta=current, count=current, taxonomy=current, splitmethod=classify, taxlevel=4, cutoff=0.15);
+#	make.shared(list=current, count=current, label=0.03);
+#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
+#	count.groups();"
+
+#R -e "source('code/brim.R')"
+
+#mothur "#sub.sample(shared=$WORKDIR/brim.shared, label=0.03);
+#	dist.shared(shared=$WORKDIR/brim.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
+#	summary.single(shared=$WORKDIR/brim.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
+
+#mv $WORKDIR/*.cons.taxonomy $WORKDIR/brim.taxonomy
+#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/brim.rep.seqs
+#
+#rm $WORKDIR/combined.*
+#rm $WORKDIR/*.fasta
+#rm $WORKDIR/*.qual
+#rm $WORKDIR/*rabund
+#rm $WORKDIR/*_list.count.summary
+#rm $WORKDIR/*.count_table
+#rm $WORKDIR/*.pds.wang.*
+#rm $WORKDIR/*denovo.uchime.*
+#rm $WORKDIR/*.map
+#rm $WORKDIR/*.fastq
+
+
+
+
