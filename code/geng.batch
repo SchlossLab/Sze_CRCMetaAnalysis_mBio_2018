@@ -21,8 +21,9 @@ for sample in $DOWNDIR/*.sra
 do
 	fastq-dump $sample -O $WORKDIR
 	fastq=${sample//sra/fastq}
+	fastq=${fastq//raw/process}
 
-	mothur "#fastq.info(fastq=$WORKDIR/$fastq);
+	mothur "#fastq.info(fastq=$fastq);
 		trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=6, qwindowaverage=25, qwindowsize=50, minlength=200, maxlength=400, processors=8)"
 done
 
