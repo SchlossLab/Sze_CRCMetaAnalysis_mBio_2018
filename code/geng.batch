@@ -3,8 +3,8 @@
 #Load needed R
 module load R/3.2.5
 
-DOWNDIR=data/raw/tissue/geng
-WORKDIR=data/process/tissue/geng
+DOWNDIR=data/raw/geng
+WORKDIR=data/process/geng
 REF=data/references
 
 # Need to add in a bunch of stuff on the study and what they were looking for.
@@ -25,6 +25,8 @@ do
 
 	mothur "#fastq.info(fastq=$fastq);
 		trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=6, qwindowaverage=25, qwindowsize=50, minlength=200, maxlength=400, processors=8)"
+
+	rm *logfile
 done
 
 # Combined the seperate fasta files  to one file
@@ -65,7 +67,7 @@ mothur "#sub.sample(shared=$WORKDIR/geng.shared, label=0.03);
 	summary.single(shared=$WORKDIR/geng.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
 mv $WORKDIR/*.cons.taxonomy $WORKDIR/geng.taxonomy
-mv $WORKDIR/*0.03.rep.fasa $WORKDIR/geng.rep.seqs
+mv $WORKDIR/*0.03.rep.fasta $WORKDIR/geng.rep.seqs
 
 rm $WORKDIR/combined.*
 rm $WORKDIR/*.fasta
