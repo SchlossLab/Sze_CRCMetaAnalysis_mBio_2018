@@ -43,10 +43,10 @@ project.  I will also update the dependency folder shortly.
 	+- Makefile # executable Makefile for this study, if applicable
 ### How to regenerate this repository
 #### Dependencies and locations  
-* Gnu Make should be located in the user's PATH  
+* Gnu Make (v3.81) should be located in the user's PATH  
 * mothur (v1.37.4) should be located in the user's PATH
 	* Note v1.37.0 causes all sorts of headaches  	
-* R (v. 3.2.5) should be located in the user's PATH  
+* R (v. 3.3.0) should be located in the user's PATH  
 
 #### Running analysis  
 ```git clone https://github.com/SchlossLab/Sze_CRCMetaAnalysis_XXXX_2016.git```  
