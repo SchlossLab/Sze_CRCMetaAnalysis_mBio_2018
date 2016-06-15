@@ -15,24 +15,24 @@ REF=data/references
 # Can download using wget from dropbox
 
 # Download and unzip the data set
-wget -O $DOWNDIR/weir.zip https://www.dropbox.com/sh/d35oug6b2k7blcx/AACSx4aPKIF1RCbB3r1koqwSa?dl=1
+#wget -O $DOWNDIR/weir.zip https://www.dropbox.com/sh/d35oug6b2k7blcx/AACSx4aPKIF1RCbB3r1koqwSa?dl=1
 	#might need to use a username and password if so use below
 		#wget -O $DOWNDIR/weir.zip  https://www.dropbox.com/sh/d35oug6b2k7blcx/AACSx4aPKIF1RCbB3r1koqwSa?dl=1
-unzip -d $DOWNDIR -o $DOWNDIR/weir.zip 1.TCA.454Reads.fna 1.TCA.454Reads.qual 2.TCA.454Reads.fna 2.TCA.454Reads.qual
+#unzip -d $DOWNDIR -o $DOWNDIR/weir.zip 1.TCA.454Reads.fna 1.TCA.454Reads.qual 2.TCA.454Reads.fna 2.TCA.454Reads.qual
 
 # Trim the sequences and then combine the group and fasta files together
-for sample in $(ls $DOWNDIR/*.fna)
-do
-	QUAL=${sample//fna/qual}
-	OLIGOI=${sample//fna/oligos}
-	OLIGO=${OLIGOI//raw/process}
+#for sample in $(ls $DOWNDIR/*.fna)
+#do
+#	QUAL=${sample//fna/qual}
+#	OLIGOI=${sample//fna/oligos}
+#	OLIGO=${OLIGOI//raw/process}
+#
+#	mothur "#trim.seqs(fasta=$sample, oligos=$OLIGO, qfile=$QUAL, maxambig=0, maxhomop=8, qwindowaverage=25, qwindowsize=50, bdiffs=1, processors=8)"
+#	rm *logfile
+#done
 
-	mothur "#trim.seqs(fasta=$sample, oligos=$OLIGO, qfile=$QUAL, maxambig=0, maxhomop=8, qwindowaverage=25, qwindowsize=50, bdiffs=1, processors=8)"
-	rm *logfile
-done
-
-cat $DOWNDIR/*.fasta > $WORKDIR/combined.fasta
-cat $DOWNDIR/*.groups > $WORKDIR/combined.groups
+#cat $DOWNDIR/*.trim.fasta > $WORKDIR/combined.fasta
+#cat $DOWNDIR/*.groups > $WORKDIR/combined.groups
 
 
 
