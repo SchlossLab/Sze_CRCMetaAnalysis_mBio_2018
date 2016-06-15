@@ -62,7 +62,7 @@
 	* not public need to ask for raw sequences
 	* H.Tjalsma@labgk.umcn.nl (Harold)  
   
-* Flemer B, et al. *On vacation need to recontact after ASM*
+* Flemer B, et al. *Check back in another week*
 	* not public need to ask for raw sequences
 	* pwtoole@ucc.ie (Paul O'Toole)  
   
