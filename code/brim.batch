@@ -29,13 +29,13 @@ cat $WORKDIR/*.fastq > $WORKDIR/combined.fastq
 # Run mothur on the combined file
 mothur "#fastq.info(fastq=$WORKDIR/combined.fastq);
 	summary.seqs(fasta=current, processors=8);
-	trim.seqs(fasta=current, oligos=$WORKDIR/brim.oligos, qfile=$WORKDIR/combined.qual, minlength=200, maxambig=0, maxhomop=8, bdiffs=1, qwindowaverage=35, qwindowsize=50);
+	trim.seqs(fasta=current, oligos=$WORKDIR/brim.oligos, qfile=$WORKDIR/combined.qual, maxambig=0, maxhomop=8, bdiffs=1, qwindowaverage=35, qwindowsize=50);
 	unique.seqs(fasta=$WORKDIR/combined.trim.fasta);
 	count.seqs(name=current, group=$WORKDIR/combined.groups);
 	summary.seqs(fasta=$WORKDIR/combined.trim.unique.fasta, count=current);
 	align.seqs(fasta=$WORKDIR/combined.trim.unique.fasta, reference=$REF/silva.seed.align, flip=T, processors=8);
 	summary.seqs(fasta=current, count=$WORKDIR/combined.trim.count_table);
-	screen.seqs(fasta=$WORKDIR/combined.trim.unique.align, count=$WORKDIR/combined.trim.count_table, summary=$WORKDIR/combined.trim.unique.summary, end=13862, optimize=start, criteria=95, maxhomop=8, processors=8);
+	screen.seqs(fasta=$WORKDIR/combined.trim.unique.align, count=$WORKDIR/combined.trim.count_table, summary=$WORKDIR/combined.trim.unique.summary, end=13862, optimize=start, criteria=95, minlength=200, maxhomop=8, processors=8);
 	filter.seqs(fasta=$WORKDIR/combined.trim.unique.good.align, vertical=T, trump=.);
 	unique.seqs(fasta=current, count=current);
 	summary.seqs(fasta=current, count=current);
