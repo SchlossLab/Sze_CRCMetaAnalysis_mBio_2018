@@ -70,15 +70,7 @@ mv $WORKDIR/*.cons.taxonomy $WORKDIR/geng.taxonomy
 mv $WORKDIR/*0.03.rep.fasta $WORKDIR/geng.rep.seqs
 
 rm $WORKDIR/combined.*
-rm $WORKDIR/*.fasta
-rm $WORKDIR/*.qual
 rm $WORKDIR/*rabund
-rm $WORKDIR/*_list.count.summary
-rm $WORKDIR/*.count_table
-rm $WORKDIR/*.pds.wang.*
-rm $WORKDIR/*denovo.uchime.*
-rm $WORKDIR/*.map
-rm $WORKDIR/*.fastq
 
 
 
