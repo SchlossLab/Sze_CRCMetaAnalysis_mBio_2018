@@ -66,25 +66,18 @@ mothur "#summary.seqs(fasta=$WORKDIR/combined.fasta, processors=8);
 	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
 	count.groups()"
 
-#R -e "source('code/brim.R')"
+R -e "source('code/dejea.R')"
 
-#mothur "#sub.sample(shared=$WORKDIR/brim.shared, label=0.03);
-#	dist.shared(shared=$WORKDIR/brim.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
-#	summary.single(shared=$WORKDIR/brim.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
+mothur "#sub.sample(shared=$WORKDIR/dejea.shared, size=401, label=0.03);
+	dist.shared(shared=$WORKDIR/dejea.shared, calc=braycurtis, label=0.03, subsample=401, iters=100, processors=8);
+	summary.single(shared=$WORKDIR/dejea.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
-#mv $WORKDIR/*.cons.taxonomy $WORKDIR/brim.taxonomy
-#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/brim.rep.seqs
-#
-#rm $WORKDIR/combined.*
-#rm $WORKDIR/*.fasta
-#rm $WORKDIR/*.qual
-#rm $WORKDIR/*rabund
-#rm $WORKDIR/*_list.count.summary
-#rm $WORKDIR/*.count_table
-#rm $WORKDIR/*.pds.wang.*
-#rm $WORKDIR/*denovo.uchime.*
-#rm $WORKDIR/*.map
-#rm $WORKDIR/*.fastq
+mv $WORKDIR/*.cons.taxonomy $WORKDIR/dejea.taxonomy
+mv $WORKDIR/*0.03.rep.fasta $WORKDIR/dejea.rep.seqs
+
+rm $WORKDIR/combined.*
+rm $WORKDIR/*rabund
+
 
 
 
