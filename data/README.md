@@ -50,7 +50,7 @@
 	*  SRP004518
 	*  normal, colorectal adenomas  
   
-* Geng J, et al. *downloaded*
+* Geng J, et al. **mothur processing complete**
 	* SRP041558, SRP016877, SRP012940
 	* combination of three studies
   
@@ -62,7 +62,7 @@
 	* not public need to ask for raw sequences
 	* H.Tjalsma@labgk.umcn.nl (Harold)  
   
-* Flemer B, et al. *On vacation need to recontact after ASM*
+* Flemer B, et al. *Check back in another week*
 	* not public need to ask for raw sequences
 	* pwtoole@ucc.ie (Paul O'Toole)  
   
@@ -70,7 +70,7 @@
 	* SRP064975
 	* Adenoma, CRC, normal can be worked out from paper  
   
-* Dejea, et al.  *Dr. Cynthia Sears provided relevant information*
+* Dejea, et al.  **mothur processing complete**
 	* PRJNA258534
 	* SRP045685 
 	* normal, CRC
