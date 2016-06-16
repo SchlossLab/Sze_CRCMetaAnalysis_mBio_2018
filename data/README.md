@@ -19,9 +19,10 @@
 	* not public need to ask for raw sequences
 	* jingyanfang@yahoo.com or jingyuanfang2007@126.com
   
-* Weir et al. *Will get data to us - check back at end of week*
+* Weir et al. **mothur processing completed**
 	* ERP002217
 	* Normal, CRC
+	* sequences and oligo available thru dropbox
   
 * Wu N, et al. 
 	* PRJNA168081
@@ -50,7 +51,7 @@
 	*  SRP004518
 	*  normal, colorectal adenomas  
   
-* Geng J, et al. **mothur processing complete**
+* Geng J, et al. **mothur processing completed**
 	* SRP041558, SRP016877, SRP012940
 	* combination of three studies
   
@@ -70,7 +71,7 @@
 	* SRP064975
 	* Adenoma, CRC, normal can be worked out from paper  
   
-* Dejea, et al.  **mothur processing complete**
+* Dejea, et al.  **mothur processing completed**
 	* PRJNA258534
 	* SRP045685 
 	* normal, CRC
