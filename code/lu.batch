@@ -22,20 +22,24 @@ REF=data/references
 #done
 
 # Make a files file from the fastq files in the directory
-ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
-ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
-ls $WORKDIR/*_1.fastq | cut -c17-26 > $WORKDIR/names.txt
-paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/lu.files
+#ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
+#ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
+#ls $WORKDIR/*_1.fastq | cut -c17-26 > $WORKDIR/names.txt
+#paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/lu.files
 
 # Remove unnecessary files pt1
-rm $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt
+#rm $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt
 
 
 # Run mothur for sequencing processing on combined file
-#mothur "#unique.seqs(fasta=$WORKDIR/combined.fasta);
-#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T, processors=8);
-#	count.seqs(name=current, group=$WORKDIR/combined.groups);
-#	summary.seqs(fasta=current, count=current);
+#mothur "#make.contigs(file=$WORKDIR/lu.files);
+#	summary.seqs(fasta=current)"
+mothur "#screen.seqs(fasta=$WORKDIR/lu.trim.contigs.fasta, group=$WORKDIR/lu.contigs.groups, maxambig=0, maxlength=485, processors=8);
+	summary.seqs(fasta=current);
+	unique.seqs(fasta=current)"
+	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T, processors=8);
+	count.seqs(name=current, group=current);
+	summary.seqs(fasta=current, count=current);
 #	screen.seqs(fasta=$WORKDIR/combined.unique.align, count=$WORKDIR/combined.count_table, start=1046, optimize=end, criteria=95, minlength=200, maxhomop=8, processors=8);
 #	filter.seqs(fasta=current, vertical=T, trump=.);
 #	unique.seqs(fasta=current, count=current);
