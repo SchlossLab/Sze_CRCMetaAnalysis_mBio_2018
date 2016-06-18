@@ -36,10 +36,10 @@ REF=data/references
 #	summary.seqs(fasta=current)"
 mothur "#screen.seqs(fasta=$WORKDIR/lu.trim.contigs.fasta, group=$WORKDIR/lu.contigs.groups, maxambig=0, maxlength=485, processors=8);
 	summary.seqs(fasta=current);
-	unique.seqs(fasta=current)"
+	unique.seqs(fasta=current);
 	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T, processors=8);
 	count.seqs(name=current, group=current);
-	summary.seqs(fasta=current, count=current);
+	summary.seqs(fasta=current, count=current)"
 #	screen.seqs(fasta=$WORKDIR/combined.unique.align, count=$WORKDIR/combined.count_table, start=1046, optimize=end, criteria=95, minlength=200, maxhomop=8, processors=8);
 #	filter.seqs(fasta=current, vertical=T, trump=.);
 #	unique.seqs(fasta=current, count=current);
