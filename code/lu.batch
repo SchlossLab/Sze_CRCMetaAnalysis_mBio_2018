@@ -9,7 +9,8 @@ REF=data/references
 
 # Need to add in a bunch of stuff on the study and what they were looking for.
 # Might adjust parameters to those set by authors of original manuscript
-# (Lu, Y et al 2016).  The SRA project ID is SRP064975.
+# (Lu, Y et al 2016).  The SRA project ID is SRP064975. 
+# Need 80GB of RAM to run through
 
 # Download the data set
 #wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP064/SRP064975/
@@ -49,25 +50,27 @@ REF=data/references
 #	remove.seqs(fasta=current, accnos=current);
 #	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
 #	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
-mothur "#cluster.split(fasta=$WORKDIR/lu.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/lu.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/lu.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, splitmethod=classify, taxlevel=5, cutoff=0.15);
-	make.shared(list=current, count=current, label=0.03);
-	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
-	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance)"
+#mothur "#cluster.split(fasta=$WORKDIR/lu.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/lu.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/lu.trim.contigs.good.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, splitmethod=classify, taxlevel=5, cutoff=0.15);
+#	make.shared(list=current, count=current, label=0.03);
+#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance)"
 
 # Match metadata with the shared file
-#R -e "source('code/geng.R')"
+#R -e "source('code/lu.R')"
 
-#mothur "#sub.sample(shared=$WORKDIR/geng.shared, label=0.03);
-#	dist.shared(shared=$WORKDIR/geng.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
-#	summary.single(shared=$WORKDIR/geng.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
+#mothur "#sub.sample(shared=$WORKDIR/lu.matched.shared, label=0.03);
+#	dist.shared(shared=$WORKDIR/lu.matched.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
+#	summary.single(shared=$WORKDIR/lu.matched.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
-#mv $WORKDIR/*.cons.taxonomy $WORKDIR/geng.taxonomy
-#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/geng.rep.seqs
+#mothur "#sub.sample(shared=$WORKDIR/lu.unmatched.shared, label=0.03);
+#	dist.shared(shared=$WORKDIR/lu.unmatched.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
+#	summary.single(shared=$WORKDIR/lu.unmatched.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
-#rm $WORKDIR/combined.*
-#rm $WORKDIR/*rabund
+#mv $WORKDIR/*.cons.taxonomy $WORKDIR/lu.taxonomy
+#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/lu.rep.seqs
 
-
-
-
+#rm $WORKDIR/*.contigs.*
+rm $WORKDIR/*rabund
+#rm $WORKDIR/*.fastq
+rm $WORKDIR/*.filter
 
