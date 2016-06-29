@@ -67,8 +67,6 @@ mothur "#make.contigs(file=$WORKDIR/glne007.files);
 	get.oturep(fasta=$WORKDIR/glne007.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/glne007.trim.contigs.good.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, list=$WORKDIR/glne007.final.an.unique_list.list, label=0.03, method=abundance)"
 
 
-
-
 # Match metadata with the shared file
 R -e "source('code/baxter.R')"
 

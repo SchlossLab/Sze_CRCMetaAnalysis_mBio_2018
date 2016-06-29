@@ -1,7 +1,7 @@
 #!bash
 
 #Load needed R
-module load R/3.2.5
+module load R/3.3.0
 
 DOWNDIR=data/raw/geng
 WORKDIR=data/process/geng
