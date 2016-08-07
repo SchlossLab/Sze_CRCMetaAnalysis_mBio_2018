@@ -38,7 +38,7 @@ done
 # Run mothur for sequencing processing on combined file
 mothur "#make.contigs(file=$WORKDIR/glne007.files);
 	summary.seqs(fasta=current);
-	screen.seqs(fasta=$WORKDIR/glne007.trim.contigs.fasta, group=$WORKDIR/qlne007.contigs..groups, maxambig=0, maxlength=275);
+	screen.seqs(fasta=$WORKDIR/glne007.trim.contigs.fasta, group=$WORKDIR/glne007.contigs.groups, maxambig=0, maxlength=275);
 	summary.seqs(fasta=current);
 	unique.seqs(fasta=current);
 	count.seqs(name=current, group=current)
