@@ -1,4 +1,4 @@
-STUDIES = brim geng weir dejea baxter lu
+STUDIES = brim geng weir dejea baxter lu ahn
 REFS = data/references
 FIGS = results/figures
 TABLES = results/tables
