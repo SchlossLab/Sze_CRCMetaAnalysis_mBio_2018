@@ -11,3 +11,5 @@ data/*/*
 mothur*logfile
 *temp*
 *.docx
+*.fastq
+*.fasta
