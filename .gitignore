@@ -13,3 +13,5 @@ mothur*logfile
 *.docx
 *.fastq
 *.fasta
+*.pbs
+
