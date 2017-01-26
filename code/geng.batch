@@ -2,7 +2,7 @@
 
 #Load needed R
 module load R/3.3.0
-
+mothurRv=/mnt/EXT/Schloss-data/bin/mothur
 DOWNDIR=data/raw/geng
 WORKDIR=data/process/geng
 REF=data/references
@@ -41,7 +41,7 @@ paste --delimiters='\t' $WORKDIR/header.txt $WORKDIR/group.txt > $WORKDIR/combin
 rm -f $WORKDIR/*.fastq $WORKDIR/*.scrap.* $WORKDIR/*.trim.* $WORKDIR/SRR*fasta $WORKDIR/SRR*qual $WORKDIR/header.txt $WORKDIR/group.txt
 
 # Run mothur for sequencing processing on combined file
-mothur "#unique.seqs(fasta=$WORKDIR/combined.fasta);
+$mothurRv "#unique.seqs(fasta=$WORKDIR/combined.fasta);
 	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T, processors=8);
 	count.seqs(name=current, group=$WORKDIR/combined.groups);
 	summary.seqs(fasta=current, count=current);
@@ -63,15 +63,15 @@ mothur "#unique.seqs(fasta=$WORKDIR/combined.fasta);
 # Match metadata with the shared file
 R -e "source('code/geng.R')"
 
-mothur "#sub.sample(shared=$WORKDIR/geng.shared, label=0.03);
+$mothurRv "#sub.sample(shared=$WORKDIR/geng.shared, label=0.03);
 	dist.shared(shared=$WORKDIR/geng.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
 	summary.single(shared=$WORKDIR/geng.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
-mv $WORKDIR/*.cons.taxonomy $WORKDIR/geng.taxonomy
-mv $WORKDIR/*0.03.rep.fasta $WORKDIR/geng.rep.seqs
+#mv $WORKDIR/*.cons.taxonomy $WORKDIR/geng.taxonomy
+#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/geng.rep.seqs
 
-rm $WORKDIR/combined.*
-rm $WORKDIR/*rabund
+#rm $WORKDIR/combined.*
+#rm $WORKDIR/*rabund
 
 
 
