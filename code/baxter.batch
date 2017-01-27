@@ -36,6 +36,9 @@ do
 
 done
 
+# Rename files file to reflect where fastq files are
+sed -ie 's/SRR/data/\process/\baxter/\SRR/g' $WORKDIR/glne007.files
+
 
 # Run mothur for sequencing processing on combined file
 $mothurRv "#make.contigs(file=$WORKDIR/glne007.files);
