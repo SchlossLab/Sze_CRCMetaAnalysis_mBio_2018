@@ -1,7 +1,7 @@
 #!bash
 
 #Load needed R
-module load R/3.3.0
+#module load R/3.3.0
 
 mothurRv=/mnt/EXT/Schloss-data/bin/mothur
 DOWNDIR=data/raw/baxter
@@ -37,7 +37,7 @@ do
 done
 
 # Rename files file to reflect where fastq files are
-sed -ie 's/SRR/data/\process/\baxter/\SRR/g' $WORKDIR/glne007.files
+sed -ie 's/SRR/data\/process\/baxter\/SRR/g' data/process/baxter/glne007.files
 
 
 # Run mothur for sequencing processing on combined file
