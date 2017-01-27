@@ -14,15 +14,16 @@ REF=data/references
 
 # Download the repository and keep only needed files
 
-git clone https://github.com/SchlossLab/Baxter_glne007Modeling_GenomeMed_2015.git $WORKDIR/
-rm -rf $WORKDIR/*.docx $WORKDIR/*.md $WORKDIR/Makefile $WORKDIR/*.Rmd $WORKDIR/*.csl $WORKDIR/*bibtex $WORKDIR/.gitignore $WORKDIR/.Rprofile $WORKDIR/.git
-rm -r $WORKDIR/results
+git clone https://github.com/SchlossLab/Baxter_glne007Modeling_GenomeMed_2015.git $WORKDIR/tempdata
+rm -rf $WORKDIR/tempdata/*.docx $WORKDIR/tempdata/*.md $WORKDIR/tempdata/Makefile $WORKDIR/tempdata/*.Rmd $WORKDIR/tempdata/*.csl $WORKDIR/tempdata/*bibtex $WORKDIR/tempdata/.gitignore $WORKDIR/tempdata/.Rprofile $WORKDIR/tempdata/.git
+rm -r $WORKDIR/tempdata/results
 
-mv $WORKDIR/data/metadata.tsv $WORKDIR/
-mv $WORKDIR/data/glne007.files $WORKDIR/
+mv $WORKDIR/tempdata/data/metadata.tsv $WORKDIR/
+mv $WORKDIR/tempdata/data/glne007.files $WORKDIR/
 
 rm -r $WORKDIR/data
 rm -r $WORKDIR/code
+rm -r $WORKDIR/tempdata
 
 
 # Download the data set
@@ -37,8 +38,7 @@ done
 
 
 # Run mothur for sequencing processing on combined file
-$mothurRv "#make.file(inputdir=$WORKDIR);
-	make.contigs(file=$WORKDIR/glne007.files);
+$mothurRv "#make.contigs(file=$WORKDIR/glne007.files);
 	summary.seqs(fasta=current, processors=4);
 	screen.seqs(fasta=current, group=current, maxambig=0, maxlength=275);
 	summary.seqs(fasta=current);
