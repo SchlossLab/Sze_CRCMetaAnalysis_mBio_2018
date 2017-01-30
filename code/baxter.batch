@@ -46,7 +46,7 @@ $mothurRv "#make.contigs(file=$WORKDIR/glne007.files);
 	screen.seqs(fasta=current, group=current, maxambig=0, maxlength=275);
 	summary.seqs(fasta=current);
 	unique.seqs(fasta=current);
-	count.seqs(name=current, group=current)
+	count.seqs(name=current, group=current);
 	align.seqs(fasta=current, reference=$REF/silva.v4.fasta);
 	summary.seqs(fasta=current, count=current);
 	screen.seqs(fasta=current, count=current, start=1968, end=11550, maxhomop=8);
