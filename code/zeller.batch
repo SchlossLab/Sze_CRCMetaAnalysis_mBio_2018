@@ -35,7 +35,7 @@ ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
 # Get read 2 fastq
 ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
 # Get Names to be used
-ls $WORKDIR/*_1.fastq | cut -c1-9 > $WORKDIR/names.txt
+ls $WORKDIR/*_1.fastq | cut -c21-29 > $WORKDIR/names.txt
 #Combine everything together
 paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/zeller.files
 
