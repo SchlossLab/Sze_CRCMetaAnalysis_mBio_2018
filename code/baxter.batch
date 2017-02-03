@@ -66,20 +66,20 @@ $mothurRv "#make.contigs(file=$WORKDIR/glne007.files);
 
 
 # Match metadata with the shared file
-#R -e "source('code/baxter.R')"
+R -e "source('code/baxter.R')"
 
 # Use mothur to generate the summary statistic data needed
-#mothur "#sub.sample(shared=$WORKDIR/baxter.shared, label=0.03);
-#	dist.shared(shared=$WORKDIR/baxter.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
-#	summary.single(shared=$WORKDIR/baxter.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
+$mothurRv "#sub.sample(shared=$WORKDIR/baxter.shared, label=0.03);
+	dist.shared(shared=$WORKDIR/baxter.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
+	summary.single(shared=$WORKDIR/baxter.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
-#mv $WORKDIR/*.cons.taxonomy $WORKDIR/baxter.taxonomy
-#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/baxter.rep.seqs
+mv $WORKDIR/*.cons.taxonomy $WORKDIR/baxter.taxonomy
+mv $WORKDIR/*0.03.rep.fasta $WORKDIR/baxter.rep.seqs
 
 # Remove uneccesary files
-#rm $WORKDIR/glne007.*
-#rm $WORKDIR/*.fastq
-#rm $WORKDIR/*.rabund
+rm $WORKDIR/glne007.*
+rm $WORKDIR/*.fastq
+rm $WORKDIR/*.rabund
 
 
 
