@@ -3,7 +3,9 @@
 	#  *Rows must be in the same order
 	#  *Metadata must contain sample id, white, and disease
 
-shared <- read.table("data/process/baxter/glne007.final.an.unique_list.shared", header=T)
+shared <- read.table(
+	"data/process/baxter/glne007.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.pick.opti_mcc.unique_list.shared", 
+	header=T)
 
 metadata <- read.delim("data/process/baxter/metadata.tsv", header=T, stringsAsFactors=F)
 
