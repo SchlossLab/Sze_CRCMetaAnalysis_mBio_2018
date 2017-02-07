@@ -45,7 +45,7 @@ $mothurRv "#make.contigs(file=$WORKDIR/zeller.files);
 	screen.seqs(fasta=current, group=current, summary=current, maxambig=0, maxlength=275);
 	summary.seqs(fasta=current, group=current);
 	unique.seqs(fasta=current);
-	count.seqs(name=current, group=$WORKDIR/combined.groups);
+	count.seqs(name=current, group=current);
 	summary.seqs(fasta=current, count=current);
 	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
 	summary.seqs(fasta=current, count=current);
