@@ -20,33 +20,50 @@ mothurRv=/mnt/EXT/Schloss-data/bin/mothur
 # Convert to fasta files that will be used
 #for sample in $DOWNDIR/*.sra
 #do
+	#fastq-dump $sample -O $WORKDIR
 #	fastq-dump --split-files $sample -O $WORKDIR
+	#fastq=${sample//.sra/_1.fastq}
+	#fastq=${fastq//raw/process}
 
+	#mothur "#fastq.info(fastq=$fastq);
+	#	trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=8, minlength=200, qwindowaverage=35, qwindowsize=50, processors=8)"
+	
+	#rm *logfile
 #done
+
+# Combined the seperate fasta files  to one file
+#cat $WORKDIR/*trim.fasta > $WORKDIR/combined.fasta
+
+# Create a group file
+#grep '^>' $WORKDIR/combined.fasta | cut -c 2- > $WORKDIR/header.txt
+#sed 's/\..*//g' $WORKDIR/header.txt > $WORKDIR/group.txt
+#paste --delimiters='\t' $WORKDIR/header.txt $WORKDIR/group.txt > $WORKDIR/combined.groups
+
+# Remove unessary files
+#rm -f $WORKDIR/*.fastq $WORKDIR/*.scrap.* $WORKDIR/*.trim.* $WORKDIR/SRR*fasta $WORKDIR/SRR*qual $WORKDIR/header.txt $WORKDIR/group.txt
+
 
 # Run mothur for sequencing processing on combined file
 #$mothurRv "#make.file(inputdir=$WORKDIR);
-#	make.contigs(file=$WORKDIR/stability.files);
-$mothurRv "summary.seqs(fasta=$WORKDIR/stability.trim.contigs.fasta);
-	screen.seqs(fasta=current, group=$WORKDIR/stability.contigs.groups, maxambig=0, maxlength=275);
-	summary.seqs(fasta=current);
-	unique.seqs(fasta=current);
-	count.seqs(name=current, group=current)
-	align.seqs(fasta=current, reference=$REF/silva.v4.fasta);
-	summary.seqs(fasta=current, count=current)"
-#	unique.seqs(fasta=$WORKDIR/combined.fasta);
-#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T, processors=8);
-#	count.seqs(name=current, group=$WORKDIR/combined.groups);
-#	summary.seqs(fasta=current, count=current);
-#	screen.seqs(fasta=$WORKDIR/combined.unique.align, count=$WORKDIR/combined.count_table, start=1046, optimize=end, criteria=95, minlength=200, maxhomop=8, processors=8);
+#	make.contigs(file=$WORKDIR/stability.files, processors=4);
+#	summary.seqs(fasta=current);
+#	screen.seqs(fasta=current, group=current, minlength=200);
+#	unique.seqs(fasta=current);
+#$mothurRv "#align.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.fasta, reference=$REF/silva.seed.align, flip=T, processors=4);
+#	count.seqs(name=$WORKDIR/stability.trim.contigs.good.names, group=$WORKDIR/stability.contigs.good.groups);
+#$mothurRv "#summary.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.align, count=$WORKDIR/stability.trim.contigs.good.count_table, processors=4)"	
+
+#$mothurRv "#screen.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.align, count=$WORKDIR/stability.trim.contigs.good.count_table, summary=$WORKDIR/stability.trim.contigs.good.unique.summary, start=22583, end=34336, maxlength=300, maxhomop=8, processors=4);
 #	filter.seqs(fasta=current, vertical=T, trump=.);
 #	unique.seqs(fasta=current, count=current);
-#	summary.seqs(fasta=current, count=current);
-#	pre.cluster(fasta=current, count=current, diffs=2);
-#	chimera.uchime(fasta=current, count=current, dereplicate=t);
+#	summary.seqs(fasta=current, count=current)"
+
+#$mothurRv "#pre.cluster(fasta=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.fasta, count=$WORKDIR/stability.trim.contigs.good.unique.good.filter.count_table, diffs=3)"
+$mothurRv "#chimera.uchime(fasta=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t);
 #	remove.seqs(fasta=current, accnos=current);
 #	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
-#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)"
+
 #	cluster.split(fasta=current, count=current, taxonomy=current, splitmethod=classify, taxlevel=5, cutoff=0.15);
 #	make.shared(list=current, count=current, label=0.03);
 #	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
