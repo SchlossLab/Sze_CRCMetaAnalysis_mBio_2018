@@ -14,10 +14,10 @@ rownames(shared) <- shared$Group
 rownames(metadata) <- metadata$Run_s
 metadata <- metadata[rownames(shared), ]
 
-metadata$dx[which(metadata$Diagnosis_s == "Normal")] <- "control" 
-metadata$dx[which(metadata$Diagnosis_s == "Small adenoma" | 
-	metadata$Diagnosis_s == "Large adenoma")] <- "polyp"
-metadata$dx[which(metadata$Diagnosis_s == "Cancer")] <- "cancer"
+metadata$dx[metadata$Diagnosis_s == "Normal"] <- "control" 
+metadata$dx[metadata$Diagnosis_s == "Small adenoma" | 
+	metadata$Diagnosis_s == "Large adenoma"] <- "polyp"
+metadata$dx[metadata$Diagnosis_s == "Cancer"] <- "cancer"
 
 #Check that everything is okay
 stopifnot(shared$Group == metadata$Run_s)
