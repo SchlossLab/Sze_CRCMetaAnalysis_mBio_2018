@@ -1,0 +1,225 @@
+sample	disease	age	sex
+ERR475467	polyp	66	male
+ERR475468	control	74	male
+ERR475469	control	54	male
+ERR475470	control	65	male
+ERR475471	control	57	male
+ERR475472	polyp	68	male
+ERR475473	control	53	female
+ERR475474	control	62	female
+ERR475475	polyp	63	male
+ERR475476	control	53	male
+ERR475477	control	68	male
+ERR475478	control	59	female
+ERR475479	polyp	63	male
+ERR475480	control	72	male
+ERR475481	control	55	female
+ERR475482	cancer	72	female
+ERR475483	control	63	female
+ERR475484	control	69	female
+ERR475485	control	61	female
+ERR475486	control	68	female
+ERR475487	control	63	female
+ERR475488	control	62	male
+ERR475489	polyp	48	female
+ERR475490	polyp	68	male
+ERR475491	control	64	male
+ERR475492	control	65	female
+ERR475493	cancer	62	female
+ERR475494	control	59	female
+ERR475495	control	70	male
+ERR475496	polyp	62	male
+ERR475497	control	66	female
+ERR475498	polyp	71	male
+ERR475499	control	63	male
+ERR475500	cancer	58	male
+ERR475501	cancer	63	male
+ERR475502	polyp	73	male
+ERR475503	control	67	male
+ERR475504	control	61	female
+ERR475505	polyp	63	male
+ERR475506	polyp	53	female
+ERR475507	polyp	71	female
+ERR475508	control	71	female
+ERR475509	cancer	79	male
+ERR475510	polyp	64	male
+ERR475511	polyp	60	male
+ERR475512	control	63	male
+ERR475513	cancer	50	female
+ERR475514	control	84	male
+ERR475515	cancer	73	female
+ERR475516	cancer	59	male
+ERR475517	control	50	male
+ERR475518	polyp	68	male
+ERR475519	control	62	male
+ERR475520	cancer	73	female
+ERR475521	cancer	48	female
+ERR475522	control	61	male
+ERR475523	control	61	female
+ERR475524	control	67	female
+ERR475525	control	63	female
+ERR475526	control	67	male
+ERR475527	cancer	63	male
+ERR475528	polyp	60	male
+ERR475529	cancer	80	male
+ERR475530	polyp	78	female
+ERR475531	cancer	44	male
+ERR475532	cancer	78	male
+ERR475533	cancer	63	male
+ERR475534	control	77	female
+ERR475535	polyp	64	male
+ERR475536	polyp	60	female
+ERR475538	polyp	62	female
+ERR475539	cancer	87	female
+ERR475540	cancer	73	male
+ERR475541	cancer	60	male
+ERR475542	polyp	72	female
+ERR475543	polyp	53	male
+ERR475544	polyp	49	male
+ERR475545	control	46	female
+ERR475546	polyp	58	male
+ERR475547	cancer	72	male
+ERR475548	cancer	55	female
+ERR475549	control	67	female
+ERR475550	control	35	male
+ERR475551	polyp	66	male
+ERR475552	polyp	64	male
+ERR475553	cancer	80	female
+ERR475554	polyp	66	male
+ERR475555	cancer	51	male
+ERR475556	polyp	66	male
+ERR475557	cancer	51	male
+ERR475558	polyp	59	female
+ERR475559	polyp	45	male
+ERR475560	cancer	67	male
+ERR475561	polyp	68	male
+ERR475562	control	65	male
+ERR475563	control	67	male
+ERR475564	control	52	male
+ERR475565	control	60	female
+ERR475566	control	49	female
+ERR475567	control	62	female
+ERR475568	cancer	45	female
+ERR475569	cancer	79	female
+ERR475570	control	72	female
+ERR475571	control	64	female
+ERR475572	control	38	female
+ERR475573	cancer	64	male
+ERR475574	control	66	male
+ERR475575	control	74	male
+ERR475576	cancer	69	female
+ERR475577	cancer	69	female
+ERR475578	cancer	75	male
+ERR475579	cancer	69	female
+ERR475580	cancer	68	male
+ERR475581	cancer	65	male
+ERR475582	cancer	62	male
+ERR475583	polyp	45	female
+ERR475584	polyp	55	male
+ERR475585	cancer	73	male
+ERR475586	cancer	74	female
+ERR475587	polyp	76	female
+ERR475588	cancer	74	female
+ERR475589	cancer	65	male
+ERR475590	polyp	77	male
+ERR475591	cancer	53	male
+ERR475592	cancer	67	male
+ERR475593	polyp	52	female
+ERR475594	cancer	54	female
+ERR475595	polyp	52	male
+ERR674075	NA	82	<not provided>
+ERR674076	NA	65	<not provided>
+ERR674077	NA	72	<not provided>
+ERR674078	NA	51	<not provided>
+ERR674079	NA	66	<not provided>
+ERR674080	NA	65	<not provided>
+ERR674081	NA	56	<not provided>
+ERR674082	NA	39	<not provided>
+ERR674083	NA	96	<not provided>
+ERR674084	NA	73	<not provided>
+ERR674085	NA	77	<not provided>
+ERR674086	NA	48	<not provided>
+ERR674087	NA	74	<not provided>
+ERR674088	NA	55	<not provided>
+ERR674089	NA	51	<not provided>
+ERR674090	NA	58	<not provided>
+ERR674091	NA	75	<not provided>
+ERR674092	NA	49	<not provided>
+ERR674093	NA	76	<not provided>
+ERR674094	NA	67	<not provided>
+ERR674095	NA	62	<not provided>
+ERR674096	NA	62	<not provided>
+ERR674097	NA	68	<not provided>
+ERR674098	NA	60	<not provided>
+ERR674099	NA	45	<not provided>
+ERR674100	NA	76	<not provided>
+ERR674101	NA	74	<not provided>
+ERR674102	NA	43	<not provided>
+ERR674103	NA	35	<not provided>
+ERR674104	NA	75	<not provided>
+ERR674105	NA	66	<not provided>
+ERR674106	NA	63	<not provided>
+ERR674107	NA	76	<not provided>
+ERR674108	NA	79	<not provided>
+ERR674109	NA	56	<not provided>
+ERR674110	NA	77	<not provided>
+ERR674111	NA	78	<not provided>
+ERR674112	NA	68	<not provided>
+ERR674113	NA	69	<not provided>
+ERR674114	NA	66	<not provided>
+ERR674115	NA	57	<not provided>
+ERR674116	NA	70	<not provided>
+ERR674117	NA	75	<not provided>
+ERR674118	NA	90	<not provided>
+ERR674119	NA	55	<not provided>
+ERR674120	NA	36	<not provided>
+ERR674121	NA	66	<not provided>
+ERR674122	NA	71	<not provided>
+ERR674123	NA	82	<not provided>
+ERR674124	NA	65	<not provided>
+ERR674125	NA	72	<not provided>
+ERR674126	NA	51	<not provided>
+ERR674127	NA	66	<not provided>
+ERR674128	NA	65	<not provided>
+ERR674129	NA	56	<not provided>
+ERR674130	NA	39	<not provided>
+ERR674131	NA	96	<not provided>
+ERR674132	NA	73	<not provided>
+ERR674133	NA	77	<not provided>
+ERR674134	NA	48	<not provided>
+ERR674135	NA	74	<not provided>
+ERR674136	NA	55	<not provided>
+ERR674137	NA	51	<not provided>
+ERR674138	NA	58	<not provided>
+ERR674139	NA	75	<not provided>
+ERR674140	NA	49	<not provided>
+ERR674141	NA	76	<not provided>
+ERR674142	NA	67	<not provided>
+ERR674143	NA	62	<not provided>
+ERR674144	NA	62	<not provided>
+ERR674145	NA	68	<not provided>
+ERR674146	NA	60	<not provided>
+ERR674147	NA	45	<not provided>
+ERR674148	NA	76	<not provided>
+ERR674149	NA	74	<not provided>
+ERR674150	NA	43	<not provided>
+ERR674151	NA	35	<not provided>
+ERR674152	NA	75	<not provided>
+ERR674153	NA	66	<not provided>
+ERR674154	NA	63	<not provided>
+ERR674155	NA	76	<not provided>
+ERR674156	NA	79	<not provided>
+ERR674157	NA	56	<not provided>
+ERR674158	NA	77	<not provided>
+ERR674159	NA	78	<not provided>
+ERR674160	NA	68	<not provided>
+ERR674161	NA	69	<not provided>
+ERR674162	NA	66	<not provided>
+ERR674163	NA	57	<not provided>
+ERR674164	NA	70	<not provided>
+ERR674165	NA	75	<not provided>
+ERR674166	NA	90	<not provided>
+ERR674167	NA	55	<not provided>
+ERR674168	NA	36	<not provided>
+ERR674169	NA	66	<not provided>
+ERR674170	NA	71	<not provided>
