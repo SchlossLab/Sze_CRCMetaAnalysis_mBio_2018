@@ -1,56 +1,43 @@
 #!bash
 
 #Load needed R
-module load R/3.3.0
+module load R/3.3.2
 
 DOWNDIR=data/raw/burns
 WORKDIR=data/process/burns
 REF=data/references
 mothurRv=/mnt/EXT/Schloss-data/bin/mothur
 
-# Need to add in a bunch of stuff on the study and what they were looking for.
-# Might adjust parameters to those set by authors of original manuscript
-# (Geng, J et al 2013).  mothur default for 454 allowed only an average of
-# 855 sequence per sample. Author method leave ~1,190 sequences per sample. 
-# The SRA project ID is SRP016877.
-
 # Download the data set
-#wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP058/SRP058492/
+wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP058/SRP058492/
 
 # Convert to fasta files that will be used
-#for sample in $DOWNDIR/*.sra
-#do
-	#fastq-dump $sample -O $WORKDIR
-#	fastq-dump --split-files $sample -O $WORKDIR
-	#fastq=${sample//.sra/_1.fastq}
-	#fastq=${fastq//raw/process}
+for sample in $DOWNDIR/*.sra
+do
+	fastq-dump --split-files $sample -O $WORKDIR
 
-	#mothur "#fastq.info(fastq=$fastq);
-	#	trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=8, minlength=200, qwindowaverage=35, qwindowsize=50, processors=8)"
-	
-	#rm *logfile
-#done
+done
 
-# Combined the seperate fasta files  to one file
-#cat $WORKDIR/*trim.fasta > $WORKDIR/combined.fasta
-
-# Create a group file
-#grep '^>' $WORKDIR/combined.fasta | cut -c 2- > $WORKDIR/header.txt
-#sed 's/\..*//g' $WORKDIR/header.txt > $WORKDIR/group.txt
-#paste --delimiters='\t' $WORKDIR/header.txt $WORKDIR/group.txt > $WORKDIR/combined.groups
-
-# Remove unessary files
-#rm -f $WORKDIR/*.fastq $WORKDIR/*.scrap.* $WORKDIR/*.trim.* $WORKDIR/SRR*fasta $WORKDIR/SRR*qual $WORKDIR/header.txt $WORKDIR/group.txt
+# Make a files file for mothur using bash commands
+#Get read 1 fastq
+ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
+# Get read 2 fastq
+ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
+# Get Names to be used
+ls $WORKDIR/*_1.fastq | cut -c20-29 > $WORKDIR/names.txt
+#Combine everything together
+paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/burns.files
 
 
 # Run mothur for sequencing processing on combined file
-#$mothurRv "#make.file(inputdir=$WORKDIR);
-#	make.contigs(file=$WORKDIR/stability.files, processors=4);
-#	summary.seqs(fasta=current);
-#	screen.seqs(fasta=current, group=current, minlength=200);
-#	unique.seqs(fasta=current);
-#$mothurRv "#align.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.fasta, reference=$REF/silva.seed.align, flip=T, processors=4);
-#	count.seqs(name=$WORKDIR/stability.trim.contigs.good.names, group=$WORKDIR/stability.contigs.good.groups);
+$mothurRv "#make.contigs(file=$WORKDIR/burns.files, processors=4);
+	summary.seqs(fasta=current)
+	screen.seqs(fasta=current, group=current, minlength=200);
+	unique.seqs(fasta=current);
+	count.seqs(name=current, group=current);
+	align.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.fasta, reference=$REF/silva.seed.align, flip=T)"
+
+
 #$mothurRv "#summary.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.align, count=$WORKDIR/stability.trim.contigs.good.count_table, processors=4)"	
 
 #$mothurRv "#screen.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.align, count=$WORKDIR/stability.trim.contigs.good.count_table, summary=$WORKDIR/stability.trim.contigs.good.unique.summary, start=22583, end=34336, maxlength=300, maxhomop=8, processors=4);
@@ -59,7 +46,7 @@ mothurRv=/mnt/EXT/Schloss-data/bin/mothur
 #	summary.seqs(fasta=current, count=current)"
 
 #$mothurRv "#pre.cluster(fasta=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.fasta, count=$WORKDIR/stability.trim.contigs.good.unique.good.filter.count_table, diffs=3)"
-$mothurRv "#chimera.uchime(fasta=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t);
+#$mothurRv "#chimera.uchime(fasta=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.precluster.fasta, count=$WORKDIR/stability.trim.contigs.good.unique.good.filter.unique.precluster.count_table, dereplicate=t);
 #	remove.seqs(fasta=current, accnos=current);
 #	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
 #	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)"
