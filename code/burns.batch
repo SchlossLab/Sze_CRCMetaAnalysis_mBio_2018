@@ -35,7 +35,7 @@ $mothurRv "#make.contigs(file=$WORKDIR/burns.files, processors=3);
 	screen.seqs(fasta=current, group=current, minlength=200);
 	unique.seqs(fasta=current);
 	count.seqs(name=current, group=current);
-	align.seqs(fasta=$WORKDIR/stability.trim.contigs.good.unique.fasta, reference=$REF/silva.seed.align, flip=T);
+	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
 	summary.seqs(fasta=current, count=current)"
 
 
