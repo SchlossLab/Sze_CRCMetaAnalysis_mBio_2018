@@ -32,12 +32,12 @@ paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDI
 # Run mothur for sequencing processing on combined file
 $mothurRv "#make.contigs(file=$WORKDIR/burns.files, processors=3);
 	summary.seqs(fasta=current);
-	screen.seqs(fasta=current, group=current, maxambig=0, maxhomop=8, minlength=200);
+	screen.seqs(fasta=current, group=current, maxhomop=8, minlength=200);
 	unique.seqs(fasta=current);
 	count.seqs(name=current, group=current);
 	align.seqs(fasta=current, reference=$REF/silva.seed.align);
 	summary.seqs(fasta=current, count=current);
-	screen.seqs(fasta=current, count=current, summary=current, start=22583, optimize=end, criteria=95);
+	screen.seqs(fasta=current, count=current, summary=current, start=22583, optimize=34343);
 	filter.seqs(fasta=current, vertical=T, trump=.);
 	unique.seqs(fasta=current, count=current);
 	summary.seqs(fasta=current, count=current)"
