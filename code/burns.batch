@@ -2,7 +2,7 @@
 
 #Load needed R
 module load R/3.3.2
-
+tempMothur=/home/marcsze/bin/mothurV1.39.3/mothur/mothur
 DOWNDIR=data/raw/burns
 WORKDIR=data/process/burns
 REF=data/references
@@ -30,7 +30,7 @@ paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDI
 
 
 # Run mothur for sequencing processing on combined file
-$mothurRv "#make.contigs(file=$WORKDIR/burns.files, processors=3);
+$tempMothur "#make.contigs(file=$WORKDIR/burns.files, processors=3);
 	summary.seqs(fasta=current);
 	screen.seqs(fasta=current, group=current, maxhomop=8, minlength=200);
 	unique.seqs(fasta=current);
@@ -45,7 +45,7 @@ $mothurRv "#make.contigs(file=$WORKDIR/burns.files, processors=3);
 	chimera.vsearch(fasta=current, count=current, dereplicate=t);
 	remove.seqs(fasta=current, accnos=current);
 	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
-	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)
+	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
 	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
 	make.shared(list=current, count=current, label=0.03);
 	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
