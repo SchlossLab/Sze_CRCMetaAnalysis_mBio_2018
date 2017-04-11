@@ -1,14 +1,12 @@
 #!bash
 
 # Load needed R
-module load R/3.3.0
-
-#Define respective directory short cuts
+module load R/3.3.3
+tempMothur=/nfs/turbo/pschloss/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
 DOWNDIR=data/raw/sanapareddy
 WORKDIR=data/process/sanapareddy
 REF=data/references
 
-rm -f $DOWNDIR/*.sra
 
 # Need to add a preamble about the data set and what it encompasses.
 # Also need to add author information and other such stuff.
@@ -20,6 +18,39 @@ mv $DOWNDIR/caseControlTwoColumn.txt $WORKDIR
 mv $DOWNDIR/fasta/* $DOWNDIR
 rm -r $DOWNDIR/fasta
 rm -rf $DOWNDIR/.git
+
+# Unzip files and move to workdir
+gunzip $DOWNDIR/*.gz
+
+# Add fasta suffix to all unziped files
+find $DOWNDIR -type f -exec mv '{}' '{}'.fasta \;
+
+# Trim files so only unique sequence ID is left
+for sample in $DOWNDIR/*.fasta
+do
+	new_name=${sample//.fasta/_noextra.fasta}
+	sed 's/\s.*$//' $sample > $new_name
+
+done
+
+# Replace all "-" with "_" in the metadata file
+sed 's/\-/_/g' $WORKDIR/caseControlTwoColumn.txt > $WORKDIR/sequence_group_data.txt
+
+
+# add group names to unique seqs ID
+for sample in $DOWNDIR/*noextra.fasta
+do
+	new_group=${sample//_noextra.fasta/_final.fasta}
+	final_name=${new_group//data\/raw\/sanapareddy\//}
+
+	sed "/>/s|$|_${final_name}|" $sample | sed 's/\-/_/g' | sed 's/_final\.fasta//g' > $new_group
+
+done
+
+
+# create a group file
+
+
 
 
 
