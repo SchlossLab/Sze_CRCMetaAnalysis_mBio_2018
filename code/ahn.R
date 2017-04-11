@@ -8,27 +8,31 @@
 		# 3 = Hispanic
 		# 5 = Asian or Pacific Islander
 
-shared <- read.table("data/process/ahn/combined.unique.good.filter.unique.precluster.pick.pick.an.unique_list.shared", stringsAsFactors=F, header=T)
+library("dplyr")
+library("tidyr")
+
+shared <- read.delim("data/process/ahn/combined.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
+                     stringsAsFactors=F, header=T)
 
 metadata <- read.csv("data/process/ahn/AhnData.csv", stringsAsFactors=F)
 
-demodata <- read.table("data/process/ahn/phs000884.v1.pht004601.v1.p1.c1.Gut_Microbiome_Controls_Subject_Phenotypes.HMB-MDS.txt", skip=9, stringsAsFactors=F, header=T)
+demodata <- read.table("data/process/ahn/phs000884.v1.pht004601.v1.p1.c1.Gut_Microbiome_Controls_Subject_Phenotypes.HMB-MDS.txt", 
+                       skip=10, stringsAsFactors=F, header=T) %>% 
+  rename(gap_subject_id_s = dbGaP_Subject_ID)
 
-demodata <- demodata[match(metadata$gap_subject_id_s, demodata$dbGaP_Subject_ID), ]
-demodata$white[which(demodata$RACE == 1)] <- 1
-demodata$white[which(demodata$RACE > 1)] <- 0
-shared <- shared[match(metadata$Run_s, shared$Group), ]
+#merge demo and meta into one table with variables of interest
+combined_meta <- inner_join(demodata, metadata, by = "gap_subject_id_s") %>% 
+  mutate(white = ifelse(RACE == 1, 1, 0), 
+         disease = ifelse(subject_is_affected_s == "Yes", invisible("cancer"), invisible("control"))) %>% 
+  select(Run_s, disease, AGE, sex_s, bmi) %>% 
+  rename(sample = Run_s, age = AGE, sex = sex_s)
 
-metadata$disease[grep("Yes", metadata$subject_is_affected_s)] <- "cancer"
-metadata$disease[grep("No", metadata$subject_is_affected_s)] <- "control"
 
-stopifnot(shared$Group == metadata$Run_s)
+shared <- shared[match(combined_meta$sample, shared$Group), ]
 
-sample <- metadata$Run_s
-white <- demodata$white
-disease <- metadata$disease
 
-metadata <- cbind(sample=sample, white=white, disease=disease)
+stopifnot(shared$Group == combined_meta$sample)
+
 
 write.table(shared, file="data/process/ahn/ahn.shared", quote=F, sep='\t', row.names=F)
 
