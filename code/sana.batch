@@ -47,24 +47,27 @@ do
 
 done
 
+# Combined the seperate fasta files  to one file
+cat $DOWNDIR/*final.fasta > $DOWNDIR/combined.fasta
+mv $DOWNDIR/combined.fasta $WORKDIR/combined.fasta
 
-# create a group file
+# Create a group file
+grep '^>' $WORKDIR/combined.fasta | cut -c 2- > $WORKDIR/header.txt
+grep '^>' $WORKDIR/combined.fasta | cut -c 17- > $WORKDIR/group.txt
+paste --delimiters='\t' $WORKDIR/header.txt $WORKDIR/group.txt > $WORKDIR/combined.groups
 
-
-
-
-
-# Unzips and combines the .fastq files
-#fastq-dump $DOWNDIR/*.sra -O $WORKDIR
-#cat $WORKDIR/*.fastq > $WORKDIR/combined.fastq
+rm $WORKDIR/header.txt $WORKDIR/group.txt
 
 # Run mothur on the combined file
-#mothur "#fastq.info(fastq=$WORKDIR/combined.fastq);
-#	summary.seqs(fasta=current, processors=8);
-#	trim.seqs(fasta=current, oligos=$WORKDIR/brim.oligos, qfile=$WORKDIR/combined.qual, maxambig=0, maxhomop=8, bdiffs=1, qwindowaverage=35, qwindowsize=50);
-#	unique.seqs(fasta=$WORKDIR/combined.trim.fasta);
-#	count.seqs(name=current, group=$WORKDIR/combined.groups);
-#	summary.seqs(fasta=$WORKDIR/combined.trim.unique.fasta, count=current);
+$tempMothur "#unique.seqs(fasta=$WORKDIR/combined.fasta);
+	count.seqs(name=current, group=$WORKDIR/combined.groups);
+	summary.seqs(fasta=current, count=current);
+	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+	summary.seqs(fasta=current, count=current)"
+
+#	#	;
+#	;
+#	;
 #	align.seqs(fasta=$WORKDIR/combined.trim.unique.fasta, reference=$REF/silva.seed.align, flip=T, processors=8);
 #	summary.seqs(fasta=current, count=$WORKDIR/combined.trim.count_table);
 #	screen.seqs(fasta=$WORKDIR/combined.trim.unique.align, count=$WORKDIR/combined.trim.count_table, summary=$WORKDIR/combined.trim.unique.summary, end=13862, optimize=start, criteria=95, minlength=200, maxhomop=8, processors=8);
