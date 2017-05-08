@@ -3,8 +3,8 @@
 # Load needed R
 module load R/3.3.3
 tempMothur=/nfs/turbo/pschloss/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
-DOWNDIR=data/raw/sanapareddy
-WORKDIR=data/process/sanapareddy
+DOWNDIR=data/raw/sana
+WORKDIR=data/process/sana
 REF=data/references
 
 
