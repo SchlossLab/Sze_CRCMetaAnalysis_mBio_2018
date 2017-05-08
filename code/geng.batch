@@ -2,6 +2,7 @@
 
 #Load needed R
 module load R/3.3.0
+module load sratoolkit/2.7.0
 mothurRv=/mnt/EXT/Schloss-data/bin/mothur
 DOWNDIR=data/raw/geng
 WORKDIR=data/process/geng
