@@ -87,8 +87,8 @@ $tempMothur "#unique.seqs(fasta=$WORKDIR/combined.fasta);
 # Use metadata to match with shared file
 R -e "source('code/sana.R')"
 
-tempMothur "#sub.sample(shared=$WORKDIR/sana.shared, label=0.03);
-	dist.shared(shared=$WORKDIR/sana.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=8);
+$tempMothur "#sub.sample(shared=$WORKDIR/sana.shared, label=0.03);
+	dist.shared(shared=$WORKDIR/sana.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=6);
 	summary.single(shared=$WORKDIR/sana.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
 
 mv $WORKDIR/*.cons.taxonomy $WORKDIR/sana.taxonomy

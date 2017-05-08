@@ -15,7 +15,7 @@ shared <- read.delim("data/process/sanapareddy/combined.unique.good.filter.uniqu
                      stringsAsFactors=F, header=T)
 
 metadata <- read.delim("data/process/sanapareddy/sequence_group_data.txt", stringsAsFactors=F, header = T) %>% 
-  mutate(disease = ifelse(caseControl == "control", invisible("control"), invisible("cancer"))) %>% 
+  mutate(disease = ifelse(caseContol == "control", invisible("control"), invisible("cancer"))) %>% 
   select(sample, disease)
 
 
