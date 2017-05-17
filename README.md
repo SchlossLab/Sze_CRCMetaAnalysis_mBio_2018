@@ -5,6 +5,12 @@ through the raw data.  Also currently contacting authors for permission
 to use their metadata and raw sequencing files for the completion of this
 project.  I will also update the dependency folder shortly.
 
+### Active To Do list
+
+* Need to run the Lu data set from the cluster split step onward to incorporate opticlust
+* Need to redownload the the metadata from Dejea which I accidentally deleted
+* Need to run Dejea to incorporate the opticlust method
+
 ### Overview
 	project
 	|- README # the top level description of content (this doc) - 
