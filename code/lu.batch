@@ -14,42 +14,42 @@ REF=data/references
 # Need 80GB of RAM to run through
 
 # Download the data set
-wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP064/SRP064975/
+#wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP064/SRP064975/
 
 # Convert to fasta files that will be used
-for sample in $DOWNDIR/*.sra
-do
-	fastq-dump --split-files $sample -O $WORKDIR
+#for sample in $DOWNDIR/*.sra
+#do
+#	fastq-dump --split-files $sample -O $WORKDIR
 
-done
+#done
 
 # Make a files file from the fastq files in the directory
-ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
-ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
-ls $WORKDIR/*_1.fastq | cut -c17-26 > $WORKDIR/names.txt
-paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/lu.files
+#ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
+#ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
+#ls $WORKDIR/*_1.fastq | cut -c17-26 > $WORKDIR/names.txt
+#paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/lu.files
 
 # Remove unnecessary files pt1
-rm $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt
+#rm $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt
 
 
 # Run mothur for sequencing processing on combined file
-$tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=6);
-	summary.seqs(fasta=current);
-	unique.seqs(fasta=current);
-	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
-	count.seqs(name=current, group=current);
-	summary.seqs(fasta=current, count=current);
-	screen.seqs(fasta=current, count=current, start=6322, optimize=end, criteria=95, maxambig=0, maxhomop=8);
-	filter.seqs(fasta=current, vertical=T, trump=.);
-	unique.seqs(fasta=current, count=current);
-	summary.seqs(fasta=current, count=current)
-	pre.cluster(fasta=current, count=current, diffs=2);
-	chimera.uchime(fasta=current, count=current, dereplicate=t);
-	remove.seqs(fasta=current, accnos=current);
-	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
-	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
-	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
+#$tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=1);
+#	summary.seqs(fasta=current);
+#	unique.seqs(fasta=current);
+#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+#	count.seqs(name=current, group=current);
+#	summary.seqs(fasta=current, count=current);
+#	screen.seqs(fasta=current, count=current, start=6322, optimize=end, criteria=95, maxambig=0, maxhomop=8);
+#	filter.seqs(fasta=current, vertical=T, trump=.);
+#	unique.seqs(fasta=current, count=current);
+#	summary.seqs(fasta=current, count=current)
+#	pre.cluster(fasta=current, count=current, diffs=2);
+#	chimera.uchime(fasta=current, count=current, dereplicate=t);
+#	remove.seqs(fasta=current, accnos=current);
+#	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
+#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+$tempMothur	"#cluster.split(fasta=$WORKDIR/lu.trim.contigs.unique.good.filter.unique.pick.pick.fasta, count=$WORKDIR/lu.trim.contigs.unique.good.filter.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/lu.trim.contigs.unique.good.filter.unique.pick.pds.wang.pick.taxonomy, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
 	make.shared(list=current, count=current, label=0.03);
 	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
 	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
