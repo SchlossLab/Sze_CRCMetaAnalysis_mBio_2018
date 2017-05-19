@@ -20,53 +20,53 @@ rm -f $DOWNDIR/*.sra
 # e.g. type of sequencer used and other such data
 
 # Downloading only a specific set of files from the sra
-#wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP045/SRP045685/
+wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP045/SRP045685/
 
 # Convert to fasta files that will be used
-#for sample in $DOWNDIR/*.sra
-#do
-#	fastq-dump $sample -O $WORKDIR
-#	fastq=${sample//sra/fastq}
-#	fastq=${fastq//raw/process}
+for sample in $DOWNDIR/*.sra
+do
+	fastq-dump $sample -O $WORKDIR
+	fastq=${sample//sra/fastq}
+	fastq=${fastq//raw/process}
 
-#	mothur "#fastq.info(fastq=$fastq);
-#		trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=8, qwindowaverage=25, qwindowsize=50)"
-#	rm *.logfile
-#done
+	mothur "#fastq.info(fastq=$fastq);
+		trim.seqs(fasta=current, qfile=current, maxambig=0, maxhomop=8, qwindowaverage=25, qwindowsize=50)"
+	rm *.logfile
+done
 
 # Combined the seperate fasta files  to one file
-#cat $WORKDIR/*trim.fasta > $WORKDIR/combined.fasta
+cat $WORKDIR/*trim.fasta > $WORKDIR/combined.fasta
 
 # Create a group file
-#grep '^>' $WORKDIR/combined.fasta | cut -c 2- > $WORKDIR/header.txt
-#sed 's/\..*//g' $WORKDIR/header.txt > $WORKDIR/group.txt
-#paste --delimiters='\t' $WORKDIR/header.txt $WORKDIR/group.txt > $WORKDIR/combined.groups
+grep '^>' $WORKDIR/combined.fasta | cut -c 2- > $WORKDIR/header.txt
+sed 's/\..*//g' $WORKDIR/header.txt > $WORKDIR/group.txt
+paste --delimiters='\t' $WORKDIR/header.txt $WORKDIR/group.txt > $WORKDIR/combined.groups
 
 # Remove unessary files
-#rm -f $WORKDIR/*.fastq $WORKDIR/*.scrap.* $WORKDIR/*.trim.* $WORKDIR/SRR*fasta $WORKDIR/SRR*qual $WORKDIR/header.txt $WORKDIR/group.txt
+rm -f $WORKDIR/*.fastq $WORKDIR/*.scrap.* $WORKDIR/*.trim.* $WORKDIR/SRR*fasta $WORKDIR/SRR*qual $WORKDIR/header.txt $WORKDIR/group.txt
 
 # Run mothur on the combined file
-#$tempMothur "#summary.seqs(fasta=$WORKDIR/combined.fasta, processors=4);
-#	unique.seqs(fasta=current);
-#	count.seqs(name=current, group=$WORKDIR/combined.groups);
-#	summary.seqs(fasta=current, count=current);
-#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
-#	summary.seqs(fasta=current, count=current);
-#	screen.seqs(fasta=current, count=current, summary=current, end=28425, optimize=start, criteria=95, maxhomop=8);
-#	filter.seqs(fasta=current, vertical=T, trump=.);
-#	unique.seqs(fasta=current, count=current);
-#	summary.seqs(fasta=current, count=current);
-#	pre.cluster(fasta=current, count=current, diffs=2);
-#	chimera.uchime(fasta=current, count=current, dereplicate=t);
-#	remove.seqs(fasta=current, accnos=current);
-#	summary.seqs(fasta=current, count=current);
-#	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
-#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
-#	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
-#	make.shared(list=current, count=current, label=0.03);
-#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
-#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
-#	count.groups()"
+$tempMothur "#summary.seqs(fasta=$WORKDIR/combined.fasta, processors=4);
+	unique.seqs(fasta=current);
+	count.seqs(name=current, group=$WORKDIR/combined.groups);
+	summary.seqs(fasta=current, count=current);
+	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+	summary.seqs(fasta=current, count=current);
+	screen.seqs(fasta=current, count=current, summary=current, end=28425, optimize=start, criteria=95, maxhomop=8);
+	filter.seqs(fasta=current, vertical=T, trump=.);
+	unique.seqs(fasta=current, count=current);
+	summary.seqs(fasta=current, count=current);
+	pre.cluster(fasta=current, count=current, diffs=2);
+	chimera.uchime(fasta=current, count=current, dereplicate=t);
+	remove.seqs(fasta=current, accnos=current);
+	summary.seqs(fasta=current, count=current);
+	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
+	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
+	make.shared(list=current, count=current, label=0.03);
+	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
+	count.groups()"
 
 # Align the metadata and shared files together
 R -e "source('code/dejea.R')"
