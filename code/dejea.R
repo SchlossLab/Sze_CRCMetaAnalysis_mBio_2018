@@ -3,27 +3,35 @@
 	#  *Rows must be in the same order
 	#  *Metadata must contain sample id, white, and disease
 
-shared <- read.table("data/process/dejea/combined.unique.good.filter.unique.precluster.pick.pick.an.unique_list.shared", header=T)
+library("dplyr")
+library("tidyr")
 
-metadata <- read.csv("data/process/dejea/dejea.seqdata.convscrconly.csv", stringsAsFactors=F)
+shared <- read.table("data/process/dejea/combined.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
+                     header=T, stringsAsFactors = F)
 
-#Get only relevant samples
-rownames(shared) <- shared$Group
-rownames(metadata) <- metadata$Run_s
-shared <- shared[rownames(metadata), ]
+
+metadata1 <- read.csv("data/process/dejea/dejea_metadata.csv", 
+                      header = T, stringsAsFactors=F)
+
+metadata2 <- read.delim("data/process/dejea/SraRunTable.txt", 
+                        header = T, stringsAsFactors = F)
+
+# Merge the metadata together and create needed columns
+temp_data <- metadata2 %>% separate(Sample_Name_s, 
+                               into = c("patient_id", "disease", "location")) %>% 
+  select(BioSample_s, Experiment_s, Run_s, SRA_Sample_s, patient_id) %>% 
+  inner_join(metadata1, by = "patient_id") %>% 
+  mutate(white = ifelse(race == "caucasian" | race == "hispanic", 1, 0)) %>% 
+  rename(disease = patient_type)
+
+# Align shared file with metadata
+temp_shared <- shared %>% slice(match(Group, temp_data$Run_s))
+
 
 #Check that everything is okay
-stopifnot(shared$Group == metadata$Run_s)
+stopifnot(temp_shared$Group == temp_data$Run_s)
 
-sample <- metadata$Run_s
-white <- metadata$white
-disease <- metadata$disease
-age <- metadata$age
-sex <- metadata$sex
+write.table(temp_shared, file="data/process/dejea/dejea.shared", quote=F, sep='\t', row.names=F)
 
-metadata <- cbind(sample=sample, white=white, disease=disease, age=age, sex=sex)
-
-write.table(shared, file="data/process/dejea/dejea.shared", quote=F, sep='\t', row.names=F)
-
-write.table(metadata, file="data/process/dejea/dejea.metadata", quote=F, sep='\t', row.names=F)
+write.table(temp_data, file="data/process/dejea/dejea.metadata", quote=F, sep='\t', row.names=F)
  
