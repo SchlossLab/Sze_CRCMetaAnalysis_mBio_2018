@@ -1,7 +1,7 @@
 #!bash
 
 # Load needed R
-module load R/3.3.0
+module load R/3.3.3
 module load sratoolkit/2.7.0
 tempMothur=/nfs/turbo/schloss-lab/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
 

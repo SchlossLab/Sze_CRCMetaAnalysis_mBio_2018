@@ -3,8 +3,11 @@
 	#  *Rows must be in the same order
 	#  *Metadata must contain sample id, white, and disease
 
-library("dplyr")
-library("tidyr")
+
+# Load in needed functions and libraries
+source('code/functions.R')
+
+loadLibs(c("dplyr", "tidyr"))
 
 shared <- read.table("data/process/dejea/combined.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
                      header=T, stringsAsFactors = F)
