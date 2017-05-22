@@ -3,9 +3,19 @@
 	#  *Rows must be in the same order
 	#  *Metadata must contain sample id, white, and disease
 
-shared <- read.table("data/process/weir/combined.unique.good.filter.unique.precluster.pick.pick.an.unique_list.shared", header=T)
+# Necessary Extra information
+  # ERR260325 or TCA1 is for healthy control stool
+  # ERR260326 or TCA2 is for CRC stool
+  # this information was used to craft the raw.metad.csv file
 
-metadata <- read.csv("data/process/weir/weir.raw.metadata.csv", stringsAsFactors=F)
+# Email Primary contact:
+#  Tiffany Weir at Tiffany.Weir@colostate.edu
+
+shared <- read.table("data/process/weir/combined.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
+                     stringsAsFactors=F, header=T)
+
+metadata <- read.csv("data/process/weir/weir.raw.metadata.csv", 
+                     stringsAsFactors=F, header = T)
 
 stopifnot(shared$Group == metadata$SampleID)
 

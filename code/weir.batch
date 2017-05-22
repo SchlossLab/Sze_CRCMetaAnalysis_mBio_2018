@@ -1,8 +1,9 @@
 #!bash
 
 #Load needed R
-module load R/3.3.0
-
+module load R/3.3.3
+module load sratoolkit/2.7.0
+tempMothur=/nfs/turbo/schloss-lab/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
 DOWNDIR=data/raw/weir
 WORKDIR=data/process/weir
 REF=data/references
@@ -17,52 +18,54 @@ REF=data/references
 # Can download using wget from dropbox
 
 # Download and unzip the data set
-wget -O $DOWNDIR/weir.zip https://www.dropbox.com/sh/d35oug6b2k7blcx/AACSx4aPKIF1RCbB3r1koqwSa?dl=1
+#wget -O $DOWNDIR/weir.zip https://www.dropbox.com/sh/d35oug6b2k7blcx/AACSx4aPKIF1RCbB3r1koqwSa?dl=1
 	#might need to use a username and password if so use below
 		#wget -O $DOWNDIR/weir.zip  https://www.dropbox.com/sh/d35oug6b2k7blcx/AACSx4aPKIF1RCbB3r1koqwSa?dl=1
-unzip -d $DOWNDIR -o $DOWNDIR/weir.zip 1.TCA.454Reads.fna 1.TCA.454Reads.qual 2.TCA.454Reads.fna 2.TCA.454Reads.qual
+#unzip -d $DOWNDIR -o $DOWNDIR/weir.zip 1.TCA.454Reads.fna 1.TCA.454Reads.qual 2.TCA.454Reads.fna 2.TCA.454Reads.qual
 
 # Trim the sequences and then combine the group and fasta files together
-for sample in $(ls $DOWNDIR/*.fna)
-do
-	QUAL=${sample//fna/qual}
-	OLIGOI=${sample//fna/oligos}
-	OLIGO=${OLIGOI//raw/process}
+#for sample in $(ls $DOWNDIR/*.fna)
+#do
+#	QUAL=${sample//fna/qual}
+#	OLIGOI=${sample//fna/oligos}
+#	OLIGO=${OLIGOI//raw/process}
 
-	mothur "#trim.seqs(fasta=$sample, oligos=$OLIGO, qfile=$QUAL, maxambig=0, maxhomop=10, qwindowaverage=25, qwindowsize=50, bdiffs=1, processors=8)"
-	rm *logfile
-done
+#	mothur "#trim.seqs(fasta=$sample, oligos=$OLIGO, qfile=$QUAL, maxambig=0, maxhomop=10, qwindowaverage=25, qwindowsize=50, bdiffs=1, processors=4)"
+#	rm *logfile
+#done
 
-cat $DOWNDIR/*.trim.fasta > $WORKDIR/combined.fasta
-cat $DOWNDIR/*.groups > $WORKDIR/combined.groups
+#cat $DOWNDIR/*.trim.fasta > $WORKDIR/combined.fasta
+#cat $DOWNDIR/*.groups > $WORKDIR/combined.groups
 
 
 
 # Run mothur for sequencing processing on combined file
-mothur "#unique.seqs(fasta=$WORKDIR/combined.fasta);
-	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T, processors=8);
-	count.seqs(name=current, group=$WORKDIR/combined.groups);
-	summary.seqs(fasta=current, count=current);
-	screen.seqs(fasta=$WORKDIR/combined.unique.align, count=$WORKDIR/combined.count_table, end=25434, optimize=start, criteria=95, minlength=100, maxhomop=8, processors=8);
-	filter.seqs(fasta=current, vertical=T, trump=.);
-	unique.seqs(fasta=current, count=current);
-	summary.seqs(fasta=current, count=current);
-	pre.cluster(fasta=current, count=current, diffs=2);
-	chimera.uchime(fasta=current, count=current, dereplicate=t);
-	remove.seqs(fasta=current, accnos=current);
-	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
-	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
-	cluster.split(fasta=current, count=current, taxonomy=current, splitmethod=classify, taxlevel=5, cutoff=0.15);
-	make.shared(list=current, count=current, label=0.03);
-	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
-	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance)"
+#$tempMothur "#unique.seqs(fasta=$WORKDIR/combined.fasta);
+#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T, processors=4);
+#	count.seqs(name=current, group=$WORKDIR/combined.groups);
+#	summary.seqs(fasta=current, count=current);
+#	screen.seqs(fasta=current, count=current, summary=current, start=15957, end=25432, maxhomop=8, processors=4);
+#	summary.seqs(fasta=current, count=current);
+#	filter.seqs(fasta=current, vertical=T, trump=.);
+#	unique.seqs(fasta=current, count=current);
+#	summary.seqs(fasta=current, count=current);
+#	pre.cluster(fasta=current, count=current, diffs=2);
+#	chimera.uchime(fasta=current, count=current, dereplicate=t);
+#	remove.seqs(fasta=current, accnos=current);
+#	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
+#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+#	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
+#	make.shared(list=current, count=current, label=0.03);
+#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
+#	count.groups()"
 
 # Match metadata with the shared file
 R -e "source('code/weir.R')"
 
-mothur "#sub.sample(shared=$WORKDIR/weir.shared, size=401, label=0.03);
-	dist.shared(shared=$WORKDIR/weir.shared, calc=braycurtis, label=0.03, subsample=401, iters=100, processors=8);
-	summary.single(shared=$WORKDIR/weir.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=401)"
+$tempMothur "#sub.sample(shared=$WORKDIR/weir.shared, size=1000, label=0.03);
+	dist.shared(shared=$WORKDIR/weir.shared, calc=braycurtis, label=0.03, subsample=1000, iters=100, processors=8);
+	summary.single(shared=$WORKDIR/weir.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=1000)"
 
 mv $WORKDIR/*.cons.taxonomy $WORKDIR/weir.taxonomy
 mv $WORKDIR/*0.03.rep.fasta $WORKDIR/weir.rep.seqs
