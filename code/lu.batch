@@ -58,7 +58,7 @@ $tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=1);
 # Match metadata with the shared file
 R -e "source('code/lu.R')"
 
-$tempMothur "#sub.sample(shared=$WORKDIR/lu.shared, label=0.03);
+$tempMothur "#sub.sample(shared=$WORKDIR/lu.shared, size=5000, label=0.03);
 	dist.shared(shared=$WORKDIR/lu.shared, calc=braycurtis, label=0.03, subsample=5000, iters=100, processors=4);
 	summary.single(shared=$WORKDIR/lu.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=5000)"
 
