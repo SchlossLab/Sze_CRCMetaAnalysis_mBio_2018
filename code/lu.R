@@ -3,9 +3,10 @@
 	#  *Rows must be in the same order
 	#  *Metadata must contain sample id, white, and disease
 
-shared <- read.table("data/process/lu/lu.trim.contigs.good.unique.good.filter.unique.precluster.pick.pick.an.unique_list.shared", header=T)
+shared <- read.table("data/process/lu/lu.trim.contigs.unique.good.filter.unique.pick.pick.opti_mcc.unique_list.shared", 
+                     stringsAsFactors = F, header=T)
 
-metadata <- read.csv("data/process/lu/luData.csv", stringsAsFactors=F)
+metadata <- read.csv("data/process/lu/luData.csv", stringsAsFactors=F, header = T)
 
 rownames(shared) <- shared[, "Group"]
 rownames(metadata) <- metadata[, "Run_s"]
@@ -13,39 +14,16 @@ matched_metadata <- metadata[rownames(shared), ]
 
 stopifnot(shared$Group == matched_metadata$Run_s)
 
-unmatchedsamples <- matched_metadata[which(
-  matched_metadata$divider == "C" | matched_metadata$divider == "A"), ] 
-umatchedshared <- shared[rownames(unmatchedsamples), ]
+sample <- matched_metadata$Run_s
+white <- rep(0,length(rownames(matched_metadata)))
+disease <- matched_metadata$disease
+matched <- matched_metadata$matched
 
-stopifnot(umatchedshared$Group == unmatchedsamples$Run_s)
+matchedmetadata <- cbind(sample=sample, white=white, disease=disease, matched=matched)
 
-matchedsamples <- matched_metadata[which(
-  matched_metadata$divider == "B" | matched_metadata$divider == "A"), ]
-matchedshared <- shared[rownames(matchedsamples), ]
+write.table(shared, file="data/process/lu/lu.shared", quote=F, sep='\t', row.names=F)
 
-stopifnot(matchedshared$Group == matchedsamples$Run_s)
-
-sample <- matchedsamples$Run_s
-white <- rep(0,length(rownames(matchedsamples)))
-disease <- matchedsamples$disease
-pairs <- matchedsamples$Sample_Name_s
-
-matchedmetadata <- cbind(sample=sample, white=white, disease=disease, pairs=pairs)
-
-write.table(matchedshared, file="data/process/lu/lu.matched.shared", quote=F, sep='\t', row.names=F)
-
-write.table(matchedmetadata, file="data/process/lu/lu.matched.metadata", quote=F, sep='\t', row.names=F)
+write.table(matchedmetadata, file="data/process/lu/lu.metadata", quote=F, sep='\t', row.names=F)
 
 
-sample <- unmatchedsamples$Run_s
-white <- rep(0,length(rownames(unmatchedsamples)))
-disease <- unmatchedsamples$disease
-pairs <- unmatchedsamples$Sample_Name_s
 
-unmatchedmetadata <- cbind(sample=sample, white=white, disease=disease, pairs=pairs)
-
-write.table(umatchedshared, file="data/process/lu/lu.unmatched.shared", quote=F, sep='\t', row.names=F)
-
-write.table(unmatchedmetadata, file="data/process/lu/lu.unmatched.metadata", quote=F, sep='\t', row.names=F)
-
- 
