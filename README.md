@@ -1,15 +1,17 @@
 ## Colorectal Cancer Meta-Analysis of Stool and Tissue
 
-At this moment in time the abstract has not been written but am working 
-through the raw data.  Also currently contacting authors for permission
-to use their metadata and raw sequencing files for the completion of this
-project.  I will also update the dependency folder shortly.
+### Main Questions to Answer
+
+* Can we identify global discriminative OTUs in stool that classify tissue?
+* Can we identify global discriminative OTUs in tissue that classify stool?
+* Using all data is there a common signature of health and disease
+
+
 
 ### Active To Do list
 
 * Need to run the Lu data set from the cluster split step onward to incorporate opticlust
-* Need to redownload the the metadata from Dejea which I accidentally deleted
-* Need to run Dejea to incorporate the opticlust method
+
 
 ### Overview
 	project
