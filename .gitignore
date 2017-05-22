@@ -16,4 +16,4 @@ mothur*logfile
 *.pbs
 data/process/lu/old/*
 data/process/dejea/old/*
-
+*.pbs.*
