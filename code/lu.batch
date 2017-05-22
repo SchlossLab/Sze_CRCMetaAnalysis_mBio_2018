@@ -49,7 +49,7 @@ $tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=1);
 	remove.seqs(fasta=current, accnos=current);
 	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
 	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
-	cluster.split(fasta=$WORKDIR/lu.trim.contigs.unique.good.filter.unique.pick.pick.fasta, count=$WORKDIR/lu.trim.contigs.unique.good.filter.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/lu.trim.contigs.unique.good.filter.unique.pick.pds.wang.pick.taxonomy, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
+	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
 	make.shared(list=current, count=current, label=0.03);
 	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
 	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
