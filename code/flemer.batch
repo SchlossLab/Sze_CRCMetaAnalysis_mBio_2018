@@ -39,23 +39,18 @@ mv $DOWNDIR/*.fastq $WORKDIR/
 # Create a temp files to store components of a files file
 ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
 ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
-ls $WORKDIR/*_1.fastq | cut -c25-35 > $WORKDIR/temp_names.txt
+ls $WORKDIR/*_1.fastq | cut -c29-45 > $WORKDIR/temp_names.txt
 
 # Remove extra text components in a sequential fashion
-sed 's/_run3_//' $WORKDIR/temp_names.txt | sed 's/_run3//' | sed 's/_run//' | 
-sed 's/_ru//' | sed 's/_r//' | sed 's/2_/2/' > $WORKDIR/temp_names2.txt
-
-# Custom sub specific matches that don't match with above patterns
-sed 's/EM515OFFP2_/EM515OFFP2/' $WORKDIR/temp_names2.txt | sed 's/EM523OFFD2_/EM523OFFD2/' | 
-sed 's/EM526OFFP1_/EM526OFFP1/' | sed 's/EM534OFFP2_/EM534OFFP2/' | 
-sed 's/EM540OFFP2_/EM540OFFP2/' | sed 's/EM543OFFP2_/EM543OFFP2/' | 
-sed 's/EM544OFFP2_/EM544OFFP2/' > $WORKDIR/names.txt
+sed 's/_lib.*//' $WORKDIR/temp_names.txt | sed 's/_li//' | sed 's/_l//' | 
+sed 's/_run3_//' | sed 's/_run3//' | sed 's/_run//' | 
+sed 's/_ru//' | sed 's/_r//' > $WORKDIR/temp_names2.txt
 
 # Make a files file from the fastq files in the directory
-paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/flemer.files
+paste -d '\t' $WORKDIR/temp_names2.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/flemer.files
 
 # Remove unnecessary files pt1
-rm $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt
+rm $WORKDIR/read1.txt $WORKDIR/read2.txt
 rm $WORKDIR/temp_names2.txt $WORKDIR/temp_names.txt
 
 
