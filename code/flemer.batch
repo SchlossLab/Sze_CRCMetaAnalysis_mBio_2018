@@ -1,0 +1,99 @@
+#!bash
+
+#Load needed R
+module load R/3.3.3
+module load sratoolkit/2.7.0
+tempMothur=/nfs/turbo/schloss-lab/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
+DOWNDIR=data/raw/flemer
+WORKDIR=data/process/flemer
+REF=data/references
+
+# Need to get data from authors via request
+# Should have three files
+  # Data_Flemer_et_al_2016-2016-07-06.zip 
+  # documents-export-2016-07-06.zip
+  # documents-export-2016-07-06_2.zip
+# Within there will be a excel file with sample breakdown and
+# bz2 compressed fastq files.
+# Had to convert the pdf metadata file into csv using ZAMZAR
+  # http://www.zamzar.com/convert/pdf-to-csv/
+
+# unzip data file one 
+unzip $DOWNDIR/Data_Flemer_et_al_2016-2016-07-06.zip -d $DOWNDIR/
+mv 'data/raw/flemer/Data Flemer et al 2016' $DOWNDIR/data1
+mv $DOWNDIR/data1/*.bz2 $DOWNDIR/
+rm -r $DOWNDIR/data1
+
+# unzip data file two
+unzip $DOWNDIR/documents-export-2016-07-06.zip -d $DOWNDIR/
+
+# unzip data file three
+unzip $DOWNDIR/documents-export-2016-07-06_2.zip -d $DOWNDIR/
+
+# Unzip the bz2 fastq files
+bunzip2 $DOWNDIR/*.bz2
+
+# Move necessary files to the working dir
+mv $DOWNDIR/*.fastq $WORKDIR/
+
+# Create a temp files to store components of a files file
+ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
+ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
+ls $WORKDIR/*_1.fastq | cut -c25-35 > $WORKDIR/temp_names.txt
+
+# Remove extra text components in a sequential fashion
+sed 's/_run3_//' $WORKDIR/temp_names.txt | sed 's/_run3//' | sed 's/_run//' | 
+sed 's/_ru//' | sed 's/_r//' | sed 's/2_/2/' > $WORKDIR/temp_names2.txt
+
+# Custom sub specific matches that don't match with above patterns
+sed 's/EM515OFFP2_/EM515OFFP2/' $WORKDIR/temp_names2.txt | sed 's/EM523OFFD2_/EM523OFFD2/' | 
+sed 's/EM526OFFP1_/EM526OFFP1/' | sed 's/EM534OFFP2_/EM534OFFP2/' | 
+sed 's/EM540OFFP2_/EM540OFFP2/' | sed 's/EM543OFFP2_/EM543OFFP2/' | 
+sed 's/EM544OFFP2_/EM544OFFP2/' > $WORKDIR/names.txt
+
+# Make a files file from the fastq files in the directory
+paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/flemer.files
+
+# Remove unnecessary files pt1
+rm $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt
+rm $WORKDIR/temp_names2.txt $WORKDIR/temp_names.txt
+
+
+# Run mothur for sequencing processing on combined file
+#$tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=1);
+#	summary.seqs(fasta=current);
+#	unique.seqs(fasta=current);
+#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+#	count.seqs(name=current, group=current);
+#	summary.seqs(fasta=current, count=current);
+#	screen.seqs(fasta=current, count=current, start=6322, optimize=end, criteria=95, maxambig=0, maxhomop=8);
+#	filter.seqs(fasta=current, vertical=T, trump=.);
+#	unique.seqs(fasta=current, count=current);
+#	summary.seqs(fasta=current, count=current)
+#	pre.cluster(fasta=current, count=current, diffs=2);
+#	chimera.uchime(fasta=current, count=current, dereplicate=t);
+#	remove.seqs(fasta=current, accnos=current);
+#	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
+#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+#	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
+#	make.shared(list=current, count=current, label=0.03);
+#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
+#	count.groups()"
+
+# Match metadata with the shared file
+#R -e "source('code/lu.R')"
+
+#$tempMothur "#sub.sample(shared=$WORKDIR/lu.shared, size=5000, label=0.03);
+#	dist.shared(shared=$WORKDIR/lu.shared, calc=braycurtis, label=0.03, subsample=5000, iters=100, processors=4);
+#	summary.single(shared=$WORKDIR/lu.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=5000)"
+
+
+#mv $WORKDIR/*.cons.taxonomy $WORKDIR/lu.taxonomy
+#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/lu.rep.seqs
+
+#rm $WORKDIR/*.contigs.*
+#rm $WORKDIR/*rabund
+#rm $WORKDIR/*.fastq
+#rm $WORKDIR/*.filter
+
