@@ -55,12 +55,12 @@ rm $WORKDIR/temp_names2.txt $WORKDIR/temp_names.txt
 
 
 # Run mothur for sequencing processing on combined file
-#$tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=1);
-#	summary.seqs(fasta=current);
-#	unique.seqs(fasta=current);
-#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
-#	count.seqs(name=current, group=current);
-#	summary.seqs(fasta=current, count=current);
+$tempMothur "#make.contigs(file=$WORKDIR/flemer.files, processors=4);
+	summary.seqs(fasta=current);
+	unique.seqs(fasta=current);
+	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+	count.seqs(name=current, group=current);
+	summary.seqs(fasta=current, count=current)"
 #	screen.seqs(fasta=current, count=current, start=6322, optimize=end, criteria=95, maxambig=0, maxhomop=8);
 #	filter.seqs(fasta=current, vertical=T, trump=.);
 #	unique.seqs(fasta=current, count=current);
