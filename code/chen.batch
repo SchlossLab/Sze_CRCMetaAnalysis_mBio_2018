@@ -4,8 +4,8 @@
 module load R/3.3.3
 module load sratoolkit/2.7.0
 tempMothur=/nfs/turbo/schloss-lab/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
-DOWNDIR=data/raw/Lu
-WORKDIR=data/process/lu
+DOWNDIR=data/raw/chen
+WORKDIR=data/process/chen
 REF=data/references
 
 # Need to add in a bunch of stuff on the study and what they were looking for.
@@ -28,13 +28,26 @@ done
 
 
 # pull out sample info and seq labeling for each data set
-for fq in $DOWNDIR/*.fastq
+x=1
+for fq in $WORKDIR/*.fastq
 do
-	echo $fq
-
+	if [x == 1]; then
+		$tempMothur "#fastq.info(fastq=$fq, oligos=$WORKDIR/run1.oligos, bdiffs=1)"
+	else
+		$tempMothur "#fastq.info(fastq=$fq, oligos=$WORKDIR/run2.oligos, bdiffs=1)"
+	fi
+	
+	x=x+1
 done
 
+# Remove uneeded files
+rm $DOWNDIR/*html*
+rm $DOWNDIR/*sra*
 
+# Loop through make.group command and get group data
+# Use code similar to below to get the group data
+#fastq=${sample//sra/fastq}
+#	fastq=${fastq//raw/process}
 
 # Run mothur for sequencing processing on combined file
 #$tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=1);
