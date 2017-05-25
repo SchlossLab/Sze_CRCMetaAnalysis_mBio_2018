@@ -61,7 +61,7 @@ $tempMothur "#make.contigs(file=$WORKDIR/flemer.files, processors=4);
 	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
 	count.seqs(name=current, group=current);
 	summary.seqs(fasta=current, count=current);
-	screen.seqs(fasta=current, count=current, summary=current, start=6388, end=25316, maxambig=0, maxhomop=8, minlength=200);
+	screen.seqs(fasta=current, count=current, summary=current, start=6388, end=25316, maxambig=0, maxhomop=8, minlength=200, maxlength=465);
 	filter.seqs(fasta=current, vertical=T, trump=.);
 	unique.seqs(fasta=current, count=current);
 	summary.seqs(fasta=current, count=current)"
