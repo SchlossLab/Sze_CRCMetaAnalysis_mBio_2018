@@ -32,9 +32,12 @@ x=1
 for fq in $WORKDIR/*.fastq
 do
 	if [x == 1]; then
-		$tempMothur "#fastq.info(fastq=$fq, oligos=$WORKDIR/run1.oligos, bdiffs=1)"
+		$tempMothur "#fastq.info(fastq=$fq);
+		trim.seqs(fasta=current, oligos=$WORKDIR/run1.oligos, bdiffs=1, processors=4)"
+	
 	else
-		$tempMothur "#fastq.info(fastq=$fq, oligos=$WORKDIR/run2.oligos, bdiffs=1)"
+		$tempMothur "#fastq.info(fastq=$fq);
+		trim.seqs(fasta=current, oligos=$WORKDIR/run2.oligos, bdiffs=1, processors=4)"
 	fi
 	
 	x=x+1
