@@ -28,37 +28,29 @@ done
 
 
 # pull out sample info and seq labeling for each data set
-x=1
-for fq in $WORKDIR/*.fastq
-do
-	if [x == 1]; then
-		$tempMothur "#fastq.info(fastq=$fq);
-		trim.seqs(fasta=current, oligos=$WORKDIR/run1.oligos, bdiffs=1, processors=4)"
-	
-	else
-		$tempMothur "#fastq.info(fastq=$fq);
-		trim.seqs(fasta=current, oligos=$WORKDIR/run2.oligos, bdiffs=1, processors=4)"
-	fi
-	
-	x=x+1
-done
+$tempMothur "#fastq.info(fastq=$WORKDIR/SRR389090.fastq);
+	trim.seqs(fasta=current, qfile=current, oligos=$WORKDIR/run1.oligos, bdiffs=2, checkorient=t, qwindowaverage=25, qwindowsize=50, processors=4)"
+
+$tempMothur "#fastq.info(fastq=$WORKDIR/SRR389091.fastq);
+	trim.seqs(fasta=current, qfile=current, oligos=$WORKDIR/run2.oligos, bdiffs=2, checkorient=t, qwindowaverage=25, qwindowsize=50, processors=4)"
+
 
 # Remove uneeded files
 rm $DOWNDIR/*html*
 rm $DOWNDIR/*sra*
 
-# Loop through make.group command and get group data
-# Use code similar to below to get the group data
-#fastq=${sample//sra/fastq}
-#	fastq=${fastq//raw/process}
+# Combined the two fasta and group files together
+
+cat $WORKDIR/SRR389090.trim.fasta $WORKDIR/SRR389091.trim.fasta > $WORKDIR/combined.fasta
+cat $WORKDIR/SRR389090.groups $WORKDIR/SRR389091.groups > $WORKDIR/combined.groups
+
 
 # Run mothur for sequencing processing on combined file
-#$tempMothur "#make.contigs(file=$WORKDIR/lu.files, processors=1);
-#	summary.seqs(fasta=current);
-#	unique.seqs(fasta=current);
-#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
-#	count.seqs(name=current, group=current);
-#	summary.seqs(fasta=current, count=current);
+$tempMothur "#summary.seqs(fasta=$WORKDIR/combined.fasta, processors=4);
+	unique.seqs(fasta=current);
+	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+	count.seqs(name=current, group=$WORKDIR/combined.groups);
+	summary.seqs(fasta=current, count=current)"
 #	screen.seqs(fasta=current, count=current, start=6322, optimize=end, criteria=95, maxambig=0, maxhomop=8);
 #	filter.seqs(fasta=current, vertical=T, trump=.);
 #	unique.seqs(fasta=current, count=current);
