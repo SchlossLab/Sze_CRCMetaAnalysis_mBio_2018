@@ -29,7 +29,7 @@ done
 
 # pull out sample info and seq labeling for each data set
 $tempMothur "#fastq.info(fastq=$WORKDIR/SRR526973.fastq);
-	trim.seqs(fasta=current, qfile=current, oligos=$WORKDIR/wang.oligos, bdiffs=1, checkorient=t, minlength=200, qwindowaverage=25, qwindowsize=50, processors=4)"
+	trim.seqs(fasta=current, qfile=current, oligos=$WORKDIR/wang.oligos, bdiffs=2, checkorient=t, minlength=200, qwindowaverage=25, qwindowsize=50, processors=4)"
 
 
 # Remove uneeded files
