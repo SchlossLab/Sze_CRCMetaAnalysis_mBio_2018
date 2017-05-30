@@ -24,7 +24,7 @@ do
 done
 
 # create olio files
- R -e "source('code/make_chen_olig_info.R')"
+ R -e "source('code/make_wang_olig_info.R')"
 
 
 # pull out sample info and seq labeling for each data set
