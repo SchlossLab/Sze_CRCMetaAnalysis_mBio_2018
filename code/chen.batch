@@ -78,6 +78,7 @@ mv $WORKDIR/*.cons.taxonomy $WORKDIR/chen.taxonomy
 mv $WORKDIR/*0.03.rep.fasta $WORKDIR/chen.rep.seqs
 
 rm $WORKDIR/*rabund
-#rm $WORKDIR/*.fastq
-#rm $WORKDIR/*.filter
+rm $WORKDIR/*.fastq
+rm $WORKDIR/combined*
+rm $WORKDIR/SRR*
 
