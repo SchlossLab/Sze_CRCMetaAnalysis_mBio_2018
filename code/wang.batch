@@ -74,8 +74,8 @@ $tempMothur "#sub.sample(shared=$WORKDIR/wang.shared, label=0.03);
 mv $WORKDIR/*.cons.taxonomy $WORKDIR/wang.taxonomy
 mv $WORKDIR/*0.03.rep.fasta $WORKDIR/wang.rep.seqs
 
-#rm $WORKDIR/*.contigs.*
-#rm $WORKDIR/*rabund
-#rm $WORKDIR/*.fastq
-#rm $WORKDIR/*.filter
-
+rm $WORKDIR/*rabund
+rm $WORKDIR/*.fastq
+rm $WORKDIR/*.filter
+rm $WORKDIR/combined*
+rm $WORKDIR/SRR*
