@@ -67,18 +67,17 @@ $tempMothur "#summary.seqs(fasta=$WORKDIR/combined.fasta, processors=4);
 	count.groups()"
 
 # Match metadata with the shared file
-#R -e "source('code/lu.R')"
+R -e "source('code/chen.R')"
 
-#$tempMothur "#sub.sample(shared=$WORKDIR/lu.shared, size=5000, label=0.03);
-#	dist.shared(shared=$WORKDIR/lu.shared, calc=braycurtis, label=0.03, subsample=5000, iters=100, processors=4);
-#	summary.single(shared=$WORKDIR/lu.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=5000)"
+$tempMothur "#sub.sample(shared=$WORKDIR/chen.shared, size=1908, label=0.03);
+	dist.shared(shared=$WORKDIR/chen.shared, calc=braycurtis, label=0.03, subsample=1908, iters=100, processors=4);
+	summary.single(shared=$WORKDIR/chen.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=1908)"
 
 
-#mv $WORKDIR/*.cons.taxonomy $WORKDIR/lu.taxonomy
-#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/lu.rep.seqs
+mv $WORKDIR/*.cons.taxonomy $WORKDIR/chen.taxonomy
+mv $WORKDIR/*0.03.rep.fasta $WORKDIR/chen.rep.seqs
 
-#rm $WORKDIR/*.contigs.*
-#rm $WORKDIR/*rabund
+rm $WORKDIR/*rabund
 #rm $WORKDIR/*.fastq
 #rm $WORKDIR/*.filter
 
