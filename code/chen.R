@@ -55,6 +55,6 @@ stopifnot(shared$Group == select_meta$samples)
 
 write.table(shared, file="data/process/chen/chen.shared", quote=F, sep='\t', row.names=F)
 
-write.table(matchedmetadata, file="data/process/chen/chen.metadata", quote=F, sep='\t', row.names=F)
+write.table(select_meta, file="data/process/chen/chen.metadata", quote=F, sep='\t', row.names=F)
 
 
