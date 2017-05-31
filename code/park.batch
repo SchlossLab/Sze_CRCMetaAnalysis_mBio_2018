@@ -14,7 +14,7 @@ REF=data/references
 # Need 150GB of RAM to run through
 
 # Download the data set
-wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP005/SRP005150/
+wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP065/SRP065106/
 
 # Convert to fasta files that will be used
 for sample in $DOWNDIR/*.sra
