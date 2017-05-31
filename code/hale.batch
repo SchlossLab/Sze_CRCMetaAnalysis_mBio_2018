@@ -1,0 +1,81 @@
+#!bash
+
+#Load needed R
+module load R/3.3.3
+module load samtools/1.3.1
+module load bedtools2/2.25.0
+tempMothur=/nfs/turbo/schloss-lab/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
+SEQDIR=data/raw/hale/Chia_files
+DOWNDIR=data/raw/hale
+WORKDIR=data/process/hale
+REF=data/references
+
+# (Hale, V et al 2017).  Sequences obtained directly from authors 
+# Metadata was obtained directly from authors
+# Need 150GB of RAM to run through
+
+
+# Convert to fasta files that will be used
+#for sample in $SEQDIR/*.bam
+#do
+#	fastq1=${sample//.bam/_1.fastq}
+#	fastq2=${sample//.bam/_2.fastq}
+
+#	bamToFastq -i $sample -fq $fastq1 -fq2 $fastq2
+
+#	mv $SEQDIR/*.fastq $DOWNDIR/
+
+#done
+
+# transfer fastq files to working directory
+mv $DOWNDIR/*.fastq $WORKDIR/
+
+
+# Make a files file for mothur using bash commands
+#Get read 1 fastq
+ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
+# Get read 2 fastq
+ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
+# Get Names to be used
+ls $WORKDIR/*_1.fastq | cut -c19-24 > $WORKDIR/names.txt
+#Combine everything together
+paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/hale.files
+
+
+# Run mothur for sequencing processing on combined file
+#$tempMothur "#summary.seqs(fasta=$WORKDIR/combined.fasta, processors=4);
+#	unique.seqs(fasta=current);
+#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+#	count.seqs(name=current, group=$WORKDIR/combined.groups);
+#	summary.seqs(fasta=current, count=current);
+#	screen.seqs(fasta=current, count=current, start=6388, end=13862, maxambig=0, maxhomop=8);
+#	filter.seqs(fasta=current, vertical=T, trump=.);
+#	unique.seqs(fasta=current, count=current);
+#	summary.seqs(fasta=current, count=current);
+#	pre.cluster(fasta=current, count=current, diffs=2);
+#	chimera.uchime(fasta=current, count=current, dereplicate=t);
+#	remove.seqs(fasta=current, accnos=current);
+#	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
+#	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota);
+#	cluster.split(fasta=current, count=current, taxonomy=current, method=opti, metric=mcc, taxlevel=5, cutoff=0.03);
+#	make.shared(list=current, count=current, label=0.03);
+#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
+#	count.groups()"
+
+# Match metadata with the shared file
+#R -e "source('code/wang.R')"
+
+#$tempMothur "#sub.sample(shared=$WORKDIR/wang.shared, label=0.03);
+#	dist.shared(shared=$WORKDIR/wang.shared, calc=braycurtis, label=0.03, subsample=T, iters=100, processors=4);
+#	summary.single(shared=$WORKDIR/wang.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=T)"
+
+
+#mv $WORKDIR/*.cons.taxonomy $WORKDIR/wang.taxonomy
+#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/wang.rep.seqs
+
+#rm $WORKDIR/*rabund
+#rm $WORKDIR/*.fastq
+#rm $WORKDIR/*.filter
+#rm $WORKDIR/combined*
+#rm $WORKDIR/SRR*
