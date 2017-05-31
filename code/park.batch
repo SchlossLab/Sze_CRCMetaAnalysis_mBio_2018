@@ -10,8 +10,10 @@ REF=data/references
 
 # Need to add in a bunch of stuff on the study and what they were looking for.
 # Might adjust parameters to those set by authors of original manuscript
-# (Wang, T et al 2012).  The SRA project ID is SRA306790 or SRP065106. 
-# Need 150GB of RAM to run through
+# (Park, CH et al 2016).  The SRA project ID is SRA306790 or SRP065106. 
+
+# Something is wrong with the reads they are only max 60bp long. SHould be
+# much bigger. Sequences uploaded cannot be what was used for analysis.
 
 # Download the data set
 wget -r -q -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/SRP065/SRP065106/
@@ -31,7 +33,7 @@ do
 done
 
 # Combined the seperate fasta files  to one file
-#cat $DOWNDIR/*trim.fasta > $WORKDIR/combined.fasta
+cat $WORKDIR/*trim.fasta > $WORKDIR/combined.fasta
 
 # Create a group file
 #grep '^>' $WORKDIR/combined.fasta | cut -c 2- > $WORKDIR/header.txt
