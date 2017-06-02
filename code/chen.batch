@@ -69,7 +69,7 @@ $tempMothur "#summary.seqs(fasta=$WORKDIR/combined.fasta, processors=4);
 # Match metadata with the shared file
 R -e "source('code/chen.R')"
 
-$tempMothur "#sub.sample(shared=$WORKDIR/chen.shared, size=1845, label=0.03);
+$tempMothur "#sub.sample(shared=$WORKDIR/chen.shared, size=1043, label=0.03);
 	dist.shared(shared=$WORKDIR/chen.shared, calc=braycurtis, label=0.03, subsample=1845, iters=100, processors=4);
 	summary.single(shared=$WORKDIR/chen.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=1845)"
 
