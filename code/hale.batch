@@ -28,31 +28,31 @@ REF=data/references
 #done
 
 # transfer fastq files to working directory
-mv $DOWNDIR/*.fastq $WORKDIR/
+#mv $DOWNDIR/*.fastq $WORKDIR/
 
 
 # Make a files file for mothur using bash commands
 #Get read 1 fastq
-ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
+#ls $WORKDIR/*_1.fastq > $WORKDIR/read1.txt
 # Get read 2 fastq
-ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
+#ls $WORKDIR/*_2.fastq > $WORKDIR/read2.txt
 # Get Names to be used
-ls $WORKDIR/*_1.fastq | cut -c19-24 > $WORKDIR/names.txt
+#ls $WORKDIR/*_1.fastq | cut -c19-24 > $WORKDIR/names.txt
 #Combine everything together
-paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/hale.files
+#paste -d '\t' $WORKDIR/names.txt $WORKDIR/read1.txt $WORKDIR/read2.txt > $WORKDIR/hale.files
 
 
 # Run mothur for sequencing processing on combined file
-$tempMothur "#make.contigs(file=$WORKDIR/hale.files);
-	summary.seqs(fasta=current, processors=4);
-	unique.seqs(fasta=current);
-	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
-	count.seqs(name=current, group=current);
+#$tempMothur "#make.contigs(file=$WORKDIR/hale.files);
+#	summary.seqs(fasta=current, processors=4);
+#	unique.seqs(fasta=current);
+#	align.seqs(fasta=current, reference=$REF/silva.seed.align, flip=T);
+#	count.seqs(name=current, group=current);
+#	summary.seqs(fasta=current, count=current)"
+$tempMothur	"#screen.seqs(fasta=$WORKDIR/hale.trim.contigs.unique.align, count=$WORKDIR/hale.trim.contigs.count_table, summary=$WORKDIR/hale.trim.contigs.unique.summary, start=6388, end=28464, maxambig=0, maxhomop=8, processors=4);
+	filter.seqs(fasta=current, vertical=T, trump=.);
+	unique.seqs(fasta=current, count=current);
 	summary.seqs(fasta=current, count=current)"
-#	screen.seqs(fasta=current, count=current, start=6388, end=13862, maxambig=0, maxhomop=8);
-#	filter.seqs(fasta=current, vertical=T, trump=.);
-#	unique.seqs(fasta=current, count=current);
-#	summary.seqs(fasta=current, count=current);
 #	pre.cluster(fasta=current, count=current, diffs=2);
 #	chimera.uchime(fasta=current, count=current, dereplicate=t);
 #	remove.seqs(fasta=current, accnos=current);
