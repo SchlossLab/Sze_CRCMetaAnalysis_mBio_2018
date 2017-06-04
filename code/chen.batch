@@ -82,3 +82,4 @@ rm $WORKDIR/*.fastq
 rm $WORKDIR/combined*
 rm $WORKDIR/SRR*
 
+gzip $WORKDIR/chen.rep.seqs
