@@ -71,13 +71,13 @@ REF=data/references
 #	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
 #	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)"
 
-$tempMothur "#cluster.split(fasta=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, method=opti, metric=mcc, taxlevel=5, cutoff=0.03, cluster=f, processors=4)"
+#$tempMothur "#cluster.split(fasta=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, method=opti, metric=mcc, taxlevel=5, cutoff=0.03, cluster=f, processors=10)"
 
-#$tempMothur "#cluster.split(file=current, method=opti, metric=mcc)
-#	make.shared(list=current, count=current, label=0.03);
-#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
-#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
-#	count.groups()"
+$tempMothur "#cluster.split(file=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.file, method=opti, metric=mcc);
+	make.shared(list=current, count=current, label=0.03);
+	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
+	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
+	count.groups()"
 
 # Match metadata with the shared file
 #R -e "source('code/lu.R')"
