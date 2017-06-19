@@ -49,7 +49,8 @@ for sample in $Wanted_samples;
 do
 	
 	wget -r -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/ERP/ERP005/ERP005534/$sample/
-	
+	rm $DOWNDIR/*.sra.1
+	rm $DOWNDIR/*.sra.2
 done
 
 
