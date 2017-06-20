@@ -11,8 +11,7 @@ WORKDIR=data/process/yu_metagenome
 # Download the data set
 wget -r -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/ERP/ERP012/ERP012177/
 
-rm $DOWNDIR/*.sra.1
-rm $DOWNDIR/*.sra.2
+rm $DOWNDIR/*.sra.*
 rm $DOWNDIR/index.*
 
 
