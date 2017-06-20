@@ -6,11 +6,7 @@ module load sratoolkit/2.7.0
 DOWNDIR=data/raw/Zeller/metagenomes
 WORKDIR=data/process/zeller
 
-# Need to add in a bunch of stuff on the study and what they were looking for.
-# Might adjust parameters to those set by authors of original manuscript
-# (Geng, J et al 2013).  mothur default for 454 allowed only an average of
-# 855 sequence per sample. Author method leave ~1,190 sequences per sample. 
-# The SRA project ID is SRP016877.
+# The SRA project ID is ERP005534.
 
 # Download the data set
 Wanted_samples='ERR479213 ERR479241 ERR479244 ERR479413 ERR479272 ERR479275
