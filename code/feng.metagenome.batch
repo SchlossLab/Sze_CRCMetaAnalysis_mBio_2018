@@ -1,0 +1,42 @@
+#!bash
+
+#Load needed R
+module load R/3.3.3
+module load sratoolkit/2.7.0
+DOWNDIR=data/raw/feng_metagenome
+WORKDIR=data/process/feng_metagenome
+
+# The SRA project ID is ERP008729.
+
+# Download the data set
+wget -r -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/ERP/ERP008/ERP008729/
+
+rm $DOWNDIR/*.sra.1
+rm $DOWNDIR/*.sra.2
+rm $DOWNDIR/index.*
+
+
+# Remove extraneous files
+#rm $DOWNDIR/*.gz.1
+#rm $DOWNDIR/*.gz.2
+
+# Move files to working directory
+#for i in $(ls $DOWNDIR/*.gz | cut -c17-25 | uniq)
+#do
+#	temp_one=$(wc -c ${DOWNDIR}/${i}_1.fastq.gz | awk '{print $1}')
+
+#	temp_two=$(wc -c ${DOWNDIR}/${i}_2.fastq.gz | awk '{print $1}')
+
+#	if [ "$temp_one" == 0 ] || [ "$temp_two" == 0 ]
+#	then
+#		echo "Not moving $i"
+#	else
+#		echo "Moved $i to $WORKDIR"
+#		mv $DOWNDIR/$i* $WORKDIR/
+#	fi
+#done
+
+# Convert to fasta files that will be used
+#gzip -d $WORKDIR/*.gz
+
+
