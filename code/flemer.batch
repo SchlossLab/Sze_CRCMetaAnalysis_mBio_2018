@@ -73,14 +73,14 @@ REF=data/references
 
 #$tempMothur "#cluster.split(fasta=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, method=opti, metric=mcc, taxlevel=5, cutoff=0.03, cluster=f, processors=10)"
 
-$tempMothur "#cluster.split(file=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.file, method=opti, metric=mcc);
-	make.shared(list=current, count=current, label=0.03);
-	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
-	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
-	count.groups()"
+#$tempMothur "#cluster.split(file=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.file, method=opti, metric=mcc);
+#$tempMothur	"#make.shared(list=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list, count=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, label=0.03);
+#	classify.otu(list=current, count=current, taxonomy=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, label=0.03);
+#	get.oturep(fasta=$WORKDIR/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.fasta, count=current, list=current, label=0.03, method=abundance);
+#	count.groups()"
 
 # Match metadata with the shared file
-#R -e "source('code/lu.R')"
+R -e "source('code/flemer.R')"
 
 #$tempMothur "#sub.sample(shared=$WORKDIR/lu.shared, size=5000, label=0.03);
 #	dist.shared(shared=$WORKDIR/lu.shared, calc=braycurtis, label=0.03, subsample=5000, iters=100, processors=4);
