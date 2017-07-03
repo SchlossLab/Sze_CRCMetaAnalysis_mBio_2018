@@ -28,6 +28,6 @@ metadata <- samples %>%
 
 write.table(shared, file="data/process/wang/wang.shared", quote=F, sep='\t', row.names=F)
 
-write.table(matchedmetadata, file="data/process/wang/wang.metadata", quote=F, sep='\t', row.names=F)
+write.table(metadata, file="data/process/wang/wang.metadata", quote=F, sep='\t', row.names=F)
 
 
