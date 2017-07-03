@@ -36,5 +36,5 @@ stopifnot(shared$Group == combined_meta$sample)
 
 write.table(shared, file="data/process/ahn/ahn.shared", quote=F, sep='\t', row.names=F)
 
-write.table(metadata, file="data/process/ahn/ahn.metadata", quote=F, sep='\t', row.names=F)
+write.table(combined_meta, file="data/process/ahn/ahn.metadata", quote=F, sep='\t', row.names=F)
  
