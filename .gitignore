@@ -1,7 +1,8 @@
 .Rproj.user
 .Rhistory
 .RData
-
+.Rprofile
+*.Rproj
 
 data/*/*
 !data/process/*
