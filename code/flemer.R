@@ -22,7 +22,7 @@ seq_match_data <- read.csv("data/process/flemer/flemer_2016_gut.csv",
 
 
 # This is too big to load on laptop
-shared <- read.delim("data/process/flemer/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
+shared <- read.delim("data/process/flemer/flemer.shared", 
                      header = T, stringsAsFactors = F) %>% mutate(Group = seq_match_data$ID)
 
 
@@ -35,6 +35,10 @@ select_meta <- metadata %>% slice(match(shared$Group, ID))
 
 # Check order is okay
 stopifnot(shared$Group == select_meta$samples)
+
+# change sampletype variable
+select_meta <- select_meta %>% rename(sample_type = sampletype) %>%
+	mutate(sample_type = gsub("biopsy", "tissue", sample_type))
 
 # Write out to table
 
