@@ -1,17 +1,17 @@
-sample	white	disease
-SRR609697	0	control
-SRR609698	0	control
-SRR609699	0	control
-SRR609700	0	control
-SRR609701	0	control
-SRR609702	0	control
-SRR609703	0	control
-SRR609704	0	control
-SRR609705	0	cancer
-SRR609706	0	cancer
-SRR609707	0	cancer
-SRR609708	0	cancer
-SRR609709	0	cancer
-SRR609710	0	cancer
-SRR609711	0	cancer
-SRR609712	0	cancer
+sample	white	disease	matched
+SRR609697	0	control	y
+SRR609698	0	control	y
+SRR609699	0	control	y
+SRR609700	0	control	y
+SRR609701	0	control	y
+SRR609702	0	control	y
+SRR609703	0	control	y
+SRR609704	0	control	y
+SRR609705	0	cancer	y
+SRR609706	0	cancer	y
+SRR609707	0	cancer	y
+SRR609708	0	cancer	y
+SRR609709	0	cancer	y
+SRR609710	0	cancer	y
+SRR609711	0	cancer	y
+SRR609712	0	cancer	y
