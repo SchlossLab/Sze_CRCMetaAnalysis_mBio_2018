@@ -8,6 +8,10 @@
 library(dplyr)
 library(tidyr)
 
+# Some warings are thrown but these are not important
+# Turn the warnings off
+options(warn = 0)
+
 # Load needed data
 test <- read.delim("data/raw/chen/run1.txt", header = F, stringsAsFactors = F) %>% 
   separate(V2, c("sample", "barcode"))
@@ -16,7 +20,7 @@ test2 <- read.delim("data/raw/chen/run2.txt", header = F, stringsAsFactors = F) 
   separate(V2, c("sample", "barcode")) 
 
 
-shared <- read.delim("data/process/chen/combined.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
+shared <- read.delim("data/process/chen/chen.shared", 
                      header = T, stringsAsFactors = F)
 
 
@@ -29,27 +33,27 @@ sample_id2 <- test2$sample[1:(length(test2$sample)-1)] # removes one blank value
 
 # recombine to create data tables
 temp1 <- as.data.frame(cbind(sample_id1, groups1)) %>% 
-  rename(samples = sample_id1, classes = groups1) %>% 
+  rename(sample = sample_id1, classes = groups1) %>% 
   mutate(sample_type = ifelse(grepl("stool", classes) == TRUE, invisible("stool"), invisible("tissue")), 
          disease = ifelse(grepl("colorectal cancer", classes) == TRUE, invisible("cancer"), invisible("control")), 
          white = rep(0, length(rownames(.)))) %>% 
-  select(samples, sample_type, disease, white)
+  select(sample, sample_type, disease, white)
 
 temp2 <- as.data.frame(cbind(sample_id2, groups2)) %>% 
-  rename(samples = sample_id2, classes = groups2) %>% 
+  rename(sample = sample_id2, classes = groups2) %>% 
   mutate(sample_type = ifelse(grepl("swab", classes) == TRUE, invisible("swab"), invisible("tissue")), 
          disease = ifelse(grepl("colorectal cancer", classes) == TRUE, invisible("cancer"), invisible("control")), 
          white = rep(0, length(rownames(.)))) %>% 
-  select(samples, sample_type, disease, white)
+  select(sample, sample_type, disease, white)
 
 
 tempData <- temp1 %>% bind_rows(temp2)
 
 # Match shared with tempData
-select_meta <- tempData %>% slice(match(shared$Group, samples))
+select_meta <- tempData %>% slice(match(shared$Group, sample))
 
 # Check order is okay
-stopifnot(shared$Group == select_meta$samples)
+stopifnot(shared$Group == select_meta$sample)
 
 # Write out to table
 

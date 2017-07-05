@@ -1,4 +1,4 @@
-samples	sample_type	disease	white
+sample	sample_type	disease	white
 cat1	tissue	cancer	0
 cat10	tissue	cancer	0
 cat11	tissue	cancer	0
