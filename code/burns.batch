@@ -3,7 +3,7 @@
 #Load needed R
 module load R/3.3.3
 module load sratoolkit/2.7.0
-tempMothur=/nfs/turbo/pschloss/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
+tempMothur=/nfs/turbo/schloss-lab/msze/axiom_home_stuff/bin/mothurV1.39.3/mothur/mothur
 DOWNDIR=data/raw/burns
 WORKDIR=data/process/burns
 REF=data/references
@@ -60,13 +60,13 @@ $tempMothur "#sub.sample(shared=$WORKDIR/burns.shared, size=401, label=0.03);
 	dist.shared(shared=$WORKDIR/burns.shared, calc=braycurtis, label=0.03, subsample=401, iters=100, processors=4);
 	summary.single(shared=$WORKDIR/burns.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=401)"
 
-mv $WORKDIR/*.cons.taxonomy $WORKDIR/burns.taxonomy
-mv $WORKDIR/*0.03.rep.fasta $WORKDIR/burns.rep.seqs
+#mv $WORKDIR/*.cons.taxonomy $WORKDIR/burns.taxonomy
+#mv $WORKDIR/*0.03.rep.fasta $WORKDIR/burns.rep.seqs
 
-rm $WORKDIR/*.fastq
-rm $WORKDIR/*rabund
-rm $WORKDIR/burns.files $WORKDIR/*.txt $WORKDIR/burns.filter
-rm $WORKDIR/burns.trim.* $WORKDIR/burns.contigs.* $WORKDIR/burns.scrap.*
+#rm $WORKDIR/*.fastq
+#rm $WORKDIR/*rabund
+#rm $WORKDIR/burns.files $WORKDIR/*.txt $WORKDIR/burns.filter
+#rm $WORKDIR/burns.trim.* $WORKDIR/burns.contigs.* $WORKDIR/burns.scrap.*
 
 
 
