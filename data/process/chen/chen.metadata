@@ -1,165 +1,165 @@
-sample	sample_type	disease	white
-cat1	tissue	cancer	0
-cat10	tissue	cancer	0
-cat11	tissue	cancer	0
-cat12	tissue	cancer	0
-cat18	tissue	cancer	0
-cat19	tissue	cancer	0
-cat2	tissue	cancer	0
-cat20	tissue	cancer	0
-cat3	tissue	cancer	0
-cat34	tissue	cancer	0
-cat37	tissue	cancer	0
-cat38	tissue	cancer	0
-cat39	tissue	cancer	0
-cat4	tissue	cancer	0
-cat40	tissue	cancer	0
-cat41	tissue	cancer	0
-cat42	tissue	cancer	0
-cat43	tissue	cancer	0
-cat44	tissue	cancer	0
-cat45	tissue	cancer	0
-cat46	tissue	cancer	0
-cat47	tissue	cancer	0
-cat5	tissue	cancer	0
-cat6	tissue	cancer	0
-cat8	tissue	cancer	0
-cat9	tissue	cancer	0
-pa10t1	tissue	control	0
-pa10t10	tissue	control	0
-pa10t11	tissue	control	0
-pa10t12	tissue	control	0
-pa10t18	tissue	control	0
-pa10t19	tissue	control	0
-pa10t20	tissue	control	0
-pa10t4	tissue	control	0
-pa10t40	tissue	control	0
-pa10t44	tissue	control	0
-pa10t45	tissue	control	0
-pa10t46	tissue	control	0
-pa10t47	tissue	control	0
-pa10t6	tissue	control	0
-pa10t7	tissue	control	0
-pa10t9	tissue	control	0
-pa2t1	tissue	control	0
-pa2t10	tissue	control	0
-pa2t11	tissue	control	0
-pa2t12	tissue	control	0
-pa2t18	tissue	control	0
-pa2t19	tissue	control	0
-pa2t2	tissue	cancer	0
-pa2t20	tissue	control	0
-pa2t3	tissue	control	0
-pa2t34	tissue	control	0
-pa2t37	tissue	control	0
-pa2t38	tissue	control	0
-pa2t39	tissue	control	0
-pa2t4	tissue	control	0
-pa2t40	tissue	control	0
-pa2t41	tissue	control	0
-pa2t42	tissue	control	0
-pa2t43	tissue	control	0
-pa2t44	tissue	control	0
-pa2t45	tissue	control	0
-pa2t46	tissue	control	0
-pa2t47	tissue	control	0
-pa2t5	tissue	control	0
-pa2t6	tissue	control	0
-pa2t7	tissue	control	0
-pa2t8	tissue	control	0
-pa2t9	tissue	control	0
-stc1	stool	control	0
-stc10	stool	control	0
-stc11	stool	control	0
-stc12	stool	control	0
-stc13	stool	control	0
-stc14	stool	control	0
-stc15	stool	control	0
-stc16	stool	control	0
-stc17	stool	control	0
-stc18	stool	control	0
-stc20	stool	control	0
-stc21	stool	control	0
-stc22	stool	control	0
-stc3	stool	control	0
-stc4	stool	control	0
-stc6	stool	control	0
-stc7	stool	control	0
-stc8	stool	control	0
-stc9	stool	control	0
-stp1	stool	cancer	0
-stp10	stool	cancer	0
-stp11	stool	cancer	0
-stp12	stool	cancer	0
-stp16	stool	cancer	0
-stp17	stool	cancer	0
-stp2	stool	cancer	0
-stp20	stool	cancer	0
-stp3	stool	cancer	0
-stp34	stool	cancer	0
-stp36	stool	cancer	0
-stp4	stool	cancer	0
-swc1	swab	control	0
-swc10	swab	control	0
-swc11	swab	control	0
-swc12	swab	control	0
-swc13	swab	control	0
-swc14	swab	control	0
-swc15	swab	control	0
-swc16	swab	control	0
-swc17	swab	control	0
-swc18	swab	control	0
-swc19	swab	control	0
-swc2	swab	control	0
-swc20	swab	control	0
-swc21	swab	control	0
-swc22	swab	control	0
-swc23	swab	control	0
-swc24	swab	control	0
-swc25	swab	control	0
-swc26	swab	control	0
-swc27	swab	control	0
-swc28	swab	control	0
-swc29	swab	control	0
-swc3	swab	control	0
-swc30	swab	control	0
-swc31	swab	control	0
-swc32	swab	control	0
-swc33	swab	control	0
-swc34	swab	control	0
-swc4	swab	control	0
-swc5	swab	control	0
-swc6	swab	control	0
-swc7	swab	control	0
-swc8	swab	control	0
-swc9	swab	control	0
-swp1	swab	cancer	0
-swp11	swab	cancer	0
-swp12	swab	cancer	0
-swp13	swab	cancer	0
-swp14	swab	cancer	0
-swp15	swab	cancer	0
-swp16	swab	cancer	0
-swp17	swab	cancer	0
-swp19	swab	cancer	0
-swp2	swab	cancer	0
-swp20	swab	cancer	0
-swp21	swab	cancer	0
-swp22	swab	cancer	0
-swp23	swab	cancer	0
-swp24	swab	cancer	0
-swp25	swab	cancer	0
-swp26	swab	cancer	0
-swp27	swab	cancer	0
-swp28	swab	cancer	0
-swp29	swab	cancer	0
-swp3	swab	cancer	0
-swp30	swab	cancer	0
-swp31	swab	cancer	0
-swp32	swab	cancer	0
-swp33	swab	cancer	0
-swp4	swab	cancer	0
-swp5	swab	cancer	0
-swp6	swab	cancer	0
-swp7	swab	cancer	0
-swp8	swab	cancer	0
+sample	sample_type	disease	white	sex
+cat1	tissue	cancer	0	NA
+cat10	tissue	cancer	0	NA
+cat11	tissue	cancer	0	NA
+cat12	tissue	cancer	0	NA
+cat18	tissue	cancer	0	NA
+cat19	tissue	cancer	0	NA
+cat2	tissue	cancer	0	NA
+cat20	tissue	cancer	0	NA
+cat3	tissue	cancer	0	NA
+cat34	tissue	cancer	0	NA
+cat37	tissue	cancer	0	NA
+cat38	tissue	cancer	0	NA
+cat39	tissue	cancer	0	NA
+cat4	tissue	cancer	0	NA
+cat40	tissue	cancer	0	NA
+cat41	tissue	cancer	0	NA
+cat42	tissue	cancer	0	NA
+cat43	tissue	cancer	0	NA
+cat44	tissue	cancer	0	NA
+cat45	tissue	cancer	0	NA
+cat46	tissue	cancer	0	NA
+cat47	tissue	cancer	0	NA
+cat5	tissue	cancer	0	NA
+cat6	tissue	cancer	0	NA
+cat8	tissue	cancer	0	NA
+cat9	tissue	cancer	0	NA
+pa10t1	tissue	control	0	NA
+pa10t10	tissue	control	0	NA
+pa10t11	tissue	control	0	NA
+pa10t12	tissue	control	0	NA
+pa10t18	tissue	control	0	NA
+pa10t19	tissue	control	0	NA
+pa10t20	tissue	control	0	NA
+pa10t4	tissue	control	0	NA
+pa10t40	tissue	control	0	NA
+pa10t44	tissue	control	0	NA
+pa10t45	tissue	control	0	NA
+pa10t46	tissue	control	0	NA
+pa10t47	tissue	control	0	NA
+pa10t6	tissue	control	0	NA
+pa10t7	tissue	control	0	NA
+pa10t9	tissue	control	0	NA
+pa2t1	tissue	control	0	NA
+pa2t10	tissue	control	0	NA
+pa2t11	tissue	control	0	NA
+pa2t12	tissue	control	0	NA
+pa2t18	tissue	control	0	NA
+pa2t19	tissue	control	0	NA
+pa2t2	tissue	cancer	0	NA
+pa2t20	tissue	control	0	NA
+pa2t3	tissue	control	0	NA
+pa2t34	tissue	control	0	NA
+pa2t37	tissue	control	0	NA
+pa2t38	tissue	control	0	NA
+pa2t39	tissue	control	0	NA
+pa2t4	tissue	control	0	NA
+pa2t40	tissue	control	0	NA
+pa2t41	tissue	control	0	NA
+pa2t42	tissue	control	0	NA
+pa2t43	tissue	control	0	NA
+pa2t44	tissue	control	0	NA
+pa2t45	tissue	control	0	NA
+pa2t46	tissue	control	0	NA
+pa2t47	tissue	control	0	NA
+pa2t5	tissue	control	0	NA
+pa2t6	tissue	control	0	NA
+pa2t7	tissue	control	0	NA
+pa2t8	tissue	control	0	NA
+pa2t9	tissue	control	0	NA
+stc1	stool	control	0	NA
+stc10	stool	control	0	NA
+stc11	stool	control	0	NA
+stc12	stool	control	0	NA
+stc13	stool	control	0	NA
+stc14	stool	control	0	NA
+stc15	stool	control	0	NA
+stc16	stool	control	0	NA
+stc17	stool	control	0	NA
+stc18	stool	control	0	NA
+stc20	stool	control	0	NA
+stc21	stool	control	0	NA
+stc22	stool	control	0	NA
+stc3	stool	control	0	NA
+stc4	stool	control	0	NA
+stc6	stool	control	0	NA
+stc7	stool	control	0	NA
+stc8	stool	control	0	NA
+stc9	stool	control	0	NA
+stp1	stool	cancer	0	NA
+stp10	stool	cancer	0	NA
+stp11	stool	cancer	0	NA
+stp12	stool	cancer	0	NA
+stp16	stool	cancer	0	NA
+stp17	stool	cancer	0	NA
+stp2	stool	cancer	0	NA
+stp20	stool	cancer	0	NA
+stp3	stool	cancer	0	NA
+stp34	stool	cancer	0	NA
+stp36	stool	cancer	0	NA
+stp4	stool	cancer	0	NA
+swc1	swab	control	0	NA
+swc10	swab	control	0	NA
+swc11	swab	control	0	NA
+swc12	swab	control	0	NA
+swc13	swab	control	0	NA
+swc14	swab	control	0	NA
+swc15	swab	control	0	NA
+swc16	swab	control	0	NA
+swc17	swab	control	0	NA
+swc18	swab	control	0	NA
+swc19	swab	control	0	NA
+swc2	swab	control	0	NA
+swc20	swab	control	0	NA
+swc21	swab	control	0	NA
+swc22	swab	control	0	NA
+swc23	swab	control	0	NA
+swc24	swab	control	0	NA
+swc25	swab	control	0	NA
+swc26	swab	control	0	NA
+swc27	swab	control	0	NA
+swc28	swab	control	0	NA
+swc29	swab	control	0	NA
+swc3	swab	control	0	NA
+swc30	swab	control	0	NA
+swc31	swab	control	0	NA
+swc32	swab	control	0	NA
+swc33	swab	control	0	NA
+swc34	swab	control	0	NA
+swc4	swab	control	0	NA
+swc5	swab	control	0	NA
+swc6	swab	control	0	NA
+swc7	swab	control	0	NA
+swc8	swab	control	0	NA
+swc9	swab	control	0	NA
+swp1	swab	cancer	0	NA
+swp11	swab	cancer	0	NA
+swp12	swab	cancer	0	NA
+swp13	swab	cancer	0	NA
+swp14	swab	cancer	0	NA
+swp15	swab	cancer	0	NA
+swp16	swab	cancer	0	NA
+swp17	swab	cancer	0	NA
+swp19	swab	cancer	0	NA
+swp2	swab	cancer	0	NA
+swp20	swab	cancer	0	NA
+swp21	swab	cancer	0	NA
+swp22	swab	cancer	0	NA
+swp23	swab	cancer	0	NA
+swp24	swab	cancer	0	NA
+swp25	swab	cancer	0	NA
+swp26	swab	cancer	0	NA
+swp27	swab	cancer	0	NA
+swp28	swab	cancer	0	NA
+swp29	swab	cancer	0	NA
+swp3	swab	cancer	0	NA
+swp30	swab	cancer	0	NA
+swp31	swab	cancer	0	NA
+swp32	swab	cancer	0	NA
+swp33	swab	cancer	0	NA
+swp4	swab	cancer	0	NA
+swp5	swab	cancer	0	NA
+swp6	swab	cancer	0	NA
+swp7	swab	cancer	0	NA
+swp8	swab	cancer	0	NA

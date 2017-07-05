@@ -10,7 +10,7 @@ library(tidyr)
 
 # Some warings are thrown but these are not important
 # Turn the warnings off
-options(warn = 0)
+options(warn = -1)
 
 # Load needed data
 test <- read.delim("data/raw/chen/run1.txt", header = F, stringsAsFactors = F) %>% 
@@ -50,7 +50,8 @@ temp2 <- as.data.frame(cbind(sample_id2, groups2)) %>%
 tempData <- temp1 %>% bind_rows(temp2)
 
 # Match shared with tempData
-select_meta <- tempData %>% slice(match(shared$Group, sample))
+select_meta <- tempData %>% slice(match(shared$Group, sample)) %>% 
+  mutate(sex = rep(NA, length(sample)))
 
 # Check order is okay
 stopifnot(shared$Group == select_meta$sample)
