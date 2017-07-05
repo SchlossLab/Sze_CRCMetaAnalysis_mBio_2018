@@ -5,11 +5,8 @@
 # Load in needed functions and libraries
 source('code/functions.R')
 
+# Load needed libraries
 loadLibs(c("dplyr", "tidyr", "car", "ggplot2"))
-
-# Need to loop through and do this for every data set
-total_datasets <- c("ahn", "baxter", "brim", "burns", "chen", "dejea", "flemer", "geng", 
-              "lu", "sana", "wang", "weir", "zeller")
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -20,13 +17,15 @@ tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 stool_sets <- c("wang", "brim", "weir", "ahn", "zeller", "baxter")
 
 # Both Tissue and Stool
+  # flemer sampletype = biopsy or stool
+  # chen sample_type = tissue or stool
 # Flemer, Chen
 both_sets <- c("flemer", "chen")
 
 # Create function to wrangle the data
-get_combined_table <- function(datasets, sample_source){
+get_combined_table <- function(datasets, sample_source, split_on = NULL){
   
-  # set up list to store the stool data
+  # set up list to store the stool alpha, meta, and combined z-score with meta data
   all_data <- as.list(datasets)
   names(all_data) <- datasets
   all_metdata <- all_data
@@ -37,20 +36,37 @@ get_combined_table <- function(datasets, sample_source){
     
     # Load in alpha metrics to be used for stool
     all_data[[i]] <- read.delim(paste("data/process/", datasets[i], "/", datasets[i], 
-                                       ".groups.ave-std.summary", sep = ""), 
-                                 header = T, stringsAsFactors = F) %>% 
+                                      ".groups.ave-std.summary", sep = ""), 
+                                header = T, stringsAsFactors = F) %>% 
       filter(method == "ave") %>% 
       mutate(group = as.character(group)) %>% 
       select(group, sobs, shannon, shannoneven)
     
-    # Load in metadata and match
-    all_metdata[[i]] <- read.delim(
-      paste("data/process/", 
-            datasets[i], "/", datasets[i], ".metadata", sep = ""), 
-      header = T, stringsAsFactors = F) %>% 
-      mutate(sample = as.character(sample)) %>% 
-      slice(match(all_data[[i]]$group, sample))
+    # Put in argument that if data set needs pre-splitting go here first
+    if(!is.null(split_on)){
+      
+      # Load in metadata and match
+      all_metdata[[i]] <- read.delim(
+        paste("data/process/", 
+              datasets[i], "/", datasets[i], ".metadata", sep = ""), 
+        header = T, stringsAsFactors = F) %>% 
+        filter(sample_type == split_on) %>% 
+        mutate(sample = as.character(sample)) %>% 
+        slice(match(all_data[[i]]$group, sample))
+      
+    } else{
+      
+      # Load in metadata and match (will only use this if sample type is all one type)
+      all_metdata[[i]] <- read.delim(
+        paste("data/process/", 
+              datasets[i], "/", datasets[i], ".metadata", sep = ""), 
+        header = T, stringsAsFactors = F) %>% 
+        mutate(sample = as.character(sample)) %>% 
+        slice(match(all_data[[i]]$group, sample))
+      
+    }
     
+
     # Can use scale to z-score normalize
     all_z_alpha[[i]] <- all_data[[i]] %>% 
       inner_join(all_metdata[[i]], by = c("group" = "sample")) %>% 
@@ -61,32 +77,32 @@ get_combined_table <- function(datasets, sample_source){
   
   # Combine data together
   data_z_combined <- c()
-  
+  # combine all the different data sets together
   for(i in 1:length(datasets)){
     
-    print(datasets[i])
     data_z_combined <- data_z_combined %>% 
       bind_rows(mutate(all_z_alpha[[i]]))
   }
   
   
-  # convert sex
+  # convert sex column so that all entries are uniform
   data_z_combined <- data_z_combined %>% 
     mutate(sex = gsub("female", "f", sex), 
            sex = gsub("male", "m", sex), 
            sex = gsub("<not provided>", NA, sex))
   
+  # Write out completed data table
   return(data_z_combined)
   
 }
 
+# Create combined stool data table
+stool_data <- get_combined_table(stool_sets, "stool", split_on = NULL) %>% 
+  bind_rows(get_combined_table("chen", "stool", split_on = "stool"))
 
-stool_data <- get_combined_table(stool_sets, "stool")
-tissue_data <- get_combined_table(tissue_sets, "tissue")
-
-
-
-
+# Create combined tissue data table
+tissue_data <- get_combined_table(tissue_sets, "tissue", split_on = NULL) %>% 
+  bind_rows(get_combined_table("chen", "tissue", split_on = "tissue"))
 
 
 
@@ -95,10 +111,10 @@ alpha_measures <- c("sobs", "shannon", "shannoneven")
 alpha_names <- c("Richness", "Shannon Diversity", "Evenness")
 overall_hist <- list(sobs = c(), shannon = c(), shannoneven = c())
 
-# Visualize the distributions
+# Visualize the distributions for the stool data set
 for(i in 1:length(alpha_measures)){
   
-  overall_hist[[i]] <- ggplot(stool_z_combined, aes(stool_z_combined[, alpha_measures[i]])) + 
+  overall_hist[[i]] <- ggplot(stool_data, aes(stool_data[, alpha_measures[i]])) + 
     geom_histogram(color = "black", fill = "white", bins = 40) + theme_bw() + 
     ylab("Counts") + xlab(paste("Z-score Normalized ", alpha_names[i], sep = "")) + 
     scale_y_continuous(limits = c(0, 110), expand = c(0, 0))
