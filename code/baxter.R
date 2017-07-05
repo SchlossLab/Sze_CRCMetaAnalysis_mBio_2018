@@ -25,8 +25,9 @@ white <- metadata$White
 disease <- metadata$dx
 age <- metadata$Age
 sex <- metadata$Gender
+bmi <- metadata$BMI
 
-metadata <- cbind(sample=sample, white=white, disease=disease, age=age, sex=sex)
+metadata <- cbind(sample=sample, white=white, disease=disease, age=age, sex=sex, bmi=bmi)
 
 write.table(shared, file="data/process/baxter/baxter.shared", quote=F, sep='\t', row.names=F)
 
