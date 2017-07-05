@@ -8,7 +8,7 @@ source('code/functions.R')
 loadLibs(c("dplyr", "tidyr", "car", "ggplot2"))
 
 # Need to loop through and do this for every data set
-datasets <- c("ahn", "baxter", "brim", "burns", "chen", "dejea", "flemer", "geng", 
+total_datasets <- c("ahn", "baxter", "brim", "burns", "chen", "dejea", "flemer", "geng", 
               "lu", "sana", "wang", "weir", "zeller")
 
 # Tissue Only sets
@@ -23,53 +23,72 @@ stool_sets <- c("wang", "brim", "weir", "ahn", "zeller", "baxter")
 # Flemer, Chen
 both_sets <- c("flemer", "chen")
 
-# set up list to store the stool data
-all_stool <- list(wang = c(), brim = c(), weir = c(), ahn = c(), zeller = c(), baxter = c())
-all_st_metdata <- list(wang = c(), brim = c(), weir = c(), ahn = c(), zeller = c(), baxter = c())
-all_st_z_alpha <- list(wang = c(), brim = c(), weir = c(), ahn = c(), zeller = c(), baxter = c())
-
-# Run the for loop to process the data
-for(i in 1:length(stool_sets)){
-
-  # Load in alpha metrics to be used for stool
-  all_stool[[i]] <- read.delim(paste("data/process/", stool_sets[i], "/", stool_sets[i], 
-                                   ".groups.ave-std.summary", sep = ""), 
-                             header = T, stringsAsFactors = F) %>% 
-    filter(method == "ave") %>% 
-    mutate(group = as.character(group)) %>% 
-    select(group, sobs, shannon, shannoneven)
+# Create function to wrangle the data
+get_combined_table <- function(datasets, sample_source){
   
-  # Load in metadata and match
-  all_st_metdata[[i]] <- read.delim(
-    paste("data/process/", 
-          stool_sets[i], "/", stool_sets[i], ".metadata", sep = ""), 
-    header = T, stringsAsFactors = F) %>% 
-    mutate(sample = as.character(sample)) %>% 
-    slice(match(all_stool[[i]]$group, sample))
+  # set up list to store the stool data
+  all_data <- as.list(datasets)
+  names(all_data) <- datasets
+  all_metdata <- all_data
+  all_z_alpha <- all_data
   
-  # Can use scale to z-score normalize
-  all_st_z_alpha[[i]] <- all_stool[[i]] %>% 
-    inner_join(all_st_metdata[[i]], by = c("group" = "sample")) %>% 
-    mutate_at(vars(sobs:shannoneven), function(x) as.vector(scale(x))) %>% 
-    mutate(set = stool_sets[i])
+  # Run the for loop to process the data
+  for(i in 1:length(datasets)){
+    
+    # Load in alpha metrics to be used for stool
+    all_data[[i]] <- read.delim(paste("data/process/", datasets[i], "/", datasets[i], 
+                                       ".groups.ave-std.summary", sep = ""), 
+                                 header = T, stringsAsFactors = F) %>% 
+      filter(method == "ave") %>% 
+      mutate(group = as.character(group)) %>% 
+      select(group, sobs, shannon, shannoneven)
+    
+    # Load in metadata and match
+    all_metdata[[i]] <- read.delim(
+      paste("data/process/", 
+            datasets[i], "/", datasets[i], ".metadata", sep = ""), 
+      header = T, stringsAsFactors = F) %>% 
+      mutate(sample = as.character(sample)) %>% 
+      slice(match(all_data[[i]]$group, sample))
+    
+    # Can use scale to z-score normalize
+    all_z_alpha[[i]] <- all_data[[i]] %>% 
+      inner_join(all_metdata[[i]], by = c("group" = "sample")) %>% 
+      mutate_at(vars(sobs:shannoneven), function(x) as.vector(scale(x))) %>% 
+      mutate(set = datasets[i], sample_type = sample_source)
+    
+  }
+  
+  # Combine data together
+  data_z_combined <- c()
+  
+  for(i in 1:length(datasets)){
+    
+    print(datasets[i])
+    data_z_combined <- data_z_combined %>% 
+      bind_rows(mutate(all_z_alpha[[i]]))
+  }
+  
+  
+  # convert sex
+  data_z_combined <- data_z_combined %>% 
+    mutate(sex = gsub("female", "f", sex), 
+           sex = gsub("male", "m", sex), 
+           sex = gsub("<not provided>", NA, sex))
+  
+  return(data_z_combined)
   
 }
 
-# Combine data together
 
-stool_z_combined <- c()
-
-for(i in 1:length(stool_sets)){
-  
-  stool_z_combined <- stool_z_combined %>% bind_rows(all_st_z_alpha[[i]])
-}
+stool_data <- get_combined_table(stool_sets, "stool")
+tissue_data <- get_combined_table(tissue_sets, "tissue")
 
 
-# convert sex
-stool_z_combined <- stool_z_combined %>% 
-  mutate(sex = gsub("female", "f", sex), 
-         sex = gsub("male", "m", sex), 
-         sex = gsub("<not provided>", NA, sex))
+
+
+
+
 
 # Set up the variables that will be used
 alpha_measures <- c("sobs", "shannon", "shannoneven")

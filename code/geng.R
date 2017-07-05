@@ -15,8 +15,9 @@ stopifnot(shared$Group == metadata$Run_s)
 sample <- metadata$Run_s
 white <- rep(0,length(rownames(metadata)))
 disease <- metadata$disease
+matched <- rep("y", length(sample))
 
-metadata <- cbind(sample=sample, white=white, disease=disease)
+metadata <- cbind(sample=sample, white=white, disease=disease, matched=matched)
 
 write.table(shared, file="data/process/geng/geng.shared", quote=F, sep='\t', row.names=F)
 

@@ -23,7 +23,8 @@ metadata <- rename(metadata1, SampleID = Sample_Name_s) %>%
   mutate(disease = ifelse(Description == "tumor", invisible("cancer"), invisible("control"))) %>% 
   slice(match(shared$Group, Run_s)) %>% 
   select(Run_s, disease, age_s, sex_s, Site, Stage) %>% 
-  rename(sample = Run_s, age = age_s, sex = sex_s)
+  rename(sample = Run_s, age = age_s, sex = sex_s, site = Site, stage = Stage) %>% 
+  mutate(matched = rep("y", length(sample)), stage = as.numeric(stage))
  
 # Test to make sure everythin is matched
 stopifnot(shared$Group == metadata$Run_s)

@@ -11,7 +11,7 @@
 library("dplyr")
 library("tidyr")
 
-shared <- read.delim("data/process/ahn/combined.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
+shared <- read.delim("data/process/ahn/ahn.shared", 
                      stringsAsFactors=F, header=T)
 
 metadata <- read.csv("data/process/ahn/AhnData.csv", stringsAsFactors=F)
@@ -23,7 +23,8 @@ demodata <- read.table("data/process/ahn/phs000884.v1.pht004601.v1.p1.c1.Gut_Mic
 #merge demo and meta into one table with variables of interest
 combined_meta <- inner_join(demodata, metadata, by = "gap_subject_id_s") %>% 
   mutate(white = ifelse(RACE == 1, 1, 0), 
-         disease = ifelse(subject_is_affected_s == "Yes", invisible("cancer"), invisible("control"))) %>% 
+         disease = ifelse(subject_is_affected_s == "Yes", invisible("cancer"), invisible("control")), 
+         bmi = as.numeric(bmi)) %>% 
   select(Run_s, disease, AGE, sex_s, bmi) %>% 
   rename(sample = Run_s, age = AGE, sex = sex_s)
 
