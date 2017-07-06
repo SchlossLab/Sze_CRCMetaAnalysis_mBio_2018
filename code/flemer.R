@@ -22,7 +22,7 @@ seq_match_data <- read.csv("data/process/flemer/flemer_2016_gut.csv",
 
 
 # This is too big to load on laptop
-shared <- read.delim("data/process/flemer/flemer.shared", 
+shared <- read.delim("data/process/flemer/flemer.trim.contigs.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared", 
                      header = T, stringsAsFactors = F) %>% mutate(Group = seq_match_data$ID)
 
 
