@@ -40,8 +40,10 @@ stopifnot(shared$Group == select_meta$samples)
 select_meta <- select_meta %>% rename(sample_type = sampletype) %>%
 	mutate(sample_type = gsub("biopsy", "tissue", sample_type)) %>%
 	rename(sex = gender, bmi = BMI, site = disease.site..sample.location, 
-		age = Age, stage = T.stage, disease = group) %>%
-	mutate(disease = gsub("CRC", "cancer", disease))
+		age = Age, stage = T.stage, disease = group, sample = ID, size_mm = tumour) %>%
+	mutate(disease = gsub("CRC", "cancer", disease), age = as.numeric(age), 
+		sex = gsub("Female", "f", sex), sex = gsub("Male", "m", sex), bmi = as.numeric(bmi), 
+		size_mm = as.numeric(size_mm), stage = as.numeric(stage))
 
 # Write out to table
 
