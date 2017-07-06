@@ -125,8 +125,7 @@ generate_histogram_alpha <- function(data_set, sample_type){
 
 # Create combined stool data table
 stool_data <- get_combined_table(stool_sets, "stool", split_on = NULL) %>% 
-  bind_rows(get_combined_table("chen", "stool", split_on = "stool")) %>% 
-  bind_rows(get_combined_table("flemer", "stool", split_on = "stool")) %>% 
+  bind_rows(get_combined_table(both_sets, "stool", split_on = "stool")) %>% 
   select(group, sobs, shannon, shannoneven, disease, white, set, sample_type, sex, 
          age, bmi) %>% 
   filter(!is.na(disease))
@@ -134,8 +133,7 @@ stool_data <- get_combined_table(stool_sets, "stool", split_on = NULL) %>%
 
 # Create combined tissue data table
 tissue_data <- get_combined_table(tissue_sets, "tissue", split_on = NULL) %>% 
-  bind_rows(get_combined_table("chen", "tissue", split_on = "tissue")) %>% 
-  bind_rows(get_combined_table("flemer", "tissue", split_on = "tissue")) %>% 
+  bind_rows(get_combined_table(both_sets, "tissue", split_on = "tissue")) %>% 
   select(group, sobs, shannon, shannoneven, white, disease, matched, set, sample_type, 
          age, sex, site, stage, size_mm, bmi)
 
