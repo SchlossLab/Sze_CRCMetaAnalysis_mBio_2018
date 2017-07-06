@@ -1,315 +1,315 @@
-ID	to.rarefication.	FP	RP	Individual	disease	sample_type	site	sex	tumour	Treatment	age	Index	bmi	Presented.with.rectal.bleeding	Bowel.Preparation	X	stage	N.stage	M.stage
-APC033_001A	28230	N718	S508	APC033.001	control	tissue	A	Female	NA	NA	54	1	31.6	no	Moviprep x 2 Phosphate Enema x1	(M and P)	NA	NA	NA
-APC033_001C	21653	N719	S508	APC033.001	control	tissue	C	Female	NA	NA	54	1	31.6	no	Moviprep x 2 Phosphate Enema x1	(M and P)	NA	NA	NA
-APC033_002B	24886	N727	S518	APC033.002	polyp	tissue	rectal	Male	NA	no	55	1	38.3	no	1 Phosphate enema (P)		NA	NA	NA
-APC033_003A	29550	N720	S508	APC033.003	control	tissue	A	Male	NA	NA	44	0	27.4	yes	Moviprep x 2 (M)		NA	NA	NA
-APC033_003C	35573	N721	S508	APC033.003	control	tissue	C	Male	NA	NA	44	0	27.4	yes	Moviprep x 2 (M)		NA	NA	NA
-APC033_004UDP	7712	N707	S513	APC033.004	polyp	tissue	ascending	Male	NA	no	76	2	26.7	yes	2 Phosphate enemas (P)		NA	NA	NA
-APC033_005A	19983	N722	S508	APC033.005	control	tissue	A	Female	NA	NA	79	1	14.9	no	Picolax x 1 & Moviprep x 2 (P and M)		NA	NA	NA
-APC033_005C	27058	N723	S508	APC033.005	control	tissue	C	Female	NA	NA	79	1	14.9	no	Picolax x 1 & Moviprep x 2 (P and M)		NA	NA	NA
-APC033_006OFF	16607	N711	S517	APC033.006	polyp	tissue	rectal	Male	NA	no	79	0	24.5	no	2 Phosphate enemas (P)		NA	NA	NA
-APC033_006ON	5114	N720	S520	APC033.006	polyp	tissue	rectal	Male	NA	no	79	0	24.5	no	2 Phosphate enemas (P)		NA	NA	NA
-APC033_008A	29225	N705	S522	APC033.008	polyp	tissue	ascending	Female	NA	no	47	0	27	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_008C	16209	N716	S516	APC033.008	polyp	tissue	ascending	Female	NA	no	47	0	27	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_009A	30588	N724	S508	APC033.009	control	tissue	A	Female	NA	NA	55	0	23	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_010A	21121	N712	S516	APC033.010	polyp	tissue	caecum	Male	NA	no	66	1	26.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_010C	23634	N720	S513	APC033.010	polyp	tissue	caecum	Male	NA	no	66	1	26.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_011A	20702	N711	S518	APC033.011	polyp	tissue	ascending	Male	NA	no	64	0	36.2	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_011C	16335	N703	S516	APC033.011	polyp	tissue	ascending	Male	NA	no	64	0	36.2	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_012A	33102	N726	S521	APC033.012	control	tissue	A	Male	NA	NA	50	0	30	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_012C	35250	N727	S521	APC033.012	control	tissue	C	Male	NA	NA	50	0	30	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_013A	26793	N728	S521	APC033.013	control	tissue	A	Female	NA	NA	59	0	21.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_013C	20509	N729	S521	APC033.013	control	tissue	C	Female	NA	NA	59	0	21.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_014A	33552	N723	S515	APC033.014	polyp	tissue	descending	Male	NA	no	64	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_014C	18631	N706	S502	APC033.014	polyp	tissue	descending	Male	NA	no	64	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_015A	21835	N716	S522	APC033.015	control	tissue	A	Male	NA	NA	79	1	39.5	yes	Moviprep x 2 (M)		NA	NA	NA
-APC033_015C	19708	N718	S522	APC033.015	control	tissue	C	Male	NA	NA	79	1	39.5	yes	Moviprep x 2 (M)		NA	NA	NA
-APC033_016A	29104	N719	S522	APC033.016	control	tissue	A	Female	NA	NA	41	0	35.7	no	Moviprep x 2 (M)		NA	NA	NA
-APC033_016C	38536	N720	S522	APC033.016	control	tissue	C	Female	NA	NA	41	0	35.7	no	Moviprep x 2 (M)		NA	NA	NA
-APC033_017A	49499	N721	S522	APC033.017	control	tissue	A	Female	NA	NA	35	0	29.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_017C	37324	N722	S522	APC033.017	control	tissue	C	Female	NA	NA	35	0	29.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_019A	53863	N723	S522	APC033.019	control	tissue	A	Male	NA	NA	50	0	22.8	no	Moviprep x 2 (M)		NA	NA	NA
-APC033_019C	62554	N724	S522	APC033.019	control	tissue	C	Male	NA	NA	50	0	22.8	no	Moviprep x 2 (M)		NA	NA	NA
-APC033_020A	39909	N726	S522	APC033.020	control	tissue	A	Male	NA	NA	44	0	24.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_020C	39147	N727	S522	APC033.020	control	tissue	C	Male	NA	NA	44	0	24.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_021A	34373	N728	S522	APC033.021	control	tissue	A	Female	NA	NA	62	0	17.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_021C	27495	N729	S522	APC033.021	control	tissue	C	Female	NA	NA	62	0	17.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_022C	14046	N705	S515	APC033.022	polyp	tissue	sigmoind	Female	NA	no	37	0	36.2	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_027A	20108	N718	S516	APC033.027	polyp	tissue	rectal	Male	NA	no	59	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_027C	13275	N711	S502	APC033.027	polyp	tissue	rectal	Male	NA	no	59	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_029C	14914	N704	S520	APC033.029	control	tissue	C	Male	NA	NA	41	0	33.3	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_030A	13777	N714	S513	APC033.030	control	tissue	A	Female	NA	NA	59	0	37.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_030C	27570	N707	S518	APC033.030	control	tissue	C	Female	NA	NA	59	0	37.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_031A	23491	N716	S517	APC033.031	control	tissue	A	Male	NA	NA	51	0	30.4	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_031C	19949	N707	S510	APC033.031	control	tissue	C	Male	NA	NA	51	0	30.4	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_032A	24396	N714	S518	APC033.032	polyp	tissue	splenic flexure	Male	NA	no	62	0	22.3	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_032C	15060	N715	S515	APC033.032	polyp	tissue	splenic flexure	Male	NA	no	62	0	22.3	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_033A	29211	N723	S520	APC033.033	control	tissue	A	Female	NA	NA	59	0	23.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_033C	22028	N704	S508	APC033.033	control	tissue	C	Female	NA	NA	59	0	23.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_035A	29616	N727	S515	APC033.035	polyp	tissue	hepatic flexure	Male	NA	no	39	0	27.5	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_035C	32413	N711	S508	APC033.035	polyp	tissue	hepatic flexure	Male	NA	no	39	0	27.5	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_036C	21084	N719	S515	APC033.036	polyp	tissue	rectosigmoid	Female	NA	no	55	0	36.6	yes	1 Phosphate enema (P)		NA	NA	NA
-APC033_037A	24852	N716	S520	APC033.037	polyp	tissue	asc and desc	Male	NA	no	47	0	21.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_038A	21024	N718	S515	APC033.038	control	tissue	A	Female	NA	NA	57	0	21.8	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_038C	26216	N721	S515	APC033.038	control	tissue	C	Female	NA	NA	57	0	21.8	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_039A	31787	N705	S520	APC033.039	control	tissue	A	Male	NA	NA	62	1	28.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_039C	18983	N702	S517	APC033.039	control	tissue	C	Male	NA	NA	62	1	28.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_041A	22533	N726	S518	APC033.041	polyp	tissue	caec and rectosigmoid; history	Male	NA	no	73	1	38.7	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_041C	14385	N701	S506	APC033.041	polyp	tissue	caec and rectosigmoid; history	Male	NA	no	73	1	38.7	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_042A	21300	N707	S507	APC033.042	control	tissue	A	Female	NA	NA	28	0	18.7	yes	2 Phosphate enemas (P)		NA	NA	NA
-APC033_042C	14323	N701	S511	APC033.042	control	tissue	C	Female	NA	NA	28	0	18.7	yes	2 Phosphate enemas (P)		NA	NA	NA
-APC033_043A	31529	N729	S517	APC033.043	control	tissue	A	Male	NA	NA	48	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_043C	14989	N707	S521	APC033.043	control	tissue	C	Male	NA	NA	48	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_044A	53747	N723	S518	APC033.044	control	tissue	A	Female	NA	NA	54	0	24.9	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_044C	29698	N706	S505	APC033.044	control	tissue	C	Female	NA	NA	54	0	24.9	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_045B	40238	N702	S508	APC033.045	polyp	tissue	sigmoid	Male	NA	no	74	0	30.6	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_045C	17508	N705	S511	APC033.045	polyp	tissue	sigmoid	Male	NA	no	74	0	30.6	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_046B	30017	N721	S520	APC033.046	polyp	tissue	caecal	Female	NA	no	33	0	20.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_046C	18372	N704	S510	APC033.046	polyp	tissue	caecal	Female	NA	no	33	0	20.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_048A	13093	N704	S521	APC033.048	polyp	tissue	sigmoid	Male	NA	no	69	0	25.1	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_048C	23343	N715	S517	APC033.048	polyp	tissue	sigmoid	Male	NA	no	69	0	25.1	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_049A	24702	N705	S518	APC033.049	polyp	tissue	caecal	Female	NA	no	65	1	26.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_049C	27441	N728	S518	APC033.049	polyp	tissue	caecal	Female	NA	no	65	1	26.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_050A	14924	N701	S503	APC033.050	polyp	tissue	caecal	Male	NA	no	75	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_050C	14536	N714	S502	APC033.050	polyp	tissue	caecal	Male	NA	no	75	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_051A	15134	N704	S515	APC033.051	control	tissue	A	Male	NA	NA	52	0	28.1	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_051C	21619	N712	S520	APC033.051	control	tissue	C	Male	NA	NA	52	0	28.1	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
-APC033_052A	30848	N727	S517	APC033.052	polyp	tissue	sigmoid	Female	NA	no	79	0	32	no	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
-APC033_052C	18877	N707	S520	APC033.052	polyp	tissue	sigmoid	Female	NA	no	79	0	32	no	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
-APC033_053A	24128	N722	S513	APC033.053	control	tissue	A	Male	NA	NA	34	0	25.4	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
-APC033_053C	25540	N702	S506	APC033.053	control	tissue	C	Male	NA	NA	34	0	25.4	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
-APC033_054A	19561	N729	S513	APC033.054	polyp	tissue	caecal	Male	NA	no	69	1	31.2	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
-APC033_054C	27441	N723	S517	APC033.054	polyp	tissue	caecal	Male	NA	no	69	1	31.2	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
-APC033_056B	7630	N703	S513	APC033.056	cancer	tissue	rectal	Male	no data	chemotherapy and radiotherapy	66	2	36.3	yes	Picolax x2; Klean prep x 2 (P and K)	no data	no data	no data	NA
-APC033_056ON	14084	N701	S518	APC033.056	cancer	tissue	rectal	Male	no data	chemotherapy and radiotherapy	66	2	36.3	yes	Picolax x2; Klean prep x 2 (P and K)	no data	no data	no data	NA
-EM001	18380	N702	S515	EM001	control	stool	NA	Female	NA	NA	69	2	32	no data	NA	NA	NA	NA	NA
-EM016	14534	N729	S515	EM016	control	stool	NA	Male	NA	NA	76	1	31	no data	NA	NA	NA	NA	NA
-EM025	12340	N701	S510	EM025	control	stool	NA	Male	NA	NA	68	2	25.3	no data	NA	NA	NA	NA	NA
-EM047	29318	N703	S518	EM047	control	stool	NA	Male	NA	NA	66	0	36	no data	NA	NA	NA	NA	NA
-EM051	11177	N714	S506	EM051	control	stool	NA	Male	NA	NA	69	0	27.4	no data	NA	NA	NA	NA	NA
-EM053	15154	N719	S513	EM053	control	stool	NA	Male	NA	NA	67	0	22.1	no data	NA	NA	NA	NA	NA
-EM061	20711	N702	S521	EM061	control	stool	NA	Male	NA	NA	78	0	32.8	no data	NA	NA	NA	NA	NA
-EM065	14542	N723	S516	EM065	control	stool	NA	Male	NA	NA	67	0	29	no data	NA	NA	NA	NA	NA
-EM070	18890	N724	S517	EM070	control	stool	NA	Male	NA	NA	66	0	24.6	no data	NA	NA	NA	NA	NA
-EM075	16104	N711	S510	EM075	control	stool	NA	Male	NA	NA	65	0	24.6	no data	NA	NA	NA	NA	NA
-EM083	19895	N720	S516	EM083	control	stool	NA	Female	NA	NA	65	0	35.5	no data	NA	NA	NA	NA	NA
-EM084	21504	N724	S516	EM084	control	stool	NA	Female	NA	NA	67	0	23.3	no data	NA	NA	NA	NA	NA
-EM086	15145	N710	S503	EM086	control	stool	NA	Male	NA	NA	65	1	30	no data	NA	NA	NA	NA	NA
-EM089	24447	N729	S518	EM089	control	stool	NA	Female	NA	NA	68	0	24.2	no data	NA	NA	NA	NA	NA
-EM095	18708	N703	S508	EM095	control	stool	NA	Male	NA	NA	72	2	29	no data	NA	NA	NA	NA	NA
-EM097	12347	N701	S521	EM097	control	stool	NA	Male	NA	NA	70	1	27.3	no data	NA	NA	NA	NA	NA
-EM102	16976	N702	S502	EM102	control	stool	NA	Male	NA	NA	68	0	29	no data	NA	NA	NA	NA	NA
-EM109	11945	N715	S511	EM109	control	stool	NA	Male	NA	NA	69	0	31	no data	NA	NA	NA	NA	NA
-EM119	15057	N715	S507	EM119	control	stool	NA	Male	NA	NA	65	0	35	no data	NA	NA	NA	NA	NA
-EM145	9363	N707	S515	EM145	control	stool	NA	Female	NA	NA	78	3	24.7	no data	NA	NA	NA	NA	NA
-EM172	14212	N705	S503	EM172	control	stool	NA	Male	NA	NA	65	0	30	no data	NA	NA	NA	NA	NA
-EM176	20371	N718	S513	EM176	control	stool	NA	Female	NA	NA	68	0	26.9	no data	NA	NA	NA	NA	NA
-EM193	15346	N722	S517	EM193	control	stool	NA	Male	NA	NA	67	0	24.6	no data	NA	NA	NA	NA	NA
-EM203	13059	N724	S513	EM203	control	stool	NA	Female	NA	NA	66	0	21.6	no data	NA	NA	NA	NA	NA
-EM223	14626	N702	S520	EM223	control	stool	NA	Female	NA	NA	68	0	30	no data	NA	NA	NA	NA	NA
-EM228	12560	N704	S511	EM228	control	stool	NA	Male	NA	NA	70	1	34.1	no data	NA	NA	NA	NA	NA
-EM230	6969	N701	S502	EM230	control	stool	NA	Male	NA	NA	81	0	24.2	no data	NA	NA	NA	NA	NA
-EM244	17172	N711	S507	EM244	control	stool	NA	Female	NA	NA	71	0	27.1	no data	NA	NA	NA	NA	NA
-EM263	13181	N703	S503	EM263	control	stool	NA	Male	NA	NA	69	0	31.3	no data	NA	NA	NA	NA	NA
-EM269	14497	N701	S513	EM269	control	stool	NA	Female	NA	NA	67	1	41	no data	NA	NA	NA	NA	NA
-EM270	13724	N705	S513	EM270	control	stool	NA	Female	NA	NA	67	0	25	no data	NA	NA	NA	NA	NA
-EM278	13335	N714	S505	EM278	control	stool	NA	Female	NA	NA	64	0	24	no data	NA	NA	NA	NA	NA
-EM282	13356	N715	S506	EM282	control	stool	NA	Male	NA	NA	70	2	30.5	no data	NA	NA	NA	NA	NA
+sample	to.rarefication.	FP	RP	Individual	disease	sample_type	site	sex	size_mm	Treatment	age	Index	bmi	Presented.with.rectal.bleeding	Bowel.Preparation	X	stage	N.stage	M.stage
+APC033_001A	28230	N718	S508	APC033.001	control	tissue	A	f	NA	NA	54	1	31.6	no	Moviprep x 2 Phosphate Enema x1	(M and P)	NA	NA	NA
+APC033_001C	21653	N719	S508	APC033.001	control	tissue	C	f	NA	NA	54	1	31.6	no	Moviprep x 2 Phosphate Enema x1	(M and P)	NA	NA	NA
+APC033_002B	24886	N727	S518	APC033.002	polyp	tissue	rectal	m	NA	no	55	1	38.3	no	1 Phosphate enema (P)		NA	NA	NA
+APC033_003A	29550	N720	S508	APC033.003	control	tissue	A	m	NA	NA	44	0	27.4	yes	Moviprep x 2 (M)		NA	NA	NA
+APC033_003C	35573	N721	S508	APC033.003	control	tissue	C	m	NA	NA	44	0	27.4	yes	Moviprep x 2 (M)		NA	NA	NA
+APC033_004UDP	7712	N707	S513	APC033.004	polyp	tissue	ascending	m	NA	no	76	2	26.7	yes	2 Phosphate enemas (P)		NA	NA	NA
+APC033_005A	19983	N722	S508	APC033.005	control	tissue	A	f	NA	NA	79	1	14.9	no	Picolax x 1 & Moviprep x 2 (P and M)		NA	NA	NA
+APC033_005C	27058	N723	S508	APC033.005	control	tissue	C	f	NA	NA	79	1	14.9	no	Picolax x 1 & Moviprep x 2 (P and M)		NA	NA	NA
+APC033_006OFF	16607	N711	S517	APC033.006	polyp	tissue	rectal	m	NA	no	79	0	24.5	no	2 Phosphate enemas (P)		NA	NA	NA
+APC033_006ON	5114	N720	S520	APC033.006	polyp	tissue	rectal	m	NA	no	79	0	24.5	no	2 Phosphate enemas (P)		NA	NA	NA
+APC033_008A	29225	N705	S522	APC033.008	polyp	tissue	ascending	f	NA	no	47	0	27	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_008C	16209	N716	S516	APC033.008	polyp	tissue	ascending	f	NA	no	47	0	27	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_009A	30588	N724	S508	APC033.009	control	tissue	A	f	NA	NA	55	0	23	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_010A	21121	N712	S516	APC033.010	polyp	tissue	caecum	m	NA	no	66	1	26.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_010C	23634	N720	S513	APC033.010	polyp	tissue	caecum	m	NA	no	66	1	26.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_011A	20702	N711	S518	APC033.011	polyp	tissue	ascending	m	NA	no	64	0	36.2	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_011C	16335	N703	S516	APC033.011	polyp	tissue	ascending	m	NA	no	64	0	36.2	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_012A	33102	N726	S521	APC033.012	control	tissue	A	m	NA	NA	50	0	30	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_012C	35250	N727	S521	APC033.012	control	tissue	C	m	NA	NA	50	0	30	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_013A	26793	N728	S521	APC033.013	control	tissue	A	f	NA	NA	59	0	21.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_013C	20509	N729	S521	APC033.013	control	tissue	C	f	NA	NA	59	0	21.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_014A	33552	N723	S515	APC033.014	polyp	tissue	descending	m	NA	no	64	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_014C	18631	N706	S502	APC033.014	polyp	tissue	descending	m	NA	no	64	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_015A	21835	N716	S522	APC033.015	control	tissue	A	m	NA	NA	79	1	39.5	yes	Moviprep x 2 (M)		NA	NA	NA
+APC033_015C	19708	N718	S522	APC033.015	control	tissue	C	m	NA	NA	79	1	39.5	yes	Moviprep x 2 (M)		NA	NA	NA
+APC033_016A	29104	N719	S522	APC033.016	control	tissue	A	f	NA	NA	41	0	35.7	no	Moviprep x 2 (M)		NA	NA	NA
+APC033_016C	38536	N720	S522	APC033.016	control	tissue	C	f	NA	NA	41	0	35.7	no	Moviprep x 2 (M)		NA	NA	NA
+APC033_017A	49499	N721	S522	APC033.017	control	tissue	A	f	NA	NA	35	0	29.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_017C	37324	N722	S522	APC033.017	control	tissue	C	f	NA	NA	35	0	29.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_019A	53863	N723	S522	APC033.019	control	tissue	A	m	NA	NA	50	0	22.8	no	Moviprep x 2 (M)		NA	NA	NA
+APC033_019C	62554	N724	S522	APC033.019	control	tissue	C	m	NA	NA	50	0	22.8	no	Moviprep x 2 (M)		NA	NA	NA
+APC033_020A	39909	N726	S522	APC033.020	control	tissue	A	m	NA	NA	44	0	24.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_020C	39147	N727	S522	APC033.020	control	tissue	C	m	NA	NA	44	0	24.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_021A	34373	N728	S522	APC033.021	control	tissue	A	f	NA	NA	62	0	17.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_021C	27495	N729	S522	APC033.021	control	tissue	C	f	NA	NA	62	0	17.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_022C	14046	N705	S515	APC033.022	polyp	tissue	sigmoind	f	NA	no	37	0	36.2	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_027A	20108	N718	S516	APC033.027	polyp	tissue	rectal	m	NA	no	59	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_027C	13275	N711	S502	APC033.027	polyp	tissue	rectal	m	NA	no	59	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_029C	14914	N704	S520	APC033.029	control	tissue	C	m	NA	NA	41	0	33.3	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_030A	13777	N714	S513	APC033.030	control	tissue	A	f	NA	NA	59	0	37.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_030C	27570	N707	S518	APC033.030	control	tissue	C	f	NA	NA	59	0	37.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_031A	23491	N716	S517	APC033.031	control	tissue	A	m	NA	NA	51	0	30.4	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_031C	19949	N707	S510	APC033.031	control	tissue	C	m	NA	NA	51	0	30.4	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_032A	24396	N714	S518	APC033.032	polyp	tissue	splenic flexure	m	NA	no	62	0	22.3	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_032C	15060	N715	S515	APC033.032	polyp	tissue	splenic flexure	m	NA	no	62	0	22.3	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_033A	29211	N723	S520	APC033.033	control	tissue	A	f	NA	NA	59	0	23.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_033C	22028	N704	S508	APC033.033	control	tissue	C	f	NA	NA	59	0	23.6	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_035A	29616	N727	S515	APC033.035	polyp	tissue	hepatic flexure	m	NA	no	39	0	27.5	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_035C	32413	N711	S508	APC033.035	polyp	tissue	hepatic flexure	m	NA	no	39	0	27.5	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_036C	21084	N719	S515	APC033.036	polyp	tissue	rectosigmoid	f	NA	no	55	0	36.6	yes	1 Phosphate enema (P)		NA	NA	NA
+APC033_037A	24852	N716	S520	APC033.037	polyp	tissue	asc and desc	m	NA	no	47	0	21.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_038A	21024	N718	S515	APC033.038	control	tissue	A	f	NA	NA	57	0	21.8	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_038C	26216	N721	S515	APC033.038	control	tissue	C	f	NA	NA	57	0	21.8	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_039A	31787	N705	S520	APC033.039	control	tissue	A	m	NA	NA	62	1	28.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_039C	18983	N702	S517	APC033.039	control	tissue	C	m	NA	NA	62	1	28.4	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_041A	22533	N726	S518	APC033.041	polyp	tissue	caec and rectosigmoid; history	m	NA	no	73	1	38.7	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_041C	14385	N701	S506	APC033.041	polyp	tissue	caec and rectosigmoid; history	m	NA	no	73	1	38.7	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_042A	21300	N707	S507	APC033.042	control	tissue	A	f	NA	NA	28	0	18.7	yes	2 Phosphate enemas (P)		NA	NA	NA
+APC033_042C	14323	N701	S511	APC033.042	control	tissue	C	f	NA	NA	28	0	18.7	yes	2 Phosphate enemas (P)		NA	NA	NA
+APC033_043A	31529	N729	S517	APC033.043	control	tissue	A	m	NA	NA	48	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_043C	14989	N707	S521	APC033.043	control	tissue	C	m	NA	NA	48	0	28.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_044A	53747	N723	S518	APC033.044	control	tissue	A	f	NA	NA	54	0	24.9	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_044C	29698	N706	S505	APC033.044	control	tissue	C	f	NA	NA	54	0	24.9	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_045B	40238	N702	S508	APC033.045	polyp	tissue	sigmoid	m	NA	no	74	0	30.6	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_045C	17508	N705	S511	APC033.045	polyp	tissue	sigmoid	m	NA	no	74	0	30.6	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_046B	30017	N721	S520	APC033.046	polyp	tissue	caecal	f	NA	no	33	0	20.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_046C	18372	N704	S510	APC033.046	polyp	tissue	caecal	f	NA	no	33	0	20.7	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_048A	13093	N704	S521	APC033.048	polyp	tissue	sigmoid	m	NA	no	69	0	25.1	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_048C	23343	N715	S517	APC033.048	polyp	tissue	sigmoid	m	NA	no	69	0	25.1	yes	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_049A	24702	N705	S518	APC033.049	polyp	tissue	caecal	f	NA	no	65	1	26.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_049C	27441	N728	S518	APC033.049	polyp	tissue	caecal	f	NA	no	65	1	26.8	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_050A	14924	N701	S503	APC033.050	polyp	tissue	caecal	m	NA	no	75	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_050C	14536	N714	S502	APC033.050	polyp	tissue	caecal	m	NA	no	75	0	27	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_051A	15134	N704	S515	APC033.051	control	tissue	A	m	NA	NA	52	0	28.1	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_051C	21619	N712	S520	APC033.051	control	tissue	C	m	NA	NA	52	0	28.1	no	Picolax x2; Klean prep x 2 (P and K)		NA	NA	NA
+APC033_052A	30848	N727	S517	APC033.052	polyp	tissue	sigmoid	f	NA	no	79	0	32	no	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
+APC033_052C	18877	N707	S520	APC033.052	polyp	tissue	sigmoid	f	NA	no	79	0	32	no	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
+APC033_053A	24128	N722	S513	APC033.053	control	tissue	A	m	NA	NA	34	0	25.4	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
+APC033_053C	25540	N702	S506	APC033.053	control	tissue	C	m	NA	NA	34	0	25.4	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
+APC033_054A	19561	N729	S513	APC033.054	polyp	tissue	caecal	m	NA	no	69	1	31.2	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
+APC033_054C	27441	N723	S517	APC033.054	polyp	tissue	caecal	m	NA	no	69	1	31.2	yes	Picolax x2; Klean prep x 2 (P and K)	NA	NA	NA	NA
+APC033_056B	7630	N703	S513	APC033.056	cancer	tissue	rectal	m	NA	chemotherapy and radiotherapy	66	2	36.3	yes	Picolax x2; Klean prep x 2 (P and K)	no data	NA	no data	NA
+APC033_056ON	14084	N701	S518	APC033.056	cancer	tissue	rectal	m	NA	chemotherapy and radiotherapy	66	2	36.3	yes	Picolax x2; Klean prep x 2 (P and K)	no data	NA	no data	NA
+EM001	18380	N702	S515	EM001	control	stool	NA	f	NA	NA	69	2	32	no data	NA	NA	NA	NA	NA
+EM016	14534	N729	S515	EM016	control	stool	NA	m	NA	NA	76	1	31	no data	NA	NA	NA	NA	NA
+EM025	12340	N701	S510	EM025	control	stool	NA	m	NA	NA	68	2	25.3	no data	NA	NA	NA	NA	NA
+EM047	29318	N703	S518	EM047	control	stool	NA	m	NA	NA	66	0	36	no data	NA	NA	NA	NA	NA
+EM051	11177	N714	S506	EM051	control	stool	NA	m	NA	NA	69	0	27.4	no data	NA	NA	NA	NA	NA
+EM053	15154	N719	S513	EM053	control	stool	NA	m	NA	NA	67	0	22.1	no data	NA	NA	NA	NA	NA
+EM061	20711	N702	S521	EM061	control	stool	NA	m	NA	NA	78	0	32.8	no data	NA	NA	NA	NA	NA
+EM065	14542	N723	S516	EM065	control	stool	NA	m	NA	NA	67	0	29	no data	NA	NA	NA	NA	NA
+EM070	18890	N724	S517	EM070	control	stool	NA	m	NA	NA	66	0	24.6	no data	NA	NA	NA	NA	NA
+EM075	16104	N711	S510	EM075	control	stool	NA	m	NA	NA	65	0	24.6	no data	NA	NA	NA	NA	NA
+EM083	19895	N720	S516	EM083	control	stool	NA	f	NA	NA	65	0	35.5	no data	NA	NA	NA	NA	NA
+EM084	21504	N724	S516	EM084	control	stool	NA	f	NA	NA	67	0	23.3	no data	NA	NA	NA	NA	NA
+EM086	15145	N710	S503	EM086	control	stool	NA	m	NA	NA	65	1	30	no data	NA	NA	NA	NA	NA
+EM089	24447	N729	S518	EM089	control	stool	NA	f	NA	NA	68	0	24.2	no data	NA	NA	NA	NA	NA
+EM095	18708	N703	S508	EM095	control	stool	NA	m	NA	NA	72	2	29	no data	NA	NA	NA	NA	NA
+EM097	12347	N701	S521	EM097	control	stool	NA	m	NA	NA	70	1	27.3	no data	NA	NA	NA	NA	NA
+EM102	16976	N702	S502	EM102	control	stool	NA	m	NA	NA	68	0	29	no data	NA	NA	NA	NA	NA
+EM109	11945	N715	S511	EM109	control	stool	NA	m	NA	NA	69	0	31	no data	NA	NA	NA	NA	NA
+EM119	15057	N715	S507	EM119	control	stool	NA	m	NA	NA	65	0	35	no data	NA	NA	NA	NA	NA
+EM145	9363	N707	S515	EM145	control	stool	NA	f	NA	NA	78	3	24.7	no data	NA	NA	NA	NA	NA
+EM172	14212	N705	S503	EM172	control	stool	NA	m	NA	NA	65	0	30	no data	NA	NA	NA	NA	NA
+EM176	20371	N718	S513	EM176	control	stool	NA	f	NA	NA	68	0	26.9	no data	NA	NA	NA	NA	NA
+EM193	15346	N722	S517	EM193	control	stool	NA	m	NA	NA	67	0	24.6	no data	NA	NA	NA	NA	NA
+EM203	13059	N724	S513	EM203	control	stool	NA	f	NA	NA	66	0	21.6	no data	NA	NA	NA	NA	NA
+EM223	14626	N702	S520	EM223	control	stool	NA	f	NA	NA	68	0	30	no data	NA	NA	NA	NA	NA
+EM228	12560	N704	S511	EM228	control	stool	NA	m	NA	NA	70	1	34.1	no data	NA	NA	NA	NA	NA
+EM230	6969	N701	S502	EM230	control	stool	NA	m	NA	NA	81	0	24.2	no data	NA	NA	NA	NA	NA
+EM244	17172	N711	S507	EM244	control	stool	NA	f	NA	NA	71	0	27.1	no data	NA	NA	NA	NA	NA
+EM263	13181	N703	S503	EM263	control	stool	NA	m	NA	NA	69	0	31.3	no data	NA	NA	NA	NA	NA
+EM269	14497	N701	S513	EM269	control	stool	NA	f	NA	NA	67	1	41	no data	NA	NA	NA	NA	NA
+EM270	13724	N705	S513	EM270	control	stool	NA	f	NA	NA	67	0	25	no data	NA	NA	NA	NA	NA
+EM278	13335	N714	S505	EM278	control	stool	NA	f	NA	NA	64	0	24	no data	NA	NA	NA	NA	NA
+EM282	13356	N715	S506	EM282	control	stool	NA	m	NA	NA	70	2	30.5	no data	NA	NA	NA	NA	NA
 EM372	12524	N714	S511	EM372	control	stool	NA	gender	NA	NA	76	no data	29.2	no data	NA	NA	NA	NA	NA
 EM432	11449	N710	S517	EM432	control	stool	NA	gender	NA	NA	66	no data	34.2	no data	NA	NA	NA	NA	NA
 EM436	23960	N714	S507	EM436	control	stool	NA	gender	NA	NA	78	no data	27.9	no data	NA	NA	NA	NA	NA
 EM448	14475	N716	S518	EM448	control	stool	NA	gender	NA	NA	76	no data	25.6	no data	NA	NA	NA	NA	NA
-EM501	11690	N716	S513	EM501	cancer	stool	caecal	Male	5.5	no	87	2	19	no	NA	T3	N0	Mx	NA
-EM501ON	13621	N705	S505	EM501	cancer	tissue	caecal	Male	5.5	no	87	2	19	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM501UDD	16399	N720	S515	EM501	cancer	tissue	caecal	Male	5.5	no	87	2	19	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM502	21251	N707	S508	EM502	cancer	stool	rectal	Female	no data	chemotherapy and radiotherapy	58	6	19	yes	NA	T3	N2	M0	NA
-EM503	25942	N721	S516	EM503	cancer	stool	caecal	Male	no data	no	63	2	34	no	NA	T1	N1a	Mx	NA
-EM503ON	12844	N714	S521	EM503	cancer	tissue	caecal	Male	no data	no	63	2	34	no	2 Phosphate enemas (P)	T1	N1a	Mx	NA
-EM503UDD	14154	N711	S513	EM503	cancer	tissue	caecal	Male	no data	no	63	2	34	no	2 Phosphate enemas (P)	T1	N1a	Mx	NA
-EM505	12568	N728	S513	EM505	cancer	stool	rectal	Male	no data	chemotherapy and radiotherapy	60	2	33.1	yes	NA	T3	N0	Mx	NA
-EM505ON	17095	N711	S511	EM505	cancer	tissue	rectal	Male	no data	chemotherapy and radiotherapy	60	2	33.1	yes	enema x 2 on morning of the surgery (full)	T3	N0	Mx	NA
-EM505UDP	31334	N706	S510	EM505	cancer	tissue	rectal	Male	no data	chemotherapy and radiotherapy	60	2	33.1	yes	enema x 2 on morning of the surgery (full)	T3	N0	Mx	NA
-EM506	20313	N715	S520	EM506	cancer	stool	rectosigmoid	Male	no data	chemotherapy and radiotherapy	52	6	22	yes	NA	T3	N0	M1	NA
-EM506UDP	10498	N707	S516	EM506	cancer	tissue	rectosigmoid	Male	no data	chemotherapy and radiotherapy	52	6	22	yes	enema x 2 on morning of the surgery (full)	T3	N0	M1	NA
-EM507	18544	N710	S506	EM507	cancer	stool	rectal	Female	no data	chemotherapy and radiotherapy	41	2	33	yes	NA	T1	N0	Mx	NA
-EM507ON	23332	N718	S518	EM507	cancer	tissue	rectal	Female	no data	chemotherapy and radiotherapy	41	2	33	yes	enema x 2 on morning of the surgery (full)	T1	N0	Mx	NA
-EM508	18499	N705	S521	EM508	cancer	stool	caecal	Male	no data	no	63	6	27.4	no	NA	T3	N1a	Mx	NA
-EM508ON	22752	N702	S522	EM508	cancer	tissue	caecal	Male	no data	no	63	6	27.4	no	2 Phosphate enemas (P)	T3	N1a	Mx	NA
-EM508UDP	7172	N712	S502	EM508	cancer	tissue	caecal	Male	no data	no	63	6	27.4	no	2 Phosphate enemas (P)	T3	N1a	Mx	NA
-EM509	13433	N707	S511	EM509	cancer	stool	caecal	Male	6.5	no	77	3	no data	yes	NA	T4	N1a	Mx	NA
-EM509ON	6091	N712	S513	EM509	cancer	tissue	caecal	Male	6.5	no	77	3	no data	yes	2 Phosphate enemas (P)	T4	N1a	Mx	NA
-EM509UDD	22913	N720	S518	EM509	cancer	tissue	caecal	Male	6.5	no	77	3	no data	yes	2 Phosphate enemas (P)	T4	N1a	Mx	NA
-EM511ON	22595	N723	S513	EM511	cancer	tissue	rectal	Male	0.7	radiotherapy	69	2	28	no	2 Phosphate enemas (P)	T2	N0	Mx	NA
-EM511UDP	14403	N703	S520	EM511	cancer	tissue	rectal	Male	0.7	radiotherapy	69	2	28	no	2 Phosphate enemas (P)	T2	N0	Mx	NA
-EM512	8324	N701	S517	EM512	cancer	stool	rectal	Male	4.9	radiotherapy	82	2	30.5	yes	NA	T3	N2a	Mx	NA
-EM512ON	14967	N705	S517	EM512	cancer	tissue	rectal	Male	4.9	radiotherapy	82	2	30.5	yes	2 Phosphate enemas (P)	T3	N2a	Mx	NA
-EM512UDP	15453	N722	S516	EM512	cancer	tissue	rectal	Male	4.9	radiotherapy	82	2	30.5	yes	2 Phosphate enemas (P)	T3	N2a	Mx	NA
-EM513	11502	N710	S513	EM513	cancer	stool	caecal	Male	3.7	no	71	3	36	no	NA	T3	N2a	Mx	NA
-EM513ON	20988	N706	S503	EM513	cancer	tissue	caecal	Male	3.7	no	71	3	36	no	2 Phosphate enemas (P)	T3	N2a	Mx	NA
-EM513UDP	17764	N726	S516	EM513	cancer	tissue	caecal	Male	3.7	no	71	3	36	no	2 Phosphate enemas (P)	T3	N2a	Mx	NA
-EM514	26545	N705	S508	EM514	cancer	stool	rectal	Male	3.5	chemotherapy and radiotherapy	77	7	27	yes	NA	T0	M0	Mx	NA
-EM515OFFP	15244	N712	S521	EM515	cancer	tissue	rectal	Male	0.5	chemotherapy and radiotherapy	67	3	29	yes	enema x 2 on morning of the surgery (full)	T2	N0	Mx	NA
-EM515ON	19395	N726	S515	EM515	cancer	tissue	rectal	Male	0.5	chemotherapy and radiotherapy	67	3	29	yes	enema x 2 on morning of the surgery (full)	T2	N0	Mx	NA
-EM516	14366	N703	S521	EM516	cancer	stool	caecal	Male	3.6	no	74	2	26	no	NA	T3	N1a	Mx	NA
-EM516ON	18145	N702	S511	EM516	cancer	tissue	caecal	Male	3.6	no	74	2	26	no	2 Phosphate enemas (P)	T3	N1a	Mx	NA
-EM516UDD	10711	N703	S517	EM516	cancer	tissue	caecal	Male	3.6	no	74	2	26	no	2 Phosphate enemas (P)	T3	N1a	Mx	NA
-EM517	8369	N703	S502	EM517	cancer	stool	rectal	Male	1.1	chemotherapy and radiotherapy	53	2	26	yes	NA	T3	N0	Mx	NA
-EM517UDP	18078	N707	S503	EM517	cancer	tissue	rectal	Male	1.1	chemotherapy and radiotherapy	53	2	26	yes	enema x 2 on morning of the surgery (full)	T3	N0	Mx	NA
-EM520	14567	N703	S522	EM520	cancer	stool	rectal	Male	4	no	58	6	20.5	yes	NA	T3	N0	Mx	NA
-EM521ON	12475	N719	S516	EM521	cancer	tissue	rectal	Male	6.6	radiotherapy	45	2	31	yes	enema x 2 on morning of the surgery (full)	T3	N0	Mx	NA
-EM523	16401	N726	S520	EM523	cancer	stool	caecal	Male	no data	no	50	2	29	no	NA	no data	no data	no data	NA
-EM523OFFD	22920	N710	S511	EM523	cancer	tissue	caecal	Male	no data	no	50	2	29	no	2 Phosphate enemas (P)	no data	no data	no data	NA
-EM523UDD	18106	N714	S522	EM523	cancer	tissue	caecal	Male	no data	no	50	2	29	no	2 Phosphate enemas (P)	no data	no data	no data	NA
-EM525	16309	N704	S518	EM525	cancer	stool	rectal	Female	no data	no	62	2	21	yes	NA	T1	N0	Mx	NA
-EM526	13537	N714	S516	EM526	cancer	stool	rectosigmoid	Male	1.7	no	61	2	25	no	NA	T2	N0	Mx	NA
-EM526OFFP	9968	N712	S515	EM526	cancer	tissue	rectosigmoid	Male	1.7	no	61	2	25	no	enema x 2 on morning of the surgery (full)	T2	N0	Mx	NA
-EM526UDP	15248	N711	S503	EM526	cancer	tissue	rectosigmoid	Male	1.7	no	61	2	25	no	enema x 2 on morning of the surgery (full)	T2	N0	Mx	NA
-EM527	30817	N715	S510	EM527	cancer	stool	caecal	Male	4	no	90	2	no data	no	NA	T4	N2b	M1	NA
-EM527ON	13454	N705	S502	EM527	cancer	tissue	caecal	Male	4	no	90	2	no data	no	2 Phosphate enemas (P)	T4	N2b	M1	NA
-EM527UDD	26544	N702	S518	EM527	cancer	tissue	caecal	Male	4	no	90	2	no data	no	2 Phosphate enemas (P)	T4	N2b	M1	NA
-EM529	10511	N711	S506	EM529	cancer	stool	ascending	Male	1.6	no	74	2	34	no	NA	T2	N0	Mx	NA
-EM529ON	12296	N711	S515	EM529	cancer	tissue	ascending	Male	1.6	no	74	2	34	no	2 Phosphate enemas (P)	T2	N0	Mx	NA
-EM529UDP	38618	N706	S508	EM529	cancer	tissue	ascending	Male	1.6	no	74	2	34	no	2 Phosphate enemas (P)	T2	N0	Mx	NA
-EM530	11701	N701	S522	EM530	cancer	stool	ascending	Female	5	no	55	3	no data	no	NA	T3	N0	Mx	NA
-EM530UDP	11778	N703	S515	EM530	cancer	tissue	ascending	Female	5	no	55	3	no data	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM531	17111	N712	S505	EM531	cancer	stool	rectal	Male	3.3	no	65	3	30	yes	NA	T2	N0	Mx	NA
-EM531ON	25421	N714	S510	EM531	cancer	tissue	rectal	Male	3.3	no	65	3	30	yes	enema x 2 on morning of the surgery (full)	T2	N0	Mx	NA
-EM531UDP	10741	N712	S511	EM531	cancer	tissue	rectal	Male	3.3	no	65	3	30	yes	enema x 2 on morning of the surgery (full)	T2	N0	Mx	NA
-EM532	17253	N729	S516	EM532	cancer	stool	caecal	Female	no data	no	72	5	16	no	NA	T4	N0	Mx	NA
-EM532ON	12410	N714	S503	EM532	cancer	tissue	caecal	Female	no data	no	72	5	16	no	2 Phosphate enemas (P)	T4	N0	Mx	NA
-EM532UDP	20798	N710	S508	EM532	cancer	tissue	caecal	Female	no data	no	72	5	16	no	2 Phosphate enemas (P)	T4	N0	Mx	NA
-EM533	21319	N727	S513	EM533	cancer	stool	rectal	Male	4	chemotherapy and radiotherapy	66	3	29.9	yes	NA	T4	N2a	Mx	NA
-EM534OFFP	12888	N710	S502	EM534	cancer	tissue	ascending	Male	2	no	77	2	28	no	2 Phosphate enemas (P)	no data	no data	no data	NA
-EM534ON	16194	N711	S520	EM534	cancer	tissue	ascending	Male	2	no	77	2	28	no	2 Phosphate enemas (P)	no data	no data	no data	NA
-EM534UDD	8501	N704	S522	EM534	cancer	tissue	ascending	Male	2	no	77	2	28	no	2 Phosphate enemas (P)	no data	no data	no data	NA
-EM535	18438	N714	S520	EM535	cancer	stool	caecal	Male	no data	no	71	5	21.7	no data	NA	no data	no data	no data	NA
-EM536UDP	19484	N714	S508	EM536	cancer	tissue	sigmoid	Female	no data	no	77	2	24	yes	2 Phosphate enemas (P)	no data	no data	no data	NA
-EM537	24888	N712	S518	EM537	cancer	stool	sigmoid	Female	2	no	60	2	40	no	NA	T3	N0	Mx	NA
-EM537ON	21475	N710	S522	EM537	cancer	tissue	sigmoid	Female	2	no	60	2	40	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM537UDP	25739	N727	S516	EM537	cancer	tissue	sigmoid	Female	2	no	60	2	40	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM538	13341	N715	S503	EM538	cancer	stool	rectosigmoid	Male	3	no	75	3	29	yes	NA	T4	N1	Mx	NA
-EM538ON	15383	N701	S507	EM538	cancer	tissue	rectosigmoid	Male	3	no	75	3	29	yes	2 Phosphate enemas (P)	T4	N1	Mx	NA
-EM540	17513	N706	S506	EM540	cancer	stool	rectal	Male	5	chemotherapy and radiotherapy	62	7	28	yes	NA	T3	N1a	M1	NA
-EM540OFFP	18943	N728	S516	EM540	cancer	tissue	rectal	Male	5	chemotherapy and radiotherapy	62	7	28	yes	enema x 2 on morning of the surgery (full)	T3	N1a	M1	NA
-EM541	24675	N719	S518	EM541	cancer	stool	rectal	Female	0.8	no	53	4	36	yes	NA	T1	N0	Mx	NA
-EM541ON	8334	N710	S505	EM541	cancer	tissue	rectal	Female	0.8	no	53	4	36	yes	enema x 2 on morning of the surgery (full)	T1	N0	Mx	NA
-EM541UDP	24954	N710	S510	EM541	cancer	tissue	rectal	Female	0.8	no	53	4	36	yes	enema x 2 on morning of the surgery (full)	T1	N0	Mx	NA
-EM542ON	25430	N702	S503	EM542	cancer	tissue	ascending	Male	2.3	no	77	2	34	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM542UDD	19723	N710	S515	EM542	cancer	tissue	ascending	Male	2.3	no	77	2	34	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM543	13816	N716	S515	EM543	cancer	stool	rectal	Female	no data	chemotherapy and radiotherapy	62	5	34	yes	NA	T4	N1a	Mx	NA
-EM543OFFP	5639	N704	S516	EM543	cancer	tissue	rectal	Female	no data	chemotherapy and radiotherapy	62	5	34	yes	enema x 2 on morning of the surgery (full)	T4	N1a	Mx	NA
-EM543ON	18268	N715	S516	EM543	cancer	tissue	rectal	Female	no data	chemotherapy and radiotherapy	62	5	34	yes	enema x 2 on morning of the surgery (full)	T4	N1a	Mx	NA
-EM544OFFP	19078	N722	S515	EM544	cancer	tissue	rectal	Male	1.8	chemotherapy and radiotherapy	76	2	33	yes	2 Phosphate enemas (P)	T3	N2a	Mx	NA
-EM545ON	22399	N702	S505	EM545	cancer	tissue	ascending	Male	1.5	no	74	2	28	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM545UDD	23496	N726	S513	EM545	cancer	tissue	ascending	Male	1.5	no	74	2	28	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM546	38805	N710	S520	EM546	cancer	stool	rectosigmoid	Male	4	no	73	2	30	yes	NA	T3	N0	Mx	NA
-EM546ON	15844	N710	S521	EM546	cancer	tissue	rectosigmoid	Male	4	no	73	2	30	yes	NA	T3	N0	Mx	NA
-EM546UDP	6272	N704	S513	EM546	cancer	tissue	rectosigmoid	Male	4	no	73	2	30	yes	NA	T3	N0	Mx	NA
-EM547	27694	N706	S511	EM547	cancer	stool	rectal	Male	no data	chemotherapy and radiotherapy	62	2	27	yes	NA	T2	N0	Mx	NA
-EM547UDP	6763	N722	S520	EM547	cancer	tissue	rectal	Male	no data	chemotherapy and radiotherapy	62	2	27	yes	enema x 2 on morning of the surgery (full)	T2	N0	Mx	NA
-EM549	18769	N710	S516	EM549	cancer	stool	rectal	Female	2.5	chemotherapy and radiotherapy	82	2	32	yes	NA	T3	N0	Mx	NA
-EM549ON	17034	N728	S515	EM549	cancer	tissue	rectal	Female	2.5	chemotherapy and radiotherapy	82	2	32	yes	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM549UDP	12454	N703	S505	EM549	cancer	tissue	rectal	Female	2.5	chemotherapy and radiotherapy	82	2	32	yes	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM550ON	15112	N719	S517	EM550	cancer	tissue	rectal	Male	5.5	no	75	5	40	yes	enema x 2 on morning of the surgery (full)	T3	N1a	Mx	NA
-EM551	19796	N721	S518	EM551	cancer	stool	sigmoid	Male	no data	no	67	8	49	no data	NA	no data	no data	no data	NA
-EM552	26908	N715	S518	EM552	cancer	stool	rectal	Male	no data	no	63	3	34	yes	NA	no data	no data	no data	NA
-EM553	11956	N703	S511	EM553	cancer	stool	rectal	Male	no data	chemotherapy and radiotherapy	80	4	24.5	yes	NA	no data	no data	no data	NA
-EM554ON	22607	N702	S507	EM554	cancer	tissue	sigmoid	Female	3	no	70	2	17.5	yes	2 Phosphate enemas (P)	T4	N0	Mx	NA
-EM554UDD	24005	N705	S506	EM554	cancer	tissue	sigmoid	Female	3	no	70	2	17.5	yes	2 Phosphate enemas (P)	T4	N0	Mx	NA
-EM555ON	27391	N726	S517	EM555	cancer	tissue	rectal	Male	0.5	no	70	3	34	yes	enema x 2 on morning of the surgery (full)	T1	N0	Mx	NA
-EM555UDD	13503	N715	S521	EM555	cancer	tissue	rectal	Male	0.5	no	70	3	34	yes	enema x 2 on morning of the surgery (full)	T1	N0	Mx	NA
-EM556	18131	N712	S508	EM556	cancer	stool	sigmoid	Female	0.6	no	65	2	33	yes	NA	T1	N1b	Mx	NA
-EM556ON	10276	N702	S516	EM556	cancer	tissue	sigmoid	Female	0.6	no	65	2	33	yes	enema x 2 on morning of the surgery (full)	T1	N1b	Mx	NA
-EM557	16008	N704	S506	EM557	cancer	stool	no data	no data	no data	no data	no data	no data	no data	no data	NA	no data	no data	no data	NA
-EM558UDP	25762	N721	S513	EM558	cancer	tissue	caecal	Female	2.5	no	79	2	31.2	no	2 Phosphate enemas (P)	T4	N2b	Mx	NA
-EM559	24241	N720	S517	EM559	cancer	stool	rectal	Female	0.1	chemotherapy and radiotherapy	82	2	27	yes	NA	T1	N1b	Mx	NA
-EM559UDP	21390	N702	S510	EM559	cancer	tissue	rectal	Female	0.1	chemotherapy and radiotherapy	82	2	27	yes	enema x 2 on morning of the surgery (full)	T1	N1b	Mx	NA
-EM560	17644	N715	S522	EM560	cancer	stool	rectal	Male	5.3	no	49	2	28	yes	NA	T3	N0	M0	NA
-EM560ON	7483	N703	S510	EM560	cancer	tissue	rectal	Male	5.3	no	49	2	28	yes	enema x 2 on morning of the surgery (full)	T3	N0	M0	NA
-EM560UDP	5799	N707	S517	EM560	cancer	tissue	rectal	Male	5.3	no	49	2	28	yes	enema x 2 on morning of the surgery (full)	T3	N0	M0	NA
-EM561UDP	11084	N712	S503	EM561	cancer	tissue	rectal	Male	1.2	chemotherapy and radiotherapy	51	2	30	no data	2 Phosphate enemas (P)	T1	N0	M0	NA
-EM562	5116	N702	S513	EM562	cancer	stool	rectosigmoid	Male	4.5	no	63	2	28	yes	NA	T3	N1b	Mx	NA
-EM563	11341	N703	S506	EM563	cancer	stool	rectal	Male	5.5	no	57	2	35.6	yes	NA	T4	N1b	Mx	NA
-EM563OFFD	22113	N719	S520	EM563	cancer	tissue	rectal	Male	5.5	no	57	2	35.6	yes	2 Phosphate enemas (P)	T4	N1b	Mx	NA
-EM563ON	5292	N701	S520	EM563	cancer	tissue	rectal	Male	5.5	no	57	2	35.6	yes	2 Phosphate enemas (P)	T4	N1b	Mx	NA
-EM564	15673	N705	S510	EM564	cancer	stool	ascending	Female	4	no	60	2	21	yes	NA	T4	N2b	Mx	NA
-EM564ON	14799	N715	S505	EM564	cancer	tissue	ascending	Female	4	no	60	2	21	yes	2 Phosphate enemas (P)	T4	N2b	Mx	NA
-EM564UDD	24609	N724	S518	EM564	cancer	tissue	ascending	Female	4	no	60	2	21	yes	2 Phosphate enemas (P)	T4	N2b	Mx	NA
-EM565	17892	N703	S507	EM565	cancer	stool	rectal	Male	1.5	no	73	3	37	yes	NA	T2	N0	Mx	NA
-EM565ON	12555	N704	S505	EM565	cancer	tissue	rectal	Male	1.5	no	73	3	37	yes	2 Phosphate enemas (P)	T2	N0	Mx	NA
-EM565UDP	14589	N715	S502	EM565	cancer	tissue	rectal	Male	1.5	no	73	3	37	yes	2 Phosphate enemas (P)	T2	N0	Mx	NA
-EM566ON	16454	N711	S522	EM566	cancer	tissue	sigmoid	Female	3	no	82	2	27	no	no data	T4	N1b	Mx	NA
-EM566UDP	8650	N701	S515	EM566	cancer	tissue	sigmoid	Female	3	no	82	2	27	no	no data	T4	N1b	Mx	NA
-EM567ON	19453	N722	S518	EM567	cancer	tissue	ascending	Female	6	no	52	2	35.7	no	2 Phosphate enemas (P)	T4	N2b	Mx	NA
-EM568ON	14836	N711	S516	EM568	cancer	tissue	sigmoid	Male	2.5	no	71	3	32	yes	2 Phosphate enemas (P)	T3	N2	Mx	NA
-EM568UDP	13198	N712	S510	EM568	cancer	tissue	sigmoid	Male	2.5	no	71	3	32	yes	2 Phosphate enemas (P)	T3	N2	Mx	NA
-EM570ON	27931	N728	S520	EM570	cancer	tissue	rectal	Female	no data	no	51	2	40	no	2 Phosphate enemas (P)	no data	no data	no data	NA
-EM571ON	13016	N704	S503	EM571	cancer	tissue	rectosigmoid	Male	2.9	no	51	3	28.3	yes	2 Phosphate enemas (P)	T4	N0	Mx	NA
-EM571UDP	27889	N718	S520	EM571	cancer	tissue	rectosigmoid	Male	2.9	no	51	3	28.3	yes	2 Phosphate enemas (P)	T4	N0	Mx	NA
-EM575ON	13362	N716	S521	EM575	cancer	tissue	rectal	Male	3	chemotherapy and radiotherapy	75	3	24	yes	2 Phosphate enemas (P)	T3	N1a	Mx	NA
-EM576ON	26848	N718	S521	EM576	cancer	tissue	rectosigmoid	Female	4	no	57	2	20.5	no	2 Phosphate enemas (P)	T4	N2b	Mx	NA
-EM579ON	12364	N719	S521	EM579	cancer	tissue	ascending	Female	6	no	80	2	25	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM582ON	20800	N720	S521	EM582	cancer	tissue	rectosigmoid	Female	5	no	59	2	39	yes	enema x 2 on morning of the surgery (full)	T3	N2b	Mx	NA
-EM583ON	25249	N721	S521	EM583	cancer	tissue	ascending	Female	5	no	55	2	25.4	no	2 Phosphate enemas (P)	T4	N0	Mx	NA
-EM584ON	7260	N722	S521	EM584	cancer	tissue	rectal	Female	10	no	64	2	24.2	no	enema x 2 on morning of the surgery (full)	T4	N0	Mx	NA
-EM585ON	26904	N723	S521	EM585	cancer	tissue	caecal	Male	3.3	no	81	2	23	no	2 Phosphate enemas (P)	T3	N0	Mx	NA
-EM586ON	32848	N724	S521	EM586	cancer	tissue	rectosigmoid	Female	3.5	no	47	2	28	no	2 Phosphate enemas (P)	T4	N1b	Mx	NA
-sHT03C	15890	N718	S502	sHT03	control	tissue	C	Male	NA	NA	no data	no data	no data	no data	no data	NA	NA	NA	NA
-sHT04C	15254	N719	S502	sHT04	control	tissue	C	Female	NA	NA	37	no data	no data	no data	no data	NA	NA	NA	NA
-sHT05C	22148	N720	S502	sHT05	control	tissue	C	Male	NA	NA	59	no data	no data	no data	no data	NA	NA	NA	NA
-sHT06C	11524	N721	S502	sHT06	control	tissue	C	Female	NA	NA	69	no data	no data	no data	no data	NA	NA	NA	NA
-sHT09C	14383	N722	S502	sHT09	control	tissue	C	Female	NA	NA	38	no data	no data	no data	no data	NA	NA	NA	NA
-sHT10C	23459	N723	S502	sHT10	control	tissue	C	Male	NA	NA	58	no data	no data	no data	no data	NA	NA	NA	NA
-sHT14A	15734	N724	S502	sHT14	control	tissue	A	Male	NA	NA	39	no data	no data	no data	no data	NA	NA	NA	NA
-sHT14C	17065	N726	S502	sHT14	control	tissue	C	Male	NA	NA	39	no data	no data	no data	no data	NA	NA	NA	NA
-sHT16A	27531	N727	S502	sHT16	control	tissue	A	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT16C	27597	N728	S502	sHT16	control	tissue	C	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT17A	20908	N729	S502	sHT17	control	tissue	A	Male	NA	NA	69	no data	no data	no data	no data	NA	NA	NA	NA
-sHT18A	31384	N718	S503	sHT18	control	tissue	A	Male	NA	NA	70	no data	no data	no data	no data	NA	NA	NA	NA
-sHT18C	16882	N719	S503	sHT18	control	tissue	C	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT19A	36573	N720	S505	sHT19	control	tissue	A	Male	NA	NA	54	no data	no data	no data	no data	NA	NA	NA	NA
-sHT19C	25495	N721	S503	sHT19	control	tissue	C	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT20A	23782	N722	S503	sHT20	control	tissue	A	Female	NA	NA	42	no data	no data	no data	no data	NA	NA	NA	NA
-sHT20C	36864	N723	S503	sHT20	control	tissue	C	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT21A	14417	N711	S521	sHT21	control	tissue	A	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT21b	11793	N712	S506	sHT21	control	tissue	C	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT21C	23533	N726	S503	sHT21	control	tissue	C	Female	NA	NA	62	no data	no data	no data	no data	NA	NA	NA	NA
-sHT22A	32754	N727	S503	sHT22	control	tissue	A	Female	NA	NA	76	no data	no data	no data	no data	NA	NA	NA	NA
-sHT22C	30092	N728	S503	sHT22	control	tissue	C	Female	NA	NA	76	no data	no data	no data	no data	NA	NA	NA	NA
-sHT23A	27422	N729	S503	sHT23	control	tissue	A	Female	NA	NA	61	no data	no data	no data	no data	NA	NA	NA	NA
-sHT23C	34770	N716	S505	sHT23	control	tissue	C	Female	NA	NA	61	no data	no data	no data	no data	NA	NA	NA	NA
-sHT24A	38016	N718	S505	sHT24	control	tissue	A	Female	NA	NA	57	no data	no data	no data	no data	NA	NA	NA	NA
-sHT24C	27236	N719	S505	sHT24	control	tissue	C	Female	NA	NA	57	no data	no data	no data	no data	NA	NA	NA	NA
-sHT25A	26086	N720	S503	sHT25	control	tissue	A	Female	NA	NA	42	no data	no data	no data	no data	NA	NA	NA	NA
-sHT25C	41316	N721	S505	sHT25	control	tissue	C	Female	NA	NA	42	no data	no data	no data	no data	NA	NA	NA	NA
-sHT26A	26160	N722	S505	sHT26	control	tissue	A	Female	NA	NA	41	no data	no data	no data	no data	NA	NA	NA	NA
-sHT26C	51368	N723	S505	sHT26	control	tissue	C	Female	NA	NA	41	no data	no data	no data	no data	NA	NA	NA	NA
-sHT27A	55679	N724	S505	sHT27	control	tissue	A	Female	NA	NA	65	no data	no data	no data	no data	NA	NA	NA	NA
-sHT27C	53447	N726	S505	sHT27	control	tissue	C	Female	NA	NA	65	no data	no data	no data	no data	NA	NA	NA	NA
-sHT28A	52230	N727	S505	sHT28	control	tissue	A	Male	NA	NA	74	no data	no data	no data	no data	NA	NA	NA	NA
-sHT28C	42102	N728	S505	sHT28	control	tissue	C	Male	NA	NA	74	no data	no data	no data	no data	NA	NA	NA	NA
-sHT29A	33620	N729	S505	sHT29	control	tissue	A	Female	NA	NA	33	no data	no data	no data	no data	NA	NA	NA	NA
-sHT29C	41396	N716	S506	sHT29	control	tissue	C	Female	NA	NA	33	no data	no data	no data	no data	NA	NA	NA	NA
-sHT30A	30019	N718	S506	sHT30	control	tissue	A	Male	NA	NA	68	no data	no data	no data	no data	NA	NA	NA	NA
-sHT30C	26060	N719	S506	sHT30	control	tissue	C	Male	NA	NA	68	no data	no data	no data	no data	NA	NA	NA	NA
-sHT32A	30143	N720	S506	sHT32	control	tissue	A	Male	NA	NA	68	no data	no data	no data	no data	NA	NA	NA	NA
-sHT32C	28901	N721	S506	sHT32	control	tissue	C	Male	NA	NA	68	no data	no data	no data	no data	NA	NA	NA	NA
-sHT33A	20487	N722	S506	sHT33	control	tissue	A	Female	NA	NA	57	no data	no data	no data	no data	NA	NA	NA	NA
-sHT33C	33022	N723	S506	sHT33	control	tissue	C	Female	NA	NA	57	no data	no data	no data	no data	NA	NA	NA	NA
-sHT34A	36526	N724	S506	sHT34	control	tissue	A	Female	NA	NA	64	no data	no data	no data	no data	NA	NA	NA	NA
-sHT34C	42757	N727	S506	sHT34	control	tissue	C	Female	NA	NA	64	no data	no data	no data	no data	NA	NA	NA	NA
-sHT35A	41234	N726	S506	sHT35	control	tissue	A	Female	NA	NA	34	no data	no data	no data	no data	NA	NA	NA	NA
-sHT35C	37893	N728	S506	sHT35	control	tissue	C	Female	NA	NA	64	no data	no data	no data	no data	NA	NA	NA	NA
-sHT36A	38123	N729	S506	sHT36	control	tissue	A	Female	NA	NA	75	no data	no data	no data	no data	NA	NA	NA	NA
-sHT36C	21571	N716	S507	sHT36	control	tissue	C	Female	NA	NA	75	no data	no data	no data	no data	NA	NA	NA	NA
-sHT37A	32347	N718	S507	sHT37	control	tissue	A	Male	NA	NA	56	no data	no data	no data	no data	NA	NA	NA	NA
-sHT37C	23048	N719	S507	sHT37	control	tissue	C	Male	NA	NA	56	no data	no data	no data	no data	NA	NA	NA	NA
-sHT38A	39798	N720	S507	sHT38	control	tissue	A	Female	NA	NA	40	no data	no data	no data	no data	NA	NA	NA	NA
-sHT38C	39433	N721	S507	sHT38	control	tissue	C	Female	NA	NA	40	no data	no data	no data	no data	NA	NA	NA	NA
-sHT39A	15634	N722	S507	sHT39	control	tissue	A	Male	NA	NA	30	no data	no data	no data	no data	NA	NA	NA	NA
-sHT39C	36528	N723	S507	sHT39	control	tissue	C	Male	NA	NA	30	no data	no data	no data	no data	NA	NA	NA	NA
-sHT40A	37506	N724	S507	sHT40	control	tissue	A	Male	NA	NA	27	no data	no data	no data	no data	NA	NA	NA	NA
-sHT40C	37893	N726	S507	sHT40	control	tissue	C	Male	NA	NA	27	no data	no data	no data	no data	NA	NA	NA	NA
-sHT41A	42833	N727	S507	sHT41	control	tissue	A	Female	NA	NA	no data	no data	no data	no data	no data	NA	NA	NA	NA
-sHT42A	35721	N729	S507	sHT42	control	tissue	A	Male	NA	NA	43	no data	no data	no data	no data	NA	NA	NA	NA
-sHT42C	27990	N716	S508	sHT42	control	tissue	C	Male	NA	NA	43	no data	no data	no data	no data	NA	NA	NA	NA
+EM501	11690	N716	S513	EM501	cancer	stool	caecal	m	5.5	no	87	2	19	no	NA	T3	NA	Mx	NA
+EM501ON	13621	N705	S505	EM501	cancer	tissue	caecal	m	5.5	no	87	2	19	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM501UDD	16399	N720	S515	EM501	cancer	tissue	caecal	m	5.5	no	87	2	19	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM502	21251	N707	S508	EM502	cancer	stool	rectal	f	NA	chemotherapy and radiotherapy	58	6	19	yes	NA	T3	NA	M0	NA
+EM503	25942	N721	S516	EM503	cancer	stool	caecal	m	NA	no	63	2	34	no	NA	T1	NA	Mx	NA
+EM503ON	12844	N714	S521	EM503	cancer	tissue	caecal	m	NA	no	63	2	34	no	2 Phosphate enemas (P)	T1	NA	Mx	NA
+EM503UDD	14154	N711	S513	EM503	cancer	tissue	caecal	m	NA	no	63	2	34	no	2 Phosphate enemas (P)	T1	NA	Mx	NA
+EM505	12568	N728	S513	EM505	cancer	stool	rectal	m	NA	chemotherapy and radiotherapy	60	2	33.1	yes	NA	T3	NA	Mx	NA
+EM505ON	17095	N711	S511	EM505	cancer	tissue	rectal	m	NA	chemotherapy and radiotherapy	60	2	33.1	yes	enema x 2 on morning of the surgery (full)	T3	NA	Mx	NA
+EM505UDP	31334	N706	S510	EM505	cancer	tissue	rectal	m	NA	chemotherapy and radiotherapy	60	2	33.1	yes	enema x 2 on morning of the surgery (full)	T3	NA	Mx	NA
+EM506	20313	N715	S520	EM506	cancer	stool	rectosigmoid	m	NA	chemotherapy and radiotherapy	52	6	22	yes	NA	T3	NA	M1	NA
+EM506UDP	10498	N707	S516	EM506	cancer	tissue	rectosigmoid	m	NA	chemotherapy and radiotherapy	52	6	22	yes	enema x 2 on morning of the surgery (full)	T3	NA	M1	NA
+EM507	18544	N710	S506	EM507	cancer	stool	rectal	f	NA	chemotherapy and radiotherapy	41	2	33	yes	NA	T1	NA	Mx	NA
+EM507ON	23332	N718	S518	EM507	cancer	tissue	rectal	f	NA	chemotherapy and radiotherapy	41	2	33	yes	enema x 2 on morning of the surgery (full)	T1	NA	Mx	NA
+EM508	18499	N705	S521	EM508	cancer	stool	caecal	m	NA	no	63	6	27.4	no	NA	T3	NA	Mx	NA
+EM508ON	22752	N702	S522	EM508	cancer	tissue	caecal	m	NA	no	63	6	27.4	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM508UDP	7172	N712	S502	EM508	cancer	tissue	caecal	m	NA	no	63	6	27.4	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM509	13433	N707	S511	EM509	cancer	stool	caecal	m	6.5	no	77	3	NA	yes	NA	T4	NA	Mx	NA
+EM509ON	6091	N712	S513	EM509	cancer	tissue	caecal	m	6.5	no	77	3	NA	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM509UDD	22913	N720	S518	EM509	cancer	tissue	caecal	m	6.5	no	77	3	NA	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM511ON	22595	N723	S513	EM511	cancer	tissue	rectal	m	0.7	radiotherapy	69	2	28	no	2 Phosphate enemas (P)	T2	NA	Mx	NA
+EM511UDP	14403	N703	S520	EM511	cancer	tissue	rectal	m	0.7	radiotherapy	69	2	28	no	2 Phosphate enemas (P)	T2	NA	Mx	NA
+EM512	8324	N701	S517	EM512	cancer	stool	rectal	m	4.9	radiotherapy	82	2	30.5	yes	NA	T3	NA	Mx	NA
+EM512ON	14967	N705	S517	EM512	cancer	tissue	rectal	m	4.9	radiotherapy	82	2	30.5	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM512UDP	15453	N722	S516	EM512	cancer	tissue	rectal	m	4.9	radiotherapy	82	2	30.5	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM513	11502	N710	S513	EM513	cancer	stool	caecal	m	3.7	no	71	3	36	no	NA	T3	NA	Mx	NA
+EM513ON	20988	N706	S503	EM513	cancer	tissue	caecal	m	3.7	no	71	3	36	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM513UDP	17764	N726	S516	EM513	cancer	tissue	caecal	m	3.7	no	71	3	36	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM514	26545	N705	S508	EM514	cancer	stool	rectal	m	3.5	chemotherapy and radiotherapy	77	7	27	yes	NA	T0	NA	Mx	NA
+EM515OFFP	15244	N712	S521	EM515	cancer	tissue	rectal	m	0.5	chemotherapy and radiotherapy	67	3	29	yes	enema x 2 on morning of the surgery (full)	T2	NA	Mx	NA
+EM515ON	19395	N726	S515	EM515	cancer	tissue	rectal	m	0.5	chemotherapy and radiotherapy	67	3	29	yes	enema x 2 on morning of the surgery (full)	T2	NA	Mx	NA
+EM516	14366	N703	S521	EM516	cancer	stool	caecal	m	3.6	no	74	2	26	no	NA	T3	NA	Mx	NA
+EM516ON	18145	N702	S511	EM516	cancer	tissue	caecal	m	3.6	no	74	2	26	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM516UDD	10711	N703	S517	EM516	cancer	tissue	caecal	m	3.6	no	74	2	26	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM517	8369	N703	S502	EM517	cancer	stool	rectal	m	1.1	chemotherapy and radiotherapy	53	2	26	yes	NA	T3	NA	Mx	NA
+EM517UDP	18078	N707	S503	EM517	cancer	tissue	rectal	m	1.1	chemotherapy and radiotherapy	53	2	26	yes	enema x 2 on morning of the surgery (full)	T3	NA	Mx	NA
+EM520	14567	N703	S522	EM520	cancer	stool	rectal	m	4	no	58	6	20.5	yes	NA	T3	NA	Mx	NA
+EM521ON	12475	N719	S516	EM521	cancer	tissue	rectal	m	6.6	radiotherapy	45	2	31	yes	enema x 2 on morning of the surgery (full)	T3	NA	Mx	NA
+EM523	16401	N726	S520	EM523	cancer	stool	caecal	m	NA	no	50	2	29	no	NA	no data	NA	no data	NA
+EM523OFFD	22920	N710	S511	EM523	cancer	tissue	caecal	m	NA	no	50	2	29	no	2 Phosphate enemas (P)	no data	NA	no data	NA
+EM523UDD	18106	N714	S522	EM523	cancer	tissue	caecal	m	NA	no	50	2	29	no	2 Phosphate enemas (P)	no data	NA	no data	NA
+EM525	16309	N704	S518	EM525	cancer	stool	rectal	f	NA	no	62	2	21	yes	NA	T1	NA	Mx	NA
+EM526	13537	N714	S516	EM526	cancer	stool	rectosigmoid	m	1.7	no	61	2	25	no	NA	T2	NA	Mx	NA
+EM526OFFP	9968	N712	S515	EM526	cancer	tissue	rectosigmoid	m	1.7	no	61	2	25	no	enema x 2 on morning of the surgery (full)	T2	NA	Mx	NA
+EM526UDP	15248	N711	S503	EM526	cancer	tissue	rectosigmoid	m	1.7	no	61	2	25	no	enema x 2 on morning of the surgery (full)	T2	NA	Mx	NA
+EM527	30817	N715	S510	EM527	cancer	stool	caecal	m	4	no	90	2	NA	no	NA	T4	NA	M1	NA
+EM527ON	13454	N705	S502	EM527	cancer	tissue	caecal	m	4	no	90	2	NA	no	2 Phosphate enemas (P)	T4	NA	M1	NA
+EM527UDD	26544	N702	S518	EM527	cancer	tissue	caecal	m	4	no	90	2	NA	no	2 Phosphate enemas (P)	T4	NA	M1	NA
+EM529	10511	N711	S506	EM529	cancer	stool	ascending	m	1.6	no	74	2	34	no	NA	T2	NA	Mx	NA
+EM529ON	12296	N711	S515	EM529	cancer	tissue	ascending	m	1.6	no	74	2	34	no	2 Phosphate enemas (P)	T2	NA	Mx	NA
+EM529UDP	38618	N706	S508	EM529	cancer	tissue	ascending	m	1.6	no	74	2	34	no	2 Phosphate enemas (P)	T2	NA	Mx	NA
+EM530	11701	N701	S522	EM530	cancer	stool	ascending	f	5	no	55	3	NA	no	NA	T3	NA	Mx	NA
+EM530UDP	11778	N703	S515	EM530	cancer	tissue	ascending	f	5	no	55	3	NA	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM531	17111	N712	S505	EM531	cancer	stool	rectal	m	3.3	no	65	3	30	yes	NA	T2	NA	Mx	NA
+EM531ON	25421	N714	S510	EM531	cancer	tissue	rectal	m	3.3	no	65	3	30	yes	enema x 2 on morning of the surgery (full)	T2	NA	Mx	NA
+EM531UDP	10741	N712	S511	EM531	cancer	tissue	rectal	m	3.3	no	65	3	30	yes	enema x 2 on morning of the surgery (full)	T2	NA	Mx	NA
+EM532	17253	N729	S516	EM532	cancer	stool	caecal	f	NA	no	72	5	16	no	NA	T4	NA	Mx	NA
+EM532ON	12410	N714	S503	EM532	cancer	tissue	caecal	f	NA	no	72	5	16	no	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM532UDP	20798	N710	S508	EM532	cancer	tissue	caecal	f	NA	no	72	5	16	no	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM533	21319	N727	S513	EM533	cancer	stool	rectal	m	4	chemotherapy and radiotherapy	66	3	29.9	yes	NA	T4	NA	Mx	NA
+EM534OFFP	12888	N710	S502	EM534	cancer	tissue	ascending	m	2	no	77	2	28	no	2 Phosphate enemas (P)	no data	NA	no data	NA
+EM534ON	16194	N711	S520	EM534	cancer	tissue	ascending	m	2	no	77	2	28	no	2 Phosphate enemas (P)	no data	NA	no data	NA
+EM534UDD	8501	N704	S522	EM534	cancer	tissue	ascending	m	2	no	77	2	28	no	2 Phosphate enemas (P)	no data	NA	no data	NA
+EM535	18438	N714	S520	EM535	cancer	stool	caecal	m	NA	no	71	5	21.7	no data	NA	no data	NA	no data	NA
+EM536UDP	19484	N714	S508	EM536	cancer	tissue	sigmoid	f	NA	no	77	2	24	yes	2 Phosphate enemas (P)	no data	NA	no data	NA
+EM537	24888	N712	S518	EM537	cancer	stool	sigmoid	f	2	no	60	2	40	no	NA	T3	NA	Mx	NA
+EM537ON	21475	N710	S522	EM537	cancer	tissue	sigmoid	f	2	no	60	2	40	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM537UDP	25739	N727	S516	EM537	cancer	tissue	sigmoid	f	2	no	60	2	40	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM538	13341	N715	S503	EM538	cancer	stool	rectosigmoid	m	3	no	75	3	29	yes	NA	T4	NA	Mx	NA
+EM538ON	15383	N701	S507	EM538	cancer	tissue	rectosigmoid	m	3	no	75	3	29	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM540	17513	N706	S506	EM540	cancer	stool	rectal	m	5	chemotherapy and radiotherapy	62	7	28	yes	NA	T3	NA	M1	NA
+EM540OFFP	18943	N728	S516	EM540	cancer	tissue	rectal	m	5	chemotherapy and radiotherapy	62	7	28	yes	enema x 2 on morning of the surgery (full)	T3	NA	M1	NA
+EM541	24675	N719	S518	EM541	cancer	stool	rectal	f	0.8	no	53	4	36	yes	NA	T1	NA	Mx	NA
+EM541ON	8334	N710	S505	EM541	cancer	tissue	rectal	f	0.8	no	53	4	36	yes	enema x 2 on morning of the surgery (full)	T1	NA	Mx	NA
+EM541UDP	24954	N710	S510	EM541	cancer	tissue	rectal	f	0.8	no	53	4	36	yes	enema x 2 on morning of the surgery (full)	T1	NA	Mx	NA
+EM542ON	25430	N702	S503	EM542	cancer	tissue	ascending	m	2.3	no	77	2	34	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM542UDD	19723	N710	S515	EM542	cancer	tissue	ascending	m	2.3	no	77	2	34	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM543	13816	N716	S515	EM543	cancer	stool	rectal	f	NA	chemotherapy and radiotherapy	62	5	34	yes	NA	T4	NA	Mx	NA
+EM543OFFP	5639	N704	S516	EM543	cancer	tissue	rectal	f	NA	chemotherapy and radiotherapy	62	5	34	yes	enema x 2 on morning of the surgery (full)	T4	NA	Mx	NA
+EM543ON	18268	N715	S516	EM543	cancer	tissue	rectal	f	NA	chemotherapy and radiotherapy	62	5	34	yes	enema x 2 on morning of the surgery (full)	T4	NA	Mx	NA
+EM544OFFP	19078	N722	S515	EM544	cancer	tissue	rectal	m	1.8	chemotherapy and radiotherapy	76	2	33	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM545ON	22399	N702	S505	EM545	cancer	tissue	ascending	m	1.5	no	74	2	28	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM545UDD	23496	N726	S513	EM545	cancer	tissue	ascending	m	1.5	no	74	2	28	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM546	38805	N710	S520	EM546	cancer	stool	rectosigmoid	m	4	no	73	2	30	yes	NA	T3	NA	Mx	NA
+EM546ON	15844	N710	S521	EM546	cancer	tissue	rectosigmoid	m	4	no	73	2	30	yes	NA	T3	NA	Mx	NA
+EM546UDP	6272	N704	S513	EM546	cancer	tissue	rectosigmoid	m	4	no	73	2	30	yes	NA	T3	NA	Mx	NA
+EM547	27694	N706	S511	EM547	cancer	stool	rectal	m	NA	chemotherapy and radiotherapy	62	2	27	yes	NA	T2	NA	Mx	NA
+EM547UDP	6763	N722	S520	EM547	cancer	tissue	rectal	m	NA	chemotherapy and radiotherapy	62	2	27	yes	enema x 2 on morning of the surgery (full)	T2	NA	Mx	NA
+EM549	18769	N710	S516	EM549	cancer	stool	rectal	f	2.5	chemotherapy and radiotherapy	82	2	32	yes	NA	T3	NA	Mx	NA
+EM549ON	17034	N728	S515	EM549	cancer	tissue	rectal	f	2.5	chemotherapy and radiotherapy	82	2	32	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM549UDP	12454	N703	S505	EM549	cancer	tissue	rectal	f	2.5	chemotherapy and radiotherapy	82	2	32	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM550ON	15112	N719	S517	EM550	cancer	tissue	rectal	m	5.5	no	75	5	40	yes	enema x 2 on morning of the surgery (full)	T3	NA	Mx	NA
+EM551	19796	N721	S518	EM551	cancer	stool	sigmoid	m	NA	no	67	8	49	no data	NA	no data	NA	no data	NA
+EM552	26908	N715	S518	EM552	cancer	stool	rectal	m	NA	no	63	3	34	yes	NA	no data	NA	no data	NA
+EM553	11956	N703	S511	EM553	cancer	stool	rectal	m	NA	chemotherapy and radiotherapy	80	4	24.5	yes	NA	no data	NA	no data	NA
+EM554ON	22607	N702	S507	EM554	cancer	tissue	sigmoid	f	3	no	70	2	17.5	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM554UDD	24005	N705	S506	EM554	cancer	tissue	sigmoid	f	3	no	70	2	17.5	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM555ON	27391	N726	S517	EM555	cancer	tissue	rectal	m	0.5	no	70	3	34	yes	enema x 2 on morning of the surgery (full)	T1	NA	Mx	NA
+EM555UDD	13503	N715	S521	EM555	cancer	tissue	rectal	m	0.5	no	70	3	34	yes	enema x 2 on morning of the surgery (full)	T1	NA	Mx	NA
+EM556	18131	N712	S508	EM556	cancer	stool	sigmoid	f	0.6	no	65	2	33	yes	NA	T1	NA	Mx	NA
+EM556ON	10276	N702	S516	EM556	cancer	tissue	sigmoid	f	0.6	no	65	2	33	yes	enema x 2 on morning of the surgery (full)	T1	NA	Mx	NA
+EM557	16008	N704	S506	EM557	cancer	stool	no data	no data	NA	no data	NA	no data	NA	no data	NA	no data	NA	no data	NA
+EM558UDP	25762	N721	S513	EM558	cancer	tissue	caecal	f	2.5	no	79	2	31.2	no	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM559	24241	N720	S517	EM559	cancer	stool	rectal	f	0.1	chemotherapy and radiotherapy	82	2	27	yes	NA	T1	NA	Mx	NA
+EM559UDP	21390	N702	S510	EM559	cancer	tissue	rectal	f	0.1	chemotherapy and radiotherapy	82	2	27	yes	enema x 2 on morning of the surgery (full)	T1	NA	Mx	NA
+EM560	17644	N715	S522	EM560	cancer	stool	rectal	m	5.3	no	49	2	28	yes	NA	T3	NA	M0	NA
+EM560ON	7483	N703	S510	EM560	cancer	tissue	rectal	m	5.3	no	49	2	28	yes	enema x 2 on morning of the surgery (full)	T3	NA	M0	NA
+EM560UDP	5799	N707	S517	EM560	cancer	tissue	rectal	m	5.3	no	49	2	28	yes	enema x 2 on morning of the surgery (full)	T3	NA	M0	NA
+EM561UDP	11084	N712	S503	EM561	cancer	tissue	rectal	m	1.2	chemotherapy and radiotherapy	51	2	30	no data	2 Phosphate enemas (P)	T1	NA	M0	NA
+EM562	5116	N702	S513	EM562	cancer	stool	rectosigmoid	m	4.5	no	63	2	28	yes	NA	T3	NA	Mx	NA
+EM563	11341	N703	S506	EM563	cancer	stool	rectal	m	5.5	no	57	2	35.6	yes	NA	T4	NA	Mx	NA
+EM563OFFD	22113	N719	S520	EM563	cancer	tissue	rectal	m	5.5	no	57	2	35.6	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM563ON	5292	N701	S520	EM563	cancer	tissue	rectal	m	5.5	no	57	2	35.6	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM564	15673	N705	S510	EM564	cancer	stool	ascending	f	4	no	60	2	21	yes	NA	T4	NA	Mx	NA
+EM564ON	14799	N715	S505	EM564	cancer	tissue	ascending	f	4	no	60	2	21	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM564UDD	24609	N724	S518	EM564	cancer	tissue	ascending	f	4	no	60	2	21	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM565	17892	N703	S507	EM565	cancer	stool	rectal	m	1.5	no	73	3	37	yes	NA	T2	NA	Mx	NA
+EM565ON	12555	N704	S505	EM565	cancer	tissue	rectal	m	1.5	no	73	3	37	yes	2 Phosphate enemas (P)	T2	NA	Mx	NA
+EM565UDP	14589	N715	S502	EM565	cancer	tissue	rectal	m	1.5	no	73	3	37	yes	2 Phosphate enemas (P)	T2	NA	Mx	NA
+EM566ON	16454	N711	S522	EM566	cancer	tissue	sigmoid	f	3	no	82	2	27	no	no data	T4	NA	Mx	NA
+EM566UDP	8650	N701	S515	EM566	cancer	tissue	sigmoid	f	3	no	82	2	27	no	no data	T4	NA	Mx	NA
+EM567ON	19453	N722	S518	EM567	cancer	tissue	ascending	f	6	no	52	2	35.7	no	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM568ON	14836	N711	S516	EM568	cancer	tissue	sigmoid	m	2.5	no	71	3	32	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM568UDP	13198	N712	S510	EM568	cancer	tissue	sigmoid	m	2.5	no	71	3	32	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM570ON	27931	N728	S520	EM570	cancer	tissue	rectal	f	NA	no	51	2	40	no	2 Phosphate enemas (P)	no data	NA	no data	NA
+EM571ON	13016	N704	S503	EM571	cancer	tissue	rectosigmoid	m	2.9	no	51	3	28.3	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM571UDP	27889	N718	S520	EM571	cancer	tissue	rectosigmoid	m	2.9	no	51	3	28.3	yes	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM575ON	13362	N716	S521	EM575	cancer	tissue	rectal	m	3	chemotherapy and radiotherapy	75	3	24	yes	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM576ON	26848	N718	S521	EM576	cancer	tissue	rectosigmoid	f	4	no	57	2	20.5	no	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM579ON	12364	N719	S521	EM579	cancer	tissue	ascending	f	6	no	80	2	25	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM582ON	20800	N720	S521	EM582	cancer	tissue	rectosigmoid	f	5	no	59	2	39	yes	enema x 2 on morning of the surgery (full)	T3	NA	Mx	NA
+EM583ON	25249	N721	S521	EM583	cancer	tissue	ascending	f	5	no	55	2	25.4	no	2 Phosphate enemas (P)	T4	NA	Mx	NA
+EM584ON	7260	N722	S521	EM584	cancer	tissue	rectal	f	10	no	64	2	24.2	no	enema x 2 on morning of the surgery (full)	T4	NA	Mx	NA
+EM585ON	26904	N723	S521	EM585	cancer	tissue	caecal	m	3.3	no	81	2	23	no	2 Phosphate enemas (P)	T3	NA	Mx	NA
+EM586ON	32848	N724	S521	EM586	cancer	tissue	rectosigmoid	f	3.5	no	47	2	28	no	2 Phosphate enemas (P)	T4	NA	Mx	NA
+sHT03C	15890	N718	S502	sHT03	control	tissue	C	m	NA	NA	NA	no data	NA	no data	no data	NA	NA	NA	NA
+sHT04C	15254	N719	S502	sHT04	control	tissue	C	f	NA	NA	37	no data	NA	no data	no data	NA	NA	NA	NA
+sHT05C	22148	N720	S502	sHT05	control	tissue	C	m	NA	NA	59	no data	NA	no data	no data	NA	NA	NA	NA
+sHT06C	11524	N721	S502	sHT06	control	tissue	C	f	NA	NA	69	no data	NA	no data	no data	NA	NA	NA	NA
+sHT09C	14383	N722	S502	sHT09	control	tissue	C	f	NA	NA	38	no data	NA	no data	no data	NA	NA	NA	NA
+sHT10C	23459	N723	S502	sHT10	control	tissue	C	m	NA	NA	58	no data	NA	no data	no data	NA	NA	NA	NA
+sHT14A	15734	N724	S502	sHT14	control	tissue	A	m	NA	NA	39	no data	NA	no data	no data	NA	NA	NA	NA
+sHT14C	17065	N726	S502	sHT14	control	tissue	C	m	NA	NA	39	no data	NA	no data	no data	NA	NA	NA	NA
+sHT16A	27531	N727	S502	sHT16	control	tissue	A	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT16C	27597	N728	S502	sHT16	control	tissue	C	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT17A	20908	N729	S502	sHT17	control	tissue	A	m	NA	NA	69	no data	NA	no data	no data	NA	NA	NA	NA
+sHT18A	31384	N718	S503	sHT18	control	tissue	A	m	NA	NA	70	no data	NA	no data	no data	NA	NA	NA	NA
+sHT18C	16882	N719	S503	sHT18	control	tissue	C	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT19A	36573	N720	S505	sHT19	control	tissue	A	m	NA	NA	54	no data	NA	no data	no data	NA	NA	NA	NA
+sHT19C	25495	N721	S503	sHT19	control	tissue	C	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT20A	23782	N722	S503	sHT20	control	tissue	A	f	NA	NA	42	no data	NA	no data	no data	NA	NA	NA	NA
+sHT20C	36864	N723	S503	sHT20	control	tissue	C	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT21A	14417	N711	S521	sHT21	control	tissue	A	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT21b	11793	N712	S506	sHT21	control	tissue	C	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT21C	23533	N726	S503	sHT21	control	tissue	C	f	NA	NA	62	no data	NA	no data	no data	NA	NA	NA	NA
+sHT22A	32754	N727	S503	sHT22	control	tissue	A	f	NA	NA	76	no data	NA	no data	no data	NA	NA	NA	NA
+sHT22C	30092	N728	S503	sHT22	control	tissue	C	f	NA	NA	76	no data	NA	no data	no data	NA	NA	NA	NA
+sHT23A	27422	N729	S503	sHT23	control	tissue	A	f	NA	NA	61	no data	NA	no data	no data	NA	NA	NA	NA
+sHT23C	34770	N716	S505	sHT23	control	tissue	C	f	NA	NA	61	no data	NA	no data	no data	NA	NA	NA	NA
+sHT24A	38016	N718	S505	sHT24	control	tissue	A	f	NA	NA	57	no data	NA	no data	no data	NA	NA	NA	NA
+sHT24C	27236	N719	S505	sHT24	control	tissue	C	f	NA	NA	57	no data	NA	no data	no data	NA	NA	NA	NA
+sHT25A	26086	N720	S503	sHT25	control	tissue	A	f	NA	NA	42	no data	NA	no data	no data	NA	NA	NA	NA
+sHT25C	41316	N721	S505	sHT25	control	tissue	C	f	NA	NA	42	no data	NA	no data	no data	NA	NA	NA	NA
+sHT26A	26160	N722	S505	sHT26	control	tissue	A	f	NA	NA	41	no data	NA	no data	no data	NA	NA	NA	NA
+sHT26C	51368	N723	S505	sHT26	control	tissue	C	f	NA	NA	41	no data	NA	no data	no data	NA	NA	NA	NA
+sHT27A	55679	N724	S505	sHT27	control	tissue	A	f	NA	NA	65	no data	NA	no data	no data	NA	NA	NA	NA
+sHT27C	53447	N726	S505	sHT27	control	tissue	C	f	NA	NA	65	no data	NA	no data	no data	NA	NA	NA	NA
+sHT28A	52230	N727	S505	sHT28	control	tissue	A	m	NA	NA	74	no data	NA	no data	no data	NA	NA	NA	NA
+sHT28C	42102	N728	S505	sHT28	control	tissue	C	m	NA	NA	74	no data	NA	no data	no data	NA	NA	NA	NA
+sHT29A	33620	N729	S505	sHT29	control	tissue	A	f	NA	NA	33	no data	NA	no data	no data	NA	NA	NA	NA
+sHT29C	41396	N716	S506	sHT29	control	tissue	C	f	NA	NA	33	no data	NA	no data	no data	NA	NA	NA	NA
+sHT30A	30019	N718	S506	sHT30	control	tissue	A	m	NA	NA	68	no data	NA	no data	no data	NA	NA	NA	NA
+sHT30C	26060	N719	S506	sHT30	control	tissue	C	m	NA	NA	68	no data	NA	no data	no data	NA	NA	NA	NA
+sHT32A	30143	N720	S506	sHT32	control	tissue	A	m	NA	NA	68	no data	NA	no data	no data	NA	NA	NA	NA
+sHT32C	28901	N721	S506	sHT32	control	tissue	C	m	NA	NA	68	no data	NA	no data	no data	NA	NA	NA	NA
+sHT33A	20487	N722	S506	sHT33	control	tissue	A	f	NA	NA	57	no data	NA	no data	no data	NA	NA	NA	NA
+sHT33C	33022	N723	S506	sHT33	control	tissue	C	f	NA	NA	57	no data	NA	no data	no data	NA	NA	NA	NA
+sHT34A	36526	N724	S506	sHT34	control	tissue	A	f	NA	NA	64	no data	NA	no data	no data	NA	NA	NA	NA
+sHT34C	42757	N727	S506	sHT34	control	tissue	C	f	NA	NA	64	no data	NA	no data	no data	NA	NA	NA	NA
+sHT35A	41234	N726	S506	sHT35	control	tissue	A	f	NA	NA	34	no data	NA	no data	no data	NA	NA	NA	NA
+sHT35C	37893	N728	S506	sHT35	control	tissue	C	f	NA	NA	64	no data	NA	no data	no data	NA	NA	NA	NA
+sHT36A	38123	N729	S506	sHT36	control	tissue	A	f	NA	NA	75	no data	NA	no data	no data	NA	NA	NA	NA
+sHT36C	21571	N716	S507	sHT36	control	tissue	C	f	NA	NA	75	no data	NA	no data	no data	NA	NA	NA	NA
+sHT37A	32347	N718	S507	sHT37	control	tissue	A	m	NA	NA	56	no data	NA	no data	no data	NA	NA	NA	NA
+sHT37C	23048	N719	S507	sHT37	control	tissue	C	m	NA	NA	56	no data	NA	no data	no data	NA	NA	NA	NA
+sHT38A	39798	N720	S507	sHT38	control	tissue	A	f	NA	NA	40	no data	NA	no data	no data	NA	NA	NA	NA
+sHT38C	39433	N721	S507	sHT38	control	tissue	C	f	NA	NA	40	no data	NA	no data	no data	NA	NA	NA	NA
+sHT39A	15634	N722	S507	sHT39	control	tissue	A	m	NA	NA	30	no data	NA	no data	no data	NA	NA	NA	NA
+sHT39C	36528	N723	S507	sHT39	control	tissue	C	m	NA	NA	30	no data	NA	no data	no data	NA	NA	NA	NA
+sHT40A	37506	N724	S507	sHT40	control	tissue	A	m	NA	NA	27	no data	NA	no data	no data	NA	NA	NA	NA
+sHT40C	37893	N726	S507	sHT40	control	tissue	C	m	NA	NA	27	no data	NA	no data	no data	NA	NA	NA	NA
+sHT41A	42833	N727	S507	sHT41	control	tissue	A	f	NA	NA	NA	no data	NA	no data	no data	NA	NA	NA	NA
+sHT42A	35721	N729	S507	sHT42	control	tissue	A	m	NA	NA	43	no data	NA	no data	no data	NA	NA	NA	NA
+sHT42C	27990	N716	S508	sHT42	control	tissue	C	m	NA	NA	43	no data	NA	no data	no data	NA	NA	NA	NA
