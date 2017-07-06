@@ -96,38 +96,59 @@ get_combined_table <- function(datasets, sample_source, split_on = NULL){
   
 }
 
-# Create combined stool data table
-stool_data <- get_combined_table(stool_sets, "stool", split_on = NULL) %>% 
-  bind_rows(get_combined_table("chen", "stool", split_on = "stool"))
-
-# Create combined tissue data table
-tissue_data <- get_combined_table(tissue_sets, "tissue", split_on = NULL) %>% 
-  bind_rows(get_combined_table("chen", "tissue", split_on = "tissue"))
-
-
-
-# Set up the variables that will be used
-alpha_measures <- c("sobs", "shannon", "shannoneven")
-alpha_names <- c("Richness", "Shannon Diversity", "Evenness")
-overall_hist <- list(sobs = c(), shannon = c(), shannoneven = c())
-
-# Visualize the distributions for the stool data set
-for(i in 1:length(alpha_measures)){
+# Create function to get histograms of each measure
+generate_histogram_alpha <- function(data_set, sample_type){
   
-  overall_hist[[i]] <- ggplot(stool_data, aes(stool_data[, alpha_measures[i]])) + 
-    geom_histogram(color = "black", fill = "white", bins = 40) + theme_bw() + 
-    ylab("Counts") + xlab(paste("Z-score Normalized ", alpha_names[i], sep = "")) + 
-    scale_y_continuous(limits = c(0, 110), expand = c(0, 0))
+  # Set up the variables that will be used
+  alpha_measures <- c("sobs", "shannon", "shannoneven")
+  alpha_names <- c("Richness", "Shannon Diversity", "Evenness")
+  overall_hist <- list(sobs = c(), shannon = c(), shannoneven = c())
   
-  # Save graphs in exploratory notebook
-  ggsave(paste("exploratory/notebook/", alpha_measures[i], "_combined_histogram.tiff", sep = ""), 
-         overall_hist[[i]], width=6, height = 7, dpi = 300)
+  # Visualize the distributions for the stool data set
+  for(i in 1:length(alpha_measures)){
+    
+    # Generates the actual plot
+    overall_hist[[i]] <- ggplot(data_set, aes(data_set[, alpha_measures[i]])) + 
+      geom_histogram(color = "black", fill = "white", bins = 40) + theme_bw() + 
+      ylab("Counts") + xlab(paste("Z-score Normalized ", alpha_names[i], sep = "")) + 
+      scale_y_continuous(limits = c(0, 110), expand = c(0, 0))
+    
+    # Save graphs in exploratory notebook
+    ggsave(paste("exploratory/notebook/", 
+                 sample_type, "_", alpha_measures[i], "_combined_histogram.tiff", sep = ""), 
+           overall_hist[[i]], width=6, height = 7, dpi = 300)
+  }
+  
+  return(overall_hist)
 }
 
 
+# Create combined stool data table
+stool_data <- get_combined_table(stool_sets, "stool", split_on = NULL) %>% 
+  bind_rows(get_combined_table("chen", "stool", split_on = "stool")) %>% 
+  bind_rows(get_combined_table("flemer", "stool", split_on = "stool")) %>% 
+  select(group, sobs, shannon, shannoneven, disease, white, set, sample_type, sex, 
+         age, bmi) %>% 
+  filter(!is.na(disease))
+
+
+# Create combined tissue data table
+tissue_data <- get_combined_table(tissue_sets, "tissue", split_on = NULL) %>% 
+  bind_rows(get_combined_table("chen", "tissue", split_on = "tissue")) %>% 
+  bind_rows(get_combined_table("flemer", "tissue", split_on = "tissue")) %>% 
+  select(group, sobs, shannon, shannoneven, white, disease, matched, set, sample_type, 
+         age, sex, site, stage, size_mm, bmi)
+
+
+# Create graphs
+stool_graphs <- generate_histogram_alpha(stool_data, sample_type = "stool")
+tissue_graphs <- generate_histogram_alpha(tissue_data, sample_type = "tissue")
+
+
 # Write out combined data
-write.csv(stool_z_combined, "data/process/tables/stool_zscore_alpha_combined.csv", row.names = F)
+write.csv(stool_data, "data/process/tables/stool_zscore_alpha_combined.csv", row.names = F)
+write.csv(tissue_data, "data/process/tables/tissue_zscore_alpha_combined.csv", row.names = F)
 
-
+# Note to self: 
 # Can use powerTransform instead to try and correct out skew
 
