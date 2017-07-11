@@ -155,7 +155,9 @@ generate_lambda <- function(i, original_df, transformed_data){
 
 # Function to transform needed data, get the lambda and p-values for normality
 get_lambda <- function(test_df){
+  # test_df is a data frame with metadata and alpha metrics of interest
   
+  # Apply optimal power transformation
   new_power_data <- test_df %>% 
     mutate_at(vars(sobs, shannon, shannoneven), 
               function(x) transformTukey(x, plotit = FALSE))
