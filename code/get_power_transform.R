@@ -113,22 +113,44 @@ get_combined_table <- function(datasets, sample_source){
 }
 
 
+# Function to judge whether lambda is negative or positive and obtain proper lambda
+calc_lambda_sign <- function(filtered_vec, transformed_vec){
+  
+  if(transformed_vec > 0){
+    
+    lambda_value <- log(transformed_vec)/log(filtered_vec)
+  } else{
+    
+    lambda_value <- log(-1*transformed_vec)/log(filtered_vec)
+  }
+  
+  return(lambda_value)
+}
+
+
+# Function to run through each column
+
+generate_lambda <- function(i, filtered_df, transformed_data){
+  
+  conv_filtered_data <- as.data.frame(filtered_df[1, i])
+  conv_transformed_data <- as.data.frame(transformed_data[1, i])
+  
+  calculated_lambda <- mapply(calc_lambda_sign, conv_filtered_data, conv_transformed_data)
+  
+  return(calculated_lambda)
+}
+
+
 # Function to calculate lambda
 calc_lambda <- function(original_df, transformed_data){
   
   filtered_df <- original_df %>% 
     select(sobs, shannon, shannoneven)
-
-  if(transformed_data[1, 1] > 0){
-    
-    lambda_values <- log(transformed_data[1, ])/log(filtered_df[1, ])
-  } else{
-    
-    lambda_values <- log(-1*transformed_data[1, ])/log(filtered_df[1, ])
-  }
   
+  lambda_values <- generate_lambda(c("sobs", "shannon", "shannoneven"), 
+                                   filtered_df, transformed_data)
   
-  return(unname(t(lambda_values[1, ])[, 1]))
+  return(unname(lambda_values))
 }
 
 
