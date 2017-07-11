@@ -48,22 +48,22 @@ get_data <- function(i, sample_source){
     
     all_metdata <- all_metdata %>% mutate(sample_type = sample_source)
   }
-  
+  # Create a new column called sex if it is not already present
   if(!("sex" %in% colnames(all_metdata))){
     
     all_metdata <- all_metdata %>% mutate(sex = NA)
   }
-  
+  # Create a new column called age if it is not already present
   if(!("age" %in% colnames(all_metdata))){
     
     all_metdata <- all_metdata %>% mutate(age = NA)
   }
-  
+  # Create a new column called bmi if it is not already present
   if(!("bmi" %in% colnames(all_metdata))){
     
     all_metdata <- all_metdata %>% mutate(bmi = NA)
   }
-  
+  # Create a new column called white if it is not already present
   if(!("white" %in% colnames(all_metdata))){
     
     all_metdata <- all_metdata %>% mutate(white = NA)
@@ -115,44 +115,41 @@ get_combined_table <- function(datasets, sample_source){
 
 # Function to judge whether lambda is negative or positive and obtain proper lambda
 calc_lambda_sign <- function(filtered_vec, transformed_vec){
+  # filtered_vec are original alpha diversity values
+  # transformed_vec are the appropriate power transformed values
   
+  # Runs to check if the transformed value is positive or negative
   if(transformed_vec > 0){
-    
+    # Conversion formula if value is positive
     lambda_value <- log(transformed_vec)/log(filtered_vec)
   } else{
-    
+    # Conversion formula if value is negative
     lambda_value <- log(-1*transformed_vec)/log(filtered_vec)
   }
-  
+  # Write out the obtained value
   return(lambda_value)
 }
 
 
-# Function to run through each column
-
-generate_lambda <- function(i, filtered_df, transformed_data){
-  
-  conv_filtered_data <- as.data.frame(filtered_df[1, i])
-  conv_transformed_data <- as.data.frame(transformed_data[1, i])
-  
-  calculated_lambda <- mapply(calc_lambda_sign, conv_filtered_data, conv_transformed_data)
-  
-  return(calculated_lambda)
-}
-
-
-# Function to calculate lambda
-calc_lambda <- function(original_df, transformed_data){
+# Control function to run through each alpha metric column of supplied data frames
+generate_lambda <- function(i, original_df, transformed_data){
+  # i is a vector of alpha metrics
+  # filtered_df is a data frame with original alpha metric values of interest
+  # transformed_data is a data frame with power transformed alpha metrics of interest
   
   filtered_df <- original_df %>% 
     select(sobs, shannon, shannoneven)
   
-  lambda_values <- generate_lambda(c("sobs", "shannon", "shannoneven"), 
-                                   filtered_df, transformed_data)
+  # converts provided data frames to a data frame (tibbles make things screwy)
+  conv_filtered_data <- as.data.frame(filtered_df[1, i])
+  conv_transformed_data <- as.data.frame(transformed_data[1, i])
   
-  return(unname(lambda_values))
+  # run the calculation function on every alpha metric of interest
+  calculated_lambda <- mapply(calc_lambda_sign, conv_filtered_data, conv_transformed_data)
+  
+  # Write out the obtained values
+  return(unname(calculated_lambda))
 }
-
 
 
 # Function to transform needed data, get the lambda and p-values for normality
@@ -164,7 +161,8 @@ get_lambda <- function(test_df){
     
   test_new_data <- new_power_data %>% select(sobs, shannon, shannoneven)
   
-  optimum_lambdas <- calc_lambda(test_df, test_new_data)
+  optimum_lambdas <- generate_lambda(c("sobs", "shannon", "shannoneven"), 
+                                     test_df, test_new_data)
     
   pvalues <- apply(test_new_data, 2, function(x) shapiro.test(x)$p.value)
   
