@@ -134,9 +134,10 @@ calc_lambda_sign <- function(filtered_vec, transformed_vec){
 # Control function to run through each alpha metric column of supplied data frames
 generate_lambda <- function(i, original_df, transformed_data){
   # i is a vector of alpha metrics
-  # filtered_df is a data frame with original alpha metric values of interest
+  # original_df is a data frame with both meta data and alpha metrics
   # transformed_data is a data frame with power transformed alpha metrics of interest
   
+  # create filtered data frame with only alpha metrics of interest
   filtered_df <- original_df %>% 
     select(sobs, shannon, shannoneven)
   
