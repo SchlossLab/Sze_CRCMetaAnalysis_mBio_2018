@@ -178,13 +178,59 @@ get_lambda <- function(test_df){
 }
 
 
+# write out tables 
+write_out_tables <- function(dataset, data_list, sample_type, table_type,  
+                             directory = "data/process/tables/", further_sep = NULL){
+  
+  if(is.null(further_sep)){
+    
+    write.csv(data_list, 
+              paste(directory, dataset, "_", sample_type, "_", table_type, ".csv", sep = ""), 
+              row.names = F)
+    
+  } else{
+    
+    write.csv(data_list[[further_sep]], 
+              paste(directory, dataset, "_", sample_type, "_", 
+                    further_sep, "_", table_type, ".csv", sep = ""), 
+              row.names = F)
+  }
+
+}
+
+
+
 # Create combined stool data table
 stool_data <- get_combined_table(c(stool_sets, both_sets), "stool")
 transformed_stool <- lapply(stool_data, get_lambda)
 
+# Write out stool_data
+mapply(write_out_tables, c(stool_sets, both_sets), stool_data, "stool", "alpha_raw_values")
+mapply(write_out_tables, c(stool_sets, both_sets), transformed_stool, 
+       "stool", "alpha_raw_values", further_sep = "transformed_data")
+
+write.csv(bind_rows(lapply(transformed_stool, function(x) 
+  x[["summary_stats"]] %>% as.data.frame() %>% 
+    mutate(alpha_measure = c("sobs", "shannon", "shannoneven"), 
+           study = unique(x[["transformed_data"]]$study)) %>% 
+    rename(shapiro_wilk_pvalue = pvalues))), 
+  "data/process/tables/stool_power_transformation_summary.csv", row.names = F)
+
+
+
+mapply(write_out_tables, c(stool_sets, both_sets), transformed_stool, 
+       "stool", "alpha_raw_values", further_sep = "summary_stats")
+
 # Create combined tissue data table
 tissue_data <- get_combined_table(c(tissue_sets, both_sets), "tissue")
 transformed_tissue <- lapply(tissue_data, get_lambda)
+
+# Write out tissue_data
+mapply(write_out_tables, c(stool_sets, both_sets), stool_data, "stool", "alpha_raw_values")
+mapply(write_out_tables, c(stool_sets, both_sets), transformed_stool, 
+       "stool", "alpha_raw_values", further_sep = "transformed_data")
+mapply(write_out_tables, c(stool_sets, both_sets), transformed_stool, 
+       "stool", "alpha_raw_values", further_sep = "summary_stats")
 
 # solving for lambda
   # transformed_num = num ^ lambda
