@@ -226,11 +226,11 @@ tissue_data <- get_combined_table(c(tissue_sets, both_sets), "tissue")
 transformed_tissue <- lapply(tissue_data, get_lambda)
 
 # Write out tissue_data
-mapply(write_out_tables, c(stool_sets, both_sets), stool_data, "stool", "alpha_raw_values")
-mapply(write_out_tables, c(stool_sets, both_sets), transformed_stool, 
-       "stool", "alpha_raw_values", further_sep = "transformed_data")
-mapply(write_out_tables, c(stool_sets, both_sets), transformed_stool, 
-       "stool", "alpha_raw_values", further_sep = "summary_stats")
+mapply(write_out_tables, c(tissue_sets, both_sets), tissue_data, "tissue", "alpha_raw_values")
+mapply(write_out_tables, c(tissue_sets, both_sets), transformed_tissue, 
+       "tissue", "alpha_raw_values", further_sep = "transformed_data")
+mapply(write_out_tables, c(tissue_sets, both_sets), transformed_tissue, 
+       "tissue", "alpha_raw_values", further_sep = "summary_stats")
 
 # solving for lambda
   # transformed_num = num ^ lambda
