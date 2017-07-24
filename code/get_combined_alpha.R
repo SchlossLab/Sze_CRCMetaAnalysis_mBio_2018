@@ -61,6 +61,8 @@ combined_data <- bind_rows(lapply(stool_ztrans_pwrtrans_data,
                                   function(x) as.data.frame(x) %>% 
                            mutate(group = as.character(group))))
 
+### Need to loop this for each respective variable ###
+
 # Test the stool data
 
 t.test(filter(combined_data, disease == "cancer")[, "sobs"], 
