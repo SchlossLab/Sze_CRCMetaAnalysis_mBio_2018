@@ -25,7 +25,6 @@ both_sets <- c("flemer", "chen")
 
 
 # Function to read in the respective transformed data tables for each study
-
 get_transformed_data <- function(i, sampleType){
   
   data_list <- read.csv(paste("data/process/tables/", i, "_", sampleType, "_",  
@@ -38,7 +37,6 @@ get_transformed_data <- function(i, sampleType){
 
 # Function to apply a z-score normalization and and a new column with these values
 # for sobs, shannon, and shannoneven
-
 zscore_transform <- function(dataList, 
                              variables = c("sobs", "shannon", "shannoneven")){
   
@@ -46,6 +44,59 @@ zscore_transform <- function(dataList,
     mutate_at(vars(variables), funs(as.numeric(scale(.))))
   
   return(z_trans_data)
+}
+
+
+# Run tests for alpha metrics using t-tests
+get_ttest_comparisons <- function(alpha_metric, split_on, data_set = combined_data){
+  
+  temp_test <- t.test(filter(data_set, disease == split_on)[, alpha_metric], 
+         filter(data_set, disease != split_on)[, alpha_metric], 
+         alternative = "two.sided")
+
+  test_info <- data_frame(c(temp_test$estimate, temp_test$p.value)) %>% 
+    setNames("results") %>% 
+    mutate(col_names = c(split_on, paste("non_", split_on, sep = ""), "pvalue")) %>% 
+    spread(col_names, results) %>% mutate(measures = alpha_metric)
+
+  return(test_info)
+  
+}
+
+#Run an ANOVA with Tukey post hoc test to look for differences within each group
+get_anova_comparisons <- function(alpha_metric, set_groups = "disease", 
+                                  data_set = combined_data){
+  
+    test_data <- TukeyHSD(aov(lm(
+    as.formula(paste(alpha_metric, "~", set_groups)), data = data_set)))[[set_groups]] %>% 
+    as.data.frame() %>% 
+    mutate(comparison = rownames(.), measure = alpha_metric)
+  
+  return(test_data)
+  
+}
+
+
+# Run a linear mixed-effect model accounting for study
+# for each alpha metric used
+get_mixed_effect <- function(alpha_metric, study_group = "study", disease_group = "disease", 
+                             data_set = combined_data){
+  
+  null_model <- lmer(
+    as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ")", sep = "")), 
+    data = data_set, REML=FALSE)
+  
+  disease_model <- lmer(
+    as.formula(paste(alpha_metric, " ~ ", "(1|", disease_group, ") + ", 
+                     "(1|", study_group, ")", sep = "")), 
+    data = data_set, REML=FALSE)
+  
+  results <- anova(null_model, disease_model)
+  
+  imp_values <- c(chi_sq = results[, "Chisq"][2], pvalue = results[, "Pr(>Chisq)"][2])
+  
+  return(imp_values)
+  
 }
 
 
@@ -63,29 +114,44 @@ combined_data <- bind_rows(lapply(stool_ztrans_pwrtrans_data,
 
 ### Need to loop this for each respective variable ###
 
-# Test the stool data
-
-t.test(filter(combined_data, disease == "cancer")[, "sobs"], 
-       filter(combined_data, disease != "cancer")[, "sobs"], 
-       alternative = "two.sided")
-
-t.test(filter(combined_data, disease == "cancer")[, "shannon"], 
-       filter(combined_data, disease != "cancer")[, "shannon"], 
-       alternative = "two.sided")
-
-t.test(filter(combined_data, disease == "cancer")[, "shannoneven"], 
-       filter(combined_data, disease != "cancer")[, "shannoneven"], 
-       alternative = "two.sided")
+# Test the stool data for difference between cancer and non-cancer
+ttest_results <- bind_rows(mapply(get_ttest_comparisons, 
+                                  c("sobs", "shannon", "shannoneven"), "cancer", 
+                                  USE.NAMES = T, SIMPLIFY = F)) %>% 
+  mutate(BH = p.adjust(pvalue, method = "BH")) %>% 
+  select(cancer, non_cancer, pvalue, BH, measures)
 
 # Test if there is a difference based on adenoma being seperated from controls
-TukeyHSD(aov(lm(combined_data$sobs ~ factor(combined_data$disease))))
+tukey_results <- mapply(get_anova_comparisons, c("sobs", "shannon", "shannoneven"), 
+               USE.NAMES = T, SIMPLIFY = F) %>% bind_rows()
 
 
 # Account for data sets in analysis using a linear mixed-effect model
-null_model <- lmer(combined_data$shannon ~ (1|combined_data$study), REML=FALSE)
-disease_model <- lmer(combined_data$shannon ~ (1|combined_data$disease) + (1|combined_data$study), 
-                      REML=FALSE)
-anova(null_model, disease_model)[["Pr(>Chisq)"]][2]
+mixeffect_results <- mapply(get_mixed_effect, c("sobs", "shannon", "shannoneven"), 
+               USE.NAMES = T, SIMPLIFY = F) %>% bind_rows() %>% 
+  gather(key = alpha_metric, value = value) %>% 
+  mutate(measure = rep(c("chi_sq", "pvalue"), length(value)/2)) %>% 
+  spread(measure, value) %>% 
+  mutate(BH = p.adjust(pvalue, method = "BH"))
+
+# Write out the results from the 3 tests
+make_the_tables <- function(i, table_name){
+  
+  write.csv(i, paste("data/process/tables/alpha_", table_name, ".csv"), row.names = F)
+}
+
+mapply(make_the_tables, 
+       list(ttest_results, tukey_results, mixeffect_results), 
+       c("ttest_results", "tukey_results", "mixeffect_results"))
+
+
+
+
+
+
+
+
+
 
 
 
