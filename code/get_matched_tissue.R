@@ -97,7 +97,7 @@ zscore_transform <- function(dataList,
 b_test <- tissue_metadata[["burns"]] %>% select(Run_s, host_subject_id_s) %>% 
   rename(group = Run_s)
 
-b_alpha_test <- pwr_transformed_data[["burns"]]
+b_alpha_test <- zscore_pwr_transform_data[["burns"]]
 
 b_combined_data <- test %>% inner_join(alpha_test, by = "group") %>% 
   group_by(host_subject_id_s) %>% filter(n()>1)
@@ -110,7 +110,7 @@ d_test <- tissue_metadata[["dejea"]] %>% select(Run_s, Sample_Name_s) %>%
   rename(group = Run_s) %>% 
   separate(Sample_Name_s, c("id", "ext_disease", "ext_location"), sep = "\\.")
 
-d_alpha_test <- pwr_transformed_data[["dejea"]]
+d_alpha_test <- zscore_pwr_transform_data[["dejea"]]
 
 
 d_combined_data <- d_test %>% inner_join(d_alpha_test, by = "group") %>% 
@@ -124,7 +124,7 @@ l_test <- tissue_metadata[["lu"]] %>%
   mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
   rename(id = Sample_Name_s, group = Run_s) 
 
-l_alpha_test <- pwr_transformed_data[["lu"]]
+l_alpha_test <- zscore_pwr_transform_data[["lu"]]
 
 l_combined_data <- l_test %>% inner_join(l_alpha_test, by = "group") %>% 
   filter(divider != "C") %>% 
@@ -139,7 +139,7 @@ g_test <- tissue_metadata[["geng"]] %>%
   mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
   rename(id = Sample_Name_s, group = Run_s) 
 
-g_alpha_test <- pwr_transformed_data[["geng"]]
+g_alpha_test <- zscore_pwr_transform_data[["geng"]]
 
 g_combined_data <- g_test %>% inner_join(g_alpha_test, by = "group") %>% 
   group_by(id) %>% filter(n()>1)
