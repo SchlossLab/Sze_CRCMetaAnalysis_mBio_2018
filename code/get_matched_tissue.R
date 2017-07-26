@@ -73,6 +73,39 @@ get_orig_metadata <- function(i){
 
 # Function to get matched data and separate them from other data sets
 
+### BURNS
+test <- tissue_metadata[["burns"]] %>% select(Run_s, host_subject_id_s) %>% 
+  rename(group = Run_s)
+
+alpha_test <- pwr_transformed_data[["burns"]]
+
+combined_data <- test %>% inner_join(alpha_test, by = "group") %>% 
+  group_by(host_subject_id_s) %>% filter(n()>1)
+
+non_combined_data <- test %>% inner_join(alpha_test, by = "group") %>% 
+  group_by(host_subject_id_s) %>% filter(n() ==1)
+
+### DEJEA
+d_test <- tissue_metadata[["dejea"]] %>% select(Run_s, Sample_Name_s) %>% 
+  rename(group = Run_s) %>% 
+  separate(Sample_Name_s, c("id", "ext_disease", "ext_location"), sep = "\\.")
+
+d_alpha_test <- pwr_transformed_data[["dejea"]]
+
+
+d_combined_data <- d_test %>% inner_join(d_alpha_test, by = "group") %>% 
+  group_by(id) %>% filter(n()>1)
+
+d_non_combined_data <- d_test %>% inner_join(d_alpha_test, by = "group") %>% 
+  group_by(id) %>% filter(n() == 1)
+
+### LU
+
+
+
+
+
+
 
 
 
@@ -80,7 +113,7 @@ get_orig_metadata <- function(i){
 pwr_transformed_data <- mapply(get_pwr_transformed_data, c(tissue_sets, both_sets), 
                                SIMPLIFY = F)
 
-# Read in needed metadata for tissu
+# Read in needed metadata for tissue
 tissue_metadata <- mapply(get_orig_metadata, c(tissue_sets, both_sets), SIMPLIFY = F)
 
 
