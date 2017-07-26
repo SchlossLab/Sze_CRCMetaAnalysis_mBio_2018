@@ -71,7 +71,31 @@ get_orig_metadata <- function(i){
 }
 
 
+# Function to apply a z-score normalization and and a new column with these values
+# for sobs, shannon, and shannoneven
+zscore_transform <- function(dataList, 
+                             variables = c("sobs", "shannon", "shannoneven")){
+  # dataList represents the list data that was read in by get_transformed_data
+  # variables reprents data of interest for downstream comparisons
+  
+  # command that z-score transforms interested data 
+  z_trans_data <- dataList %>% 
+    mutate_at(vars(variables), funs(as.numeric(scale(.))))
+  
+  # return to working environment the new z-score transformed data
+  return(z_trans_data)
+}
+
+
+
+
+
+
+
 # Function to get matched data and separate them from other data sets
+
+####### Need to automate this late so it is less like below #########
+
 
 ### BURNS
 b_test <- tissue_metadata[["burns"]] %>% select(Run_s, host_subject_id_s) %>% 
@@ -130,6 +154,12 @@ g_combined_data <- g_test %>% inner_join(g_alpha_test, by = "group") %>%
 # Read in transformed data
 pwr_transformed_data <- mapply(get_pwr_transformed_data, c(tissue_sets, both_sets), 
                                SIMPLIFY = F)
+
+# Z-Score normalize the data
+zscore_pwr_transform_data <- lapply(pwr_transformed_data, 
+                                    function(x) zscore_transform(x))
+
+
 
 # Read in needed metadata for tissue
 tissue_metadata <- mapply(get_orig_metadata, c(tissue_sets, both_sets), SIMPLIFY = F)
