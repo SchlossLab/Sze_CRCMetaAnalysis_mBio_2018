@@ -176,10 +176,12 @@ combination_data <- mapply(get_combinations, matched_sets, USE.NAMES = T, SIMPLI
 
 
 # Get the matched data
-tissue_matched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "matched"))
+tissue_matched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "matched")) %>% 
+  mutate(disease = ifelse(is.na(disease), invisible(disease.x), invisible(disease)))
 
 tissue_unmatched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "unmatched"), 
-                  zscore_pwr_transform_data[c("chen", "flemer", "sana")])
+                  zscore_pwr_transform_data[c("chen", "flemer", "sana")]) %>% 
+  mutate(disease = ifelse(is.na(disease), invisible(disease.x), invisible(disease)))
 
 
 # Write out the data tables for analysis
