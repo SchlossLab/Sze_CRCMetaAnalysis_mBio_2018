@@ -2,6 +2,20 @@
 ### For tissue comparisons only want to keep matched samples
 ### Marc Sze
 
+###### Notes to self ######################################################
+
+# Chen is unmatched - chen.metadata
+# Flemer is unmatched - flemer.metadata
+# Sanaparedy is unmatched - sana.metadata
+
+
+# Burns is matched (want host_subject_id_s column) - burnsMetadata.csv
+# Lu data A matches with B - luData.csv
+# Dejea is matched (host_tissue_sampled_s column) - SraRunTable.txt
+# Geng is matched (Sample_Name_s column) - GengData.txt
+
+###########################################################################
+
 
 # Load in needed functions and libraries
 source('code/functions.R')
@@ -109,9 +123,7 @@ get_combinations <- function(i, matching = data_to_match_list,
 }
 
 
-# combine the non-matched data with other data sets and 
-
-# Function to create a stand alone matched data set
+# Function to pull specific matched/unmatched data from stored list
 get_matched_set_data <- function(i, grab_data, 
                                  data_list = combination_data){
   
@@ -122,6 +134,14 @@ get_matched_set_data <- function(i, grab_data,
 }
 
 
+# FUnction to write data out to file
+generate_data_tables <- function(data_name, path){
+  
+  write.csv(get(data_name), 
+            paste(path, "alpha_", data_name, ".csv", sep = ""), row.names = F)
+}
+
+
 # Read in transformed data
 pwr_transformed_data <- mapply(get_pwr_transformed_data, c(tissue_sets, both_sets), 
                                SIMPLIFY = F)
@@ -129,8 +149,6 @@ pwr_transformed_data <- mapply(get_pwr_transformed_data, c(tissue_sets, both_set
 # Z-Score normalize the data
 zscore_pwr_transform_data <- lapply(pwr_transformed_data, 
                                     function(x) zscore_transform(x))
-
-
 
 # Read in needed metadata for tissue
 tissue_metadata <- mapply(get_orig_metadata, c(tissue_sets, both_sets), SIMPLIFY = F)
@@ -160,17 +178,22 @@ combination_data <- mapply(get_combinations, matched_sets, USE.NAMES = T, SIMPLI
 # Get the matched data
 tissue_matched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "matched"))
 
+tissue_unmatched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "unmatched"), 
+                  zscore_pwr_transform_data[c("chen", "flemer", "sana")])
 
 
-# Chen is unmatched - chen.metadata
-# Flemer is unmatched - flemer.metadata
-# Sanaparedy is unmatched - sana.metadata
+# Write out the data tables for analysis
+mapply(generate_data_tables, c("tissue_matched_data", "tissue_unmatched_data"), 
+       "data/process/tables/")
 
 
-# Burns is matched (want host_subject_id_s column) - burnsMetadata.csv
-# Lu data A matches with B - luData.csv
-# Dejea is matched (host_tissue_sampled_s column) - SraRunTable.txt
-# Geng is matched (Sample_Name_s column) - GengData.txt
+
+
+
+
+
+
+
 
 
 
