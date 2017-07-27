@@ -19,6 +19,10 @@ tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 # Flemer, Chen
 both_sets <- c("flemer", "chen")
 
+# Create vector with data that has matched samples
+matched_sets <- c("burns", "dejea", "lu", "geng")
+
+
 
 # Function to read in each power transformed data sets
 get_pwr_transformed_data <- function(i){
@@ -89,60 +93,23 @@ zscore_transform <- function(dataList,
 
 
 # Function to get matched data and separate them from other data sets
-
-####### Need to automate this late so it is less like below #########
-
-
-### BURNS
-b_test <- tissue_metadata[["burns"]] %>% select(Run_s, host_subject_id_s) %>% 
-  rename(group = Run_s)
-
-b_alpha_test <- zscore_pwr_transform_data[["burns"]]
-
-b_combined_data <- test %>% inner_join(alpha_test, by = "group") %>% 
-  group_by(host_subject_id_s) %>% filter(n()>1)
-
-b_non_combined_data <- test %>% inner_join(alpha_test, by = "group") %>% 
-  group_by(host_subject_id_s) %>% filter(n() ==1)
-
-### DEJEA
-d_test <- tissue_metadata[["dejea"]] %>% select(Run_s, Sample_Name_s) %>% 
-  rename(group = Run_s) %>% 
-  separate(Sample_Name_s, c("id", "ext_disease", "ext_location"), sep = "\\.")
-
-d_alpha_test <- zscore_pwr_transform_data[["dejea"]]
+get_combinations <- function(i, matching = data_to_match_list, 
+                             alpha_set = alpha_to_match_list){
+  data_list <- c()
+  
+  data_list[["matched"]] <- matching[[i]] %>% 
+    inner_join(alpha_set[[i]], by = "group") %>% 
+    group_by(id) %>% filter(n() > 1)
+  
+  data_list[["unmatched"]] <- matching[[i]] %>% 
+    inner_join(alpha_set[[i]], by = "group") %>% 
+    group_by(id) %>% filter(n() == 1)
+  
+  return(data_list)
+}
 
 
-d_combined_data <- d_test %>% inner_join(d_alpha_test, by = "group") %>% 
-  group_by(id) %>% filter(n()>1)
-
-d_non_combined_data <- d_test %>% inner_join(d_alpha_test, by = "group") %>% 
-  group_by(id) %>% filter(n() == 1)
-
-### LU
-l_test <- tissue_metadata[["lu"]] %>% 
-  mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
-  rename(id = Sample_Name_s, group = Run_s) 
-
-l_alpha_test <- zscore_pwr_transform_data[["lu"]]
-
-l_combined_data <- l_test %>% inner_join(l_alpha_test, by = "group") %>% 
-  filter(divider != "C") %>% 
-  group_by(id) %>% filter(n()>1)
-
-l_non_combined_data <- l_test %>% inner_join(l_alpha_test, by = "group") %>% 
-  group_by(id) %>% filter(n() == 1)
-
-### GENG
-g_test <- tissue_metadata[["geng"]] %>% 
-  select(Run_s, Sample_Name_s) %>% 
-  mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
-  rename(id = Sample_Name_s, group = Run_s) 
-
-g_alpha_test <- zscore_pwr_transform_data[["geng"]]
-
-g_combined_data <- g_test %>% inner_join(g_alpha_test, by = "group") %>% 
-  group_by(id) %>% filter(n()>1)
+# combine the non-matched data with other data sets and create a stand alone matched data set
 
 
 
@@ -159,6 +126,29 @@ zscore_pwr_transform_data <- lapply(pwr_transformed_data,
 
 # Read in needed metadata for tissue
 tissue_metadata <- mapply(get_orig_metadata, c(tissue_sets, both_sets), SIMPLIFY = F)
+
+
+# Create needed lists of data
+data_to_match_list <- list(
+  burns = tissue_metadata[["burns"]] %>% select(Run_s, host_subject_id_s) %>% 
+    rename(id = host_subject_id_s, group = Run_s), 
+  dejea = tissue_metadata[["dejea"]] %>% select(Run_s, Sample_Name_s) %>% 
+    rename(group = Run_s) %>% 
+    separate(Sample_Name_s, c("id", "ext_disease", "ext_location"), sep = "\\."), 
+  lu = tissue_metadata[["lu"]] %>% 
+    mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
+    rename(id = Sample_Name_s, group = Run_s), 
+  geng = tissue_metadata[["geng"]] %>% 
+    select(Run_s, Sample_Name_s) %>% 
+    mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
+    rename(id = Sample_Name_s, group = Run_s))
+
+alpha_to_match_list <- zscore_pwr_transform_data[matched_sets]
+
+# generate the combined data
+combination_data <- mapply(get_combinations, matched_sets, USE.NAMES = T, SIMPLIFY = F)
+
+
 
 
 
