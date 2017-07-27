@@ -109,9 +109,17 @@ get_combinations <- function(i, matching = data_to_match_list,
 }
 
 
-# combine the non-matched data with other data sets and create a stand alone matched data set
+# combine the non-matched data with other data sets and 
 
-
+# Function to create a stand alone matched data set
+get_matched_set_data <- function(i, grab_data, 
+                                 data_list = combination_data){
+  
+  data_table <- data_list[[i]][[grab_data]] %>% 
+    as.data.frame() %>% mutate(id = as.character(id))
+  
+  return(data_table)
+}
 
 
 # Read in transformed data
@@ -149,6 +157,8 @@ alpha_to_match_list <- zscore_pwr_transform_data[matched_sets]
 combination_data <- mapply(get_combinations, matched_sets, USE.NAMES = T, SIMPLIFY = F)
 
 
+# Get the matched data
+tissue_matched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "matched"))
 
 
 
