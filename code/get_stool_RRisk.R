@@ -51,9 +51,7 @@ analyze_study <- function(i, group_column, dataset = stool_data){
   names(highs_lows) <- c("sobs", "shannon", "shannoneven")
   
   obtained_rr <- lapply(highs_lows, 
-                        function(x) run_rr(high_low_vector = x, disease_vector = is_cancer)) %>% 
-    bind_rows() %>% mutate(measures = c("sobs", "shannon", "shannoneven"))
-  
+                        function(x) run_rr(high_low_vector = x, disease_vector = is_cancer)) 
   return(obtained_rr)
 }
 
@@ -81,7 +79,9 @@ run_rr <- function(high_low_vector, disease_vector){
   test_values <- cbind(test$massoc$RR.strata.score, 
                        pvalue = test$massoc$chisq.strata$p.value)
   
-  return(test_values)
+  combined_data <- list(data_tbl = contingency, test_values = test_values)
+  
+  return(combined_data)
 }
 
 
@@ -91,4 +91,11 @@ stool_data <- mapply(get_data, c(stool_sets, both_sets), "stool", SIMPLIFY = F)
 
 # Generate RR for every study
 rr_ind_study <- mapply(analyze_study, c(stool_sets, both_sets), "disease", SIMPLIFY = F)
+
+###### TO DO LIST ######
+
+## Need to seperate the respective tables from the results 
+## Need to format the table results to be used in an aggregate analysis
+## Run aggregate analysis on every measure
+
 
