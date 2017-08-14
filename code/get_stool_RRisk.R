@@ -1,0 +1,87 @@
+### Get Stool relative risk comparisons
+### Marc Sze
+
+# Load in needed functions and libraries
+source('code/functions.R')
+
+# Load needed libraries
+loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
+
+
+# Stool Only sets
+# Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
+stool_sets <- c("wang", "brim", "weir", "ahn", "zeller", "baxter")
+
+# Both Tissue and Stool
+# flemer sampletype = biopsy or stool
+# chen sample_type = tissue or stool
+# Flemer, Chen
+both_sets <- c("flemer", "chen")
+
+
+# Function to read in the respective transformed data tables for each study
+# These should have been previously power transformed to correct skew
+get_transformed_data <- function(i, sampleType){
+  # i represents the data set
+  # sampleType represents whether it is stool or tissue
+  
+  # Command that actually does the reading in
+  data_list <- read.csv(paste("data/process/tables/", i, "_", sampleType, "_",  
+                              "alpha_raw_values.csv", sep = ""), 
+                        header = T, stringsAsFactors = F)
+  
+  # return to working environment the data list
+  return(data_list)
+}
+
+
+# Analyze the data with respect to high low column table
+analyze_study <- function(i, group_column, dataset = stool_transformed_data){
+  
+  grouping <- dataset[[i]][, group_column]
+  
+  thresholds <- apply(select(dataset[[i]], one_of("sobs", "shannon", "shannoneven")), 2, 
+                      function(x) median(x))
+  
+  highs_lows <- mapply(create_high_low, i, thresholds, 
+                       c("sobs", "shannon", "shannoneven"), "disease", SIMPLIFY = F)
+  names(highs_lows) <- c("sobs", "shannon", "shannoneven")
+  
+  obtained_rr <- lapply(highs_lows, 
+                        function(x) run_rr(high_low_vector = x, disease_vector = grouping))
+  
+  return(obtained_rr)
+}
+
+
+# create the needed high/low columns
+create_high_low <- function(i, threshold, var_of_interest, grouping, 
+                            dataset = stool_transformed_data){
+  
+  select_data <- dataset[[i]]
+  
+  high_low <- ifelse(select_data[, var_of_interest] <= threshold, 
+                     invisible("low"), invisible("high"))
+  
+  return(high_low)
+}
+
+
+# Run relative risk test on single variable
+run_rr <- function(high_low_vector, disease_vector){
+  
+  contingency <- table(high_low_vector, disease_vector)
+  
+  test <- epi.2by2(contingency, method="cohort.count")
+  
+  test_values <- cbind(test$massoc$RR.strata.score, 
+                       pvalue = test$massoc$chisq.strata$p.value)
+  
+  return(test_values)
+}
+
+
+
+# Read in the respective data
+stool_transformed_data <- mapply(get_transformed_data, 
+                                 c(stool_sets, both_sets), "stool", SIMPLIFY = F)
