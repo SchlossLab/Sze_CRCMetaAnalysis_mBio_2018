@@ -10,18 +10,20 @@ loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
 
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
-stool_sets <- c("wang", "brim", "weir", "ahn", "zeller", "baxter")
+# Ignore brim since it only has polyps
+stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
 # chen sample_type = tissue or stool
 # Flemer, Chen
-both_sets <- c("flemer", "chen")
+# Ignore chen since there is only one case
+both_sets <- c("flemer")
 
 
 # Function to read in the respective transformed data tables for each study
 # These should have been previously power transformed to correct skew
-get_transformed_data <- function(i, sampleType){
+get_data <- function(i, sampleType){
   # i represents the data set
   # sampleType represents whether it is stool or tissue
   
@@ -36,9 +38,10 @@ get_transformed_data <- function(i, sampleType){
 
 
 # Analyze the data with respect to high low column table
-analyze_study <- function(i, group_column, dataset = stool_transformed_data){
+analyze_study <- function(i, group_column, dataset = stool_data){
   
-  grouping <- dataset[[i]][, group_column]
+  is_cancer <- factor(ifelse(dataset[[i]][, group_column] == "cancer", 
+                      invisible("Y"), invisible("N")), levels = c("Y", "N"))
   
   thresholds <- apply(select(dataset[[i]], one_of("sobs", "shannon", "shannoneven")), 2, 
                       function(x) median(x))
@@ -48,7 +51,8 @@ analyze_study <- function(i, group_column, dataset = stool_transformed_data){
   names(highs_lows) <- c("sobs", "shannon", "shannoneven")
   
   obtained_rr <- lapply(highs_lows, 
-                        function(x) run_rr(high_low_vector = x, disease_vector = grouping))
+                        function(x) run_rr(high_low_vector = x, disease_vector = is_cancer)) %>% 
+    bind_rows() %>% mutate(measures = c("sobs", "shannon", "shannoneven"))
   
   return(obtained_rr)
 }
@@ -56,12 +60,12 @@ analyze_study <- function(i, group_column, dataset = stool_transformed_data){
 
 # create the needed high/low columns
 create_high_low <- function(i, threshold, var_of_interest, grouping, 
-                            dataset = stool_transformed_data){
+                            dataset = stool_data){
   
   select_data <- dataset[[i]]
   
-  high_low <- ifelse(select_data[, var_of_interest] <= threshold, 
-                     invisible("low"), invisible("high"))
+  high_low <- factor(ifelse(select_data[, var_of_interest] <= threshold, 
+                     invisible("low"), invisible("high")), levels = c("low", "high"))
   
   return(high_low)
 }
@@ -83,5 +87,8 @@ run_rr <- function(high_low_vector, disease_vector){
 
 
 # Read in the respective data
-stool_transformed_data <- mapply(get_transformed_data, 
-                                 c(stool_sets, both_sets), "stool", SIMPLIFY = F)
+stool_data <- mapply(get_data, c(stool_sets, both_sets), "stool", SIMPLIFY = F)
+
+# Generate RR for every study
+rr_ind_study <- mapply(analyze_study, c(stool_sets, both_sets), "disease", SIMPLIFY = F)
+
