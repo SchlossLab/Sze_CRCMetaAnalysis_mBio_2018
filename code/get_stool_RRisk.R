@@ -108,6 +108,24 @@ make_list <- function(i, result, datalist = ind_study_data){
 }
 
 
+# Function to run test for selected alpha measure
+run_pooled <- function(alpha_d, dataset = ind_counts_data){
+  
+  test_data <- dataset %>% filter(measure == alpha_d)
+  
+  rr_pooled_test <- rma(ai = low_Y, bi = low_N, 
+                        ci = high_Y, di = high_N, data = test_data, 
+                        measure = "RR", method = "REML")
+  
+  results <- c(exp(c(rr = rr_pooled_test$b[[1, 1]], ci_lb = rr_pooled_test$ci.lb, 
+               ci_ub=rr_pooled_test$ci.ub)), pvalue = rr_pooled_test$pval, 
+               measure = alpha_d)
+  
+  return(results)
+  
+}
+
+
 
 # Read in the respective data
 stool_data <- mapply(get_data, c(stool_sets, both_sets), "stool", SIMPLIFY = F)
@@ -120,7 +138,17 @@ ind_RR_data <- mapply(make_list, c(stool_sets, both_sets), "test_values", SIMPLI
   bind_rows()
 
 # Pull out the counts for every study
-ind_counts_data <- mapply(make_list, c(stool_sets, both_sets), "data_tbl", SIMPLIFY = F)
+ind_counts_data <- mapply(make_list, c(stool_sets, both_sets), "data_tbl", SIMPLIFY = F) %>% 
+  bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
+  spread(group, Freq)
+
+# Run pooled test
+pooled_results <- t(mapply(run_pooled, c("sobs", "shannon", "shannoneven"), USE.NAMES = F)) %>% 
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
+  
+
+
 
 
 ###### TO DO LIST ######
