@@ -20,7 +20,13 @@ tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 both_sets <- c("flemer", "chen")
 
 
-#
+#### Need to do list
+###### load data in
+###### Use distance matrices to generate PERMANOVA values
+###### Think of potential way to pool this information together
+    ##### E.g. distance of centroids from each other...
+
+
 
 
 
