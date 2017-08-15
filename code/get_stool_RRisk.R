@@ -85,12 +85,43 @@ run_rr <- function(high_low_vector, disease_vector){
 }
 
 
+# Seperate out the table data from the individual analysis data
+pull_data <- function(var_of_int, i, result, datalist = ind_study_data){
+  
+  tempData <- datalist[[i]][[var_of_int]][[result]] %>% as.data.frame() %>% 
+    mutate(measure = var_of_int, study = i)
+  
+  return(tempData)
+  
+}
+
+
+# Control function to direct table creation
+make_list <- function(i, result, datalist = ind_study_data){
+  
+  pulled_data <- mapply(pull_data, c("sobs", "shannon", "shannoneven"), 
+                 i, result, SIMPLIFY = F) %>% bind_rows()
+  
+  return(pulled_data)
+  
+  
+}
+
+
 
 # Read in the respective data
 stool_data <- mapply(get_data, c(stool_sets, both_sets), "stool", SIMPLIFY = F)
 
-# Generate RR for every study
-rr_ind_study <- mapply(analyze_study, c(stool_sets, both_sets), "disease", SIMPLIFY = F)
+# Generate RR and data tables for every study
+ind_study_data <- mapply(analyze_study, c(stool_sets, both_sets), "disease", SIMPLIFY = F)
+
+# Pull out the RR for every study
+ind_RR_data <- mapply(make_list, c(stool_sets, both_sets), "test_values", SIMPLIFY = F) %>% 
+  bind_rows()
+
+# Pull out the counts for every study
+ind_counts_data <- mapply(make_list, c(stool_sets, both_sets), "data_tbl", SIMPLIFY = F)
+
 
 ###### TO DO LIST ######
 
