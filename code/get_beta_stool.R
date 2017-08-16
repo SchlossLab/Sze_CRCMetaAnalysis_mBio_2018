@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4"))
+loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4", "vegan"))
 
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
@@ -47,7 +47,7 @@ get_metadata_data <- function(i, sampleType){
 
 
 # Function to make meta data the same order as that seen in the distance matrix
-reorder_meta <- function(i, distanceList, metaList){
+reorder_meta <- function(i, distanceList = distance_data, metaList = metadata){
   
   dist_names <- as.character(rownames(distanceList[[i]]))
   
@@ -55,6 +55,36 @@ reorder_meta <- function(i, distanceList, metaList){
   
   return(new_meta)
 }
+
+
+
+# Function to align distance matrices
+reorder_dist <- function(i, distanceList = distance_data, metaList = reordered_meta){
+  
+  samples_to_keep <- as.character(metaList[[i]]$group)
+  
+  new_distance_tbl <- distanceList[[i]][samples_to_keep, samples_to_keep]
+  
+  return(new_distance_tbl)
+}
+
+
+# Generate the PERMANOVA comparisons
+make_adonis_test <- function(i, distanceList = reordered_dist, 
+                             metaList = reordered_meta){
+  
+  set.seed(1234567)
+  temptest <- adonis(as.dist(distanceList[[i]]) ~ factor(metaList[[i]]$disease), 
+                     permutations = 9999)
+  
+  result_vector <- c(fstat = temptest$aov.tab$F.Model[1], r2 = temptest$aov.tab$R2[1], 
+                     pvalue = temptest$aov.tab$`Pr(>F)`[1])
+  
+  
+  return(result_vector)
+  
+}
+
 
 
 
@@ -67,11 +97,18 @@ distance_data <- mapply(get_distance, c(stool_sets, both_sets),
 metadata <- mapply(get_metadata_data, c(stool_sets, both_sets), "stool", SIMPLIFY = F)
 
 # Reorder the metadata to match distance row names
-reordered_meta <- mapply(reorder_meta, c(stool_sets, both_sets), distance_data, metadata)
+reordered_meta <- mapply(reorder_meta, c(stool_sets, both_sets), SIMPLIFY = F)
+
+# Reorder the distance matrix to match the the metadata length
+reordered_dist <- mapply(reorder_dist, c(stool_sets, both_sets), SIMPLIFY = F)
+
+
+# Get comparisons
+beta_perm_results <- mapply(make_adonis_test, c(stool_sets, both_sets), SIMPLIFY = F) 
+
 
 
 #### Need to do list
-###### Need to match the meta data with the distance data
 ###### Use distance matrices to generate PERMANOVA values
 ###### Think of potential way to pool this information together
     ##### E.g. distance of centroids from each other...
