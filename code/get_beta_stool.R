@@ -48,8 +48,6 @@ get_metadata_data <- function(i, sampleType){
 
 
 
-
-
 # Read in distance data
 distance_data <- mapply(get_distance, c(stool_sets, both_sets), 
                         "data/process/", "braycurtis.0.03.lt.ave.dist")
@@ -59,7 +57,7 @@ metadata <- mapply(get_metadata_data, c(stool_sets, both_sets), "stool", SIMPLIF
 
 
 #### Need to do list
-###### load data in
+
 ###### Use distance matrices to generate PERMANOVA values
 ###### Think of potential way to pool this information together
     ##### E.g. distance of centroids from each other...
