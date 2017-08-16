@@ -46,6 +46,17 @@ get_metadata_data <- function(i, sampleType){
 }
 
 
+# Function to make meta data the same order as that seen in the distance matrix
+reorder_meta <- function(i, distanceList, metaList){
+  
+  dist_names <- as.character(rownames(distanceList[[i]]))
+  
+  new_meta <- metaList[[i]] %>% slice(match(dist_names, as.character(group)))
+  
+  return(new_meta)
+}
+
+
 
 
 # Read in distance data
@@ -55,9 +66,12 @@ distance_data <- mapply(get_distance, c(stool_sets, both_sets),
 # Read in data with needed metadata
 metadata <- mapply(get_metadata_data, c(stool_sets, both_sets), "stool", SIMPLIFY = F)
 
+# Reorder the metadata to match distance row names
+reordered_meta <- mapply(reorder_meta, c(stool_sets, both_sets), distance_data, metadata)
+
 
 #### Need to do list
-
+###### Need to match the meta data with the distance data
 ###### Use distance matrices to generate PERMANOVA values
 ###### Think of potential way to pool this information together
     ##### E.g. distance of centroids from each other...
