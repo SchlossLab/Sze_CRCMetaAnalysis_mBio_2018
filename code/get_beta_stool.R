@@ -109,7 +109,7 @@ beta_perm_results <- mapply(make_adonis_test, c(stool_sets, both_sets), SIMPLIFY
 
 
 #### Need to do list
-###### Use distance matrices to generate PERMANOVA values
+###### Need to only analyze non-cancer versus cancer
 ###### Think of potential way to pool this information together
     ##### E.g. distance of centroids from each other...
 
