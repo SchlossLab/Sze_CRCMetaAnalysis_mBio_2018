@@ -112,10 +112,8 @@ beta_perm_results <- t(mapply(make_adonis_test, c(stool_sets, both_sets))) %>%
   as.data.frame() %>% mutate(study = rownames(.))
 
 
-#### Need to do list
-###### Think of potential way to pool this information together
-    ##### E.g. distance of centroids from each other...
-
+# Write out the data
+write.csv(beta_perm_results, "data/process/tables/beta_perm_stool_summary.csv", row.names = F)
 
 
 
