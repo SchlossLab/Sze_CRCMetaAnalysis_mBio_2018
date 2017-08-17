@@ -11,13 +11,15 @@ loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4", "vegan"))
 
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
-stool_sets <- c("wang", "brim", "weir", "ahn", "zeller", "baxter")
+# Ignore brim since it only has polyps
+stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
 # chen sample_type = tissue or stool
 # Flemer, Chen
-both_sets <- c("flemer", "chen")
+# Ignore chen since there is only one case
+both_sets <- c("flemer")
 
 
 # Create function to read in distance data
@@ -51,8 +53,10 @@ reorder_meta <- function(i, distanceList = distance_data, metaList = metadata){
   
   dist_names <- as.character(rownames(distanceList[[i]]))
   
-  new_meta <- metaList[[i]] %>% slice(match(dist_names, as.character(group)))
-  
+  new_meta <- metaList[[i]] %>% slice(match(dist_names, as.character(group))) %>% 
+    mutate(is_cancer =  factor(ifelse(disease == "cancer", 
+                                      invisible("Y"), invisible("N")), levels = c("Y", "N")))
+
   return(new_meta)
 }
 
@@ -74,7 +78,7 @@ make_adonis_test <- function(i, distanceList = reordered_dist,
                              metaList = reordered_meta){
   
   set.seed(1234567)
-  temptest <- adonis(as.dist(distanceList[[i]]) ~ factor(metaList[[i]]$disease), 
+  temptest <- adonis(as.dist(distanceList[[i]]) ~ metaList[[i]]$is_cancer, 
                      permutations = 9999)
   
   result_vector <- c(fstat = temptest$aov.tab$F.Model[1], r2 = temptest$aov.tab$R2[1], 
@@ -104,12 +108,11 @@ reordered_dist <- mapply(reorder_dist, c(stool_sets, both_sets), SIMPLIFY = F)
 
 
 # Get comparisons
-beta_perm_results <- mapply(make_adonis_test, c(stool_sets, both_sets), SIMPLIFY = F) 
-
+beta_perm_results <- t(mapply(make_adonis_test, c(stool_sets, both_sets))) %>% 
+  as.data.frame() %>% mutate(study = rownames(.))
 
 
 #### Need to do list
-###### Need to only analyze non-cancer versus cancer
 ###### Think of potential way to pool this information together
     ##### E.g. distance of centroids from each other...
 
