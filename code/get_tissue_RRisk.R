@@ -13,7 +13,8 @@ loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
 # Lu, Dejea, Sana, Burns, Geng
 # Remove Lu since it only has polyps and no cancer cases
 # Remove dejea since there is only one without cancer
-tissue_sets <- c("sana", "burns", "geng")
+# There is no geng in unmatched so remove that
+tissue_sets <- c("sana", "burns")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -36,7 +37,7 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
 no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu" & study != "dejea")
 
 # Function to run the analysis
-analyze_study <- function(i, var_of_int, group_column, dataset = no_p_tissue_unmatched){
+analyze_study <- function(i, group_column, dataset = no_p_tissue_unmatched){
   
   working_data <- dataset %>% filter(study == i)
   thresholds <- apply(select(working_data, 
@@ -51,8 +52,11 @@ analyze_study <- function(i, var_of_int, group_column, dataset = no_p_tissue_unm
   highs_lows <- mapply(create_high_low, i, c("r_sobs", "r_shannon", "r_shannoneven"), thresholds, 
                        "disease", SIMPLIFY = F)
   names(highs_lows) <- c("sobs", "shannon", "shannoneven") # forces names for the list
+  # Obtains the individual relative risk and CI for each study
+  obtained_rr <- lapply(highs_lows, 
+                        function(x) run_rr(high_low_vector = x, disease_vector = is_cancer))
   
-  return(is_cancer)
+  return(obtained_rr)
   
 }
 
@@ -76,9 +80,97 @@ create_high_low <- function(i, var_of_interest, threshold, grouping,
 }
 
 
+# Function that runs relative risk test on single variable
+run_rr <- function(high_low_vector, disease_vector){
+  # high_low_vector is the respective call columns from high_low for a specific alpha measure
+  # disease_vector is the "is_cancer" vector is case/control info
+  
+  # Creates a 2x2 table of counts
+  contingency <- table(high_low_vector, disease_vector)
+  # runs the RR test based on the obtained 2x2 table
+  test <- epi.2by2(contingency, method="cohort.count")
+  # Pull only specific information from the stored list in "test"
+  test_values <- cbind(test$massoc$RR.strata.score, 
+                       pvalue = test$massoc$chisq.strata$p.value)
+  # store both the obtained raw counts and the resulting RR with pvalue
+  combined_data <- list(data_tbl = contingency, test_values = test_values)
+  # Returns a list with all information needed for downstream analysis
+  return(combined_data)
+}
+
+
+# Function to seperate out the table data from the individual analysis data
+pull_data <- function(var_of_int, i, result, datalist = ind_study_data){
+  # var_of_int is the alpha measures used e.g. "sobs"
+  # i is the study
+  # result is the type of data we want either "test_values" or "data_tbl"
+  # datalist is defaulted to ind_study_data to make it easier to work with mapply
+  
+  # Pull the needed data and add identifiers
+  tempData <- datalist[[i]][[var_of_int]][[result]] %>% as.data.frame() %>% 
+    mutate(measure = var_of_int, study = i)
+  # return the pulled data
+  return(tempData)
+  
+}
+
+
+# A control function to direct final table creation for ind RR analysis
+make_list <- function(i, result, datalist = ind_study_data){
+  # i is the study
+  # result is they type of data being pulled "test_values" or "data_tbl"
+  # datalist is defaulted to ind_study_data to make it easier to work with mapply
+  
+  # runs the function iteratively to collect the specific data
+  pulled_data <- mapply(pull_data, c("sobs", "shannon", "shannoneven"), 
+                        i, result, SIMPLIFY = F) %>% bind_rows()
+  # returns a nice data table
+  return(pulled_data)
+}
+
+
+# Function to run test for selected alpha measure
+run_pooled <- function(alpha_d, dataset = ind_counts_data){
+  # alpha_d is the alpha measure of interest
+  # dataset is defaulted to ind_counts_data
+  
+  # select only the relevent alpha measures
+  test_data <- dataset %>% filter(measure == alpha_d)
+  
+  # Run the actual pooled test
+  rr_pooled_test <- rma(ai = low_Y, bi = low_N, 
+                        ci = high_Y, di = high_N, data = test_data, 
+                        measure = "RR", method = "REML")
+  # Store a vector of the important results of interest
+  results <- c(exp(c(rr = rr_pooled_test$b[[1, 1]], ci_lb = rr_pooled_test$ci.lb, 
+                     ci_ub=rr_pooled_test$ci.ub)), pvalue = rr_pooled_test$pval, 
+               measure = alpha_d)
+  # returns the vector of results
+  return(results)
+  
+}
 
 
 
+# Generate RR and data tables for every study
+ind_study_data <- mapply(analyze_study, c(tissue_sets, both_sets), "disease", SIMPLIFY = F)
+
+# Pull out the RR for every study
+ind_RR_data <- mapply(make_list, c(tissue_sets, both_sets), "test_values", SIMPLIFY = F) %>% 
+  bind_rows()
+
+
+# Pull out the counts for every study and 
+# merge the two different grouping columns together (is.cancer Y/N and high_low low/high)
+ind_counts_data <- mapply(make_list, c(tissue_sets, both_sets), "data_tbl", SIMPLIFY = F) %>% 
+  bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
+  spread(group, Freq)
+
+
+# Run pooled test
+pooled_results <- t(mapply(run_pooled, c("sobs", "shannon", "shannoneven"), USE.NAMES = F)) %>% 
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
 
