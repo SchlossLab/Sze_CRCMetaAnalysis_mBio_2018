@@ -25,7 +25,8 @@ both_sets <- c("flemer", "chen")
 
 tissue_matched <- read.csv("data/process/tables/alpha_tissue_matched_data.csv", 
                            header = T, stringsAsFactors = F) %>% 
-  mutate(matchings = ifelse(disease == "cancer" | disease == "polyp", 1, 0))
+  mutate(matchings = ifelse(disease == "cancer" | disease == "polyp", 1, 0)) %>% 
+  filter(id != "3776") # remove polyp sample
 
 tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.csv", 
                              header = T, stringsAsFactors = F) %>% 
@@ -108,11 +109,71 @@ make_adonis_test <- function(i, distanceList_name,
 
 
 
+# Get specific bray-curtis distance between matched samples
+get_bray_dist <- function(i, distanceList_name, metaList_name, 
+                          controls, cases, getCont = FALSE){
+  
+  c1_ids <- c()
+  c2_ids <- c()
+  metaList <- get(metaList_name)
+  control_ids <- (metaList[[i]] %>% filter(disease == controls))[, "group"]
+  case_ids <- (metaList[[i]] %>% filter(disease == cases))[, "group"]
+  
+  if(getCont == FALSE){
+    
+    temp_values <- as.numeric(mapply(get_bray_value, i, case_ids, control_ids, distanceList_name, 
+                                     USE.NAMES = F))
+    
+  } else{
+    
+    for(j in 1:length(control_ids)){
+      
+      c1_ids <- c(c1_ids, rep(control_ids[j], (length(control_ids) - j)))
+      
+      if(j != length(control_ids)){
+        
+        c2_ids <- c(c2_ids, rev(control_ids)[1:(length(control_ids) - j)])
+        
+      } else {
+        
+        c2_ids <- c2_ids
+      }
+
+    }
+    
+    temp_values <- as.numeric(mapply(get_bray_value, i, c1_ids, c2_ids, distanceList_name, 
+                                     USE.NAMES = F))
+  }
+  
+  
+  return(temp_values)
+}
 
 
+# Function to grab the needed data
+get_bray_value <- function(i, row_value, col_value, 
+                           distanceList_name){
+  
+  distanceList <- get(distanceList_name)
+  
+  dist_value <- distanceList[[i]][row_value, col_value]
+  
+  return(dist_value)
+}
 
 
+# Function to get wilcoxson p-value
+run_wilcox <- function(i, cases, controls){
+  
+  cases <- get(cases)
+  controls <- get(controls)
+  
+  return(wilcox.test(cases[[i]], controls[[i]])$p.value)
+  
+}
 
+
+#### Need to add in bray-curtis differences based on matched samples to beta analysis
 
 
 
@@ -149,6 +210,30 @@ beta_perm_unmatched_results <- t(mapply(make_adonis_test, c("sana", "burns", bot
 beta_perm_matched_results <- t(mapply(make_adonis_test, c("dejea", "geng", "burns"), 
                                         "reordered_matched_dist", "matched_meta")) %>% 
   as.data.frame() %>% mutate(study = rownames(.))
+
+# Get vectors of matched and unmatched values
+
+matched_bray_cases <- mapply(get_bray_dist, c("dejea", "geng", "burns"), 
+                             "reordered_matched_dist", "matched_meta", "control", "cancer")
+
+matched_bray_controls <- mapply(get_bray_dist, c("dejea", "geng", "burns"), 
+                                "reordered_matched_dist", "matched_meta", "control", "cancer", 
+                                getCont = TRUE)
+
+# Generate wilcoxson p-values
+bray_distance_matched_test <- mapply(run_wilcox, c("dejea", "geng", "burns"), 
+               "matched_bray_cases", "matched_bray_controls", 
+               SIMPLIFY = F) %>% bind_rows() %>% 
+  gather(study, value = pvalue, dejea, geng, burns) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH"))
+
+
+
+
+
+
+
+
 
 
 
