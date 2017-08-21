@@ -2,6 +2,8 @@
 ### One for unmatched and one for matched if possible
 ### Marc Sze
 
+# For this analysis combined both unmatched and matched together to boost n and power
+# Can label which studies had majority matched to see if that made a difference at all.
 
 # Load in needed functions and libraries
 source('code/functions.R')
@@ -12,9 +14,7 @@ loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
 # Remove Lu since it only has polyps and no cancer cases
-# Remove dejea since there is only one without cancer
-# There is no geng in unmatched so remove that
-tissue_sets <- c("sana", "burns")
+tissue_sets <- c("dejea", "geng", "sana", "burns")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -33,8 +33,15 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
                              header = T, stringsAsFactors = F) %>% 
   mutate(disease = gsub("adenoma", "polyp", disease))
 
+
+combined_tissue <- tissue_unmatched %>% 
+  select(one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")) %>% 
+           bind_rows(
+             select(tissue_matched, 
+                    one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")))
+
 # Remove polyp only group
-no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu" & study != "dejea")
+no_p_tissue_unmatched <- combined_tissue %>% filter(study != "lu")
 
 # Function to run the analysis
 analyze_study <- function(i, group_column, dataset = no_p_tissue_unmatched){
@@ -63,7 +70,7 @@ analyze_study <- function(i, group_column, dataset = no_p_tissue_unmatched){
 
 # Function that creates the needed high/low columns
 create_high_low <- function(i, var_of_interest, threshold, grouping, 
-                            dataset = tissue_unmatched){
+                            dataset = no_p_tissue_unmatched){
   # i is the study
   # var_of_interest is the alpha metrics being used
   # threshold is the vector of median values for alpha measures of interest
@@ -173,6 +180,10 @@ pooled_results <- t(mapply(run_pooled, c("sobs", "shannon", "shannoneven"), USE.
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
+# Write out the important tables
+write.csv(ind_counts_data, "data/process/tables/alpha_group_counts_summary.csv", row.names = F)
+write.csv(ind_RR_data, "data/process/tables/alpha_RR_ind_results.csv", row.names = F)
+write.csv(pooled_results, "data/process/tables/alpha_RR_composite.csv", row.names = F)
 
 
 
