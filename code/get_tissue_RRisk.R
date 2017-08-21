@@ -11,7 +11,9 @@ loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
-tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
+# Remove Lu since it only has polyps and no cancer cases
+# Remove dejea since there is only one without cancer
+tissue_sets <- c("sana", "burns", "geng")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -30,21 +32,27 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
                              header = T, stringsAsFactors = F) %>% 
   mutate(disease = gsub("adenoma", "polyp", disease))
 
+# Remove polyp only group
+no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu" & study != "dejea")
 
 # Function to run the analysis
-analyze_study <- function(i, var_of_int, dataset = tissue_unmatched){
+analyze_study <- function(i, var_of_int, group_column, dataset = no_p_tissue_unmatched){
   
   working_data <- dataset %>% filter(study == i)
   thresholds <- apply(select(working_data, 
                              one_of("r_sobs", "r_shannon", "r_shannoneven")), 2, 
                       function(x) median(x))
   
+  # Generate the disease group vector
+  is_cancer <- factor(ifelse(working_data[, group_column] == "cancer", 
+                             invisible("Y"), invisible("N")), levels = c("Y", "N"))
+  
   # Runs the code to generate high/low calls for the alpha metrics used based on median
   highs_lows <- mapply(create_high_low, i, c("r_sobs", "r_shannon", "r_shannoneven"), thresholds, 
                        "disease", SIMPLIFY = F)
   names(highs_lows) <- c("sobs", "shannon", "shannoneven") # forces names for the list
   
-  return(highs_lows)
+  return(is_cancer)
   
 }
 
