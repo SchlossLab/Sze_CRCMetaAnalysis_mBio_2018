@@ -181,9 +181,9 @@ pooled_results <- t(mapply(run_pooled, c("sobs", "shannon", "shannoneven"), USE.
 
 
 # Write out the important tables
-write.csv(ind_counts_data, "data/process/tables/alpha_group_counts_summary.csv", row.names = F)
-write.csv(ind_RR_data, "data/process/tables/alpha_RR_ind_results.csv", row.names = F)
-write.csv(pooled_results, "data/process/tables/alpha_RR_composite.csv", row.names = F)
+write.csv(ind_counts_data, "data/process/tables/alpha_group_counts_tissue_summary.csv", row.names = F)
+write.csv(ind_RR_data, "data/process/tables/alpha_RR_ind_tissue_results.csv", row.names = F)
+write.csv(pooled_results, "data/process/tables/alpha_RR_tissue_composite.csv", row.names = F)
 
 
 
