@@ -252,11 +252,20 @@ bray_distance_matched_test_cases <- mapply(run_wilcox, c("dejea", "geng", "burns
   mutate(bh = p.adjust(pvalue, method = "BH"))
 
 
+# Write out the relevant data tables 
+write.csv(beta_perm_unmatched_results, "data/process/tables/beta_perm_unmatched_tissue_summary.csv", 
+          row.names = F)
 
+write.csv(beta_perm_matched_results, "data/process/tables/beta_perm_matched_tissue_summary.csv", 
+          row.names = F)
 
+write.csv(bray_distance_matched_test_cont, 
+          "data/process/tables/bray_matched_v_cont_tissue_summary.csv", 
+          row.names = F)
 
-
-
+write.csv(bray_distance_matched_test_cases, 
+          "data/process/tables/bray_matched_v_cases_tissue_summary.csv", 
+          row.names = F)
 
 
 
