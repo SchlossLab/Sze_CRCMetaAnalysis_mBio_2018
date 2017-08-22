@@ -73,26 +73,31 @@ get_tax_substring <- function(tax, tax_level){
 get_tax_name <- function(tax_file, tax_level){
   
   
-  tax_data <- read.table(file=tax_file, header=T, stringsAsFactors=F)
-  taxonomy <- tax_data$Taxonomy
+  taxonomy <- tax_file$Taxonomy
   taxonomy <- gsub("\\(\\d*\\)", "", taxonomy)
   taxonomy <- gsub('"', '', taxonomy)
   
   tax_substring <- sapply(taxonomy, get_tax_substring, tax_level)
   
-  names(tax_substring) <- tax_data$OTU
+  names(tax_substring) <- tax_file$OTU
   
   tax_substring
 }
 
+
+
+
 # Get the total number based on shared file and tax file.
-get_tax_level_shared <- function(shared_file, tax_file, tax_level){
+get_tax_level_shared <- function(i, shared_List_name, tax_List_name, tax_level){
   
-  shared_otus <- shared_file
+  shared_List <- get(shared_List_name)
+  tax_List <- get(tax_List_name)
+  
+  shared_otus <- shared_List[[i]] %>% select(-label, -numOtus, -Group)
   is_present <- apply(shared_otus, 2, sum) > 0
   shared <- shared_otus[,is_present]
   
-  taxonomy <- get_tax_name(tax_file, tax_level)
+  taxonomy <- get_tax_name(tax_List[[i]], tax_level)
   taxonomy <- taxonomy[colnames(shared)]
   unique_taxa <- levels(as.factor(taxonomy))
   
@@ -110,14 +115,12 @@ get_tax_level_shared <- function(shared_file, tax_file, tax_level){
     }
   }
   colnames(shared_tax_level) <- unique_taxa
-  rownames(shared_tax_level) <- rownames(shared)
+  shared_tax_level <- shared_tax_level %>% as.data.frame() %>% 
+    mutate(Group = shared_List[[i]]$Group) %>% 
+    select(Group, matches("."))
+  
   return(shared_tax_level)
 }
-
-
-
-
-
 
 
 
