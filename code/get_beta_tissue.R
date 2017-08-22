@@ -51,8 +51,9 @@ get_distance <- function(i, path_to_file, file_ending){
 # need a small component and it is contained in these files
 get_metadata_data <- function(i,dataName){
   # i represents the data set
-  # sampleType represents whether it is stool or tissue
+  # dataName is a character string of the data file 
   
+  # this grabs the data file from the global environment
   tempdata <- get(dataName)
   
   # Command that actually does the reading in and removes uneeded alpha metrics
@@ -70,9 +71,10 @@ get_metadata_data <- function(i,dataName){
 # Function to align distance matrices with the metadata file
 reorder_dist <- function(i,  meta_name, distanceList = distance_data){
   # i is the study
+  # meta_name is a character string of the meta file list of interest
   # distanceList is defaulted to distance_data to make running mapply easier
-  # metaList is defaulted to reordered_meta so that the aligned metalist is used
   
+  # This grabs the meta file list from the global environment
   ref_data <- get(meta_name)
   
   # grabs the samples in the meta file
@@ -88,9 +90,10 @@ reorder_dist <- function(i,  meta_name, distanceList = distance_data){
 make_adonis_test <- function(i, distanceList_name, 
                              metaList_name){
   # i is the study
-  # distanceList is defaulted to reordered_dist so the subsetted dist file is used
-  # metaList is defaulted to reordered_meta so the aligned metalist file is used
+  # distanceList_name is a chr string of the distance file list
+  # metaList_name is a chr string of the meta file list
   
+  # Grabs the distance and meta file list from the global environment
   distanceList <- get(distanceList_name)
   metaList <- get(metaList_name)
   
@@ -112,20 +115,30 @@ make_adonis_test <- function(i, distanceList_name,
 # Get specific bray-curtis distance between matched samples
 get_bray_dist <- function(i, distanceList_name, metaList_name, 
                           controls, cases, getCont = FALSE, getCase = FALSE){
+  # i is the study
+  # distanceList_name is a chr string of the distance file list
+  # metaList_name is a chr string of the meta file list
+  # controls is what the control group is called
+  # cases is what the case group is called
+  # getCont controls whether we are collecting distances for controls only
+  # getCase controls whether we are collecting distances for cases only
   
-  c1_ids <- c()
-  c2_ids <- c()
-  can1_ids <- c()
-  can2_ids <- c()
+  # Sets up empty vectors to store distances
+  c1_ids <- c() # control
+  c2_ids <- c() # control
+  can1_ids <- c() # case
+  can2_ids <- c() # case
+  # grabs the meta data file list from global environment
   metaList <- get(metaList_name)
+  # grabs the sample ids for controls and cases
   control_ids <- (metaList[[i]] %>% filter(disease == controls))[, "group"]
   case_ids <- (metaList[[i]] %>% filter(disease == cases))[, "group"]
-  
+  # if we want no control or case only distances go here otherwise...
   if(getCont == FALSE){
-    
+    # gets the bray distance for each specific pair of interest
     temp_values <- as.numeric(mapply(get_bray_value, i, case_ids, control_ids, distanceList_name, 
                                      USE.NAMES = F))
-    
+    # this is where we go if we want only control or case distances
   } else{
     
     for(j in 1:length(control_ids)){
