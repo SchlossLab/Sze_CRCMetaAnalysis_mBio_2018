@@ -186,10 +186,9 @@ run_wilcox <- function(i, cases, controls){
 }
 
 
-#### Need to add in bray-curtis differences based on matched samples to beta analysis
-
-
-
+##############################################################################################
+############### Run the actual programs to get the data ######################################
+##############################################################################################
 
 
 # Read in distance data
