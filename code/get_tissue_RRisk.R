@@ -158,6 +158,10 @@ run_pooled <- function(alpha_d, dataset = ind_counts_data){
 }
 
 
+##############################################################################################
+############### Run the actual programs to get the data ######################################
+##############################################################################################
+
 
 # Generate RR and data tables for every study
 ind_study_data <- mapply(analyze_study, c(tissue_sets, both_sets), "disease", SIMPLIFY = F)
