@@ -35,6 +35,10 @@ get_file <- function(i, path_to_file, ending){
 
 
 
+#### Need to do
+# Need to limit shared files by sub sampled data that had alpha analyzed
+# save data files to be used later for DMM and other downstream analysis
+
 
 ##############################################################################################
 ############### Run the actual programs to get the data ######################################
