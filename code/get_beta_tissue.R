@@ -130,7 +130,7 @@ get_bray_dist <- function(i, distanceList_name, metaList_name,
   can2_ids <- c() # case
   # grabs the meta data file list from global environment
   metaList <- get(metaList_name)
-  # grabs the sample ids for controls and cases
+  # grabs the sample ids for matched control and cases within the same person
   control_ids <- (metaList[[i]] %>% filter(disease == controls))[, "group"]
   case_ids <- (metaList[[i]] %>% filter(disease == cases))[, "group"]
   # if we want no control or case only distances go here otherwise...
@@ -140,38 +140,37 @@ get_bray_dist <- function(i, distanceList_name, metaList_name,
                                      USE.NAMES = F))
     # this is where we go if we want only control or case distances
   } else{
-    
+    # created a loop to add ids based on length of original vector of matched samples
     for(j in 1:length(control_ids)){
-      
+      # iteratively adds the ids with one less each id down it moves
       c1_ids <- c(c1_ids, rep(control_ids[j], (length(control_ids) - j)))
       can1_ids <- c(can1_ids, rep(case_ids[j], (length(case_ids) - j)))
-      
+      # do not want to add the last id since by then there are no unique comparisons
       if(j != length(control_ids)){
-        
+        # iteratively adds the ids with one less each id down it moves 
         c2_ids <- c(c2_ids, rev(control_ids)[1:(length(control_ids) - j)])
         can2_ids <- c(can2_ids, rev(case_ids)[1:(length(case_ids) - j)])
-        
+        # goes here when we hit the final length value
       } else {
-        
+        # simple saves the existing vector as itself
         c2_ids <- c2_ids
         can2_ids <- can2_ids
       }
 
     }
-    
+    # controls which distance values to grab: cases only or controls only
     if(getCase == FALSE){
-      
+      # gets the bray distance for each specific pair of interest for controls only
       temp_values <- as.numeric(mapply(get_bray_value, i, c1_ids, c2_ids, distanceList_name, 
                                        USE.NAMES = F))
     } else{
-      
+      # gets the bray distance for each specific pair of interest for cases only
       temp_values <- as.numeric(mapply(get_bray_value, i, can1_ids, can2_ids, distanceList_name, 
                                        USE.NAMES = F))
     }
     
   }
-  
-  
+  # return the requested distances
   return(temp_values)
 }
 
@@ -179,21 +178,30 @@ get_bray_dist <- function(i, distanceList_name, metaList_name,
 # Function to grab the needed data
 get_bray_value <- function(i, row_value, col_value, 
                            distanceList_name){
+  # i is the study
+  # row_value is the first sample ID
+  # col_value is the second sample ID
+  # distanceList_name is a chr string of the distance file list
   
+  # Grabs the distance file list of interest from the global environment
   distanceList <- get(distanceList_name)
-  
+  # grabs the specific distance value
   dist_value <- distanceList[[i]][row_value, col_value]
-  
+  # returns the specific distance value
   return(dist_value)
 }
 
 
 # Function to get wilcoxson p-value
 run_wilcox <- function(i, cases, controls){
+  # i is for study
+  # cases are the distance value list for the first group
+  # controls are the distance value list for the second group
   
+  # this grabs the distance lists from the global environment
   cases <- get(cases)
   controls <- get(controls)
-  
+  # returns the pvalue of the wilcoxson comparison between the two groups
   return(wilcox.test(cases[[i]], controls[[i]])$p.value)
   
 }
