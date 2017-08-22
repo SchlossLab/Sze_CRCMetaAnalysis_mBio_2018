@@ -111,10 +111,12 @@ make_adonis_test <- function(i, distanceList_name,
 
 # Get specific bray-curtis distance between matched samples
 get_bray_dist <- function(i, distanceList_name, metaList_name, 
-                          controls, cases, getCont = FALSE){
+                          controls, cases, getCont = FALSE, getCase = FALSE){
   
   c1_ids <- c()
   c2_ids <- c()
+  can1_ids <- c()
+  can2_ids <- c()
   metaList <- get(metaList_name)
   control_ids <- (metaList[[i]] %>% filter(disease == controls))[, "group"]
   case_ids <- (metaList[[i]] %>% filter(disease == cases))[, "group"]
@@ -129,20 +131,31 @@ get_bray_dist <- function(i, distanceList_name, metaList_name,
     for(j in 1:length(control_ids)){
       
       c1_ids <- c(c1_ids, rep(control_ids[j], (length(control_ids) - j)))
+      can1_ids <- c(can1_ids, rep(case_ids[j], (length(case_ids) - j)))
       
       if(j != length(control_ids)){
         
         c2_ids <- c(c2_ids, rev(control_ids)[1:(length(control_ids) - j)])
+        can2_ids <- c(can2_ids, rev(case_ids)[1:(length(case_ids) - j)])
         
       } else {
         
         c2_ids <- c2_ids
+        can2_ids <- can2_ids
       }
 
     }
     
-    temp_values <- as.numeric(mapply(get_bray_value, i, c1_ids, c2_ids, distanceList_name, 
-                                     USE.NAMES = F))
+    if(getCase == FALSE){
+      
+      temp_values <- as.numeric(mapply(get_bray_value, i, c1_ids, c2_ids, distanceList_name, 
+                                       USE.NAMES = F))
+    } else{
+      
+      temp_values <- as.numeric(mapply(get_bray_value, i, can1_ids, can2_ids, distanceList_name, 
+                                       USE.NAMES = F))
+    }
+    
   }
   
   
@@ -213,21 +226,31 @@ beta_perm_matched_results <- t(mapply(make_adonis_test, c("dejea", "geng", "burn
 
 # Get vectors of matched and unmatched values
 
-matched_bray_cases <- mapply(get_bray_dist, c("dejea", "geng", "burns"), 
+matched_bray_casetocontrol <- mapply(get_bray_dist, c("dejea", "geng", "burns"), 
                              "reordered_matched_dist", "matched_meta", "control", "cancer")
 
 matched_bray_controls <- mapply(get_bray_dist, c("dejea", "geng", "burns"), 
                                 "reordered_matched_dist", "matched_meta", "control", "cancer", 
-                                getCont = TRUE)
+                                getCont = TRUE, getCase = FALSE)
+
+matched_bray_cases <- mapply(get_bray_dist, c("dejea", "geng", "burns"), 
+                             "reordered_matched_dist", "matched_meta", "control", "cancer", 
+                             getCont = TRUE, getCase = TRUE)
+
 
 # Generate wilcoxson p-values
-bray_distance_matched_test <- mapply(run_wilcox, c("dejea", "geng", "burns"), 
-               "matched_bray_cases", "matched_bray_controls", 
+bray_distance_matched_test_cont <- mapply(run_wilcox, c("dejea", "geng", "burns"), 
+               "matched_bray_casetocontrol", "matched_bray_controls", 
                SIMPLIFY = F) %>% bind_rows() %>% 
   gather(study, value = pvalue, dejea, geng, burns) %>% 
   mutate(bh = p.adjust(pvalue, method = "BH"))
 
 
+bray_distance_matched_test_cases <- mapply(run_wilcox, c("dejea", "geng", "burns"), 
+                                          "matched_bray_casetocontrol", "matched_bray_cases", 
+                                          SIMPLIFY = F) %>% bind_rows() %>% 
+  gather(study, value = pvalue, dejea, geng, burns) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH"))
 
 
 
