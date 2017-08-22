@@ -33,10 +33,37 @@ get_file <- function(i, path_to_file, ending){
 }
 
 
+# Function to remove select columns
+get_column <- function(i, dataList_name, keepMethod, keepGroup){
+  
+  dataList <- get(dataList_name)
+  
+  tempData <- dataList[[i]] %>% filter(method == keepMethod) %>% 
+    select(contains(keepGroup))
+  
+  return(tempData[, keepGroup])
+}
+
+
+# Function to subset genera files
+remake_genera <- function(i, dataList_name, analyzed_name){
+  
+  dataList <- get(dataList_name)
+  analyzedList <- get(analyzed_name)
+  
+  tempData <- dataList[[i]]
+  tempVector <- analyzedList[[i]]
+  
+  tempData <- tempData %>% slice(match(tempVector, Group))
+  
+  print(paste("The order is the same:", identical(tempData$Group, tempVector)))
+  
+  return(tempData)
+}
 
 
 #### Need to do
-# Need to limit shared files by sub sampled data that had alpha analyzed
+# Need to limit shared files by sub sampled data that had alpha analyzed 
 # save data files to be used later for DMM and other downstream analysis
 
 
@@ -44,19 +71,25 @@ get_file <- function(i, path_to_file, ending){
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
-
+# Get shared data
 shared_list <- mapply(get_file, c("wang", "brim"), "data/process/", "shared")
 
+# Get taxa data
 taxa_list <- mapply(get_file, c("wang", "brim"), "data/process/", "taxonomy", SIMPLIFY = F)
 
+# Get alpha data to get correct groups analyzed
+alpha_analyzed_list <- mapply(get_file, c("wang", "brim"), "data/process/", 
+                              "groups.ave-std.summary", SIMPLIFY = F)
 
+# Get genera data
 genera_data <- mapply(get_tax_level_shared, c("wang", "brim"), 
                       "shared_list", "taxa_list", 6)
 
+# Get analyzed samples by study
+analyzed_samples <- mapply(get_column, c("wang", "brim"), "alpha_analyzed_list", "ave", "group")
 
-
-
-
+# subset the genera data by the samples analyzed for alpha
+reordered_genera <- mapply(remake_genera, c("wang", "brim"), "genera_data", "analyzed_samples")
 
 
 
