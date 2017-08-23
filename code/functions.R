@@ -87,41 +87,46 @@ get_tax_name <- function(tax_file, tax_level){
 
 
 
+
 # Get the total number based on shared file and tax file.
-get_tax_level_shared <- function(i, shared_List_name, tax_List_name, tax_level){
+get_tax_level_shared <- function(i, shared_List, tax_List, tax_level){
   
-  shared_List <- get(shared_List_name)
-  tax_List <- get(tax_List_name)
-  
-  shared_otus <- shared_List[[i]] %>% select(-label, -numOtus, -Group)
+  # pulls the specific shared list of interest without any metadata
+  shared_otus <- shared_List %>% select(-label, -numOtus, -Group)
+  # checks if the total counts are greater than 0
   is_present <- apply(shared_otus, 2, sum) > 0
+  # grabs only OTUs whose total counts are greater than 0
   shared <- shared_otus[,is_present]
   
-  taxonomy <- get_tax_name(tax_List[[i]], tax_level)
+  # This grabs the name based on taxa level selected
+  taxonomy <- get_tax_name(tax_List, tax_level)
+  # Takes only the taxonomy for OTUs found in the shared file of interst
   taxonomy <- taxonomy[colnames(shared)]
+  # Grabs the unique taxa only
   unique_taxa <- levels(as.factor(taxonomy))
   
   shared_tax_level <- NULL
-  
+
   for(ut in unique_taxa){
     otus <- names(taxonomy[taxonomy %in% ut])
     sub_shared <- shared_otus[,colnames(shared_otus) %in% otus]
-    
+  
     if(is.null(dim(sub_shared))){
       shared_tax_level <- cbind(shared_tax_level, sub_shared)
     } else {
       tax_level_count <- apply(sub_shared, 1, sum)
       shared_tax_level <- cbind(shared_tax_level, tax_level_count)
     }
-  }
+  }  
   colnames(shared_tax_level) <- unique_taxa
   shared_tax_level <- shared_tax_level %>% as.data.frame() %>% 
-    mutate(Group = shared_List[[i]]$Group) %>% 
+    mutate(Group = shared_List$Group) %>% 
     select(Group, matches("."))
+  
+  print(paste("Completed creating", i, "taxa file"))
   
   return(shared_tax_level)
 }
-
 
 
 
