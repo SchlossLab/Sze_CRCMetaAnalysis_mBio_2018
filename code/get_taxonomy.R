@@ -96,9 +96,14 @@ run_get_genera <- function(i){
 ##############################################################################################
 
 # Call number of processors to use
-registerDoMC(cores = 8)
+#registerDoMC(cores = 8)
 
-foreach(i = c(stool_sets, tissue_sets, both_sets)) %dopar% run_get_genera(i)
+for(i in c(stool_sets, tissue_sets, both_sets)){
+
+  run_get_genera(i)
+}
+
+#foreach(i = c(stool_sets, tissue_sets, both_sets)) %dopar% run_get_genera(i)
 
 
 
