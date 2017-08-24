@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "DirichletMultinomial"))
+loadLibs(c("dplyr", "tidyr", "DirichletMultinomial", "vegan"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -28,13 +28,32 @@ both_sets <- c("flemer", "chen")
 get_file <- function(i, path_to_file, ending){
   
   temp_shared <- read.csv(paste(path_to_file, i, "/", i, ending, sep = ""), 
-                            header = T, stringsAsFactors = F)
-  print(paste("Completed Reading in: ", i, ending, "data", sep = ""))
+                            header = T, stringsAsFactors = F, row.names = 1)
+  print(paste("Completed Reading in: ", i, ending, " data", sep = ""))
   
   return(temp_shared)
 }
 
 
+
+
+
+#lowest_total_seq <- min(rowSums(wang_genera))
+# gets the lowest total sequences
+# create function that gets the length of columns
+# stores column names
+# grabs the counts by row
+# creates a new vector based on these parameters
+# randomly samples this new vector 
+# adds the values up for each one
+    # probably needs to insert 0's between columns
+# saves this output
+
+
+
+
+
+### Need to create random sampling function that averages x number of subsamplings
 
 
 ##############################################################################################
@@ -43,5 +62,10 @@ get_file <- function(i, path_to_file, ending){
 
 
 
-test <- get_file("wang", "data/process/", "_genera_shared.csv")
+genera_files <- mapply(get_file, c("wang", "brim"), "data/process/", "_genera_shared.csv")
+  
+
+
+
+
 
