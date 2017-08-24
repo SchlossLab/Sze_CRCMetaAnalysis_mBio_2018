@@ -35,7 +35,16 @@ get_file <- function(i, path_to_file, ending){
 }
 
 
-
+# Function to get 
+get_genera_subsample <- function(i, dataList = genera_files){
+  
+  tempData <- dataList[[i]]
+  
+  lowest_seq_count <- min(rowSums(tempData))
+  
+  
+  return(lowest_seq_count)
+}
 
 
 #lowest_total_seq <- min(rowSums(wang_genera))
@@ -45,7 +54,9 @@ get_file <- function(i, path_to_file, ending){
 # grabs the counts by row
 # creates a new vector based on these parameters
 # randomly samples this new vector 
-# adds the values up for each one
+    # adds the values up for each one
+    # Add option for how many times 
+    # get the average 
     # probably needs to insert 0's between columns
 # saves this output
 
