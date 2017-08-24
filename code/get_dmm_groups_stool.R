@@ -44,14 +44,21 @@ get_genera_subsample <- function(i, dataList = genera_files){
   
   total_genera <- length(colnames(tempData))
   
+  genera_names <- colnames(tempData)
+  
+  
+  for(j in 1:length(rownames(tempData))){
+    
+    
+    tempVector <- tempData[j, ]
+    
+  }
   
   return(total_genera)
 }
 
 
-# create function that gets the length of columns
-# stores column names
-# grabs the counts by row
+# grabs the counts by row (write as for loop first)
 # creates a new vector based on these parameters
 # randomly samples this new vector 
     # adds the values up for each one
