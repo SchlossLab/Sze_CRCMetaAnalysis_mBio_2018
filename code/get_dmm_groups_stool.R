@@ -35,20 +35,20 @@ get_file <- function(i, path_to_file, ending){
 }
 
 
-# Function to get 
+# Function to get a subsamples genus file
 get_genera_subsample <- function(i, dataList = genera_files){
   
   tempData <- dataList[[i]]
   
   lowest_seq_count <- min(rowSums(tempData))
   
+  total_genera <- length(colnames(tempData))
   
-  return(lowest_seq_count)
+  
+  return(total_genera)
 }
 
 
-#lowest_total_seq <- min(rowSums(wang_genera))
-# gets the lowest total sequences
 # create function that gets the length of columns
 # stores column names
 # grabs the counts by row
@@ -76,7 +76,7 @@ get_genera_subsample <- function(i, dataList = genera_files){
 genera_files <- mapply(get_file, c("wang", "brim"), "data/process/", "_genera_shared.csv")
   
 
-
+mapply(get_genera_subsample, c("wang", "brim"))
 
 
 
