@@ -36,9 +36,9 @@ get_file <- function(i, path_to_file, ending){
 
 
 # Function to get a subsamples genus file
-get_genera_subsample <- function(i, dataList = genera_files){
+get_genera_subsample <- function(dataList){
   
-  tempData <- as.matrix(dataList[[i]])
+  tempData <- as.matrix(dataList)
   
   lowest_seq_count <- min(rowSums(tempData))
   
@@ -110,12 +110,12 @@ grab_value <- function(i, vec_of_int, refTable){
 
 
 # Function to run the sampling x number of times and generate an average from this
-get_average_counts <- function(i, repeats, dataList = genera_files){
+get_average_counts <- function(i, repeats, dataList){
   
-  total_samples <- length(rownames(dataList[[i]]))
-  genera_names <- colnames(dataList[[i]])
+  total_samples <- length(rownames(dataList))
+  genera_names <- colnames(dataList)
   
-  full_100_runs <- lapply(1:repeats, function(x) get_genera_subsample(i))
+  full_100_runs <- lapply(1:repeats, function(x) get_genera_subsample(dataList))
   
   
   temp_avg_list <- lapply(c(1:total_samples), 
@@ -123,7 +123,7 @@ get_average_counts <- function(i, repeats, dataList = genera_files){
   
 
   final_avg_data <- t(as.data.frame.list(temp_avg_list))
-  rownames(final_avg_data) <- rownames(dataList[[i]])
+  rownames(final_avg_data) <- rownames(dataList)
   
   print(paste("Completed study ", i, ": taxa subsampling.", sep = ""))
   
@@ -148,20 +148,30 @@ grab_row <- function(list_of_int, j, study, genera_file){
 }
 
 
-
+# Function to write out the data
+make_file <- function(datafile, path_to_file, ending){
+  
+  write.csv(datafile, paste(path_to_file, i, "/", i, ending, sep = ""), 
+                          row.names = F)
+  
+  print(paste("Completed writing: ", i, ending, " to file", sep = ""))
+}
 
 
 ##############################################################################################
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
-
-
-genera_files <- mapply(get_file, c(stool_sets, tissue_sets, both_sets), 
-                       "data/process/", "_genera_shared.csv")
+for(i in c("wang", "ahn")){
   
+  genera_data <- get_file(i, "data/process/", "_genera_shared.csv")
+  
+  avg_subsample_table <- get_average_counts(i, 100, genera_data)
+  
+  make_file(avg_subsample_table, "data/process/", "_subsample_genera.csv")
+}
 
-test <- mapply(get_average_counts, c(stool_sets, tissue_sets, both_sets), 100)
+
 
 
 
