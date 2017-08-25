@@ -101,13 +101,35 @@ assign_genera <- function(dataTable, generaVector){
 }
 
 
-get_average_counts <- function(){
+# Function to run the sampling x number of times and generate an average from this
+get_average_counts <- function(repeats, i, dataList = genera_files){
   
+  total_samples <- length(rownames(dataList[[i]]))
+  
+  full_100_runs <- lapply(1:repeats, function(x) get_genera_subsample(i))
+  
+  temp_avg_list <- NULL
+  
+  for(j in 1:total_samples){
+    
+    test <- lapply(full_100_runs, function(x) x[j, ])
+    
+    test <- t(as.data.frame.list(test))
+    
+    colnames(test) <- colnames(dataList[[i]])
+    rownames(test) <- c(1:100)
+    
+    average_vector <- colMeans(test)
+    
+    temp_avg_list[[j]] <- average_vector
+    
+  }
+  
+  return(temp_avg_list)
   
 }
 
-# grabs the counts by row (write as for loop first)
-# creates a new vector based on these parameters
+
 # randomly samples this new vector 
     # adds the values up for each one
     # Add option for how many times 
