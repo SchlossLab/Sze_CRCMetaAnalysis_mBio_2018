@@ -90,15 +90,22 @@ assign_genera <- function(dataTable, generaVector){
   
   # Iteratres through each genera sampled and changes the 0 to the
   # correct number of counts
-  for(i in 1:length(dataTable[, "x"])){
-    
-    tempVector[as.numeric(dataTable[i, "x"])] <- dataTable[i, "Freq"]
-    
-  }
+  updatedVector <- lapply(c(1:length(dataTable[, "x"])), 
+                       function(x) grab_value(x, tempVector, dataTable))
   
-  
+
   # returns the final vector
-  return(tempVector)  
+  return(updatedVector)  
+}
+
+
+# Function to pull specific value
+grab_value <- function(i, vec_of_int, refTable){
+  
+  vec_of_int[as.numeric(refTable[i, "x"])] <- refTable[i, "Freq"]
+  
+  return(vec_of_int)
+  
 }
 
 
@@ -125,6 +132,7 @@ get_average_counts <- function(i, repeats, dataList = genera_files){
 }
 
 
+# Function to grab rows for averaging 
 grab_row <- function(list_of_int, j, study, genera_file){
   
   test <- lapply(list_of_int, function(x) x[j, ])
@@ -149,10 +157,11 @@ grab_row <- function(list_of_int, j, study, genera_file){
 
 
 
-genera_files <- mapply(get_file, c("wang", "brim"), "data/process/", "_genera_shared.csv")
+genera_files <- mapply(get_file, c(stool_sets, tissue_sets, both_sets), 
+                       "data/process/", "_genera_shared.csv")
   
 
-test <- mapply(get_average_counts, c("wang", "brim"), 100)
+test <- mapply(get_average_counts, c(stool_sets, tissue_sets, both_sets), 100)
 
 
 
