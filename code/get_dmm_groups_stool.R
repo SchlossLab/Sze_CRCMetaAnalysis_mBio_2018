@@ -48,52 +48,63 @@ get_genera_subsample <- function(i, dataList = genera_files){
   
   stored_draws_List <- NULL
   
+  # Iteratres through each sample in data set
   for(j in rownames(tempData)){
     
     tempdraw <- c()
     tempVector <- unname(tempData[j, ])
-
+    # creates a temp vector with each genus (as a number)
+    # repeated based on the number of counts in data frame
     for(k in 1:total_genera){
       
       tempdraw <- c(tempdraw, rep(k, tempVector[k]))
       
     }
-    
+    # saves the created data in a new list
     stored_draws_List[[j]] <- tempdraw
   }
   
+  # Applies a randome sampling accross the store vector of repeats
   stored_rd <- lapply(stored_draws_List, function(x) sample(x, lowest_seq_count))
-  
+  # Generates the counts from the sampling
   num_counts <- lapply(stored_rd, function(x) as.data.frame(table(x), stringsAsFactors = FALSE))
-  
+  # Runs the assign genera function
   agg_genera <- lapply(num_counts, 
                  function(x) assign_genera(x, genera_names))
-  
+  # Converts the output to a matrix of the same orientation as the data files
+  # in the inputted data list
   final_table <- t(as.data.frame.list(agg_genera))
-  
+  # Returns the data
   return(final_table)
 }
 
 
 # Function to get the assignments needed from the sampling
 assign_genera <- function(dataTable, generaVector){
+  # dataTable is part of a list where each dataTable is an individual sample
+  # generaVector is a vector of genera names
   
+  # Creates a temporary variable of all taxa with 0 and names the vector
   tempVector <- rep(0, length(generaVector))
   names(tempVector) <- generaVector
   
-  
+  # Iteratres through each genera sampled and changes the 0 to the
+  # correct number of counts
   for(i in 1:length(dataTable[, "x"])){
     
     tempVector[as.numeric(dataTable[i, "x"])] <- dataTable[i, "Freq"]
     
   }
   
-  
+  # returns the final vector
   return(tempVector)  
 }
 
 
-
+get_average_counts <- function(){
+  
+  
+}
 
 # grabs the counts by row (write as for loop first)
 # creates a new vector based on these parameters
