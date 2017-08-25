@@ -38,7 +38,7 @@ get_file <- function(i, path_to_file, ending){
 # Function to get a subsamples genus file
 get_genera_subsample <- function(i, dataList = genera_files){
   
-  tempData <- dataList[[i]]
+  tempData <- as.matrix(dataList[[i]])
   
   lowest_seq_count <- min(rowSums(tempData))
   
@@ -46,15 +46,23 @@ get_genera_subsample <- function(i, dataList = genera_files){
   
   genera_names <- colnames(tempData)
   
+  stored_draws_List <- NULL
   
-  for(j in 1:length(rownames(tempData))){
+  for(j in rownames(tempData)){
     
+    tempdraw <- c()
+    tempVector <- unname(tempData[j, ])
+
+    for(k in 1:total_genera){
+      
+      tempdraw <- c(tempdraw, rep(k, tempVector[k]))
+      
+    }
     
-    tempVector <- tempData[j, ]
-    
+    stored_draws_List[[j]] <- tempdraw
   }
   
-  return(total_genera)
+  return(stored_draws_List)
 }
 
 
