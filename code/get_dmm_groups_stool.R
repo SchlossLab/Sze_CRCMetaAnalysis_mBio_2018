@@ -106,26 +106,15 @@ assign_genera <- function(dataTable, generaVector){
 get_average_counts <- function(i, repeats, dataList = genera_files){
   
   total_samples <- length(rownames(dataList[[i]]))
+  genera_names <- colnames(dataList[[i]])
   
   full_100_runs <- lapply(1:repeats, function(x) get_genera_subsample(i))
   
-  temp_avg_list <- NULL
   
-  for(j in 1:total_samples){
-    
-    test <- lapply(full_100_runs, function(x) x[j, ])
-    
-    test <- t(as.data.frame.list(test))
-    
-    colnames(test) <- colnames(dataList[[i]])
-    rownames(test) <- c(1:100)
-    
-    average_vector <- colMeans(test)
-    
-    temp_avg_list[[j]] <- average_vector
-    
-  }
+  temp_avg_list <- lapply(c(1:total_samples), 
+                          function(x) grab_row(full_100_runs, x, i, genera_names))
   
+
   final_avg_data <- t(as.data.frame.list(temp_avg_list))
   rownames(final_avg_data) <- rownames(dataList[[i]])
   
@@ -136,10 +125,22 @@ get_average_counts <- function(i, repeats, dataList = genera_files){
 }
 
 
+grab_row <- function(list_of_int, j, study, genera_file){
+  
+  test <- lapply(list_of_int, function(x) x[j, ])
+  
+  test <- t(as.data.frame.list(test))
+  
+  colnames(test) <- genera_file
+  rownames(test) <- c(1:length(rownames(test)))
+  
+  average_vector <- colMeans(test)
+  
+  return(average_vector)
+}
 
 
 
-### Need to create random sampling function that averages x number of subsamplings
 
 
 ##############################################################################################
