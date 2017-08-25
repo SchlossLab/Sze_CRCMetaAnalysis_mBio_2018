@@ -62,8 +62,37 @@ get_genera_subsample <- function(i, dataList = genera_files){
     stored_draws_List[[j]] <- tempdraw
   }
   
-  return(stored_draws_List)
+  stored_rd <- lapply(stored_draws_List, function(x) sample(x, lowest_seq_count))
+  
+  num_counts <- lapply(stored_rd, function(x) as.data.frame(table(x), stringsAsFactors = FALSE))
+  
+  agg_genera <- lapply(num_counts, 
+                 function(x) assign_genera(x, genera_names))
+  
+  final_table <- t(as.data.frame.list(agg_genera))
+  
+  return(final_table)
 }
+
+
+# Function to get the assignments needed from the sampling
+assign_genera <- function(dataTable, generaVector){
+  
+  tempVector <- rep(0, length(generaVector))
+  names(tempVector) <- generaVector
+  
+  
+  for(i in 1:length(dataTable[, "x"])){
+    
+    tempVector[as.numeric(dataTable[i, "x"])] <- dataTable[i, "Freq"]
+    
+  }
+  
+  
+  return(tempVector)  
+}
+
+
 
 
 # grabs the counts by row (write as for loop first)
