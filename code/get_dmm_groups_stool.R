@@ -96,13 +96,14 @@ assign_genera <- function(dataTable, generaVector){
     
   }
   
+  
   # returns the final vector
   return(tempVector)  
 }
 
 
 # Function to run the sampling x number of times and generate an average from this
-get_average_counts <- function(repeats, i, dataList = genera_files){
+get_average_counts <- function(i, repeats, dataList = genera_files){
   
   total_samples <- length(rownames(dataList[[i]]))
   
@@ -125,17 +126,14 @@ get_average_counts <- function(repeats, i, dataList = genera_files){
     
   }
   
-  return(temp_avg_list)
+  final_avg_data <- t(as.data.frame.list(temp_avg_list))
+  rownames(final_avg_data) <- rownames(dataList[[i]])
+  
+  print(paste("Completed study ", i, ": taxa subsampling.", sep = ""))
+  
+  return(final_avg_data)
   
 }
-
-
-# randomly samples this new vector 
-    # adds the values up for each one
-    # Add option for how many times 
-    # get the average 
-    # probably needs to insert 0's between columns
-# saves this output
 
 
 
@@ -153,7 +151,14 @@ get_average_counts <- function(repeats, i, dataList = genera_files){
 genera_files <- mapply(get_file, c("wang", "brim"), "data/process/", "_genera_shared.csv")
   
 
-mapply(get_genera_subsample, c("wang", "brim"))
+test <- mapply(get_average_counts, c("wang", "brim"), 100)
+
+
+
+
+
+
+
 
 
 
