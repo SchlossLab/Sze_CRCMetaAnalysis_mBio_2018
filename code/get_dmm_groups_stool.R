@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "DirichletMultinomial", "vegan"))
+loadLibs(c("dplyr", "tidyr", "vegan"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
