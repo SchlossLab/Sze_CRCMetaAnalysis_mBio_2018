@@ -162,7 +162,7 @@ make_file <- function(datafile, path_to_file, ending){
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
-for(i in c("wang", "ahn")){
+for(i in c(stool_sets, tissue_sets, both_sets)){
   
   genera_data <- get_file(i, "data/process/", "_genera_shared.csv")
   
