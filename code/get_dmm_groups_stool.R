@@ -169,6 +169,8 @@ for(i in c("wang", "ahn")){
   avg_subsample_table <- get_average_counts(i, 100, genera_data)
   
   make_file(avg_subsample_table, "data/process/", "_subsample_genera.csv")
+  
+  rm(genera_data, avg_subsample_table)
 }
 
 
