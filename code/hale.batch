@@ -58,12 +58,12 @@ REF=data/references
 #	remove.seqs(fasta=current, accnos=current);
 #	classify.seqs(fasta=current, count=current, reference=$REF/trainset14_032015.pds.fasta, taxonomy=$REF/trainset14_032015.pds.tax, cutoff=80);
 #	remove.lineage(fasta=current, count=current, taxonomy=current, taxon=Chloroplast-Mitochondria-unknown-Archaea-Eukaryota)"
-$tempMothur	"#cluster.split(fasta=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, method=opti, metric=mcc, taxlevel=5, cluster=f, cutoff=0.03, processors=16)"
-#	cluster.split(file=current, method=opti, metric=mcc)
-#	make.shared(list=current, count=current, label=0.03);
-#	classify.otu(list=current, count=current, taxonomy=current, label=0.03);
-#	get.oturep(fasta=current, count=current, list=current, label=0.03, method=abundance);
-#	count.groups()"
+#$tempMothur "#cluster.split(fasta=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pick.fasta, count=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, taxonomy=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, method=opti, metric=mcc, taxlevel=5, cluster=f, cutoff=0.03, processors=25)"
+#$tempMothur "#cluster.split(file=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pick.file, method=opti, metric=mcc)"
+$tempMothur	"#make.shared(list=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.list, count=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.denovo.uchime.pick.pick.count_table, label=0.03);
+	classify.otu(list=current, count=current, taxonomy=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pds.wang.pick.taxonomy, label=0.03);
+	get.oturep(fasta=$WORKDIR/hale.trim.contigs.unique.good.filter.unique.precluster.pick.pick.fasta, count=current, list=current, label=0.03, method=abundance);
+	count.groups()"
 
 # Match metadata with the shared file
 #R -e "source('code/wang.R')"
