@@ -36,3 +36,4 @@ data/process/hale/*.accnos
 data/process/hale/*.report
 data/process/hale/*.align
 data/process/hale/*.names
+data/process/hale/*.chimeras
