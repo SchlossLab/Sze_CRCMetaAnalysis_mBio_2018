@@ -6,7 +6,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "vegan"))
+loadLibs(c("dplyr", "tidyr", "vegan", "foreach", "doParallel"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -14,13 +14,15 @@ tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
-stool_sets <- c("wang", "brim", "weir", "ahn", "zeller", "baxter")
+# Ignore brim since it only has polyps
+stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "flemer")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
 # chen sample_type = tissue or stool
 # Flemer, Chen
-both_sets <- c("flemer", "chen")
+# Ignore chen for stool since there is only one case
+both_sets <- c("chen", "flemer")
 
 
 
@@ -72,6 +74,8 @@ get_file <- function(i, path_to_file, ending, rows_present=T, name_of_rows=1,
 # Function to grab groupings from DMM
 grab_dmm_groups <- function(dataTable, metaData, kvalue = 2, seed_value = 1234567){
   
+  loadLibs("DirichletMultinomial")
+  
   dmm_test <- dmn(dataTable, k = kvalue, verbose = T, seed = seed_value)
   
   dmm_groups <- dmm_test@group[, 1]
@@ -104,13 +108,44 @@ get_fisher_pvalue <- function(metaData){
 }
 
 
+# Control function to get all the data
+get_data <- function(i){
+  
+  sample_names <- (get_file(i, "data/process/", "_genera_shared.csv") %>% 
+                     mutate(sample_names = rownames(.)) %>% select(sample_names))[, "sample_names"]
+  
+  sub_genera_data <- get_file(i, "data/process/", "_subsample_genera.csv", rows_present = F, 
+                              vec_of_rownames = sample_names) %>% 
+    as.data.frame() %>% mutate(sample_ID = rownames(.)) %>% 
+    select(sample_ID, everything())
+  
+  study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
+                         "stool", metadata = T) %>% 
+    mutate(disease = ifelse(disease == "polyp", invisible("control"), invisible(disease)))
+  
+  if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
+    
+    sub_genera_data <- sub_genera_data %>% slice(match(study_meta$sampleID, sample_ID))
+    
+  } else{
+    
+    study_meta <- study_meta %>% slice(match(sub_genera_data$sample_ID, sampleID))
+  }
+  
+  sample_names <- sub_genera_data$sample_ID
+  sub_genera_data <- as.matrix(sub_genera_data %>% select(-sample_ID))
+  rownames(sub_genera_data) <- sample_names
+  
+  dataList <- list(sub_genera_data = sub_genera_data, 
+                   study_meta = study_meta)
+  
+  return(dataList)
+  
+}
 
 
 ### TO DO LIST ###
 
-# filter data sets to make sure only stool or tissue being compared
-# modify disease category so it is only control versus cancer
-# remove polyp only data sets
 # create a control function to read in data
 # use lapply instead of the for loop
 
@@ -123,34 +158,22 @@ get_fisher_pvalue <- function(metaData){
 ##############################################################################################
 
 pvalues <- c()
+test <- NULL
+studies <- c("wang", "flemer")
+cl <- makeCluster(2)
+registerDoParallel(cl)
 
-for(i in c("weir")){
-  
-  sample_names <- (get_file(i, "data/process/", "_genera_shared.csv") %>% 
-    mutate(sample_names = rownames(.)) %>% select(sample_names))[, "sample_names"]
-  
-  sub_genera_data <- get_file(i, "data/process/", "_subsample_genera.csv", rows_present = F, 
-             vec_of_rownames = sample_names) %>% 
-    as.data.frame() %>% mutate(sample_ID = rownames(.)) %>% 
-    select(sample_ID, everything())
-  
-  study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "stool", metadata = T)
-  
-  if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
-    
-    sub_genera_data <- sub_genera_data %>% slice(match(study_meta$sampleID, sample_ID))
-    
-  } else{
-    
-    study_meta <- study_meta %>% slice(match(sub_genera_data$sample_ID, sampleID))
-  }
 
+pvalues <- foreach(i=1:length(stool_sets)) %dopar% {
   
-  #study_meta <- grab_dmm_groups(sub_genera_data, study_meta)
+  library(dplyr)
+  library(tidyr)
+  test <- get_data(stool_sets[i])
+  study_meta <- grab_dmm_groups(apply(test[["sub_genera_data"]], 2, function(x) round(x)), 
+                                test[["study_meta"]])
+  pvalues <- c(pvalues, get_fisher_pvalue(study_meta))
   
-  #pvalues <- c(pvalues, get_fisher_pvalue(study_meta))
-  
+
 }
 
 
