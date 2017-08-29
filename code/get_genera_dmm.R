@@ -83,6 +83,14 @@ get_fisher_pvalue <- function(metaData){
 }
 
 
+### TO DO LIST ###
+
+# filter data sets to make sure only stool or tissue being compared
+# modify disease category so it is only control versus cancer
+# remove polyp only data sets
+# create a control function to read in data
+# use lapply instead of the for loop
+
 
 
 
