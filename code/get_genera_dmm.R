@@ -157,27 +157,37 @@ get_data <- function(i){
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
+
+study_data <- mapply(get_data, stool_sets, SIMPLIFY = F)
+
+
 pvalues <- c()
-test <- NULL
-studies <- c("wang", "flemer")
 cl <- makeCluster(2)
 registerDoParallel(cl)
+
+
 
 
 pvalues <- foreach(i=1:length(stool_sets)) %dopar% {
   
   library(dplyr)
-  library(tidyr)
-  test <- get_data(stool_sets[i])
-  study_meta <- grab_dmm_groups(apply(test[["sub_genera_data"]], 2, function(x) round(x)), 
-                                test[["study_meta"]])
-  pvalues <- c(pvalues, get_fisher_pvalue(study_meta))
   
-
+  testData <- study_data[[stool_sets[i]]]
+  
+  study_meta <- grab_dmm_groups(apply(testData[["sub_genera_data"]], 2, function(x) round(x)), 
+                                testData[["study_meta"]])
+  
+  pvalues <- rbind(pvalues, c(stool_sets[i], get_fisher_pvalue(study_meta)))
+  
 }
 
+final_stats <- as.data.frame(pvalues[[5]], stringsAsFactors = F) %>% 
+  bind_rows(as.data.frame(pvalues[[6]], stringsAsFactors = F)) %>% 
+  rename(study = V1, pvalue = V2) %>% 
+  mutate(pvalue = as.numeric(pvalue), bh = p.adjust(pvalue, method = "BH"))
 
-#final_stats <- cbind(pvalue = pvalues, bh = p.adjust(pvalues, method = "BH"))
+
+
   
 
 
