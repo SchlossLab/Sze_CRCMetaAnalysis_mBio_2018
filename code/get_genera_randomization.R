@@ -1,5 +1,5 @@
-### Generate DMM groups
-### Use the genera files to create DMM groups
+### Generate genera randomization tables
+### Use the genera files to create subsampled tables
 ### Marc Sze
 
 
