@@ -26,20 +26,41 @@ both_sets <- c("flemer", "chen")
 
 # Function to read in needed genera file
 get_file <- function(i, path_to_file, ending, rows_present=T, name_of_rows=1, 
-                     vec_of_rownames = NULL, make_matrix = F){
+                     vec_of_rownames = NULL, make_matrix = F, 
+                     sample_source, metadata = F){
   
-  if(rows_present == T){
+  if(metadata == F){
     
-    temp_shared <- read.csv(paste(path_to_file, i, "/", i, ending, sep = ""), 
-                            header = T, stringsAsFactors = F, row.names = name_of_rows)
+    if(rows_present == T){
+      
+      temp_shared <- read.csv(paste(path_to_file, i, "/", i, ending, sep = ""), 
+                              header = T, stringsAsFactors = F, row.names = name_of_rows)
+    } else{
+      
+      temp_shared <- read.csv(paste(path_to_file, i, "/", i, ending, sep = ""), 
+                              header = T, stringsAsFactors = F)
+      rownames(temp_shared) <- vec_of_rownames
+    }
+    
   } else{
     
-    temp_shared <- read.csv(paste(path_to_file, i, "/", i, ending, sep = ""), 
-                            header = T, stringsAsFactors = F)
-    rownames(temp_shared) <- vec_of_rownames
+    temp_shared <- read.delim(paste(path_to_file, i, "/", i, ending, sep = ""), 
+                              header = T, stringsAsFactors = F)
+    
+    # Create a new column called sample_type if it is not already present
+    if(!("sample_type" %in% colnames(temp_shared))){
+      
+     temp_shared <- temp_shared %>% mutate(sampleID = sample) %>% 
+        select(-sample) %>% select(sampleID, everything())
+      
+    } else{
+      
+      temp_shared <- temp_shared %>% 
+        filter(sample_type == "stool") %>% mutate(sampleID = sample) %>% 
+        select(-sample) %>% select(sampleID, everything())
+    }
+    
   }
-  
-  
   
   print(paste("Completed Reading in: ", i, ending, " data", sep = ""))
   
@@ -83,6 +104,8 @@ get_fisher_pvalue <- function(metaData){
 }
 
 
+
+
 ### TO DO LIST ###
 
 # filter data sets to make sure only stool or tissue being compared
@@ -101,28 +124,37 @@ get_fisher_pvalue <- function(metaData){
 
 pvalues <- c()
 
-for(i in stool_sets){
+for(i in c("weir")){
   
   sample_names <- (get_file(i, "data/process/", "_genera_shared.csv") %>% 
     mutate(sample_names = rownames(.)) %>% select(sample_names))[, "sample_names"]
   
-  sub_genera_data <- apply(
-    get_file(i, "data/process/", "_subsample_genera.csv", rows_present = F, 
-             vec_of_rownames = sample_names), 2, function(x) round(x))
+  sub_genera_data <- get_file(i, "data/process/", "_subsample_genera.csv", rows_present = F, 
+             vec_of_rownames = sample_names) %>% 
+    as.data.frame() %>% mutate(sample_ID = rownames(.)) %>% 
+    select(sample_ID, everything())
   
-  study_meta <- read.delim(paste("data/process/", i, "/", i, ".metadata", sep = ""), 
-                           header = T, stringsAsFactors = F, row.names = 1)
+  study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
+                         "stool", metadata = T)
+  
+  if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
+    
+    sub_genera_data <- sub_genera_data %>% slice(match(study_meta$sampleID, sample_ID))
+    
+  } else{
+    
+    study_meta <- study_meta %>% slice(match(sub_genera_data$sample_ID, sampleID))
+  }
 
-  study_meta <- study_meta[as.character(sample_names), ]
   
-  study_meta <- grab_dmm_groups(sub_genera_data, study_meta)
+  #study_meta <- grab_dmm_groups(sub_genera_data, study_meta)
   
-  pvalues <- c(pvalues, get_fisher_pvalue(study_meta))
+  #pvalues <- c(pvalues, get_fisher_pvalue(study_meta))
   
 }
 
 
-final_stats <- cbind(pvalue = pvalues, bh = p.adjust(pvalues, method = "BH"))
+#final_stats <- cbind(pvalue = pvalues, bh = p.adjust(pvalues, method = "BH"))
   
 
 
