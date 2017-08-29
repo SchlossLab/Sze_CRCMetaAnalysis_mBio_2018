@@ -6,7 +6,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "vegan", "DirichletMultinomial"))
+loadLibs(c("dplyr", "tidyr", "vegan"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -53,15 +53,34 @@ grab_dmm_groups <- function(dataTable, metaData, kvalue = 2, seed_value = 123456
   
   dmm_test <- dmn(dataTable, k = kvalue, verbose = T, seed = seed_value)
   
-  dmm_groups <- dmm_test@group
+  dmm_groups <- dmm_test@group[, 1]
   
+  metaData <- metaData %>% 
+    mutate(dmm_groups = ifelse(dmm_groups >= 0.5, invisible("g1"), invisible("g2")))
   
+  return(metaData)
   
 }
 
 
-
-
+# Function to create a 2x2 table and run a fisher test
+get_fisher_pvalue <- function(metaData){
+  
+  options(show.error.messages = FALSE)
+          
+  summary_stat_value <- try(
+    
+   fisher.test(table(metaData$disease, metaData$dmm_groups))$p.value
+  )
+  
+  options(show.error.messages = TRUE)
+  
+  summary_stat_value <- ifelse(is.numeric(summary_stat_value), 
+                               invisible(summary_stat_value), invisible(NA))
+  
+  return(summary_stat_value)
+  
+}
 
 
 
@@ -72,17 +91,49 @@ grab_dmm_groups <- function(dataTable, metaData, kvalue = 2, seed_value = 123456
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
-for(i in c("wang")){
+pvalues <- c()
+
+for(i in stool_sets){
   
   sample_names <- (get_file(i, "data/process/", "_genera_shared.csv") %>% 
     mutate(sample_names = rownames(.)) %>% select(sample_names))[, "sample_names"]
   
-  sub_genera_data <- apply(as.matrix(
+  sub_genera_data <- apply(
     get_file(i, "data/process/", "_subsample_genera.csv", rows_present = F, 
-             vec_of_rownames = sample_names)), 2, function(x) round(x))
+             vec_of_rownames = sample_names), 2, function(x) round(x))
   
   study_meta <- read.delim(paste("data/process/", i, "/", i, ".metadata", sep = ""), 
-                           header = T, stringsAsFactors = F)
+                           header = T, stringsAsFactors = F, row.names = 1)
+
+  study_meta <- study_meta[as.character(sample_names), ]
   
+  study_meta <- grab_dmm_groups(sub_genera_data, study_meta)
+  
+  pvalues <- c(pvalues, get_fisher_pvalue(study_meta))
   
 }
+
+
+final_stats <- cbind(pvalue = pvalues, bh = p.adjust(pvalues, method = "BH"))
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
