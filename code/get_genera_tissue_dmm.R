@@ -115,6 +115,31 @@ get_data <- function(i){
 }
 
 
+# Function to match metadata with sample data
+make_match <- function(i, dataList, metaList){
+  
+  dataTable <- dataList[[i]]
+  metaTable <- metaList[[i]]
+  
+  if(length(rownames(metaTable)) < length(rownames(dataTable))){
+    
+    dataTable <- dataTable %>% slice(match(metaTable$group, sample_ID))
+    
+  } else {
+    
+    metaTable <- metaTable %>% slice(match(dataTable$sample_ID, group))
+  }
+  
+  combined_data <- list(dataTable = dataTable, 
+                        metaTable = metaTable)
+  
+  return(combined_data)
+  
+}
+
+
+
+
 
 ##############################################################################################
 ############### Run the actual programs to get the data ######################################
@@ -135,10 +160,20 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
 matched_meta <- mapply(make_list, c("dejea", "burns", "geng"), "tissue_matched", SIMPLIFY = F)
 unmatched_meta <- mapply(make_list, c(tissue_sets, both_sets), "tissue_unmatched", SIMPLIFY = F)
 
+
 matched_data <- mapply(get_data, c("dejea", "burns", "geng"))
 unmatched_data <- mapply(get_data, c(tissue_sets, both_sets))
 
-rm(tissue_matched, tissue_unmatched)
+
+matched_sets <- sapply(c("dejea", "burns", "geng"), 
+                       function(x) make_match(x, matched_data, matched_meta), simplify = F)
+
+unmatched_sets <- sapply(c(tissue_sets, both_sets), 
+                       function(x) make_match(x, unmatched_data, unmatched_meta), simplify = F)
+
+
+rm(tissue_matched, tissue_unmatched, matched_meta, matched_data, 
+   unmatched_meta, unmatched_data)
 
 
 
