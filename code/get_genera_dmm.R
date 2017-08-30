@@ -25,6 +25,9 @@ stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "flemer")
 # Ignore chen for stool since there is only one case
 both_sets <- c("chen", "flemer")
 
+# The package DirichletMultinomial really messes with dplyr and makes it almost impossible to
+# use things such as slice and match in combination. Make sure to do all table 
+# transformations before loading and using it.
 
 
 # Function to read in needed genera file
@@ -81,16 +84,21 @@ get_file <- function(i, path_to_file, ending, rows_present=T, name_of_rows=1,
 
 # Function to grab groupings from DMM
 grab_dmm_groups <- function(dataTable, metaData, kvalue = 2, seed_value = 1234567){
+  # dataTable is the matrix to be analyzed
+  # metaData is the respective meta data table for which grouping will be drawn from
+  # kvalue represents the number of groups (components to make)
+  # seed_value is the random number at which the seed will start
   
+  # load and/or install needed package
   loadLibs("DirichletMultinomial")
-  
+  # run the test on the respective data
   dmm_test <- dmn(dataTable, k = kvalue, verbose = T, seed = seed_value)
-  
+  # pull the probablities for the first group
   dmm_groups <- dmm_test@group[, 1]
-  
+  # add column that assign groupings to the metadata table based on G1 probabilities
   metaData <- metaData %>% 
     mutate(dmm_groups = ifelse(dmm_groups >= 0.5, invisible("g1"), invisible("g2")))
-  
+  # return the modified metadata file with the group information added
   return(metaData)
   
 }
