@@ -106,19 +106,21 @@ grab_dmm_groups <- function(dataTable, metaData, kvalue = 2, seed_value = 123456
 
 # Function to create a 2x2 table and run a fisher test
 get_fisher_pvalue <- function(metaData){
+  # metaData should be the modified metadata file with the added groupings column
   
+  # supress any errors for this analysis (some dmm groups will have NA)
   options(show.error.messages = FALSE)
-          
+  # tries to generate pvalue from fisher test otherwise outputs chr of error        
   summary_stat_value <- try(
-    
+    # compares proportions of case and cancer within the two groups  
    fisher.test(table(metaData$disease, metaData$dmm_groups))$p.value
   )
-  
+  # turns off suppression of error messages
   options(show.error.messages = TRUE)
-  
+  # adds the value or adds NA depending on whether a chr is present
   summary_stat_value <- ifelse(is.numeric(summary_stat_value), 
                                invisible(summary_stat_value), invisible(NA))
-  
+  # returns the pvalue
   return(summary_stat_value)
   
 }
@@ -158,12 +160,6 @@ get_data <- function(i){
   return(dataList)
   
 }
-
-
-
-
-
-
 
 
 ##############################################################################################
