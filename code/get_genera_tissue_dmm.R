@@ -236,13 +236,13 @@ rm(tissue_matched, tissue_unmatched, matched_meta, matched_data,
 # assign needed values and processors for the analysis
 pvalues <- c()
 matched_tissue <- c("dejea", "burns", "geng")
-unmatched_tissue <- c(tissue_sets, both_sets)
+unmatched_tissue <- c(tissue_sets, "flemer")
 cl <- makeCluster(2)
 registerDoParallel(cl)
 
 
 
-# Gets tissue unmatched final sets by running the analysis on 2 different processors
+# Gets tissue matched final sets by running the analysis on 2 different processors
 pvalues <- foreach(i=1:length(matched_tissue)) %dopar% {
   
   library(dplyr)
@@ -252,7 +252,7 @@ pvalues <- foreach(i=1:length(matched_tissue)) %dopar% {
   
   study_meta <- grab_dmm_groups(apply(testData, 2, function(x) round(x)), metaData)
   
-  pvalues <- rbind(pvalues, c(stool_sets[i], get_fisher_pvalue(study_meta)))
+  pvalues <- rbind(pvalues, c(matched_tissue[i], get_fisher_pvalue(study_meta)))
   
 }
 
@@ -263,16 +263,29 @@ matched_final_stats <- as.data.frame(pvalues[[2]], stringsAsFactors = F) %>%
   mutate(pvalue = as.numeric(pvalue), bh = p.adjust(pvalue, method = "BH"))
 
 
+rm(pvalues)
+pvalues <- c()
+
+# Gets tissue unmatched final sets by running the analysis on 2 different processors
+pvalues <- foreach(i=1:length(unmatched_tissue)) %dopar% {
+  
+  library(dplyr)
+  
+  testData <- unmatched_sets[[unmatched_tissue[i]]][["dataTable"]]
+  metaData <- unmatched_sets[[unmatched_tissue[i]]][["metaTable"]]
+  
+  study_meta <- grab_dmm_groups(apply(testData, 2, function(x) round(x)), metaData)
+  
+  pvalues <- rbind(pvalues, c(unmatched_tissue[i], get_fisher_pvalue(study_meta)))
+  
+}
 
 
-
-
-
-
-
-
-
-
+# combines the seperate data together from the two processors and adds the bh correction
+unmatched_final_stats <- as.data.frame(pvalues[[2]], stringsAsFactors = F) %>% 
+  bind_rows(as.data.frame(pvalues[[4]], stringsAsFactors = F)) %>% 
+  rename(study = V1, pvalue = V2) %>% 
+  mutate(pvalue = as.numeric(pvalue), bh = p.adjust(pvalue, method = "BH"))
 
 
 
