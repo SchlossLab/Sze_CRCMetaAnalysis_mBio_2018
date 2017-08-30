@@ -10,7 +10,8 @@ loadLibs(c("dplyr", "tidyr", "vegan", "foreach", "doParallel"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
-tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
+# Remove Lu since it only has polyps and no cancer cases
+tissue_sets <- c("dejea", "sana", "burns", "geng")
 
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
@@ -144,10 +145,7 @@ get_data <- function(i){
 }
 
 
-### TO DO LIST ###
 
-# create a control function to read in data
-# use lapply instead of the for loop
 
 
 
@@ -158,8 +156,7 @@ get_data <- function(i){
 ##############################################################################################
 
 
-study_data <- mapply(get_data, stool_sets, SIMPLIFY = F)
-
+stool_study_data <- mapply(get_data, stool_sets, SIMPLIFY = F)
 
 pvalues <- c()
 cl <- makeCluster(2)
@@ -167,7 +164,7 @@ registerDoParallel(cl)
 
 
 
-
+# Gets stool final sets
 pvalues <- foreach(i=1:length(stool_sets)) %dopar% {
   
   library(dplyr)
@@ -188,7 +185,7 @@ final_stats <- as.data.frame(pvalues[[5]], stringsAsFactors = F) %>%
 
 
 
-  
+# tissue final sets  
 
 
 
