@@ -108,7 +108,7 @@ get_data <- function(i){
                               vec_of_rownames = sample_names) %>% 
     as.data.frame() %>% mutate(sample_ID = rownames(.)) %>% 
     select(sample_ID, everything())
-
+  
   # returns the combined list file
   return(sub_genera_data)
   
@@ -130,6 +130,8 @@ make_match <- function(i, dataList, metaList){
     metaTable <- metaTable %>% slice(match(dataTable$sample_ID, group))
   }
   
+  dataTable <- make_dmm_nice(dataTable)
+  
   combined_data <- list(dataTable = dataTable, 
                         metaTable = metaTable)
   
@@ -138,6 +140,61 @@ make_match <- function(i, dataList, metaList){
 }
 
 
+
+# Function to grab groupings from DMM
+grab_dmm_groups <- function(dataTable, metaData, kvalue = 2, seed_value = 1234567){
+  # dataTable is the matrix to be analyzed
+  # metaData is the respective meta data table for which grouping will be drawn from
+  # kvalue represents the number of groups (components to make)
+  # seed_value is the random number at which the seed will start
+  
+  # load and/or install needed package
+  loadLibs("DirichletMultinomial")
+  # run the test on the respective data
+  dmm_test <- dmn(dataTable, k = kvalue, verbose = T, seed = seed_value)
+  # pull the probablities for the first group
+  dmm_groups <- dmm_test@group[, 1]
+  # add column that assign groupings to the metadata table based on G1 probabilities
+  metaData <- metaData %>% 
+    mutate(dmm_groups = ifelse(dmm_groups >= 0.5, invisible("g1"), invisible("g2")))
+  # return the modified metadata file with the group information added
+  return(metaData)
+  
+}
+
+
+# Function to create a 2x2 table and run a fisher test
+get_fisher_pvalue <- function(metaData){
+  # metaData should be the modified metadata file with the added groupings column
+  
+  # supress any errors for this analysis (some dmm groups will have NA)
+  options(show.error.messages = FALSE)
+  # tries to generate pvalue from fisher test otherwise outputs chr of error        
+  summary_stat_value <- try(
+    # compares proportions of case and cancer within the two groups  
+    fisher.test(table(metaData$disease, metaData$dmm_groups))$p.value
+  )
+  # turns off suppression of error messages
+  options(show.error.messages = TRUE)
+  # adds the value or adds NA depending on whether a chr is present
+  summary_stat_value <- ifelse(is.numeric(summary_stat_value), 
+                               invisible(summary_stat_value), invisible(NA))
+  # returns the pvalue
+  return(summary_stat_value)
+  
+}
+
+
+# Function to create rownames and make matrix
+make_dmm_nice <- function(data_table){
+  
+  # re assigns the rown names while removing the extra column used for sorting
+  sample_names <- data_table$sample_ID
+  data_table <- as.matrix(data_table %>% select(-sample_ID))
+  rownames(data_table) <- sample_names
+  
+  return(data_table)
+}
 
 
 
@@ -174,6 +231,58 @@ unmatched_sets <- sapply(c(tissue_sets, both_sets),
 
 rm(tissue_matched, tissue_unmatched, matched_meta, matched_data, 
    unmatched_meta, unmatched_data)
+
+
+# assign needed values and processors for the analysis
+pvalues <- c()
+matched_tissue <- c("dejea", "burns", "geng")
+unmatched_tissue <- c(tissue_sets, both_sets)
+cl <- makeCluster(2)
+registerDoParallel(cl)
+
+
+
+# Gets tissue unmatched final sets by running the analysis on 2 different processors
+pvalues <- foreach(i=1:length(matched_tissue)) %dopar% {
+  
+  library(dplyr)
+  
+  testData <- matched_sets[[matched_tissue[i]]][["dataTable"]]
+  metaData <- matched_sets[[matched_tissue[i]]][["metaTable"]]
+  
+  study_meta <- grab_dmm_groups(apply(testData, 2, function(x) round(x)), metaData)
+  
+  pvalues <- rbind(pvalues, c(stool_sets[i], get_fisher_pvalue(study_meta)))
+  
+}
+
+# combines the seperate data together from the two processors and adds the bh correction
+matched_final_stats <- as.data.frame(pvalues[[2]], stringsAsFactors = F) %>% 
+  bind_rows(as.data.frame(pvalues[[3]], stringsAsFactors = F)) %>% 
+  rename(study = V1, pvalue = V2) %>% 
+  mutate(pvalue = as.numeric(pvalue), bh = p.adjust(pvalue, method = "BH"))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
