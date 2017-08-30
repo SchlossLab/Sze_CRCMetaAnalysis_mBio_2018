@@ -169,16 +169,17 @@ get_data <- function(i){
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
-
+# reads in all the stool data into one list
 stool_study_data <- mapply(get_data, stool_sets, SIMPLIFY = F)
 
+# assign needed values and processors for the analysis
 pvalues <- c()
 cl <- makeCluster(2)
 registerDoParallel(cl)
 
 
 
-# Gets stool final sets
+# Gets stool final sets by running the analysis on 2 different processors
 pvalues <- foreach(i=1:length(stool_sets)) %dopar% {
   
   library(dplyr)
@@ -192,6 +193,7 @@ pvalues <- foreach(i=1:length(stool_sets)) %dopar% {
   
 }
 
+# combines the seperate data together from the two processors and adds the bh correction
 final_stats <- as.data.frame(pvalues[[5]], stringsAsFactors = F) %>% 
   bind_rows(as.data.frame(pvalues[[6]], stringsAsFactors = F)) %>% 
   rename(study = V1, pvalue = V2) %>% 
