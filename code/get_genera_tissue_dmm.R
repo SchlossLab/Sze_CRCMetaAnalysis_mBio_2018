@@ -236,7 +236,7 @@ rm(tissue_matched, tissue_unmatched, matched_meta, matched_data,
 # assign needed values and processors for the analysis
 pvalues <- c()
 matched_tissue <- c("dejea", "burns", "geng")
-unmatched_tissue <- c(tissue_sets, "flemer")
+unmatched_tissue <- c(tissue_sets, both_sets)
 cl <- makeCluster(2)
 registerDoParallel(cl)
 
@@ -252,15 +252,13 @@ pvalues <- foreach(i=1:length(matched_tissue)) %dopar% {
   
   study_meta <- grab_dmm_groups(apply(testData, 2, function(x) round(x)), metaData)
   
-  pvalues <- rbind(pvalues, c(matched_tissue[i], get_fisher_pvalue(study_meta)))
+  pvalues <- data_frame(study = matched_tissue[i], pvalue = get_fisher_pvalue(study_meta))
   
 }
 
 # combines the seperate data together from the two processors and adds the bh correction
-matched_final_stats <- as.data.frame(pvalues[[2]], stringsAsFactors = F) %>% 
-  bind_rows(as.data.frame(pvalues[[3]], stringsAsFactors = F)) %>% 
-  rename(study = V1, pvalue = V2) %>% 
-  mutate(pvalue = as.numeric(pvalue), bh = p.adjust(pvalue, method = "BH"))
+matched_final_stats <- bind_rows(pvalues) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH"))
 
 
 rm(pvalues)
@@ -276,25 +274,14 @@ pvalues <- foreach(i=1:length(unmatched_tissue)) %dopar% {
   
   study_meta <- grab_dmm_groups(apply(testData, 2, function(x) round(x)), metaData)
   
-  pvalues <- rbind(pvalues, c(unmatched_tissue[i], get_fisher_pvalue(study_meta)))
+  pvalues <-data_frame(study = unmatched_tissue[i], pvalue = get_fisher_pvalue(study_meta))
   
 }
 
 
 # combines the seperate data together from the two processors and adds the bh correction
-unmatched_final_stats <- as.data.frame(pvalues[[2]], stringsAsFactors = F) %>% 
-  bind_rows(as.data.frame(pvalues[[4]], stringsAsFactors = F)) %>% 
-  rename(study = V1, pvalue = V2) %>% 
-  mutate(pvalue = as.numeric(pvalue), bh = p.adjust(pvalue, method = "BH"))
-
-
-
-# Need to modify chen to eliminate rows without values
-
-chen_meta <- unmatched_sets[["chen"]][["metaTable"]]
-chen_data <- unmatched_sets[["chen"]][["dataTable"]]
-
-rd_chen_data <- apply(chen_data, 2, function(x) round(x))
+unmatched_final_stats <- bind_rows(pvalues) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH"))
 
 
 
