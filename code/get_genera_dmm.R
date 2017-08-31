@@ -189,15 +189,13 @@ pvalues <- foreach(i=1:length(stool_sets)) %dopar% {
   study_meta <- grab_dmm_groups(apply(testData[["sub_genera_data"]], 2, function(x) round(x)), 
                                 testData[["study_meta"]])
   
-  pvalues <- rbind(pvalues, c(stool_sets[i], get_fisher_pvalue(study_meta)))
+  pvalues <- data_frame(study = stool_sets[i], pvalue = get_fisher_pvalue(study_meta))
   
 }
 
 # combines the seperate data together from the two processors and adds the bh correction
-final_stats <- as.data.frame(pvalues[[5]], stringsAsFactors = F) %>% 
-  bind_rows(as.data.frame(pvalues[[6]], stringsAsFactors = F)) %>% 
-  rename(study = V1, pvalue = V2) %>% 
-  mutate(pvalue = as.numeric(pvalue), bh = p.adjust(pvalue, method = "BH"))
+final_stats <- bind_rows(pvalues) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH"))
 
 
 
