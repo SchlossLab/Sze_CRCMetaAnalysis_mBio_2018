@@ -90,8 +90,7 @@ assign_genera <- function(dataTable, generaVector){
   
   # Iteratres through each genera sampled and changes the 0 to the
   # correct number of counts
-  updatedVector <- lapply(c(1:length(dataTable[, "x"])), 
-                       function(x) grab_value(x, tempVector, dataTable))
+  updatedVector <- grab_values(tempVector, dataTable)
   
 
   # returns the final vector
@@ -100,9 +99,9 @@ assign_genera <- function(dataTable, generaVector){
 
 
 # Function to pull specific value
-grab_value <- function(i, vec_of_int, refTable){
+grab_values <- function(vec_of_int, refTable){
   
-  vec_of_int[as.numeric(refTable[i, "x"])] <- refTable[i, "Freq"]
+  vec_of_int[as.numeric(refTable[, "x"])] <- refTable[, "Freq"]
   
   return(vec_of_int)
   
@@ -162,13 +161,13 @@ make_file <- function(datafile, path_to_file, ending){
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
-for(i in c(stool_sets, tissue_sets, both_sets)){
+for(i in c("wang")){
   
   genera_data <- get_file(i, "data/process/", "_genera_shared.csv")
   
   avg_subsample_table <- get_average_counts(i, 100, genera_data)
   
-  make_file(avg_subsample_table, "data/process/", "_subsample_genera.csv")
+  #make_file(avg_subsample_table, "data/process/", "_subsample_genera.csv")
   
   rm(genera_data, avg_subsample_table)
 }
