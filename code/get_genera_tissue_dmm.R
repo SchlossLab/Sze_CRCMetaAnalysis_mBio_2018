@@ -289,8 +289,12 @@ unmatched_final_stats <- as.data.frame(pvalues[[2]], stringsAsFactors = F) %>%
 
 
 
+# Need to modify chen to eliminate rows without values
 
+chen_meta <- unmatched_sets[["chen"]][["metaTable"]]
+chen_data <- unmatched_sets[["chen"]][["dataTable"]]
 
+rd_chen_data <- apply(chen_data, 2, function(x) round(x))
 
 
 
