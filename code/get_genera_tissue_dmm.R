@@ -284,10 +284,12 @@ unmatched_final_stats <- bind_rows(pvalues) %>%
   mutate(bh = p.adjust(pvalue, method = "BH"))
 
 
+# Write out the results of k = 2 dmm for tissue
+write.csv(matched_final_stats, "data/process/tables/tissue_matched_dmm_results.csv", 
+          row.names = F)
 
-
-
-
+write.csv(unmatched_final_stats, "data/process/tables/tissue_unmatched_dmm_results.csv", 
+          row.names = F)
 
 
 
