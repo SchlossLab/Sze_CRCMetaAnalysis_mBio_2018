@@ -30,14 +30,17 @@ both_sets <- c("chen", "flemer")
 
 # Function to create a list of sampleIDs and disease
 make_list <- function(i, dataTable_name){
+  # i is the study 
+  # dataTable_name is the data frame name in the current environment
   
+  # This gets the data table from the current work environment
   dataTable <- get(dataTable_name)
-  
+  # filters data table by study and selective keeps specific columns
   new_table <- dataTable %>% filter(study == i) %>% 
     select(group, id, disease, sample_type)
-  
+  # checks to see if the table contains values
   if(length(rownames(new_table)) != 0){
-    
+    # returns newly modified table
     return(new_table)
   }
   
@@ -117,24 +120,28 @@ get_data <- function(i){
 
 # Function to match metadata with sample data
 make_match <- function(i, dataList, metaList){
+  # i is is the study
+  # dataList is a list that contains all the genera data
+  # metaList is a list that contains all the meta data 
   
+  # Calls the specific data and meta file of interest
   dataTable <- dataList[[i]]
   metaTable <- metaList[[i]]
-  
+  # checks whether the metatable or the datatable is longer
   if(length(rownames(metaTable)) < length(rownames(dataTable))){
-    
+    # removes samples from data that is not in the meta file and keeps correct order
     dataTable <- dataTable %>% slice(match(metaTable$group, sample_ID))
     
   } else {
-    
+    # removes samples from meta data that is not in the data and keeps correct order
     metaTable <- metaTable %>% slice(match(dataTable$sample_ID, group))
   }
-  
+  # creates a matrix that is amenable for the dmn function of the DMM package
   dataTable <- make_dmm_nice(dataTable)
-  
+  # outputs a combined list with matched data and meta data for the study
   combined_data <- list(dataTable = dataTable, 
                         metaTable = metaTable)
-  
+  # return the combined list
   return(combined_data)
   
 }
@@ -187,12 +194,13 @@ get_fisher_pvalue <- function(metaData){
 
 # Function to create rownames and make matrix
 make_dmm_nice <- function(data_table){
+  # data_table is the data of interest to be transformed
   
   # re assigns the rown names while removing the extra column used for sorting
   sample_names <- data_table$sample_ID
   data_table <- as.matrix(data_table %>% select(-sample_ID))
   rownames(data_table) <- sample_names
-  
+  # writes out the new data table
   return(data_table)
 }
 
@@ -213,22 +221,22 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
                              header = T, stringsAsFactors = F) %>% 
   mutate(disease = gsub("adenoma", "polyp", disease))
 
-
+# Use read in data to grab select meta data by specific grouping
 matched_meta <- mapply(make_list, c("dejea", "burns", "geng"), "tissue_matched", SIMPLIFY = F)
 unmatched_meta <- mapply(make_list, c(tissue_sets, both_sets), "tissue_unmatched", SIMPLIFY = F)
 
-
+# Use read in data to grab the needed genera data by specific grouping
 matched_data <- mapply(get_data, c("dejea", "burns", "geng"))
 unmatched_data <- mapply(get_data, c(tissue_sets, both_sets))
 
-
+# Combine the meta data and data together and match and align samples 
 matched_sets <- sapply(c("dejea", "burns", "geng"), 
                        function(x) make_match(x, matched_data, matched_meta), simplify = F)
 
 unmatched_sets <- sapply(c(tissue_sets, both_sets), 
                        function(x) make_match(x, unmatched_data, unmatched_meta), simplify = F)
 
-
+# remove unneeded extra files
 rm(tissue_matched, tissue_unmatched, matched_meta, matched_data, 
    unmatched_meta, unmatched_data)
 
@@ -260,7 +268,7 @@ pvalues <- foreach(i=1:length(matched_tissue)) %dopar% {
 matched_final_stats <- bind_rows(pvalues) %>% 
   mutate(bh = p.adjust(pvalue, method = "BH"))
 
-
+# resets the temporary variable pvalues
 rm(pvalues)
 pvalues <- c()
 
