@@ -184,7 +184,7 @@ pvalues <- foreach(i=1:length(stool_sets)) %dopar% {
   
   library(dplyr)
   
-  testData <- study_data[[stool_sets[i]]]
+  testData <- stool_study_data[[stool_sets[i]]]
   
   study_meta <- grab_dmm_groups(apply(testData[["sub_genera_data"]], 2, function(x) round(x)), 
                                 testData[["study_meta"]])
