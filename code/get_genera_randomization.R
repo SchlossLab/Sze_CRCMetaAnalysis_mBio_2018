@@ -161,13 +161,13 @@ make_file <- function(datafile, path_to_file, ending){
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
 
-for(i in c("wang")){
+for(i in c(stool_sets, tissue_sets, both_sets)){
   
   genera_data <- get_file(i, "data/process/", "_genera_shared.csv")
   
   avg_subsample_table <- get_average_counts(i, 100, genera_data)
   
-  #make_file(avg_subsample_table, "data/process/", "_subsample_genera.csv")
+  make_file(avg_subsample_table, "data/process/", "_subsample_genera.csv")
   
   rm(genera_data, avg_subsample_table)
 }
