@@ -12,7 +12,7 @@ loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4", "vegan"))
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
 # Ignore brim since it only has polyps
-stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter")
+stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "hale")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
