@@ -136,7 +136,7 @@ make_the_tables <- function(i, table_name){
   # table_name is what this table should be called when saved
   
   # saves the data table outside of R
-  write.csv(i, paste("data/process/tables/alpha_", table_name, ".csv"), row.names = F)
+  write.csv(i, paste("data/process/tables/alpha_", table_name, ".csv", sep = ""), row.names = F)
 }
 
 
