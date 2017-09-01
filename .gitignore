@@ -21,19 +21,3 @@ data/process/dejea/old/*
 data/process/weir/old/*
 data/process/brim/old/*
 
-data/process/hale/*.map
-data/process/hale/*.count_table
-data/process/hale/*.taxonomy
-data/process/hale/*.dist
-data/process/hale/*.file
-data/process/hale/*.summary
-data/process/hale/*.list
-data/process/hale/*.shared
-data/process/hale/*.groups
-data/process/hale/*.txt
-data/process/hale/*.qual
-data/process/hale/*.accnos
-data/process/hale/*.report
-data/process/hale/*.align
-data/process/hale/*.names
-data/process/hale/*.chimeras
