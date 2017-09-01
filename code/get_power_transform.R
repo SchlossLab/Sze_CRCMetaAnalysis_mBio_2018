@@ -83,7 +83,14 @@ get_data <- function(i, sample_source){
            sex = gsub("m.*", "m", sex, ignore.case = T), 
            sex = gsub("^(?!m|f).*$", NA, sex, perl = T, ignore.case = T))
   
-  # Select specific columns and rows for the final data table
+  # convert disease column so that all normal are control
+  # and all adenoma are polyp
+  combined_df <- combined_data %>% 
+    mutate(disease = ifelse(disease == "normal", invisible("control"), 
+                            ifelse(disease == "adenoma", invisible("polyp"), 
+                                   invisible(disease))))
+  
+    # Select specific columns and rows for the final data table
   combined_df <- combined_df %>% 
     select(sample, sobs, shannon, shannoneven, disease, 
            white, sample_type, sex, age, bmi, study) %>% 
