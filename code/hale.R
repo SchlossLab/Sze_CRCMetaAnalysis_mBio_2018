@@ -23,6 +23,7 @@ select_meta <- metadata %>% slice(match(shared$Group, sampleID))
 # Check order is okay
 stopifnot(shared$Group == select_meta$samples)
 
+select_meta <- select_meta %>% rename(sample = sampleID)
 
 # Write out to table
 write.table(shared, file="data/process/hale/hale.shared", quote=F, sep='\t', row.names=F)
