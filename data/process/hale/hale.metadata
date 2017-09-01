@@ -1,4 +1,4 @@
-sampleID	disease	sex	white	age
+sample	disease	sex	white	age
 CRC001	normal	f	1	67
 CRC002	normal	m	0	72
 CRC003	normal	m	1	72
