@@ -15,7 +15,7 @@ tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
 # ignore Hale and Zeller for testing since the files are too large
-stool_sets <- c("wang", "brim", "weir", "ahn","zeller", "baxter")
+stool_sets <- c("wang", "brim", "weir", "ahn","zeller", "baxter", "hale")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
