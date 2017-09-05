@@ -26,7 +26,7 @@ stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "hale")
 # Ignore chen for stool since there is only one case
 both_sets <- c("chen", "flemer")
 
-# CRC genera
+# CRC genera of interest
 crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
 
 
@@ -70,7 +70,13 @@ get_data <- function(i){
 # Function to grab only the genera file and pull specific genus from it
 get_specific_genera <- function(i, genera_to_get, table_name, meta_name, 
                                 dataList = stool_study_data){
+  # i represents the study
+  # genera_to_get represents the genera of interest to pull specifically
+  # table_name represents the table the has all the genera data (subsampled)
+  # meta_name represents the metadata name that stores the relevent meta data
+  # dataList is defaulted to stool_study_data for convience
   
+  # grab the specific genera and merge with the meta data file
   tempData <- dataList[[i]][[table_name]] %>% 
     select(sample_ID, one_of(genera_to_get)) %>% 
     rename(sampleID = sample_ID) %>% 
@@ -83,22 +89,24 @@ get_specific_genera <- function(i, genera_to_get, table_name, meta_name,
     mutate(disease2 = ifelse(disease != "cancer", invisible("control"), invisible(disease))) %>% 
       as.data.frame()
   
+  # Print output when merged completed
   print(paste("Finished pulling and merging files for", i, "data sets"))
-  
+  # Return the newly transformed data
   return(tempData)
   
 }
 
-
-### not possible to power transform to a normal distribution. Too much 0 weighting
-### Main other possibility is to use RR and above/below median value
-
+########################################################################################
+### not possible to power transform to a normal distribution. Too much 0 weighting #####
+### Main other possibility is to use RR and above/below median value               #####
+########################################################################################
 
 # Analyze the data with respect to high low column table
 analyze_study <- function(i, group_column, vec_of_int, dataset){
   # i represents the study 
   # group_column represents what the case/control column is
-  # to work with mapply dataset is defaulted to read in list of data called stool_data
+  # vec_of_int is a vector with genera of interest
+  # dataset is the list of combined genera of interest and meta data
   
   # Vector of whether sample was cancer or not
   is_cancer <- factor(ifelse(dataset[[i]][, group_column] == "cancer", 
@@ -122,7 +130,7 @@ create_high_low <- function(i, threshold, var_of_interest, grouping,
                             dataset = specific_genera_list){
   # i is the study
   # threshold is the vector of median values for alpha measures of interest
-  # var_of_interest is the alpha metrics being used
+  # var_of_interest is the genera being used
   # grouping is the name of the case/control column
   # dataset is default to the stool_data list to allow for mapply to work
   
@@ -148,22 +156,14 @@ run_rr <- function(high_low_vector, disease_vector){
   # check if there are 0 counts
   check_values <- as.vector(contingency)
   
-  if(0 %in% check_values){
+  # runs the RR test based on the obtained 2x2 table
+  test <- epi.2by2(contingency, method="cohort.count")
+  # Pull only specific information from the stored list in "test"
+  test_values <- cbind(test$massoc$RR.strata.score, 
+                       pvalue = test$massoc$chisq.strata$p.value)
+  # store both the obtained raw counts and the resulting RR with pvalue
+  combined_data <- list(data_tbl = contingency, test_values = test_values)
     
-    test_values <- cbind(NA, pvalue = NA)
-    combined_data <- list(data_tbl = contingency, test_values = test_values)
-  } else{
-    # runs the RR test based on the obtained 2x2 table
-    test <- epi.2by2(contingency, method="cohort.count")
-    # Pull only specific information from the stored list in "test"
-    test_values <- cbind(test$massoc$RR.strata.score, 
-                         pvalue = test$massoc$chisq.strata$p.value)
-    # store both the obtained raw counts and the resulting RR with pvalue
-    combined_data <- list(data_tbl = contingency, test_values = test_values)
-    
-  }
-  
-  
   # Returns a list with all information needed for downstream analysis
   return(combined_data)
 }
@@ -174,7 +174,7 @@ pull_data <- function(var_of_int, i, result, datalist =  test_ind_RR){
   # var_of_int is the alpha measures used e.g. "sobs"
   # i is the study
   # result is the type of data we want either "test_values" or "data_tbl"
-  # datalist is defaulted to ind_study_data to make it easier to work with mapply
+  # datalist is defaulted to test_ind_RR to make it easier to work with mapply
   
   # Pull the needed data and add identifiers
   tempData <- datalist[[i]][[var_of_int]][[result]] %>% as.data.frame() %>% 
@@ -189,6 +189,7 @@ pull_data <- function(var_of_int, i, result, datalist =  test_ind_RR){
 make_list <- function(i, vec_of_interest, result, datalist){
   # i is the study
   # result is they type of data being pulled "test_values" or "data_tbl"
+  # vec_of_interest is the genera to be analyzed
   # datalist is defaulted to ind_study_data to make it easier to work with mapply
   
   # runs the function iteratively to collect the specific data
@@ -229,27 +230,29 @@ run_pooled <- function(alpha_d, dataset = ind_counts_data){
 # reads in all the stool data into one list
 stool_study_data <- mapply(get_data, c(stool_sets, "flemer"), SIMPLIFY = F)
 
-
+# pull the specific genera of interest and merge with the meta data
 specific_genera_list <- sapply(c(stool_sets, "flemer"), 
                function(x) get_specific_genera(x, crc_genera, 
                                                "sub_genera_data", "study_meta"))
 
-
+# Generate the RR for each respective study for each genus of interest
+# Return both counts and results
 test_ind_RR <- sapply(c(stool_sets, "flemer"), 
                function(x) analyze_study(x, "disease2",crc_genera, specific_genera_list), 
                simplify = F)
 
+# Store the results from the individual testing here
 ind_RR_data <- sapply(c(stool_sets, "flemer"), 
                         function(x) make_list(x, crc_genera, "test_values", test_ind_RR), 
-                      simplify = F) %>% bind_rows() %>% select(-V1)
+                      simplify = F) %>% bind_rows()
 
+# Store the counts and rearrange the table to be used in the pooled analysis
 ind_counts_data <- sapply(c(stool_sets, "flemer"), 
                function(x) make_list(x, crc_genera, "data_tbl", test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
-
-
+# Run the pooled analysis for each respective genera of interest
 pooled_results <- t(mapply(run_pooled, crc_genera, USE.NAMES = F)) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
