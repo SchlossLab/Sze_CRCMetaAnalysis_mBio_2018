@@ -17,7 +17,7 @@ tissue_sets <- c("dejea", "sana", "burns")
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
 # Ignore brim since it only has polyps
-stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "flemer")
+stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "flemer", "hale")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
