@@ -258,7 +258,10 @@ pooled_results <- t(mapply(run_pooled, crc_genera, USE.NAMES = F)) %>%
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
-
+# Write out the important tables
+write.csv(ind_counts_data, "data/process/tables/select_genus_group_counts_summary.csv", row.names = F)
+write.csv(ind_RR_data, "data/process/tables/select_genus_RR_stool_ind_results.csv", row.names = F)
+write.csv(pooled_results, "data/process/tables/select_genus_RR_stool_composite.csv", row.names = F)
 
 
 
