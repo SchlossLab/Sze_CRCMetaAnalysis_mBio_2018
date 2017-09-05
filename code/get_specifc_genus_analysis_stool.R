@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "vegan", "foreach", "doParallel"))
+loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "rcompanion"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -90,71 +90,8 @@ get_specific_genera <- function(i, genera_to_get, table_name, meta_name,
 }
 
 
-
-# Function to judge whether lambda is negative or positive and obtain proper lambda
-calc_lambda_sign <- function(filtered_vec, transformed_vec){
-  # filtered_vec are original alpha diversity values
-  # transformed_vec are the appropriate power transformed values
-  
-  # Runs to check if the transformed value is positive or negative
-  if(transformed_vec > 0){
-    # Conversion formula if value is positive
-    lambda_value <- log(transformed_vec)/log(filtered_vec)
-  } else{
-    # Conversion formula if value is negative
-    lambda_value <- log(-1*transformed_vec)/log(filtered_vec)
-  }
-  # Write out the obtained value
-  return(lambda_value)
-}
-
-
-# Control function to run through each alpha metric column of supplied data frames
-generate_lambda <- function(i, original_df, transformed_data){
-  # i is a vector of alpha metrics
-  # original_df is a data frame with both meta data and alpha metrics
-  # transformed_data is a data frame with power transformed alpha metrics of interest
-  
-  # create filtered data frame with only alpha metrics of interest
-  filtered_df <- original_df %>% 
-    select(sobs, shannon, shannoneven)
-  
-  # converts provided data frames to a data frame (tibbles make things screwy)
-  conv_filtered_data <- as.data.frame(filtered_df[1, i])
-  conv_transformed_data <- as.data.frame(transformed_data[1, i])
-  
-  # run the calculation function on every alpha metric of interest
-  calculated_lambda <- mapply(calc_lambda_sign, conv_filtered_data, conv_transformed_data)
-  
-  # Write out the obtained values
-  return(unname(calculated_lambda))
-}
-
-
-# Function to transform needed data, get the lambda and p-values for normality
-get_lambda <- function(test_df){
-  # test_df is a data frame with metadata and alpha metrics of interest
-  
-  # Apply optimal power transformation
-  new_power_data <- test_df %>% 
-    mutate_at(vars(sobs, shannon, shannoneven), 
-              function(x) transformTukey(x, plotit = FALSE))
-  
-  test_new_data <- new_power_data %>% select(sobs, shannon, shannoneven)
-  
-  optimum_lambdas <- generate_lambda(c("sobs", "shannon", "shannoneven"), 
-                                     test_df, test_new_data)
-  
-  pvalues <- apply(test_new_data, 2, function(x) shapiro.test(x)$p.value)
-  
-  values <- cbind(optimum_lambdas, pvalues)
-  
-  lambda_data <- list(summary_stats = values, transformed_data = new_power_data)
-  
-  return(lambda_data)
-  
-}
-
+### not possible to power transform to a normal distribution. Too much 0 weighting
+### Main other possibility is to use RR and above/below median value
 
 
 
