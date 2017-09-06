@@ -112,16 +112,19 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
   select(-sobs, -shannon, -shannoneven, -r_sobs, -r_shannon, -r_shannoneven)
 
 
+# Manually remove the one matched polyp sample in dejea study
+tissue_matched <- tissue_matched %>% filter(id != 3776)
+
 # Remove polyp only group
 no_p_tissue_matched <- tissue_matched %>% filter(study != "lu")
 no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu")
 
 # Generate RR and data tables for every study
 ind_matched_data <- sapply(c("burns", "dejea", "geng"), 
-                           function(x) get_data(x, tissue_matched), simplify = F)
+                           function(x) get_data(x, no_p_tissue_matched), simplify = F)
 
 ind_unmatched_data <- sapply(c("burns", "dejea", "sana", both_sets),  
-                             function(x) get_data(x, tissue_matched), simplify = F)
+                             function(x) get_data(x, no_p_tissue_unmatched), simplify = F)
 
 
 # pull the specific genera of interest and merge with the meta data
@@ -132,7 +135,7 @@ matched_specific_genera_list <- sapply(
                                   ind_matched_data), simplify = F)
 
 unmatched_specific_genera_list <- sapply(
-  c("burns", "dejea", "sana", both_sets), 
+  c("burns", "sana", both_sets), 
   function(x) get_specific_genera(x, crc_genera, 
                                   "sub_genera_data", "study_meta", 
                                   ind_unmatched_data), simplify = F)
