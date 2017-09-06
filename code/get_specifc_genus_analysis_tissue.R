@@ -204,9 +204,9 @@ make_list <- function(i, vec_of_interest, result, datalist){
 
 
 # Function to run test for selected alpha measure
-run_pooled <- function(alpha_d, dataset = ind_counts_data){
+run_pooled <- function(alpha_d, dataset){
   # alpha_d is the alpha measure of interest
-  # dataset is defaulted to ind_counts_data
+  # dataset is the individual count data 
   
   # select only the relevent alpha measures
   test_data <- dataset %>% filter(measure == alpha_d)
@@ -322,6 +322,10 @@ unmatched_counts_data <- sapply(c("burns", "sana", both_sets),
 
 
 
+# Run the pooled analysis for each respective genera of interest
+pooled_results <- t(mapply(run_pooled, crc_genera, USE.NAMES = F)) %>% 
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
 
