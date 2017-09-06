@@ -22,23 +22,9 @@ tissue_sets <- c("dejea", "geng", "sana", "burns")
 # Flemer, Chen
 both_sets <- c("flemer", "chen")
 
-
-
-# Read in specific data tables to be used
-
-tissue_matched <- read.csv("data/process/tables/alpha_tissue_matched_data.csv", 
-                           header = T, stringsAsFactors = F) %>% 
-  mutate(matchings = ifelse(disease == "cancer" | disease == "polyp", 1, 0)) %>% 
-  select(-sobs, -shannon, -shannoneven, -r_sobs, -r_shannon, -r_shannoneven)
-
-tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.csv", 
-                             header = T, stringsAsFactors = F) %>% 
-  mutate(disease = gsub("adenoma", "polyp", disease)) %>% 
-  select(-sobs, -shannon, -shannoneven, -r_sobs, -r_shannon, -r_shannoneven)
-
-
 # CRC genera of interest
 crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
+
 
 
 # Control function to get all the data, basically runs the above functions in a
@@ -78,11 +64,53 @@ get_data <- function(i, metadata_table){
 
 
 
+# Function to grab only the genera file and pull specific genus from it
+get_specific_genera <- function(i, genera_to_get, table_name, meta_name, 
+                                dataList){
+  # i represents the study
+  # genera_to_get represents the genera of interest to pull specifically
+  # table_name represents the table the has all the genera data (subsampled)
+  # meta_name represents the metadata name that stores the relevent meta data
+  # dataList is a list with both meta data and sub sampled genus data
+  
+  # grab the specific genera and merge with the meta data file
+  tempData <- dataList[[i]][[table_name]] %>% 
+    select(sample_ID, one_of(genera_to_get)) %>% 
+    rename(sampleID = sample_ID) %>% 
+    mutate(sampleID = as.character(sampleID)) %>% 
+    inner_join((dataList[[i]][[meta_name]] %>% 
+                  mutate(sampleID = as.character(sampleID), 
+                         disease = ifelse(disease == "normal", 
+                                          invisible("control"), invisible(disease)))), 
+               by = "sampleID") %>% 
+    mutate(disease2 = ifelse(disease != "cancer", invisible("control"), invisible(disease))) %>% 
+    as.data.frame()
+  
+  # Print output when merged completed
+  print(paste("Finished pulling and merging files for", i, "data sets"))
+  # Return the newly transformed data
+  return(tempData)
+  
+}
+
 
 
 ##############################################################################################
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
+
+# Read in specific data tables to be used
+
+tissue_matched <- read.csv("data/process/tables/alpha_tissue_matched_data.csv", 
+                           header = T, stringsAsFactors = F) %>% 
+  mutate(matchings = ifelse(disease == "cancer" | disease == "polyp", 1, 0)) %>% 
+  select(-sobs, -shannon, -shannoneven, -r_sobs, -r_shannon, -r_shannoneven)
+
+tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.csv", 
+                             header = T, stringsAsFactors = F) %>% 
+  mutate(disease = gsub("adenoma", "polyp", disease)) %>% 
+  select(-sobs, -shannon, -shannoneven, -r_sobs, -r_shannon, -r_shannoneven)
+
 
 # Remove polyp only group
 no_p_tissue_matched <- tissue_matched %>% filter(study != "lu")
@@ -96,12 +124,18 @@ ind_unmatched_data <- sapply(c("burns", "dejea", "sana", both_sets),
                              function(x) get_data(x, tissue_matched), simplify = F)
 
 
+# pull the specific genera of interest and merge with the meta data
+matched_specific_genera_list <- sapply(
+  c("burns", "dejea", "geng"), 
+  function(x) get_specific_genera(x, crc_genera, 
+                                  "sub_genera_data", "study_meta", 
+                                  ind_matched_data), simplify = F)
 
-
-
-
-
-
+unmatched_specific_genera_list <- sapply(
+  c("burns", "dejea", "sana", both_sets), 
+  function(x) get_specific_genera(x, crc_genera, 
+                                  "sub_genera_data", "study_meta", 
+                                  ind_unmatched_data), simplify = F)
 
 
 
