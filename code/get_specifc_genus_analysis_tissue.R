@@ -41,10 +41,9 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
 crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
 
 
-
 # Control function to get all the data, basically runs the above functions in a
 # contained location withouth having to repeat them
-get_data <- function(i){
+get_data <- function(i, metadata_table){
   # i is the study of interest
   
   # gets original sample names
@@ -56,8 +55,8 @@ get_data <- function(i){
     as.data.frame() %>% mutate(sample_ID = rownames(.)) %>% 
     select(sample_ID, everything())
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
-  study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "stool", metadata = T)
+  study_meta <- metadata_table %>% filter(study == i) %>% rename(sampleID = group)
+    
   # conditional that checks for whether length of rows of meta data is smaller
   if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
     # grab only the samples in the meta data file for down stream analysis
@@ -76,6 +75,32 @@ get_data <- function(i){
   return(dataList)
   
 }
+
+
+
+
+
+##############################################################################################
+############### Run the actual programs to get the data ######################################
+##############################################################################################
+
+# Remove polyp only group
+no_p_tissue_matched <- tissue_matched %>% filter(study != "lu")
+no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu")
+
+# Generate RR and data tables for every study
+ind_matched_data <- sapply(c("burns", "dejea", "geng"), 
+                           function(x) get_data(x, tissue_matched), simplify = F)
+
+ind_unmatched_data <- sapply(c("burns", "dejea", "sana", both_sets),  
+                             function(x) get_data(x, tissue_matched), simplify = F)
+
+
+
+
+
+
+
 
 
 
