@@ -323,16 +323,36 @@ unmatched_counts_data <- sapply(c("burns", "sana", both_sets),
 
 
 # Run the pooled analysis for each respective genera of interest
-pooled_results <- t(mapply(run_pooled, crc_genera, USE.NAMES = F)) %>% 
+matched_pooled_results <- t(sapply(crc_genera, 
+                         function(x) run_pooled(x, matched_counts_data))) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
+unmatched_pooled_results <- t(sapply(crc_genera, 
+                                   function(x) run_pooled(x, unmatched_counts_data))) %>% 
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
+# Write out the important tables
+write.csv(matched_counts_data, 
+          "data/process/tables/select_genus_matched_tissue_group_counts_summary.csv", 
+          row.names = F)
+write.csv(matched_RR_data, "data/process/tables/select_genus_RR_matched_tissue_ind_results.csv", 
+          row.names = F)
+write.csv(matched_pooled_results, "data/process/tables/select_genus_RR_matched_tissue_composite.csv", 
+          row.names = F)
 
 
-
+write.csv(unmatched_counts_data, 
+          "data/process/tables/select_genus_unmatched_tissue_group_counts_summary.csv", 
+          row.names = F)
+write.csv(unmatched_RR_data, "data/process/tables/select_genus_RR_unmatched_tissue_ind_results.csv", 
+          row.names = F)
+write.csv(unmatched_pooled_results, 
+          "data/process/tables/select_genus_RR_unmatched_tissue_composite.csv", 
+          row.names = F)
 
 
 
