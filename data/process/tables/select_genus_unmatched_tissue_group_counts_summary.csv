@@ -1,0 +1,17 @@
+"measure","study","high_N","high_Y","low_N","low_Y"
+"Fusobacterium","burns",6,6,6,4
+"Fusobacterium","chen",6,5,3,4
+"Fusobacterium","flemer",64,54,76,40
+"Fusobacterium","sana",17,20,21,13
+"Parvimonas","burns",4,2,8,8
+"Parvimonas","chen",5,6,4,3
+"Parvimonas","flemer",34,38,106,56
+"Parvimonas","sana",1,1,37,32
+"Peptostreptococcus","burns",2,3,10,7
+"Peptostreptococcus","chen",3,2,6,7
+"Peptostreptococcus","flemer",32,33,108,61
+"Peptostreptococcus","sana",4,6,34,27
+"Porphyromonas","burns",3,3,9,7
+"Porphyromonas","chen",3,1,6,8
+"Porphyromonas","flemer",33,32,107,62
+"Porphyromonas","sana",5,2,33,31
