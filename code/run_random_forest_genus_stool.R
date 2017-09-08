@@ -71,49 +71,41 @@ align_genera <- function(studies, length_column_name,
                          genera_data_name, dataList){
   
   genera_num_list <- sort.int(sapply(studies, 
-                            function(x) dataList[[x]][[length_column_name]]))
+                                     function(x) dataList[[x]][[length_column_name]]))
   
-  lowest_genera_study <- names(genera_num_list[1])
+  x = 1
   
-  genera_names <- dataList[[lowest_genera_study]][[genera_data_name]] %>% 
-    select(-contains("_unclassified")) %>% colnames(.)
-  
-  
-  temp_aligned_genera <- sapply(studies, 
-                           function(x) 
-                             select(dataList[[x]][[genera_data_name]], 
-                                    one_of(genera_names)), simplify = F)
-  
-  new_num_list <- sort.int(sapply(studies, 
-                                     function(x) 
-                                       length(colnames(temp_aligned_genera[[x]]))))
-  
-  rd2_lowest_genera_study <- names(new_num_list[1])
-  
-  genera_names <- colnames(temp_aligned_genera[[rd2_lowest_genera_study]])
-  
-  
-  temp2_aligned_genera <- sapply(studies, 
-                                function(x) 
-                                  select(temp_aligned_genera[[x]],  
-                                         one_of(genera_names)), simplify = F)
-  
-  
-  new_num_list2 <- sort.int(sapply(studies, 
+  while(genera_num_list[1]!= genera_num_list[length(genera_num_list)]){
+    
+    lowest_genera_study <- names(genera_num_list[1])
+    
+    if(x == 1){
+      
+      genera_names <- dataList[[lowest_genera_study]][[genera_data_name]] %>% 
+        select(-contains("_unclassified")) %>% colnames(.)
+    } else{
+      
+      genera_names <- colnames(temp_aligned_genera[[lowest_genera_study]])
+    }
+    
+    
+    temp_aligned_genera <- suppressWarnings(sapply(studies, 
                                   function(x) 
-                                    length(colnames(temp2_aligned_genera[[x]]))))
-  
-  rd3_lowest_genera_study <- names(new_num_list2[1])
-  
-  genera2_names <- colnames(temp2_aligned_genera[[rd3_lowest_genera_study]])
-  
-  
-  temp3_aligned_genera <- sapply(studies, 
-                                 function(x) 
-                                   select(temp2_aligned_genera[[x]],  
-                                          one_of(genera2_names)), simplify = F)
-  
-  return(temp3_aligned_genera)
+                                    select(dataList[[x]][[genera_data_name]], 
+                                           one_of(genera_names)), simplify = F))
+    
+    genera_num_list <- sort.int(sapply(studies, 
+                                    function(x) 
+                                      length(colnames(temp_aligned_genera[[x]]))))
+    
+    print(paste("Min and Max total genera is:", 
+                min(genera_num_list), ",", max(genera_num_list)))
+    
+    x = x + 1
+    
+  }
+
+  return(temp_aligned_genera)
 }
 
 
@@ -128,9 +120,8 @@ align_genera <- function(studies, length_column_name,
 stool_study_data <- mapply(get_data, c(stool_sets, "flemer"), SIMPLIFY = F)
 
 
-test <- align_genera(stool_sets, "column_length", "sub_genera_data", stool_study_data)
+test2 <- align_genera(stool_sets, "column_length", "sub_genera_data", stool_study_data)
 
-test2 <- align_genera(stool_sets, "column_length", "sub_genera_data", test)
 
 
 
