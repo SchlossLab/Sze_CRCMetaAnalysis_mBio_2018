@@ -113,12 +113,11 @@ align_genera <- function(studies, length_column_name,
                                    select(temp2_aligned_genera[[x]],  
                                           one_of(genera2_names)), simplify = F)
   
-  
   return(temp3_aligned_genera)
 }
 
 
-
+#### NEED TO MAKE THIS WITH LESS REPITTION
 
 
 ##############################################################################################
