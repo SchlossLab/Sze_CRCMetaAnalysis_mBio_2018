@@ -6,7 +6,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
+loadLibs(c("dplyr", "tidyr", "caret"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -110,7 +110,19 @@ align_genera <- function(studies, length_column_name,
 
 
 # Function that grabs the meta data and replaces sampleID with disease call
-
+assign_disease <- function(studies, metadata_table_name, 
+                           matched_genera, fullDataList){
+  
+  tempMetadata <- fullDataList[[studies]][[metadata_table_name]]
+  
+  tempData <- matched_genera[[studies]] %>% 
+    mutate(sample_ID = factor(tempMetadata$disease, 
+                              levels = c("control", "cancer"))) %>% 
+    rename(disease = sample_ID)
+  
+  return(tempData)
+  
+}
 
 
 
@@ -122,18 +134,44 @@ align_genera <- function(studies, length_column_name,
 # reads in all the stool data into one list
 stool_study_data <- mapply(get_data, c(stool_sets, "flemer"), SIMPLIFY = F)
 
+#Align the genera so there is the same number for each data set.
+matched_genera_list <- align_genera(c(stool_sets, "flemer"), "column_length", 
+                                    "sub_genera_data", stool_study_data)
 
-test2 <- align_genera(stool_sets, "column_length", "sub_genera_data", stool_study_data)
+# Generate data sets to be used in random forest
+rf_datasets <- sapply(c(stool_sets, "flemer"), 
+                      function(x) assign_disease(x, "study_meta", 
+                                                 matched_genera_list, stool_study_data), 
+                      simplify = F)
 
 
 
+#Create Overall specifications for model tuning
+# number controls fold of cross validation
+# Repeats control the number of times to run it
+
+fitControl <- trainControl(## 5-fold CV
+  method = "cv",
+  number = 10,
+  p = 0.8, 
+  classProbs = TRUE, 
+  summaryFunction = twoClassSummary, 
+  savePredictions = "final")
 
 
+#Train the model
+set.seed(3457)
+test_data <- 
+  train(disease ~ ., data = rf_datasets[["weir"]], 
+        method = "rf", 
+        ntree = 2000, 
+        trControl = fitControl, 
+        metric = "ROC", 
+        na.action = na.omit, 
+        verbose = FALSE)
 
-
-
-
-
+test_prediction <- 
+  predict(test_data, rf_datasets[["weir"]])
 
 
 
