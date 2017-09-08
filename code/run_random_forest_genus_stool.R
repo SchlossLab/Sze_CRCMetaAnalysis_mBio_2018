@@ -109,7 +109,10 @@ align_genera <- function(studies, length_column_name,
 }
 
 
-#### NEED TO MAKE THIS WITH LESS REPITTION
+# Function that grabs the meta data and replaces sampleID with disease call
+
+
+
 
 
 ##############################################################################################
@@ -121,6 +124,16 @@ stool_study_data <- mapply(get_data, c(stool_sets, "flemer"), SIMPLIFY = F)
 
 
 test2 <- align_genera(stool_sets, "column_length", "sub_genera_data", stool_study_data)
+
+
+
+
+
+
+
+
+
+
 
 
 
