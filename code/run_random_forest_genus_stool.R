@@ -6,7 +6,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "caret"))
+loadLibs(c("dplyr", "tidyr", "caret", "pROC"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -116,7 +116,9 @@ assign_disease <- function(studies, metadata_table_name,
   tempMetadata <- fullDataList[[studies]][[metadata_table_name]]
   
   tempData <- matched_genera[[studies]] %>% 
-    mutate(sample_ID = factor(tempMetadata$disease, 
+    mutate(sample_ID = factor(ifelse(tempMetadata$disease == "polyp", 
+                                     invisible("control"), 
+                                     invisible(tempMetadata$disease)), 
                               levels = c("control", "cancer"))) %>% 
     rename(disease = sample_ID)
   
@@ -158,21 +160,51 @@ fitControl <- trainControl(## 5-fold CV
   summaryFunction = twoClassSummary, 
   savePredictions = "final")
 
+number_try <- round(sqrt(ncol(rf_datasets[["baxter"]])))
+
+tunegrid <- expand.grid(.mtry = number_try)
+
 
 #Train the model
-set.seed(3457)
-test_data <- 
-  train(disease ~ ., data = rf_datasets[["weir"]], 
+set.seed(12345)
+train_data <- 
+  train(disease ~ ., data = rf_datasets[["baxter"]], 
         method = "rf", 
-        ntree = 2000, 
-        trControl = fitControl, 
+        ntree = 500, 
+        trControl = fitControl,
+        tuneGrid = tunegrid, 
         metric = "ROC", 
         na.action = na.omit, 
         verbose = FALSE)
 
+
+
+# Set up testing
+train_prediction <- train_data$finalModel$votes %>% as.data.frame()
+
 test_prediction <- 
-  predict(test_data, rf_datasets[["weir"]])
+  predict(test_data, rf_datasets[["weir"]], type = 'prob')
+
+
+test_roc <- roc(rf_datasets[["weir"]]$disease ~ test_prediction[, "cancer"])
+train_roc <- roc(rf_datasets[["baxter"]]$disease ~ train_prediction[, "cancer"])
+
+# Set up the pulling of important information
+
+test_sens <- test_roc$sensitivities
+test_spec <- test_roc$specificities
+test_auc <- ifelse(test_roc$auc < 0.5, 
+                    invisible(1-test_roc$auc), invisible(test_roc$auc))
+
+train_sens <- train_roc$sensitivities
+train_spec <- train_roc$specificities
+train_mtry <- train_data$results$mtry
+train_auc <- ifelse(train_data$results$ROC < 0.5, 
+                    invisible(1-train_data$results$ROC), 
+                    invisible(train_data$results$ROC))
 
 
 
+#### TO DO LIST ####
+#### Set up a function to iterate and store all possible combinations
 
