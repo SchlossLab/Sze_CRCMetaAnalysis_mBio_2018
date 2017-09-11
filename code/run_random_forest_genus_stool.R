@@ -235,6 +235,17 @@ test_spec <- test_roc$specificities
 test_auc <- ifelse(test_roc$auc < 0.5, 
                     invisible(1-test_roc$auc), invisible(test_roc$auc))
 
+
+test2 <- sapply(names(test), function(x) 
+  as.data.frame(cbind(sens = as.numeric(test[[x]]$sensitivities), 
+        spec = test[[x]]$specificities, 
+        auc = rep(ifelse(
+          test[[x]]$auc[1] < 0.5, invisible(1 - test[[x]]$auc[1]), 
+          invisible(test[[x]]$auc[1])), 
+          length(test[[x]]$sensitivities)), 
+        study = rep(x, length(test[[x]]$sensitivities))), stringsAsFactors = F), simplify = F)
+
+
 train_sens <- train_roc$sensitivities
 train_spec <- train_roc$specificities
 train_mtry <- train_model_data$results$mtry
