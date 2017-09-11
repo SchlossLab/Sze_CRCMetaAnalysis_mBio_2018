@@ -118,7 +118,9 @@ assign_disease <- function(studies, metadata_table_name,
   tempData <- matched_genera[[studies]] %>% 
     mutate(sample_ID = factor(ifelse(tempMetadata$disease == "polyp", 
                                      invisible("control"), 
-                                     invisible(tempMetadata$disease)), 
+                                     ifelse(tempMetadata$disease == "normal", 
+                                            invisible("control"), 
+                                            invisible(tempMetadata$disease))), 
                               levels = c("control", "cancer"))) %>% 
     rename(disease = sample_ID)
   
@@ -146,16 +148,25 @@ rf_datasets <- sapply(c(stool_sets, "flemer"),
                                                  matched_genera_list, stool_study_data), 
                       simplify = F)
 
-nzv <- nearZeroVar(test_data)
 
-test_data <- test_data[, -nzv]
+train_data <- rf_datasets[["wang"]]
+
+nzv <- nearZeroVar(train_data)
+
+train_data <- train_data[, -nzv]
+
+tempList <- rf_datasets
+
+tempList[["wang"]] <- NULL
+
+tempList <- lapply(tempList, function(x) as.data.frame(x[, -nzv]))
 
 
-preProcValues <- preProcess(test_data, method = c("BoxCox", "center", "scale"))
+preProcValues <- preProcess(train_data, method = c("YeoJohnson", "center", "scale"))
 
-test_data_transformed <- predict(preProcValues, test_data)
+train_data_transformed <- predict(preProcValues, train_data)
 
-
+tempList <- lapply(tempList, function(x) predict(preProcValues, x))
 
 #Create Overall specifications for model tuning
 # number controls fold of cross validation
@@ -169,15 +180,15 @@ fitControl <- trainControl(## 5-fold CV
   summaryFunction = twoClassSummary, 
   savePredictions = "final")
 
-number_try <- round(sqrt(ncol(rf_datasets[["baxter"]])))
+number_try <- round(sqrt(ncol(train_data)))
 
 tunegrid <- expand.grid(.mtry = number_try)
 
 
 #Train the model
 set.seed(12345)
-train_data <- 
-  train(disease ~ ., data = rf_datasets[["baxter"]], 
+train_model_data <- 
+  train(disease ~ ., data = train_data, 
         method = "rf", 
         ntree = 500, 
         trControl = fitControl,
@@ -189,14 +200,14 @@ train_data <-
 
 
 # Set up testing
-train_prediction <- train_data$finalModel$votes %>% as.data.frame()
+train_prediction <- train_model_data$finalModel$votes %>% as.data.frame()
 
 test_prediction <- 
   predict(test_data, rf_datasets[["weir"]], type = 'prob')
 
 
 test_roc <- roc(rf_datasets[["weir"]]$disease ~ test_prediction[, "cancer"])
-train_roc <- roc(rf_datasets[["baxter"]]$disease ~ train_prediction[, "cancer"])
+train_roc <- roc(train_data$disease ~ train_prediction[, "cancer"])
 
 # Set up the pulling of important information
 
@@ -208,9 +219,19 @@ test_auc <- ifelse(test_roc$auc < 0.5,
 train_sens <- train_roc$sensitivities
 train_spec <- train_roc$specificities
 train_mtry <- train_data$results$mtry
-train_auc <- ifelse(train_data$results$ROC < 0.5, 
-                    invisible(1-train_data$results$ROC), 
-                    invisible(train_data$results$ROC))
+train_auc <- ifelse(train_model_data$results$ROC < 0.5, 
+                    invisible(1-train_model_data$results$ROC), 
+                    invisible(train_model_data$results$ROC))
+
+
+
+
+
+
+
+
+
+
 
 
 
