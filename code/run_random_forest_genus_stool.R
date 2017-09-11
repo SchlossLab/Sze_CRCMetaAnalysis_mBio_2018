@@ -146,6 +146,15 @@ rf_datasets <- sapply(c(stool_sets, "flemer"),
                                                  matched_genera_list, stool_study_data), 
                       simplify = F)
 
+nzv <- nearZeroVar(test_data)
+
+test_data <- test_data[, -nzv]
+
+
+preProcValues <- preProcess(test_data, method = c("BoxCox", "center", "scale"))
+
+test_data_transformed <- predict(preProcValues, test_data)
+
 
 
 #Create Overall specifications for model tuning
