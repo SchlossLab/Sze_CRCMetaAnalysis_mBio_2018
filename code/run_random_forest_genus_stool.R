@@ -124,8 +124,103 @@ assign_disease <- function(studies, metadata_table_name,
                               levels = c("control", "cancer"))) %>% 
     rename(disease = sample_ID)
   
-  return(tempData)
+  return(as.data.frame(tempData))
   
+}
+
+
+# Function to apply and get the nzv and preProcess for the training data
+get_align_info <- function(i, dataList){
+  
+  training_data <- dataList[[i]]
+  
+  disease <- training_data$disease
+  
+  nzv <- nearZeroVar(training_data)
+  
+  training_data <- training_data[, -nzv]
+  
+  preProcValues <- preProcess(training_data, method = c("YeoJohnson", "center", "scale"))
+  
+  training_data <- predict(preProcValues, training_data)
+  
+  if("disease" %in% colnames(training_data)){
+    
+    training_data <- training_data
+    
+  } else{
+    
+    training_data <- training_data %>% mutate(disease = disease) %>% 
+      select(disease, everything())
+  }
+  
+  final_info <- list(train_data = training_data, 
+                     near_zero_variance = nzv, 
+                     scaling = preProcValues)
+
+  return(final_info)
+}
+
+
+# Function to generate the preprocessing files on test data
+apply_preprocess <- function(i, trainingList_info, dataList){
+  
+  dataList[[i]] <- NULL
+  
+  nzv <- as.numeric(trainingList_info[["near_zero_variance"]])
+  
+  if(1 %in% nzv){
+    
+    nzv <- nzv[nzv != 1]
+    
+  } else {
+    
+    nzv <- nzv
+  }
+  
+  preProcValues <- trainingList_info[["scaling"]]
+  
+  dataList <- lapply(dataList, function(x) as.data.frame(x[, -nzv]))
+  dataList <- lapply(dataList, function(x) predict(preProcValues, x))
+  
+  return(dataList)
+  
+}
+
+
+# Function that will run and create the needed model
+make_rf_model <- function(train_data){
+  
+  #Create Overall specifications for model tuning
+  # number controls fold of cross validation
+  # Repeats control the number of times to run it
+  
+  fitControl <- trainControl(## 5-fold CV
+    method = "cv",
+    number = 10,
+    p = 0.8, 
+    classProbs = TRUE, 
+    summaryFunction = twoClassSummary, 
+    savePredictions = "final")
+  
+  number_try <- round(sqrt(ncol(train_data)))
+  
+  tunegrid <- expand.grid(.mtry = number_try)
+  
+  
+  #Train the model
+  set.seed(12345)
+  training_model <- 
+    train(disease ~ ., data = train_data, 
+          method = "rf", 
+          ntree = 500, 
+          trControl = fitControl,
+          tuneGrid = tunegrid, 
+          metric = "ROC", 
+          na.action = na.omit, 
+          verbose = FALSE)
+  
+  return(training_model)
 }
 
 
@@ -139,8 +234,6 @@ get_test_data <- function(i, train_study,
   test_predictions <- sapply(i, function(x) 
     predict(training_model, testdataList[[x]], type = 'prob'), simplify = F)
     
-  
-  
   overall_rocs <- sapply(i, function(x) 
     roc(testdataList[[x]]$disease ~ test_predictions[[x]][, "cancer"]), simplify = F)
   
@@ -151,6 +244,39 @@ get_test_data <- function(i, train_study,
   
 }
 
+# Function that creates a finalized data table for respective model
+make_data_table <- function(final_rocs){
+  
+  tempData <- sapply(names(final_rocs), function(x) 
+    as.data.frame(cbind(sens = as.numeric(final_rocs[[x]]$sensitivities), 
+                        spec = final_rocs[[x]]$specificities, 
+                        auc = rep(final_rocs[[x]]$auc[1], length(final_rocs[[x]]$sensitivities))), 
+                  stringsAsFactors = F) %>% 
+      mutate(study = rep(x, length(final_rocs[[x]]$sensitivities))), simplify = F) %>% bind_rows()
+  
+  return(tempData)
+}
+
+
+# Function to execute the major commands for RF gathering
+run_rf_tests <- function(study, rf_dataList){
+  
+  # Generate data for each test (study) set
+  first_study <- get_align_info(study, rf_dataList)
+  
+  test_dataList <- apply_preprocess(study, first_study, rf_dataList)
+  
+  
+  train_model_data <- make_rf_model(first_study$train_data)
+  
+  
+  test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
+                        first_study[["train_data"]], test_dataList)
+  
+  final_results <- make_data_table(test_dataLists)
+  
+  return(final_results)
+}
 
 
 
@@ -172,87 +298,13 @@ rf_datasets <- sapply(c(stool_sets, "flemer"),
                       simplify = F)
 
 
-train_data <- rf_datasets[["wang"]]
-
-nzv <- nearZeroVar(train_data)
-
-train_data <- train_data[, -nzv]
-
-tempList <- rf_datasets
-
-tempList[["wang"]] <- NULL
-
-tempList <- lapply(tempList, function(x) as.data.frame(x[, -nzv]))
-
-
-preProcValues <- preProcess(train_data, method = c("YeoJohnson", "center", "scale"))
-
-train_data_transformed <- predict(preProcValues, train_data)
-
-tempList <- lapply(tempList, function(x) predict(preProcValues, x))
-
-#Create Overall specifications for model tuning
-# number controls fold of cross validation
-# Repeats control the number of times to run it
-
-fitControl <- trainControl(## 5-fold CV
-  method = "cv",
-  number = 10,
-  p = 0.8, 
-  classProbs = TRUE, 
-  summaryFunction = twoClassSummary, 
-  savePredictions = "final")
-
-number_try <- round(sqrt(ncol(train_data)))
-
-tunegrid <- expand.grid(.mtry = number_try)
-
-
-#Train the model
-set.seed(12345)
-train_model_data <- 
-  train(disease ~ ., data = train_data, 
-        method = "rf", 
-        ntree = 500, 
-        trControl = fitControl,
-        tuneGrid = tunegrid, 
-        metric = "ROC", 
-        na.action = na.omit, 
-        verbose = FALSE)
-
 # Generate data for each test (study) set
-test <- get_test_data(names(tempList), "wang", train_model_data, train_data, tempList)
+final_data <- sapply(c(stool_sets, "flemer"), 
+                     function(x) run_rf_tests(x, rf_datasets))
 
+test <- run_rf_tests("zeller", rf_datasets)
 
-
-
-
-
-# Set up the pulling of important information
-
-test_sens <- test_roc$sensitivities
-test_spec <- test_roc$specificities
-test_auc <- ifelse(test_roc$auc < 0.5, 
-                    invisible(1-test_roc$auc), invisible(test_roc$auc))
-
-
-test2 <- sapply(names(test), function(x) 
-  as.data.frame(cbind(sens = as.numeric(test[[x]]$sensitivities), 
-        spec = test[[x]]$specificities, 
-        auc = rep(ifelse(
-          test[[x]]$auc[1] < 0.5, invisible(1 - test[[x]]$auc[1]), 
-          invisible(test[[x]]$auc[1])), 
-          length(test[[x]]$sensitivities)), 
-        study = rep(x, length(test[[x]]$sensitivities))), stringsAsFactors = F), simplify = F)
-
-
-train_sens <- train_roc$sensitivities
-train_spec <- train_roc$specificities
-train_mtry <- train_model_data$results$mtry
-train_auc <- ifelse(train_model_data$results$ROC < 0.5, 
-                    invisible(1-train_model_data$results$ROC), 
-                    invisible(train_model_data$results$ROC))
-
+# Zeller does not work but all others do need to fix this
 
 
 
