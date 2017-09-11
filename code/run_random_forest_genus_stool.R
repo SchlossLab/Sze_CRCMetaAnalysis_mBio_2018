@@ -129,6 +129,29 @@ assign_disease <- function(studies, metadata_table_name,
 }
 
 
+# Function that will test all existing test sets (i.e. other studies)
+get_test_data <- function(i, train_study, 
+                          training_model, training_data, testdataList){
+  
+  # Set up testing
+  train_prediction <- training_model$finalModel$votes %>% as.data.frame()
+  
+  test_predictions <- sapply(i, function(x) 
+    predict(training_model, testdataList[[x]], type = 'prob'), simplify = F)
+    
+  
+  
+  overall_rocs <- sapply(i, function(x) 
+    roc(testdataList[[x]]$disease ~ test_predictions[[x]][, "cancer"]), simplify = F)
+  
+  overall_rocs[[train_study]] <- roc(training_data$disease ~ train_prediction[, "cancer"])
+  
+
+  return(overall_rocs)
+  
+}
+
+
 
 
 ##############################################################################################
@@ -197,17 +220,13 @@ train_model_data <-
         na.action = na.omit, 
         verbose = FALSE)
 
+# Generate data for each test (study) set
+test <- get_test_data(names(tempList), "wang", train_model_data, train_data, tempList)
 
 
-# Set up testing
-train_prediction <- train_model_data$finalModel$votes %>% as.data.frame()
-
-test_prediction <- 
-  predict(test_data, rf_datasets[["weir"]], type = 'prob')
 
 
-test_roc <- roc(rf_datasets[["weir"]]$disease ~ test_prediction[, "cancer"])
-train_roc <- roc(train_data$disease ~ train_prediction[, "cancer"])
+
 
 # Set up the pulling of important information
 
@@ -218,12 +237,10 @@ test_auc <- ifelse(test_roc$auc < 0.5,
 
 train_sens <- train_roc$sensitivities
 train_spec <- train_roc$specificities
-train_mtry <- train_data$results$mtry
+train_mtry <- train_model_data$results$mtry
 train_auc <- ifelse(train_model_data$results$ROC < 0.5, 
                     invisible(1-train_model_data$results$ROC), 
                     invisible(train_model_data$results$ROC))
-
-
 
 
 
