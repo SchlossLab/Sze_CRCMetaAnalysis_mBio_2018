@@ -277,35 +277,38 @@ get_test_data <- function(i, train_study,
 
 # Function that creates a finalized data table for respective model
 make_data_table <- function(final_rocs){
+  # final_rocs should be a list of roc objects for every study (including training)
   
+  # creates a data table with relevant summary information
   tempData <- sapply(names(final_rocs), function(x) 
     as.data.frame(cbind(sens = as.numeric(final_rocs[[x]]$sensitivities), 
                         spec = final_rocs[[x]]$specificities, 
                         auc = rep(final_rocs[[x]]$auc[1], length(final_rocs[[x]]$sensitivities))), 
                   stringsAsFactors = F) %>% 
       mutate(study = rep(x, length(final_rocs[[x]]$sensitivities))), simplify = F) %>% bind_rows()
-  
+  # write out the summary information table
   return(tempData)
 }
 
 
 # Function to execute the major commands for RF gathering
 run_rf_tests <- function(study, rf_dataList){
+  # study is the study of interest
+  # rf_dataList is the genera_aligned disease column added data files 
   
-  # Generate data for each test (study) set
+  # Generate the nzv and transformations that need to be applied based on 
+  # study used for training data 
   first_study <- get_align_info(study, rf_dataList)
-  
+  # remove nzv columns, transform, and normalize data sets based on training set 
   test_dataList <- apply_preprocess(study, first_study, rf_dataList)
-  
-  
+  # Generate the RF model from the relevant training data set
   train_model_data <- make_rf_model(first_study$train_data)
-  
-  
+  # Test the model on each of the data sets not used in training
   test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
                         first_study[["train_data"]], test_dataList)
-  
+  # create a table with the summary data from all the tests
   final_results <- make_data_table(test_dataLists)
-  
+  # output the final results from all tests
   return(final_results)
 }
 
