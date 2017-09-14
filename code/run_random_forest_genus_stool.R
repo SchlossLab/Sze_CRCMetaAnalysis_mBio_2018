@@ -253,19 +253,24 @@ make_rf_model <- function(train_data){
 # Function that will test all existing test sets (i.e. other studies)
 get_test_data <- function(i, train_study, 
                           training_model, training_data, testdataList){
+  # i is the study of interest
+  # train_study is the variable for the name of the study used as the training set 
+  # training_model is the RF object of the training study
+  # training_data is the raw data used to make the training model
+  # testdataList is all the transformed data from all other studies
   
-  # Set up testing
+  # Get the outcomes of the voting for the training model
   train_prediction <- training_model$finalModel$votes %>% as.data.frame()
-  
+  # get the predictions for each of the data sets based on the training model
   test_predictions <- sapply(i, function(x) 
     predict(training_model, testdataList[[x]], type = 'prob'), simplify = F)
-    
+  # Generate roc curve infor (sens and spec) to be able to graph roc curves in the future
   overall_rocs <- sapply(i, function(x) 
     roc(testdataList[[x]]$disease ~ test_predictions[[x]][, "cancer"]), simplify = F)
-  
+  # add the training data roc information to this list
   overall_rocs[[train_study]] <- roc(training_data$disease ~ train_prediction[, "cancer"])
   
-
+  # Write out all the roc information from every data set
   return(overall_rocs)
   
 }
