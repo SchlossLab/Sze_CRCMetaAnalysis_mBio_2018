@@ -145,33 +145,36 @@ assign_disease <- function(studies, metadata_table_name,
 
 # Function to apply and get the nzv and preProcess for the training data
 get_align_info <- function(i, dataList){
+  # i stands for the study
+  # dataList is the rf_dataset set up (disease + genus info) for every study
   
+  # gets the respective data set i for training
   training_data <- dataList[[i]]
-  
+  # stores the disease vector (it gets removed during processing for some studies)
   disease <- training_data$disease
-  
+  # Check for columns that have near zero variance
   nzv <- nearZeroVar(training_data)
-  
+  # remove columns that have near zero variance
   training_data <- training_data[, -nzv]
-  
+  # Find the Power transform, center, and zscore normalize formula
   preProcValues <- preProcess(training_data, method = c("YeoJohnson", "center", "scale"))
-  
+  # Perform the transformation on the training data
   training_data <- predict(preProcValues, training_data)
-  
+  # Check to see if disease column was removed during the processing
   if("disease" %in% colnames(training_data)){
-    
+    # keep training data the same
     training_data <- training_data
     
   } else{
-    
+    # Re add disease to the training data at the beginning of the data table
     training_data <- training_data %>% mutate(disease = disease) %>% 
       select(disease, everything())
   }
-  
+  # create a final list with the tranformed data, the nzv columns, and the transformations
   final_info <- list(train_data = training_data, 
                      near_zero_variance = nzv, 
                      scaling = preProcValues)
-
+  # Write out the final data list
   return(final_info)
 }
 
