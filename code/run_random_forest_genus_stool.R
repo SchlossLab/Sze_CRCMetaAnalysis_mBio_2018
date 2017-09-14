@@ -212,12 +212,13 @@ apply_preprocess <- function(i, trainingList_info, dataList){
 
 # Function that will run and create the needed model
 make_rf_model <- function(train_data){
+  # train_data is the data table to be used for model training
   
   #Create Overall specifications for model tuning
   # number controls fold of cross validation
   # Repeats control the number of times to run it
   
-  fitControl <- trainControl(## 5-fold CV
+  fitControl <- trainControl(## 10-fold CV
     method = "cv",
     number = 10,
     p = 0.8, 
@@ -225,10 +226,12 @@ make_rf_model <- function(train_data){
     summaryFunction = twoClassSummary, 
     savePredictions = "final")
   
+  # Set the mtry to be based on the number of total variables in data table to be modeled
+  # this formula seems to be an accepted default to use
   number_try <- round(sqrt(ncol(train_data)))
   
+  # Set the mtry hyperparameter for the training model
   tunegrid <- expand.grid(.mtry = number_try)
-  
   
   #Train the model
   set.seed(12345)
@@ -242,6 +245,7 @@ make_rf_model <- function(train_data){
           na.action = na.omit, 
           verbose = FALSE)
   
+  # Return the model object
   return(training_model)
 }
 
