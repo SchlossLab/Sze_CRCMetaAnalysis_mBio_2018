@@ -181,25 +181,30 @@ get_align_info <- function(i, dataList){
 
 # Function to generate the preprocessing files on test data
 apply_preprocess <- function(i, trainingList_info, dataList){
+  # i is the study of interest
+  # trainingList_info if the RF prepared training data with parameters (list)
+  # dataList is all data before transformation (typically rf_datasets)
   
+  # remove the trianing data from the full data list
   dataList[[i]] <- NULL
-  
+  # Pull the columns with near zero variance from the training list
   nzv <- as.numeric(trainingList_info[["near_zero_variance"]])
-  
+  # check to see if the first column is part of the nzv
   if(1 %in% nzv){
-    
+    # if 1 is part of it (this is the disease column) remove it from nzv
     nzv <- nzv[nzv != 1]
-    
+    # otherwise go here
   } else {
-    
+    # keep nzv as is 
     nzv <- nzv
   }
-  
+  # pull out the formula/object to be used for transforming all the data
   preProcValues <- trainingList_info[["scaling"]]
-  
+  # Remove near zero variance from all data sets
   dataList <- lapply(dataList, function(x) as.data.frame(x[, -nzv]))
+  # Transform all the data using the same transformations applied to the training data
   dataList <- lapply(dataList, function(x) predict(preProcValues, x))
-  
+  # return the modified list with all studies
   return(dataList)
   
 }
