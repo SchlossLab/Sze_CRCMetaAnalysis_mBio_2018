@@ -304,11 +304,9 @@ rf_datasets <- sapply(c(stool_sets, "flemer"),
 
 # Generate data for each test (study) set
 final_data <- sapply(c(stool_sets, "flemer"), 
-                     function(x) run_rf_tests(x, rf_datasets))
+                     function(x) run_rf_tests(x, rf_datasets), simplify = F)
 
-test <- run_rf_tests("zeller", rf_datasets)
 
-# Zeller does not work but all others do need to fix this
 
 
 
