@@ -291,6 +291,32 @@ make_data_table <- function(final_rocs){
 }
 
 
+# Function to generate pvalues for the results ROC cuves (default method delong)
+make_model_comparisons <- function(i, rocList, comp_method = "delong"){
+  
+  tempList <- rocList[[i]]
+  
+  tempList[[i]] <- NULL
+  
+  train_model_roc <- rocList[[i]][[i]]
+  
+  test <- lapply(tempList, 
+                 function(x) roc.test(train_model_roc, x, method = comp_method)$p.value)
+  
+  auc_values <- t(as.data.frame.list(lapply(tempList, function(x) x$auc)))
+  
+  aggregate_pvalues <- t(bind_cols(test)) %>% as.data.frame() %>% 
+    mutate(study = rownames(.), BH = p.adjust(V1, method = "BH"), auc = auc_values[, 1]) %>% 
+    rename(pvalue = V1) %>% select(study, auc, pvalue, BH)
+  
+  aggregate_pvalues <- rbind(aggregate_pvalues, c(i, train_model_roc$auc, NA, NA))
+  
+  return(aggregate_pvalues)
+  
+}
+
+
+
 # Function to execute the major commands for RF gathering
 run_rf_tests <- function(study, rf_dataList){
   # study is the study of interest
@@ -308,9 +334,19 @@ run_rf_tests <- function(study, rf_dataList){
                         first_study[["train_data"]], test_dataList)
   # create a table with the summary data from all the tests
   final_results <- make_data_table(test_dataLists)
+  # create a table with summary pvalues from all the studies
+  pvalue_summary <- make_model_comparisons(study, test_dataLists)
+  # Combine the two needed files together
+  overall_results <- list(
+    final_results = final_results, 
+    pvalue_summary = pvalue_summary
+  )
+  
   # output the final results from all tests
-  return(final_results)
+  return(overall_results)
 }
+
+
 
 
 
@@ -333,20 +369,10 @@ rf_datasets <- sapply(c(stool_sets, "flemer"),
 
 
 # Generate data for each test (study) set
-final_data <- sapply(c(stool_sets, "flemer"), 
+final_data <- sapply("flemer", 
                      function(x) run_rf_tests(x, rf_datasets), simplify = F)
 
 
+# Generate summary data based on rocs
 
-
-
-
-
-
-
-
-
-
-#### TO DO LIST ####
-#### Set up a function to iterate and store all possible combinations
 
