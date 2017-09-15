@@ -294,22 +294,36 @@ make_data_table <- function(final_rocs){
 
 
 # Function to execute the major commands for RF gathering
-run_rf_tests <- function(study, rf_dataList){
+run_rf_tests <- function(study, rf_dataList, specific_vars = F){
   # study is the study of interest
   # rf_dataList is the genera_aligned disease column added data files 
   
-  # Generate the nzv and transformations that need to be applied based on 
-  # study used for training data 
-  first_study <- get_align_info(study, rf_dataList)
-  # remove nzv columns, transform, and normalize data sets based on training set 
-  test_dataList <- apply_preprocess(study, first_study, rf_dataList)
-  # Generate the RF model from the relevant training data set
-  train_model_data <- make_rf_model(first_study$train_data)
-  # Test the model on each of the data sets not used in training
-  test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
-                        first_study[["train_data"]], test_dataList)
-
-  
+  if(specific_vars == F){
+    
+    # Generate the nzv and transformations that need to be applied based on 
+    # study used for training data 
+    first_study <- get_align_info(study, rf_dataList)
+    # remove nzv columns, transform, and normalize data sets based on training set 
+    test_dataList <- apply_preprocess(study, first_study, rf_dataList)
+    # Generate the RF model from the relevant training data set
+    train_model_data <- make_rf_model(first_study$train_data)
+    # Test the model on each of the data sets not used in training
+    test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
+                                    first_study[["train_data"]], test_dataList)
+    
+  } else{
+     
+     first_study <- rf_dataList[[study]]
+     test_dataList = rf_dataList
+     test_dataList[[study]] <- NULL
+     # Generate the RF model from the relevant training data set
+     train_model_data <- make_rf_model(first_study)
+     # Test the model on each of the data sets not used in training
+     test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
+                                     first_study, test_dataList)
+     
+  }
+ 
   # output the final results from all tests
   return(test_dataLists)
 }
@@ -320,7 +334,7 @@ make_model_comparisons <- function(i, rocList, comp_method = "bootstrap"){
   # i is the study of interest
   # rocList is a list of roc objects (obtained from get_test_data)
   # comp_method is a character call of what method to use for comparisons
-  # the default is set to delong
+  # the default is set to bootstrap because it can test different direction curves
   
   # create a temp list variable 
   tempList <- rocList[[i]]
@@ -345,8 +359,16 @@ make_model_comparisons <- function(i, rocList, comp_method = "bootstrap"){
 }
 
 
+# Function to make comparisons between selected and full models
+select_full_comparison(i, fullrocList, selectedrocList){
+  
+  
+}
+
+
+
 ##############################################################################################
-############### Run the actual programs to get the data ######################################
+############### Run the actual programs to get the data (ALL Data) ###########################
 ##############################################################################################
 
 # reads in all the stool data into one list
@@ -371,30 +393,46 @@ stool_final_data <- sapply(c(stool_sets, "flemer"),
 
 
 # Generate summary data based on rocs
-test <- sapply(names(stool_final_data), 
+pvalue_summaries <- sapply(names(stool_final_data), 
                function(x) make_model_comparisons(x, stool_final_data), simplify = F)
 
 # Generate final overal roc data for plotting
-roc_test <- sapply(names(stool_final_data), 
+all_roc_values <- sapply(names(stool_final_data), 
                    function(x) make_data_table(stool_final_data[[x]]), simplify = F)
 
 
 
+##############################################################################################
+############### Run the actual programs to get the data (CRC Specific Genera) ################
+##############################################################################################
+
+# reduce the data sets down to only the CRC associated genera
+select_matched_genera_list <- lapply(matched_genera_list, 
+                                     function(x) 
+                                       x %>% select(c("sample_ID", "Fusobacterium", 
+                                                      "Peptostreptococcus", 
+                                                      "Porphyromonas", "Parvimonas")))
+
+# Generate data sets to be used in random forest
+selected_rf_datasets <- sapply(c(stool_sets, "flemer"), 
+                      function(x) 
+                        assign_disease(x, "study_meta", 
+                                       select_matched_genera_list, stool_study_data), simplify = F)
+
+# Run the models
+selected_stool_final_data <- sapply(c(stool_sets, "flemer"), 
+                           function(x) 
+                             run_rf_tests(x, selected_rf_datasets, specific_vars = T), simplify = F)
 
 
+# Generate summary data based on rocs
+selected_pvalue_summaries <- sapply(names(selected_stool_final_data), 
+                           function(x) 
+                             make_model_comparisons(x, selected_stool_final_data), simplify = F)
 
-
-
-
-
-
-
-
-
-
-
-
-
+# Generate final overal roc data for plotting
+selected_all_roc_values <- sapply(names(selected_stool_final_data), 
+                         function(x) make_data_table(selected_stool_final_data[[x]]), simplify = F)
 
 
 
