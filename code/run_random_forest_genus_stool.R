@@ -291,12 +291,36 @@ make_data_table <- function(final_rocs){
 }
 
 
+
+
+# Function to execute the major commands for RF gathering
+run_rf_tests <- function(study, rf_dataList){
+  # study is the study of interest
+  # rf_dataList is the genera_aligned disease column added data files 
+  
+  # Generate the nzv and transformations that need to be applied based on 
+  # study used for training data 
+  first_study <- get_align_info(study, rf_dataList)
+  # remove nzv columns, transform, and normalize data sets based on training set 
+  test_dataList <- apply_preprocess(study, first_study, rf_dataList)
+  # Generate the RF model from the relevant training data set
+  train_model_data <- make_rf_model(first_study$train_data)
+  # Test the model on each of the data sets not used in training
+  test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
+                        first_study[["train_data"]], test_dataList)
+
+  
+  # output the final results from all tests
+  return(test_dataLists)
+}
+
+
 # Function to generate pvalues for the results ROC cuves (default method delong)
-make_model_comparisons <- function(i, rocList, comp_method = "delong"){
+make_model_comparisons <- function(i, rocList, comp_method = "bootstrap"){
   # i is the study of interest
   # rocList is a list of roc objects (obtained from get_test_data)
   # comp_method is a character call of what method to use for comparisons
-    # the default is set to delong
+  # the default is set to delong
   
   # create a temp list variable 
   tempList <- rocList[[i]]
@@ -321,40 +345,6 @@ make_model_comparisons <- function(i, rocList, comp_method = "delong"){
 }
 
 
-
-# Function to execute the major commands for RF gathering
-run_rf_tests <- function(study, rf_dataList){
-  # study is the study of interest
-  # rf_dataList is the genera_aligned disease column added data files 
-  
-  # Generate the nzv and transformations that need to be applied based on 
-  # study used for training data 
-  first_study <- get_align_info(study, rf_dataList)
-  # remove nzv columns, transform, and normalize data sets based on training set 
-  test_dataList <- apply_preprocess(study, first_study, rf_dataList)
-  # Generate the RF model from the relevant training data set
-  train_model_data <- make_rf_model(first_study$train_data)
-  # Test the model on each of the data sets not used in training
-  test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
-                        first_study[["train_data"]], test_dataList)
-  # create a table with the summary data from all the tests
-  final_results <- make_data_table(test_dataLists)
-  # create a table with summary pvalues from all the studies
-  pvalue_summary <- make_model_comparisons(study, test_dataLists)
-  # Combine the two needed files together
-  overall_results <- list(
-    final_results = final_results, 
-    pvalue_summary = pvalue_summary
-  )
-  
-  # output the final results from all tests
-  return(overall_results)
-}
-
-
-
-
-
 ##############################################################################################
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
@@ -374,10 +364,37 @@ rf_datasets <- sapply(c(stool_sets, "flemer"),
 
 
 # Generate data for each test (study) set
-final_data <- sapply("flemer", 
+stool_final_data <- sapply(c(stool_sets, "flemer"), 
                      function(x) run_rf_tests(x, rf_datasets), simplify = F)
 
 
+
+
 # Generate summary data based on rocs
+test <- sapply(names(stool_final_data), 
+               function(x) make_model_comparisons(x, stool_final_data), simplify = F)
+
+# Generate final overal roc data for plotting
+roc_test <- sapply(names(stool_final_data), 
+                   function(x) make_data_table(stool_final_data[[x]]), simplify = F)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
