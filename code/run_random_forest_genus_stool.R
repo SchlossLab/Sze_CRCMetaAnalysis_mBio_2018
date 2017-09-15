@@ -293,24 +293,29 @@ make_data_table <- function(final_rocs){
 
 # Function to generate pvalues for the results ROC cuves (default method delong)
 make_model_comparisons <- function(i, rocList, comp_method = "delong"){
+  # i is the study of interest
+  # rocList is a list of roc objects (obtained from get_test_data)
+  # comp_method is a character call of what method to use for comparisons
+    # the default is set to delong
   
+  # create a temp list variable 
   tempList <- rocList[[i]]
-  
+  # remove the study of interest (training roc) from temp list
   tempList[[i]] <- NULL
-  
+  # create the training roc variable
   train_model_roc <- rocList[[i]][[i]]
-  
+  # iterate through each study comparing the training roc the test rocs
   test <- lapply(tempList, 
                  function(x) roc.test(train_model_roc, x, method = comp_method)$p.value)
-  
+  # grab the actual AUC values
   auc_values <- t(as.data.frame.list(lapply(tempList, function(x) x$auc)))
-  
+  # Create a nice data frame to be outputed out
   aggregate_pvalues <- t(bind_cols(test)) %>% as.data.frame() %>% 
     mutate(study = rownames(.), BH = p.adjust(V1, method = "BH"), auc = auc_values[, 1]) %>% 
     rename(pvalue = V1) %>% select(study, auc, pvalue, BH)
-  
+  # Add the information on the test set
   aggregate_pvalues <- rbind(aggregate_pvalues, c(i, train_model_roc$auc, NA, NA))
-  
+  # return the final completed summary table
   return(aggregate_pvalues)
   
 }
