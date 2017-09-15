@@ -360,8 +360,20 @@ make_model_comparisons <- function(i, rocList, comp_method = "bootstrap"){
 
 
 # Function to make comparisons between selected and full models
-select_full_comparison(i, fullrocList, selectedrocList){
+select_full_comparison <- function(full_model, select_model, 
+                                   comp_method = "bootstrap"){
+  # full_model is the model with all genera variables
+  # select_model is the model with only crc specific variables
+  # comp_method is default set to bootstrap to hedge against ROCs with different directions
   
+  # Generates the pvalue from the test between the two respective models
+  pvalue <- pROC::roc.test(full_model, select_model, 
+                     method = comp_method)$p.value
+  # creates a vector with auc or the two models and the pvalue
+  all_data <- c(full_model = full_model$auc, select_model = select_model$auc, 
+                pvalue = pvalue)
+  # writes out the summary data
+  return(all_data)
   
 }
 
@@ -433,6 +445,20 @@ selected_pvalue_summaries <- sapply(names(selected_stool_final_data),
 # Generate final overal roc data for plotting
 selected_all_roc_values <- sapply(names(selected_stool_final_data), 
                          function(x) make_data_table(selected_stool_final_data[[x]]), simplify = F)
+
+# Compare the full data roc to the selected data roc and create a nice table
+test_red_select_models <- t(sapply(c(stool_sets, "flemer"), 
+               function(x) 
+                 select_full_comparison(stool_final_data[[x]][[x]], 
+                                        selected_stool_final_data[[x]][[x]]))) %>% 
+  as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
+  select(study, full_model, select_model, pvalue, BH)
+
+
+
+
+
+
 
 
 
