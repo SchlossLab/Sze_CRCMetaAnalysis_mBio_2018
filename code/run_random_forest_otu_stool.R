@@ -189,10 +189,11 @@ make_summary_data <- function(i, act_model, rand_model, dataList,
   pvalue <- roc.test(actual_roc, random_roc, method = comp_method)$p.value
   
   finalData <- list(
-    all_data = cbind(sens = c(actual_roc$sensitivities, random_roc$sensitivites), 
-                             spec = c(actual_roc$specificities, random_roc$specificities), 
-                             type = c(rep("actual_mod", length(actual_roc$sensitivities)), 
-                                      rep("random_mod", length(random_roc$sensitivites)))) %>% 
+    all_data = cbind(
+      sens = c(actual_roc$sensitivities, random_roc$sensitivities), 
+      spec = c(actual_roc$specificities, random_roc$specificities), 
+      type = c(rep("actual_mod", length(actual_roc$sensitivities)), 
+               rep("random_mod", length(random_roc$sensitivities)))) %>% 
       as.data.frame(., stringsAsFactors = F) %>% 
       mutate(sens = as.numeric(sens), spec = as.numeric(spec), 
              study = rep(i, length(spec))), 
@@ -206,24 +207,17 @@ make_summary_data <- function(i, act_model, rand_model, dataList,
 
 
 
-
-
-## TO Do List
-
-
-## Introduce For each loop possibly
-
-
-
-
-
-
 ##############################################################################################
 ############### Run the actual programs to get the data (ALL Data) ###########################
 ##############################################################################################
 
+# Set up storage variables
+all_roc_data <- NULL
+all_comparisons <- NULL
 
-for(i in "weir"){
+
+# Iteratively run through each study for stool
+for(i in c(stool_sets, "flemer")){
   
   dataList <- get_data(i = i)
   
@@ -237,8 +231,20 @@ for(i in "weir"){
   
   test <- make_summary_data(i = i, actual_model, random_model, 
                             rf_data, "train_data", "rand_data")
+  
+  all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
+  
+  all_comparisons <- rbind(all_comparisons, c(pvalue = test[["pvalue"]], study = i))
+  
+  print(paste("Completed study:", i, "RF testing"))
+  
 }
 
+
+# Write out the relevant data frames
+write.csv(all_roc_data, "data/process/tables/stool_rf_otu_roc.csv", row.names = F)
+write.csv(all_comparisons, "data/process/tables/stool_rf_otu_random_comparison_summary.csv", 
+          row.names = F)
 
 
 
