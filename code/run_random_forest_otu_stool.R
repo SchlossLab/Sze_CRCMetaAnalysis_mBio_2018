@@ -129,14 +129,56 @@ get_align_info <- function(datatable){
     select(disease, everything())
   # Re add random_disease to the random data at the beginning of the data table
   random_data <- training_data %>% 
-    mutate(random_disease = random_disease) %>% 
-    select(random_disease, everything())
+    mutate(disease = random_disease) %>% 
+    select(disease, everything())
   # create a final list with the tranformed data, the nzv columns, and the transformations
   final_info <- list(train_data = train_data, 
                      rand_data = random_data)
   # Write out the final data list
   return(final_info)
 }
+
+
+# Function that will run and create the needed model
+make_rf_model <- function(train_data){
+  # train_data is the data table to be used for model training
+  
+  #Create Overall specifications for model tuning
+  # number controls fold of cross validation
+  # Repeats control the number of times to run it
+  
+  fitControl <- trainControl(## 10-fold CV
+    method = "cv",
+    number = 10,
+    p = 0.8, 
+    classProbs = TRUE, 
+    summaryFunction = twoClassSummary, 
+    savePredictions = "final")
+  
+  # Set the mtry to be based on the number of total variables in data table to be modeled
+  # this formula seems to be an accepted default to use
+  number_try <- round(sqrt(ncol(train_data)))
+  
+  # Set the mtry hyperparameter for the training model
+  tunegrid <- expand.grid(.mtry = number_try)
+  
+  #Train the model
+  set.seed(12345)
+  training_model <- 
+    train(disease ~ ., data = train_data, 
+          method = "rf", 
+          ntree = 500, 
+          trControl = fitControl,
+          tuneGrid = tunegrid, 
+          metric = "ROC", 
+          na.action = na.omit, 
+          verbose = FALSE)
+  
+  # Return the model object
+  return(training_model)
+}
+
+
 
 
 
@@ -170,6 +212,9 @@ for(i in "weir"){
   
   rf_data <- get_align_info(disease_dataset)
   
+  actual_model <- make_rf_model(rf_data[["train_data"]])
+  
+  random_model <- make_rf_model(rf_data[["rand_data"]])
 }
 
 
