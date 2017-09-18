@@ -33,14 +33,11 @@ both_sets <- c("chen", "flemer")
 get_data <- function(i){
   # i is the study of interest
   
-  # gets original sample names
-  sample_names <- (get_file(i, "data/process/", "_genera_shared.csv") %>% 
-                     mutate(sample_names = rownames(.)) %>% select(sample_names))[, "sample_names"]
   # grabs subsampled data and assigns rownames from sample names to table
-  sub_genera_data <- get_file(i, "data/process/", "_subsample_genera.csv", rows_present = F, 
-                              vec_of_rownames = sample_names) %>% 
-    as.data.frame() %>% mutate(sample_ID = rownames(.)) %>% 
-    select(sample_ID, everything())
+  shared_data <- read.delim(paste("data/process/", i, "/", i, ".0.03.subsample.shared", 
+                                  sep = ""), header = T, stringsAsFactors = F) %>% 
+    select(-label, -numOtus)
+
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
                          "stool", metadata = T)
@@ -49,23 +46,21 @@ get_data <- function(i){
   study_meta <- study_meta %>% filter(!is.na(disease))
   
   # conditional that checks for whether length of rows of meta data is smaller
-  if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
+  if(length(rownames(study_meta)) < length(rownames(shared_data))){
     # grab only the samples in the meta data file for down stream analysis
-    sub_genera_data <- sub_genera_data %>% slice(match(study_meta$sampleID, sample_ID))
+    shared_data <- shared_data %>% slice(match(study_meta$sampleID, Group))
     
   } else{
     # grab only files in the data file for analysis
-    study_meta <- study_meta %>% slice(match(sub_genera_data$sample_ID, sampleID))
+    study_meta <- study_meta %>% slice(match(shared_data$Group, sampleID))
   }
   # Prints out the total number of genera for that specific study
   print(paste("Total number of columns in", i, "is", 
-              length(colnames(sub_genera_data))))
-  # re assigns the rown names while removing the extra column used for sorting
-  sample_names <- sub_genera_data$sample_ID
+              length(colnames(shared_data))))
   # creates a list file with both data sets
-  dataList <- list(sub_genera_data = sub_genera_data, 
+  dataList <- list(shared_data = shared_data, 
                    study_meta = study_meta, 
-                   column_length = length(colnames(sub_genera_data)))
+                   column_length = length(colnames(shared_data)))
   # returns the combined list file
   return(dataList)
   
@@ -73,8 +68,17 @@ get_data <- function(i){
 
 
 
+## TO Do List
 
+## Run a 10-fold CV (5 if 10 is not possible)
 
+## Run a random label 10-fold CV (5 if 10 is not possible)
+
+## Compare the two models
+
+## Save the ROC curves to graph 
+
+## Introduce For each loop possibly
 
 
 
@@ -86,7 +90,12 @@ get_data <- function(i){
 ##############################################################################################
 
 
-
+for(i in "weir"){
+  
+  dataList <- get_data(i = i)
+  
+  
+}
 
 
 
