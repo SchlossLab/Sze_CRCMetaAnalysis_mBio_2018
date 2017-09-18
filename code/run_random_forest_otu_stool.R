@@ -178,19 +178,38 @@ make_rf_model <- function(train_data){
   return(training_model)
 }
 
+# Function that generates ROC curves and then compares them to random
+make_summary_data <- function(i, act_model, rand_model, dataList, 
+                              train_name, random_name, comp_method = "bootstrap"){
+  
+  actual_roc <- roc(dataList[[train_name]]$disease ~ act_model[["pred"]][, "cancer"])
+  
+  random_roc <- roc(dataList[[random_name]]$disease ~ rand_model[["pred"]][, "cancer"])
+  
+  pvalue <- roc.test(actual_roc, random_roc, method = comp_method)$p.value
+  
+  finalData <- list(
+    all_data = cbind(sens = c(actual_roc$sensitivities, random_roc$sensitivites), 
+                             spec = c(actual_roc$specificities, random_roc$specificities), 
+                             type = c(rep("actual_mod", length(actual_roc$sensitivities)), 
+                                      rep("random_mod", length(random_roc$sensitivites)))) %>% 
+      as.data.frame(., stringsAsFactors = F) %>% 
+      mutate(sens = as.numeric(sens), spec = as.numeric(spec), 
+             study = rep(i, length(spec))), 
+    pvalue = pvalue)
+  
+  
+  return(finalData)
+  
+}
+
+
 
 
 
 
 ## TO Do List
 
-## Run a 10-fold CV (5 if 10 is not possible)
-
-## Run a random label 10-fold CV (5 if 10 is not possible)
-
-## Compare the two models
-
-## Save the ROC curves to graph 
 
 ## Introduce For each loop possibly
 
@@ -215,6 +234,9 @@ for(i in "weir"){
   actual_model <- make_rf_model(rf_data[["train_data"]])
   
   random_model <- make_rf_model(rf_data[["rand_data"]])
+  
+  test <- make_summary_data(i = i, actual_model, random_model, 
+                            rf_data, "train_data", "rand_data")
 }
 
 
