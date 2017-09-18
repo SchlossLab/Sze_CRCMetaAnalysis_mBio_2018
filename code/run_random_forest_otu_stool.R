@@ -67,6 +67,78 @@ get_data <- function(i){
 }
 
 
+# Function that grabs the meta data and replaces sampleID with disease call
+assign_disease <- function(metadata_table_name, 
+                           shared_data_name, fullDataList, randomize = "include"){
+  # metadata_table_name is the variable with the name of the metadata file
+  # shared_data_name is the variable with the name of the shared file
+  # fullDataList is the original created data list
+  
+  # Get the respective metadata file of interest
+  tempMetadata <- fullDataList[[metadata_table_name]]
+  
+  # create a random group label
+  vars_to_sample <-  ifelse(tempMetadata$disease != "cancer", invisible(0), invisible(1))
+  
+  set.seed(12345)
+  random_sample <- sample(vars_to_sample)
+  
+  
+  # Gets transforms sample_ID column into a disease column with control v cancer calls
+  tempData <- fullDataList[[shared_data_name]] %>% 
+    mutate(Group = factor(ifelse(tempMetadata$disease == "polyp", 
+                                     invisible("control"), 
+                                     ifelse(tempMetadata$disease == "normal", 
+                                            invisible("control"), 
+                                            invisible(tempMetadata$disease))), 
+                              levels = c("control", "cancer")), 
+           random_disease = factor(ifelse(random_sample == 1, invisible("cancer"), 
+                                          invisible("control")), 
+                                   levels = c("control", "cancer"))) %>% 
+    rename(disease = Group) %>% select(disease, random_disease, everything())
+  # Returns the modified data frame that can be used for RF analysis
+  return(as.data.frame(tempData))
+  
+}
+
+
+# Function to apply and get the nzv and preProcess for the training data
+get_align_info <- function(datatable){
+  # datatable is the RF data table (OTU + disease + random) for study of interest
+  
+  # stores the disease vector (it gets removed during processing for some studies)
+  disease <- datatable$disease
+  random_disease <- datatable$random_disease
+  # gets the respective data set i for training
+  training_data <- datatable %>% select(-disease, -random_disease)
+  # Check for columns that have near zero variance
+  nzv <- nearZeroVar(training_data)
+  
+  if(length(nzv) == 0){
+    
+    training_data <- training_data
+  } else{
+    
+    # remove columns that have near zero variance
+    training_data <- training_data[, -nzv]
+  }
+  
+  # Re add disease to the training data at the beginning of the data table
+  train_data <- training_data %>% 
+    mutate(disease = disease) %>% 
+    select(disease, everything())
+  # Re add random_disease to the random data at the beginning of the data table
+  random_data <- training_data %>% 
+    mutate(random_disease = random_disease) %>% 
+    select(random_disease, everything())
+  # create a final list with the tranformed data, the nzv columns, and the transformations
+  final_info <- list(train_data = train_data, 
+                     rand_data = random_data)
+  # Write out the final data list
+  return(final_info)
+}
+
+
 
 ## TO Do List
 
@@ -94,6 +166,9 @@ for(i in "weir"){
   
   dataList <- get_data(i = i)
   
+  disease_dataset <- assign_disease("study_meta", "shared_data", dataList)
+  
+  rf_data <- get_align_info(disease_dataset)
   
 }
 
