@@ -79,7 +79,6 @@ assign_disease <- function(metadata_table_name,
   
   # create a random group label
   vars_to_sample <-  ifelse(tempMetadata$disease != "cancer", invisible(0), invisible(1))
-  
   set.seed(12345)
   random_sample <- sample(vars_to_sample)
   
@@ -140,20 +139,42 @@ get_align_info <- function(datatable){
 
 
 # Function that will run and create the needed model
-make_rf_model <- function(train_data){
+make_rf_model <- function(run_marker, study, train_data){
   # train_data is the data table to be used for model training
   
-  #Create Overall specifications for model tuning
-  # number controls fold of cross validation
-  # Repeats control the number of times to run it
+  # Create a LOOCV if data set is small (manually specify)
+  if(study %in% c("weir")){
+    
+    method_used <- "LOOCV"
+    
+    #Create Overall specifications for model tuning
+    # number controls fold of cross validation
+    # Repeats control the number of times to run it
+    
+    fitControl <- trainControl(## 10-fold CV
+      method = method_used,
+      classProbs = TRUE, 
+      summaryFunction = twoClassSummary, 
+      savePredictions = "final")
+    
+  } else{
+    
+    method_used <- "cv"
+    
+    #Create Overall specifications for model tuning
+    # number controls fold of cross validation
+    # Repeats control the number of times to run it
+    
+    fitControl <- trainControl(## 10-fold CV
+      method = method_used,
+      number = 10,
+      p = 0.8, 
+      classProbs = TRUE, 
+      summaryFunction = twoClassSummary, 
+      savePredictions = "final")
+  }
   
-  fitControl <- trainControl(## 10-fold CV
-    method = "cv",
-    number = 10,
-    p = 0.8, 
-    classProbs = TRUE, 
-    summaryFunction = twoClassSummary, 
-    savePredictions = "final")
+  
   
   # Set the mtry to be based on the number of total variables in data table to be modeled
   # this formula seems to be an accepted default to use
@@ -163,7 +184,6 @@ make_rf_model <- function(train_data){
   tunegrid <- expand.grid(.mtry = number_try)
   
   #Train the model
-  set.seed(12345)
   training_model <- 
     train(disease ~ ., data = train_data, 
           method = "rf", 
@@ -174,36 +194,78 @@ make_rf_model <- function(train_data){
           na.action = na.omit, 
           verbose = FALSE)
   
+  #Print out tracking message
+  print(paste("Completed ", run_marker, " RF model for ", 
+              study, " using ", method_used, sep = ""))
+  
   # Return the model object
   return(training_model)
 }
 
+
+# Function to get the min and max models to generate roc curves for
+get_min_max <- function(a_models, r_models, a_summary, r_summary){
+  
+  a_min_row <- as.numeric((a_summary %>% filter(ROC == min(ROC)) %>% select(runs))[, "runs"])
+  a_max_row <- as.numeric((a_summary %>% filter(ROC == max(ROC)) %>% select(runs))[, "runs"])
+  
+  r_min_row <- as.numeric((r_summary %>% filter(ROC == min(ROC)) %>% select(runs))[, "runs"])
+  r_max_row <- as.numeric((r_summary %>% filter(ROC == max(ROC)) %>% select(runs))[, "runs"])
+  
+  tempList <- list(
+    actual_mod = list(
+      min_model = a_models[[a_min_row]], 
+      max_model = a_models[[a_max_row]]), 
+    random_mod = list(
+      min_model = r_models[[r_min_row]], 
+      max_model = r_models[[r_max_row]]))
+  
+  
+  return(tempList)
+}
+
+
+
 # Function that generates ROC curves and then compares them to random
-make_summary_data <- function(i, act_model, rand_model, dataList, 
-                              train_name, random_name, comp_method = "bootstrap"){
+make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,  
+                              train_name, random_name){
   
-  actual_roc <- roc(dataList[[train_name]]$disease ~ act_model[["pred"]][, "cancer"])
+  best_actual_roc <- roc(dataList[[train_name]]$disease ~ 
+                           model_info[["actual_mod"]][["max_model"]][["pred"]][, "cancer"])
+  worst_actual_roc <- roc(dataList[[train_name]]$disease ~ 
+                            model_info[["actual_mod"]][["min_model"]][["pred"]][, "cancer"])
   
-  random_roc <- roc(dataList[[random_name]]$disease ~ rand_model[["pred"]][, "cancer"])
   
-  pvalue <- roc.test(actual_roc, random_roc, method = comp_method)$p.value
+  best_random_roc <- roc(dataList[[random_name]]$disease ~ 
+                           model_info[["random_mod"]][["max_model"]][["pred"]][, "cancer"])
+  worst_random_roc <- roc(dataList[[random_name]]$disease ~ 
+                           model_info[["random_mod"]][["min_model"]][["pred"]][, "cancer"])
+  
+  pvalue <- t.test(a_summary$ROC, r_summary$ROC)$p.value
   
   finalData <- list(
     all_data = cbind(
-      sens = c(actual_roc$sensitivities, random_roc$sensitivities), 
-      spec = c(actual_roc$specificities, random_roc$specificities), 
-      type = c(rep("actual_mod", length(actual_roc$sensitivities)), 
-               rep("random_mod", length(random_roc$sensitivities)))) %>% 
+      sens = c(best_actual_roc$sensitivities, worst_actual_roc$sensitivities, 
+               best_random_roc$sensitivities, worst_random_roc$sensitivities), 
+      spec = c(best_actual_roc$specificities, worst_actual_roc$specificities, 
+               best_random_roc$specificities, worst_random_roc$specificities), 
+      type = c(rep("actual_mod", 
+                   length(c(best_actual_roc$sensitivities, worst_actual_roc$sensitivities))), 
+               rep("random_mod", 
+                   length(c(best_random_roc$sensitivities, worst_random_roc$sensitivities)))), 
+      roc_type = c(rep("best", length(best_actual_roc$sensitivities)), 
+                   rep("worst", length(worst_actual_roc$sensitivities)), 
+                   rep("best", length(best_random_roc$sensitivities)), 
+                   rep("worst", length(worst_random_roc$sensitivities)))) %>% 
       as.data.frame(., stringsAsFactors = F) %>% 
       mutate(sens = as.numeric(sens), spec = as.numeric(spec), 
              study = rep(i, length(spec))), 
     pvalue = pvalue)
   
-  
+
   return(finalData)
   
 }
-
 
 
 
@@ -215,9 +277,12 @@ make_summary_data <- function(i, act_model, rand_model, dataList,
 all_roc_data <- NULL
 all_comparisons <- NULL
 
+# Set up direction variables
+actual_runs <- paste("act_model_", seq(1:100), sep = "")
+random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
 # Iteratively run through each study for stool
-for(i in c(stool_sets, "flemer")){
+for(i in c("wang")){
   
   dataList <- get_data(i = i)
   
@@ -225,16 +290,32 @@ for(i in c(stool_sets, "flemer")){
   
   rf_data <- get_align_info(disease_dataset)
   
-  actual_model <- make_rf_model(rf_data[["train_data"]])
+  actual_model <- sapply(actual_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["train_data"]]), simplify = F) 
   
-  random_model <- make_rf_model(rf_data[["rand_data"]])
+  random_model <- sapply(random_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["rand_data"]]), simplify = F)
   
-  test <- make_summary_data(i = i, actual_model, random_model, 
-                            rf_data, "train_data", "rand_data")
+  actual_summary <- sapply(actual_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  random_summary <- sapply(random_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  model_info <- get_min_max(actual_model, random_model, 
+                      actual_summary, random_summary)
+  
+  test <- make_summary_data(i = i, model_info = model_info, rf_data, 
+                            actual_summary, random_summary, "train_data", "rand_data")
   
   all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
   
-  all_comparisons <- rbind(all_comparisons, c(pvalue = test[["pvalue"]], study = i))
+  #all_comparisons <- rbind(all_comparisons, 
+   #                        c(actual_auc = actual_model$results$ROC, 
+    #                         random_auc = random_model$results$ROC, 
+     #                        pvalue = test[["pvalue"]], study = i))
   
   print(paste("Completed study:", i, "RF testing"))
   
