@@ -295,7 +295,7 @@ actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
 # Iteratively run through each study for stool
-for(i in c("wang", "weir")){
+for(i in c(stool_sets, "flemer")){
   
   dataList <- get_data(i = i)
   
