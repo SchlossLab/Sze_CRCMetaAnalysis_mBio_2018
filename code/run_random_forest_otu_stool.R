@@ -145,7 +145,7 @@ make_rf_model <- function(run_marker, study, train_data){
   # Create a LOOCV if data set is small (manually specify)
   if(study %in% c("weir")){
     
-    method_used <- "LOOCV"
+    method_used <- "cv"
     
     #Create Overall specifications for model tuning
     # number controls fold of cross validation
@@ -153,6 +153,8 @@ make_rf_model <- function(run_marker, study, train_data){
     
     fitControl <- trainControl(## 10-fold CV
       method = method_used,
+      number = 2,
+      p = 0.8,
       classProbs = TRUE, 
       summaryFunction = twoClassSummary, 
       savePredictions = "final")
@@ -211,6 +213,17 @@ get_min_max <- function(a_models, r_models, a_summary, r_summary){
   
   r_min_row <- as.numeric((r_summary %>% filter(ROC == min(ROC)) %>% select(runs))[, "runs"])
   r_max_row <- as.numeric((r_summary %>% filter(ROC == max(ROC)) %>% select(runs))[, "runs"])
+  
+  if(length(r_max_row) > 1 | length(r_min_row) > 1 | 
+     length(a_max_row) > 1 | length(a_min_row) > 1){
+    
+    a_min_row <- a_min_row[1]
+    a_max_row <- a_max_row[1]
+    r_min_row <- r_min_row[1]
+    r_max_row <- r_max_row[1]
+    
+  }
+  
   
   tempList <- list(
     actual_mod = list(
@@ -282,7 +295,7 @@ actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
 # Iteratively run through each study for stool
-for(i in c("wang")){
+for(i in c("wang", "weir")){
   
   dataList <- get_data(i = i)
   
@@ -312,14 +325,18 @@ for(i in c("wang")){
   
   all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
   
-  #all_comparisons <- rbind(all_comparisons, 
-   #                        c(actual_auc = actual_model$results$ROC, 
-    #                         random_auc = random_model$results$ROC, 
-     #                        pvalue = test[["pvalue"]], study = i))
+  all_comparisons <- rbind(all_comparisons, 
+                           as.data.frame.list(
+                             c(actual_summary %>% summarise(act_mean_auc = mean(ROC, na.rm = T), 
+                                                           act_sd_auc = sd(ROC, na.rm = T)), 
+                             random_summary %>% summarise(rand_mean_auc = mean(ROC, na.rm = T), 
+                                                          rand_sd_auc = sd(ROC, na.rm = T)), 
+                             pvalue = test[["pvalue"]], study = i)))
   
   print(paste("Completed study:", i, "RF testing"))
   
 }
+
 
 
 # Write out the relevant data frames
