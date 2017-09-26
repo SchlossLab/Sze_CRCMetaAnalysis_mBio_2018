@@ -84,7 +84,52 @@ get_data <- function(i, metadata){
 
 
 
-
+# Function that aligns the genera from all data sets
+align_genera <- function(studies, length_column_name, 
+                         genera_data_name, dataList){
+  # studies is a variable for the name of study to be used
+  # length_column_name is the name of the vector in dataList that stores the total genera number
+  # genera_data_name is the name of the data table in dataList that contains the genera information
+  # dataList is a list that has for every study the genus info, metadata, and total genera present
+  
+  # Pulls out the total number of genera identified in each study and orders them highest to lowest
+  genera_num_list <- sort.int(sapply(studies, 
+                                     function(x) dataList[[x]][[length_column_name]]))
+  # Counting variable (helps to direct flow)
+  x = 1
+  # Checks to see if the lowest value is the same as the highest, if not keep iterating through
+  while(genera_num_list[1]!= genera_num_list[length(genera_num_list)]){
+    # stores the  lowest genera study name
+    lowest_genera_study <- names(genera_num_list[1])
+    # Check to see if this is the first time through the iteration
+    if(x == 1){
+      # Remove any groups that have unclassified as part of their ID
+      genera_names <- dataList[[lowest_genera_study]][[genera_data_name]] %>% 
+        select(-contains("_unclassified")) %>% colnames(.)
+    } else{
+      # If not the first through get the names of genrea in the current lowest study 
+      genera_names <- colnames(temp_aligned_genera[[lowest_genera_study]])
+    }
+    
+    # iterate through each study matching only those in the lowest genera data set
+    temp_aligned_genera <- suppressWarnings(sapply(studies, 
+                                                   function(x) 
+                                                     select(dataList[[x]][[genera_data_name]], 
+                                                            one_of(genera_names)), simplify = F))
+    # get the updated total genera and then sort lowest to highest
+    genera_num_list <- sort.int(sapply(studies, 
+                                       function(x) 
+                                         length(colnames(temp_aligned_genera[[x]]))))
+    # Print out an update as to how the matching is going
+    print(paste("Min and Max total genera is:", 
+                min(genera_num_list), ",", max(genera_num_list)))
+    # move the tracker / flow director up one
+    x = x + 1
+    
+  }
+  # When the while loop exits return the aligned genera data list
+  return(temp_aligned_genera)
+}
 
 
 
@@ -104,11 +149,13 @@ get_data <- function(i, metadata){
 
 
 # reads in all the stool data into one list
-stool_study_data <- sapply(unmatched_studies, 
+unmatched_stool_study_data <- sapply(unmatched_studies, 
                            function(x) get_data(x, tissue_unmatched), simplify = F)
 
 
-
+# Align the genera so there is the same number for each data set.
+unmatched_matched_genera_list <- align_genera(unmatched_studies, "column_length", 
+                                    "sub_genera_data", unmatched_stool_study_data)
 
 
 
