@@ -29,17 +29,17 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
   rename(sample_id = group)
 
 
-# Get matched studies
-matched_studies <- unique(tissue_matched$study)
+# Get studies that contain matched samples
+# Remove Lu since it only has polyps
+matched_studies <- unique(
+  tissue_matched$study[!(tissue_matched$study %in% c("lu"))])
 
+# Get studies that contain unmatched samples
 # Need to remove dejea and lu
 # Lu only has polyps
 # Dejea only has cancer 
 unmatched_studies <- unique(
   tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu"))]) 
-
-
-
 
 
 ##############################################################################################
@@ -379,8 +379,6 @@ make_model_comparisons <- function(i, rocList, comp_method = "bootstrap"){
 }
 
 
-
-
 ##############################################################################################
 ########################## Code used to run the analysis (unmatched) #########################
 ##############################################################################################
@@ -417,5 +415,78 @@ unmatched_tissue_pvalue_summaries <- sapply(
 # Generate final overal roc data for plotting
 unmatched_tissue_all_roc_values <- sapply(names(unmatched_tissue_final_data), 
                          function(x) make_data_table(unmatched_tissue_final_data[[x]]), simplify = F)
+
+
+##############################################################################################
+########################## Code used to run the analysis (unmatched) #########################
+##############################################################################################
+
+# reads in all the stool data into one list
+matched_stool_study_data <- sapply(matched_studies, 
+                                     function(x) get_data(x, tissue_matched), simplify = F)
+
+
+# Align the genera so there is the same number for each data set.
+matched_matched_genera_list <- align_genera(matched_studies, "column_length", 
+                                              "sub_genera_data", matched_stool_study_data)
+
+
+# Generate data sets to be used in random forest
+matched_rf_datasets <- sapply(
+  matched_studies, 
+  function(x) assign_disease(x, "study_meta", 
+                             matched_matched_genera_list, matched_stool_study_data), simplify = F)
+
+
+# Run the models
+# Used actual values since there were a few that normalization could not be done for
+matched_tissue_final_data <- sapply(
+  matched_studies, 
+  function(x) run_rf_tests(x, matched_rf_datasets, specific_vars = T), simplify = F)
+
+
+# Generate summary data based on rocs
+matched_tissue_pvalue_summaries <- sapply(
+  matched_studies, 
+  function(x) make_model_comparisons(x, matched_tissue_final_data), simplify = F)
+
+
+# Generate final overal roc data for plotting
+matched_tissue_all_roc_values <- sapply(
+  names(matched_tissue_final_data), 
+  function(x) make_data_table(matched_tissue_final_data[[x]]), simplify = F)
+
+
+##############################################################################################
+############################## Write out the data ############################################
+##############################################################################################
+
+# Write out all the necessary data table files
+
+sapply(unmatched_studies, 
+       function(x) write.csv(unmatched_tissue_pvalue_summaries[[x]], 
+                             paste("data/process/tables/genus_unmatched_tissue_RF_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+
+sapply(unmatched_studies, 
+       function(x) write.csv(unmatched_tissue_all_roc_values[[x]], 
+                             paste("data/process/tables/genus_unmatched_tissue_RF_", 
+                                   x, "_raw_roc_data.csv", sep = ""), row.names = F))
+
+sapply(matched_studies, 
+       function(x) write.csv(matched_tissue_pvalue_summaries[[x]], 
+                             paste("data/process/tables/genus_matched_tissue_RF_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+
+
+sapply(matched_studies, 
+       function(x) write.csv(matched_tissue_all_roc_values[[x]], 
+                             paste("data/process/tables/genus_matched_tissue_RF_", 
+                                   x, "_raw_roc_data.csv", sep = ""), row.names = F))
+
+write.csv(test_red_select_models, 
+          "data/process/tables/genus_stool_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+
+
 
 
