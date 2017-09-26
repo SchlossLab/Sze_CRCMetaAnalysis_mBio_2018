@@ -379,6 +379,26 @@ make_model_comparisons <- function(i, rocList, comp_method = "bootstrap"){
 }
 
 
+# Function to make comparisons between selected and full models
+select_full_comparison <- function(full_model, select_model, 
+                                   comp_method = "bootstrap"){
+  # full_model is the model with all genera variables
+  # select_model is the model with only crc specific variables
+  # comp_method is default set to bootstrap to hedge against ROCs with different directions
+  
+  # Generates the pvalue from the test between the two respective models
+  pvalue <- pROC::roc.test(full_model, select_model, 
+                           method = comp_method)$p.value
+  # creates a vector with auc or the two models and the pvalue
+  all_data <- c(full_model = full_model$auc, select_model = select_model$auc, 
+                pvalue = pvalue)
+  # writes out the summary data
+  return(all_data)
+  
+}
+
+
+
 ##############################################################################################
 ########################## Code used to run the analysis (unmatched) #########################
 ##############################################################################################
@@ -458,11 +478,95 @@ matched_tissue_all_roc_values <- sapply(
 
 
 ##############################################################################################
+########################## Code used to run the analysis (unmatched + select) ################
+##############################################################################################
+
+# reduce the data sets down to only the CRC associated genera
+select_unmatched_matched_genera_list <- lapply(unmatched_matched_genera_list, 
+                                     function(x) 
+                                       x %>% select(c("sample_ID", "Fusobacterium", 
+                                                      "Peptostreptococcus", 
+                                                      "Porphyromonas", "Parvimonas")))
+
+# Generate data sets to be used in random forest
+unmatched_selected_rf_datasets <- sapply(
+  unmatched_studies, function(x) 
+    assign_disease(x, "study_meta", 
+                   select_unmatched_matched_genera_list, unmatched_stool_study_data), simplify = F)
+
+# Run the models
+selected_unmatched_tissue_final_data <- sapply(
+  unmatched_studies, 
+  function(x) run_rf_tests(x, unmatched_selected_rf_datasets, specific_vars = T), simplify = F)
+
+
+# Generate summary data based on rocs
+unmatched_tissue_selected_pvalue_summaries <- sapply(
+  names(selected_unmatched_tissue_final_data), 
+  function(x) make_model_comparisons(x, selected_unmatched_tissue_final_data), simplify = F)
+
+# Generate final overal roc data for plotting
+unmatched_tissue_selected_all_roc_values <- sapply(
+  names(selected_unmatched_tissue_final_data), 
+  function(x) make_data_table(selected_unmatched_tissue_final_data[[x]]), simplify = F)
+
+# Compare the full data roc to the selected data roc and create a nice table
+unmatched_tissue_test_red_select_models <- t(sapply(
+  unmatched_studies, function(x) 
+    select_full_comparison(unmatched_tissue_final_data[[x]][[x]], 
+                           selected_unmatched_tissue_final_data[[x]][[x]]))) %>% 
+  as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
+  select(study, full_model, select_model, pvalue, BH)
+
+
+
+##############################################################################################
+########################## Code used to run the analysis (unmatched + select) ################
+##############################################################################################
+
+# reduce the data sets down to only the CRC associated genera
+select_matched_matched_genera_list <- lapply(matched_matched_genera_list, 
+                                               function(x) 
+                                                 x %>% select(c("sample_ID", "Fusobacterium", 
+                                                                "Peptostreptococcus", 
+                                                                "Porphyromonas", "Parvimonas")))
+
+# Generate data sets to be used in random forest
+matched_selected_rf_datasets <- sapply(
+  matched_studies, function(x) 
+    assign_disease(x, "study_meta", 
+                   select_matched_matched_genera_list, matched_stool_study_data), simplify = F)
+
+# Run the models
+selected_matched_tissue_final_data <- sapply(
+  matched_studies, 
+  function(x) run_rf_tests(x, matched_selected_rf_datasets, specific_vars = T), simplify = F)
+
+
+# Generate summary data based on rocs
+matched_tissue_selected_pvalue_summaries <- sapply(
+  names(selected_matched_tissue_final_data), 
+  function(x) make_model_comparisons(x, selected_matched_tissue_final_data), simplify = F)
+
+# Generate final overal roc data for plotting
+matched_tissue_selected_all_roc_values <- sapply(
+  names(selected_matched_tissue_final_data), 
+  function(x) make_data_table(selected_matched_tissue_final_data[[x]]), simplify = F)
+
+# Compare the full data roc to the selected data roc and create a nice table
+matched_tissue_test_red_select_models <- t(sapply(
+  matched_studies, function(x) 
+    select_full_comparison(matched_tissue_final_data[[x]][[x]], 
+                           selected_matched_tissue_final_data[[x]][[x]]))) %>% 
+  as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
+  select(study, full_model, select_model, pvalue, BH)
+
+
+##############################################################################################
 ############################## Write out the data ############################################
 ##############################################################################################
 
-# Write out all the necessary data table files
-
+# Write out all the necessary data table files for full models
 sapply(unmatched_studies, 
        function(x) write.csv(unmatched_tissue_pvalue_summaries[[x]], 
                              paste("data/process/tables/genus_unmatched_tissue_RF_", 
@@ -478,15 +582,38 @@ sapply(matched_studies,
                              paste("data/process/tables/genus_matched_tissue_RF_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
-
 sapply(matched_studies, 
        function(x) write.csv(matched_tissue_all_roc_values[[x]], 
                              paste("data/process/tables/genus_matched_tissue_RF_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
-write.csv(test_red_select_models, 
-          "data/process/tables/genus_stool_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+# Write out data table files for select models
+sapply(unmatched_studies, 
+       function(x) write.csv(unmatched_tissue_selected_pvalue_summaries[[x]], 
+                             paste("data/process/tables/genus_unmatched_tissue_RF_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+
+sapply(unmatched_studies, 
+       function(x) write.csv(unmatched_tissue_selected_all_roc_values[[x]], 
+                             paste("data/process/tables/genus_unmatched_tissue_RF_", 
+                                   x, "_raw_roc_data.csv", sep = ""), row.names = F))
+
+sapply(matched_studies, 
+       function(x) write.csv(matched_tissue_selected_pvalue_summaries[[x]], 
+                             paste("data/process/tables/genus_matched_tissue_RF_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
 
+sapply(matched_studies, 
+       function(x) write.csv(matched_tissue_selected_all_roc_values[[x]], 
+                             paste("data/process/tables/genus_matched_tissue_RF_", 
+                                   x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
+# Write out comparisons between full and selected for matched and unmatched samples
+write.csv(unmatched_tissue_test_red_select_models, 
+          "data/process/tables/genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+
+
+write.csv(matched_tissue_test_red_select_models, 
+          "data/process/tables/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
