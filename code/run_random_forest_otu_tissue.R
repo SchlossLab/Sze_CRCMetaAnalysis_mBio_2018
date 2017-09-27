@@ -286,6 +286,52 @@ unmatched_all_comparisons <- NULL
 actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
+# Runs the actual workflow for the unmatched studies
+for(i in unmatched_studies){
+  
+  dataList <- get_data(i = i, tissue_unmatched)
+  
+  disease_dataset <- assign_disease("study_meta", "shared_data", dataList)
+  
+  rf_data <- get_align_info(disease_dataset)
+  
+  actual_model <- sapply(actual_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["train_data"]]), simplify = F) 
+  
+  random_model <- sapply(random_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["rand_data"]]), simplify = F)
+  
+  actual_summary <- sapply(actual_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  random_summary <- sapply(random_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  model_info <- get_min_max(actual_model, random_model, 
+                            actual_summary, random_summary)
+  
+  test <- make_summary_data(i = i, model_info = model_info, rf_data, 
+                            actual_summary, random_summary, "train_data", "rand_data")
+  
+  unmatched_all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
+  
+  unmatched_all_comparisons <- rbind(all_comparisons, 
+                                   as.data.frame.list(
+                                     c(actual_summary %>% summarise(act_mean_auc = mean(ROC, na.rm = T), 
+                                                                    act_sd_auc = sd(ROC, na.rm = T)), 
+                                       random_summary %>% summarise(rand_mean_auc = mean(ROC, na.rm = T), 
+                                                                    rand_sd_auc = sd(ROC, na.rm = T)), 
+                                       pvalue = test[["pvalue"]], study = i)))
+  
+  print(paste("Completed study:", i, "RF testing"))
+}
+
+
+write.csv(unmatched_all_roc_data, "data/process/tables/unmatched_tissue_rf_otu_roc.csv", row.names = F)
+write.csv(unmatched_all_comparisons, "data/process/tables/unmatched_tissue_rf_otu_random_comparison_summary.csv", 
+          row.names = F)
 
 
 
@@ -298,7 +344,7 @@ random_runs <- paste("rand_model_", seq(1:100), sep = "")
 matched_all_roc_data <- NULL
 matched_all_comparisons <- NULL
 
-
+# Runs the actual workflow for the matched studies
 for(i in matched_studies){
   
   dataList <- get_data(i = i, tissue_matched)
