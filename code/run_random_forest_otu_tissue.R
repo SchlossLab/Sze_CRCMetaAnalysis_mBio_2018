@@ -278,22 +278,25 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
 ########################## Code used to run the analysis (unmatched) #########################
 ##############################################################################################
 
-
-
-
-
-##############################################################################################
-########################## Code used to run the analysis (unmatched) #########################
-##############################################################################################
-
-
 # Set up storage variables
-all_roc_data <- NULL
-all_comparisons <- NULL
+unmatched_all_roc_data <- NULL
+unmatched_all_comparisons <- NULL
 
 # Set up direction variables
 actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
+
+
+
+
+##############################################################################################
+########################## Code used to run the analysis (matched) #########################
+##############################################################################################
+
+
+# Set up storage variables
+matched_all_roc_data <- NULL
+matched_all_comparisons <- NULL
 
 
 for(i in matched_studies){
@@ -324,9 +327,9 @@ for(i in matched_studies){
   test <- make_summary_data(i = i, model_info = model_info, rf_data, 
                             actual_summary, random_summary, "train_data", "rand_data")
   
-  all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
+  matched_all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
   
-  all_comparisons <- rbind(all_comparisons, 
+  matched_all_comparisons <- rbind(all_comparisons, 
                            as.data.frame.list(
                              c(actual_summary %>% summarise(act_mean_auc = mean(ROC, na.rm = T), 
                                                             act_sd_auc = sd(ROC, na.rm = T)), 
@@ -338,7 +341,9 @@ for(i in matched_studies){
 }
 
 
-
+write.csv(matched_all_roc_data, "data/process/tables/matched_tissue_rf_otu_roc.csv", row.names = F)
+write.csv(matched_all_comparisons, "data/process/tables/matched_tissue_rf_otu_random_comparison_summary.csv", 
+          row.names = F)
 
 
 
