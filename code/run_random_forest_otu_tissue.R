@@ -315,9 +315,9 @@ for(i in unmatched_studies){
   test <- make_summary_data(i = i, model_info = model_info, rf_data, 
                             actual_summary, random_summary, "train_data", "rand_data")
   
-  unmatched_all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
+  unmatched_all_roc_data <- unmatched_all_roc_data %>% bind_rows(test[["all_data"]])
   
-  unmatched_all_comparisons <- rbind(all_comparisons, 
+  unmatched_all_comparisons <- rbind(unmatched_all_comparisons, 
                                    as.data.frame.list(
                                      c(actual_summary %>% summarise(act_mean_auc = mean(ROC, na.rm = T), 
                                                                     act_sd_auc = sd(ROC, na.rm = T)), 
@@ -373,9 +373,9 @@ for(i in matched_studies){
   test <- make_summary_data(i = i, model_info = model_info, rf_data, 
                             actual_summary, random_summary, "train_data", "rand_data")
   
-  matched_all_roc_data <- all_roc_data %>% bind_rows(test[["all_data"]])
+  matched_all_roc_data <- matched_all_roc_data %>% bind_rows(test[["all_data"]])
   
-  matched_all_comparisons <- rbind(all_comparisons, 
+  matched_all_comparisons <- rbind(matched_all_comparisons, 
                            as.data.frame.list(
                              c(actual_summary %>% summarise(act_mean_auc = mean(ROC, na.rm = T), 
                                                             act_sd_auc = sd(ROC, na.rm = T)), 
