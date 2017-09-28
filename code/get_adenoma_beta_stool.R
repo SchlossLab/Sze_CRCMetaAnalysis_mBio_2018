@@ -93,7 +93,8 @@ make_adonis_test <- function(i, distanceList = reordered_dist,
   # pull only results of interest to be saved
   result_vector <- c(fstat = temptest$aov.tab$F.Model[1], r2 = temptest$aov.tab$R2[1], 
                      pvalue = temptest$aov.tab$`Pr(>F)`[1])
-  
+  # Print out progress
+  print(paste("completed comparing ", i, sep = ""))
   # return the results of interest
   return(result_vector)
 }
@@ -117,14 +118,20 @@ reordered_meta <- mapply(reorder_meta, stool_sets, SIMPLIFY = F)
 # Reorder the distance matrix to match the the metadata length
 reordered_dist <- mapply(reorder_dist, stool_sets, SIMPLIFY = F)
 
+# Generate the total n in each group
+total_compared <- lapply(reordered_meta, function(x) table(x$disease)) %>% 
+  bind_cols() %>% t() %>% as.data.frame() %>% mutate(study = rownames(.)) %>% 
+  rename(control_n = V1, polp_n = V2)
 
 # Get comparisons
 beta_perm_results <- t(mapply(make_adonis_test, stool_sets)) %>% 
-  as.data.frame() %>% mutate(study = rownames(.))
+  as.data.frame() %>% mutate(study = rownames(.)) %>% 
+  inner_join(total_compared, by = "study")
 
 
 # Write out the data
-write.csv(beta_perm_results, "data/process/tables/beta_perm_adn_stool_summary.csv", row.names = F)
+write.csv(beta_perm_results, 
+          "data/process/tables/beta_perm_adn_stool_summary.csv", row.names = F)
 
 
 
