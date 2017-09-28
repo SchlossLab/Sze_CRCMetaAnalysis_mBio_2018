@@ -233,16 +233,26 @@ reordered_unmatched_dist <- mapply(reorder_dist, c("sana", "burns", both_sets),
 reordered_matched_dist <- mapply(reorder_dist, c("dejea", "geng", "burns"), 
                                  "matched_meta", SIMPLIFY = F)
 
+# Generate the total n in each group
+unmatched_total_compared <- lapply(unmatched_meta, function(x) table(x$is_cancer)) %>% 
+  bind_cols() %>% t() %>% as.data.frame() %>% mutate(study = rownames(.)) %>% 
+  rename(crc_n = V1, not_crc_n = V2)
+
+matched_total_compared <- lapply(matched_meta, function(x) table(x$is_cancer)) %>% 
+  bind_cols() %>% t() %>% as.data.frame() %>% mutate(study = rownames(.)) %>% 
+  rename(crc_n = V1, not_crc_n = V2)
 
 # Get comparisons
 beta_perm_unmatched_results <- t(mapply(make_adonis_test, c("sana", "burns", both_sets), 
                                         "reordered_unmatched_dist", "unmatched_meta")) %>% 
-  as.data.frame() %>% mutate(study = rownames(.))
+  as.data.frame() %>% mutate(study = rownames(.)) %>% 
+  inner_join(unmatched_total_compared, by = "study")
 
 
 beta_perm_matched_results <- t(mapply(make_adonis_test, c("dejea", "geng", "burns"), 
                                         "reordered_matched_dist", "matched_meta")) %>% 
-  as.data.frame() %>% mutate(study = rownames(.))
+  as.data.frame() %>% mutate(study = rownames(.)) %>% 
+  inner_join(matched_total_compared, by = "study")
 
 # Get vectors of matched and unmatched values
 
