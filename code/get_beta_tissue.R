@@ -204,12 +204,12 @@ run_wilcox <- function(i, cases, controls){
   
   # Get the respective values to be outputted
   tempData <- c(
-  median_cases = median(cases), 
-  q25_cases = quantile(cases, probs = 0.25), 
-  q75_cases = quantile(cases, probs = 0.75), 
-  median_control = median(control), 
-  q25_control = quantile(control, probs = 0.25), 
-  q75_control = quantile(control, probs = 0.75), 
+  median_w_person = median(cases[[i]]), 
+  q25_w_person = quantile(cases[[i]], probs = 0.25), 
+  q75_w_person = quantile(cases[[i]], probs = 0.75), 
+  median_bw_group = median(controls[[i]]), 
+  q25_bw_group = quantile(controls[[i]], probs = 0.25), 
+  q75_bw_group = quantile(controls[[i]], probs = 0.75), 
   pvalue = wilcox.test(cases[[i]], controls[[i]])$p.value)
   
   # returns the pvalue of the wilcoxson comparison between the two groups
@@ -280,18 +280,18 @@ matched_bray_cases <- mapply(get_bray_dist, c("dejea", "geng", "burns"),
 
 
 # Generate wilcoxson p-values
-bray_distance_matched_test_cont <- mapply(run_wilcox, c("dejea", "geng", "burns"), 
+# this is essentially testing if the matched samples are closer to each other
+# than different samples in the same disease group
+bray_distance_matched_test_cont <- t(as.data.frame(mapply(run_wilcox, c("dejea", "geng", "burns"), 
                "matched_bray_casetocontrol", "matched_bray_controls", 
-               SIMPLIFY = F) %>% bind_rows() %>% 
-  gather(study, value = pvalue, dejea, geng, burns) %>% 
-  mutate(bh = p.adjust(pvalue, method = "BH"))
+               SIMPLIFY = F))) %>% as.data.frame() %>% 
+  mutate(study = rownames(.), bh = p.adjust(pvalue, method = "BH"))
 
 
-bray_distance_matched_test_cases <- mapply(run_wilcox, c("dejea", "geng", "burns"), 
+bray_distance_matched_test_cases <- t(as.data.frame(mapply(run_wilcox, c("dejea", "geng", "burns"), 
                                           "matched_bray_casetocontrol", "matched_bray_cases", 
-                                          SIMPLIFY = F) %>% bind_rows() %>% 
-  gather(study, value = pvalue, dejea, geng, burns) %>% 
-  mutate(bh = p.adjust(pvalue, method = "BH"))
+                                          SIMPLIFY = F))) %>% as.data.frame() %>% 
+  mutate(study = rownames(.), bh = p.adjust(pvalue, method = "BH"))
 
 
 # Write out the relevant data tables 
