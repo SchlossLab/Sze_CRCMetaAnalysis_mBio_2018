@@ -119,7 +119,7 @@ reordered_meta <- mapply(reorder_meta, stool_sets, SIMPLIFY = F)
 reordered_dist <- mapply(reorder_dist, stool_sets, SIMPLIFY = F)
 
 # Generate the total n in each group
-total_compared <- lapply(reordered_meta, function(x) table(x$disease)) %>% 
+total_compared <- lapply(reordered_meta, function(x) table(x$is_adn)) %>% 
   bind_cols() %>% t() %>% as.data.frame() %>% mutate(study = rownames(.)) %>% 
   rename(control_n = V1, polp_n = V2)
 
