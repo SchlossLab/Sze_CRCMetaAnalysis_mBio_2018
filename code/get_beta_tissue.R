@@ -201,8 +201,19 @@ run_wilcox <- function(i, cases, controls){
   # this grabs the distance lists from the global environment
   cases <- get(cases)
   controls <- get(controls)
+  
+  # Get the respective values to be outputted
+  tempData <- c(
+  median_cases = median(cases), 
+  q25_cases = quantile(cases, probs = 0.25), 
+  q75_cases = quantile(cases, probs = 0.75), 
+  median_control = median(control), 
+  q25_control = quantile(control, probs = 0.25), 
+  q75_control = quantile(control, probs = 0.75), 
+  pvalue = wilcox.test(cases[[i]], controls[[i]])$p.value)
+  
   # returns the pvalue of the wilcoxson comparison between the two groups
-  return(wilcox.test(cases[[i]], controls[[i]])$p.value)
+  return(tempData)
   
 }
 
