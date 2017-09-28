@@ -121,7 +121,7 @@ reordered_dist <- mapply(reorder_dist, stool_sets, SIMPLIFY = F)
 # Generate the total n in each group
 total_compared <- lapply(reordered_meta, function(x) table(x$is_adn)) %>% 
   bind_cols() %>% t() %>% as.data.frame() %>% mutate(study = rownames(.)) %>% 
-  rename(control_n = V1, polp_n = V2)
+  rename(polyp_n = V1, control_n = V2)
 
 # Get comparisons
 beta_perm_results <- t(mapply(make_adonis_test, stool_sets)) %>% 
