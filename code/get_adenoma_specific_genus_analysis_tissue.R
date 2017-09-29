@@ -295,12 +295,12 @@ pooled_results <- t(sapply(crc_genera,
 
 
 # Write out the important tables
-write.csv(matched_counts_data, 
+write.csv(counts_data, 
           "data/process/tables/adn_select_genus_tissue_group_counts_summary.csv", 
           row.names = F)
-write.csv(matched_RR_data, "data/process/tables/adn_select_genus_RR_tissue_ind_results.csv", 
+write.csv(RR_data, "data/process/tables/adn_select_genus_RR_tissue_ind_results.csv", 
           row.names = F)
-write.csv(matched_pooled_results, "data/process/tables/adn_select_genus_RR_tissue_composite.csv", 
+write.csv(pooled_results, "data/process/tables/adn_select_genus_RR_tissue_composite.csv", 
           row.names = F)
 
 
