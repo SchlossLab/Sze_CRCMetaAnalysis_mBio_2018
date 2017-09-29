@@ -397,7 +397,7 @@ selected_all_roc_values <- sapply(names(selected_stool_final_data),
                                   function(x) make_data_table(selected_stool_final_data[[x]]), simplify = F)
 
 # Compare the full data roc to the selected data roc and create a nice table
-test_red_select_models <- t(sapply(c(stool_sets, "flemer"), 
+test_red_select_models <- t(sapply(stool_sets, 
                                    function(x) 
                                      select_full_comparison(stool_final_data[[x]][[x]], 
                                                             selected_stool_final_data[[x]][[x]]))) %>% 
@@ -411,7 +411,7 @@ test_red_select_models <- t(sapply(c(stool_sets, "flemer"),
 
 # Write out all the necessary data table files
 
-sapply(c(stool_sets, "flemer"), 
+sapply(stool_sets, 
        function(x) write.csv(pvalue_summaries[[x]], 
                              paste("data/process/tables/genus_stool_RF_full_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
