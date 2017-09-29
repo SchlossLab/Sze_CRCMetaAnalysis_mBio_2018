@@ -377,20 +377,14 @@ all_roc_values <- sapply(names(stool_final_data),
 # reduce the data sets down to only the CRC associated genera
 select_matched_genera_list <- lapply(matched_genera_list, 
                                      function(x) 
-                                       x %>% select(c("sample_ID", "Fusobacterium", 
+                                       x %>% select(c("disease", "Fusobacterium", 
                                                       "Peptostreptococcus", 
                                                       "Porphyromonas", "Parvimonas")))
 
-# Generate data sets to be used in random forest
-selected_rf_datasets <- sapply(c(stool_sets, "flemer"), 
-                               function(x) 
-                                 assign_disease(x, "study_meta", 
-                                                select_matched_genera_list, stool_study_data), simplify = F)
-
 # Run the models
-selected_stool_final_data <- sapply(c(stool_sets, "flemer"), 
-                                    function(x) 
-                                      run_rf_tests(x, selected_rf_datasets, specific_vars = T), simplify = F)
+selected_stool_final_data <- sapply(
+  stool_sets, 
+  function(x) run_rf_tests(x, select_matched_genera_list, specific_vars = T), simplify = F)
 
 
 # Generate summary data based on rocs
