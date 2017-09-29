@@ -413,27 +413,27 @@ test_red_select_models <- t(sapply(stool_sets,
 
 sapply(stool_sets, 
        function(x) write.csv(pvalue_summaries[[x]], 
-                             paste("data/process/tables/genus_stool_RF_full_", 
+                             paste("data/process/tables/adn_genus_stool_RF_full_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
-sapply(c(stool_sets, "flemer"), 
+sapply(stool_sets, 
        function(x) write.csv(all_roc_values[[x]], 
-                             paste("data/process/tables/genus_stool_RF_full_", 
+                             paste("data/process/tables/adn_genus_stool_RF_full_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
-sapply(c(stool_sets, "flemer"), 
+sapply(stool_sets, 
        function(x) write.csv(selected_pvalue_summaries[[x]], 
-                             paste("data/process/tables/genus_stool_RF_select_", 
+                             paste("data/process/tables/adn_genus_stool_RF_select_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
 
-sapply(c(stool_sets, "flemer"), 
+sapply(stool_sets, 
        function(x) write.csv(selected_all_roc_values[[x]], 
-                             paste("data/process/tables/genus_stool_RF_select_", 
+                             paste("data/process/tables/adn_genus_stool_RF_select_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
 write.csv(test_red_select_models, 
-          "data/process/tables/genus_stool_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+          "data/process/tables/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
 
