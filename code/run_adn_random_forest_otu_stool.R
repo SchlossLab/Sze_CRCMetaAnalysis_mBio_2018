@@ -236,15 +236,15 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
   
   # Generate the best and worst roc curves for the actual model
   best_actual_roc <- roc(dataList[[train_name]]$disease ~ 
-                           model_info[["actual_mod"]][["max_model"]][["pred"]][, "cancer"])
+                           model_info[["actual_mod"]][["max_model"]][["pred"]][, "polyp"])
   worst_actual_roc <- roc(dataList[[train_name]]$disease ~ 
-                            model_info[["actual_mod"]][["min_model"]][["pred"]][, "cancer"])
+                            model_info[["actual_mod"]][["min_model"]][["pred"]][, "polyp"])
   
   # Generate the best and worst roc curves for the random model
   best_random_roc <- roc(dataList[[random_name]]$disease ~ 
-                           model_info[["random_mod"]][["max_model"]][["pred"]][, "cancer"])
+                           model_info[["random_mod"]][["max_model"]][["pred"]][, "polyp"])
   worst_random_roc <- roc(dataList[[random_name]]$disease ~ 
-                            model_info[["random_mod"]][["min_model"]][["pred"]][, "cancer"])
+                            model_info[["random_mod"]][["min_model"]][["pred"]][, "polyp"])
   # Generate a p-value on whether the distribution between actual and random are different
   pvalue <- t.test(a_summary$ROC, r_summary$ROC)$p.value
   # Create a final list with all the needed ROC curve data and respective p-value
@@ -289,7 +289,7 @@ actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
 # Iteratively run through each study for stool
-for(i in c("brim")){
+for(i in stool_sets){
   # Gets the respective data
   dataList <- get_data(i = i)
   # merges the needed metadata with the variables to test and creates a random label as well
