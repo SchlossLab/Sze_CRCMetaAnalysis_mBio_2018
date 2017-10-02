@@ -450,7 +450,7 @@ selected_unmatched_stool_final_data <-
 
 
 # Generate summary data based on rocs
-selected_pvalue_summaries <- sapply(
+selected_unmatched_pvalue_summaries <- sapply(
   names(selected_unmatched_stool_final_data), 
   function(x) make_model_comparisons(x, selected_unmatched_stool_final_data), simplify = F)
 
@@ -501,9 +501,40 @@ matched_test_red_select_models <- t(
   select(study, full_model, select_model, pvalue, BH)
 
 
+##############################################################################################
+############################## Write out the data ############################################
+##############################################################################################
+
+# Write out all the necessary data table files
+
+sapply(c(both_sets, tissue_sets), 
+       function(x) write.csv(unmatched_pvalue_summaries[[x]], 
+                             paste("data/process/tables/adn_genus_unmatched_tissue_RF_full_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+
+sapply(c(both_sets, tissue_sets), 
+       function(x) write.csv(unmatched_all_roc_values[[x]], 
+                             paste("data/process/tables/adn_genus_unmatched_tissue_RF_full_", 
+                                   x, "_raw_roc_data.csv", sep = ""), row.names = F))
+
+sapply(c(both_sets, tissue_sets), 
+       function(x) write.csv(selected_unmatched_pvalue_summaries[[x]], 
+                             paste("data/process/tables/adn_genus_unmatched_tissue_RF_select_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
 
+sapply(c(both_sets, tissue_sets), 
+       function(x) write.csv(selected_unmatched_all_roc_values[[x]], 
+                             paste("data/process/tables/adn_genus_unmatched_tissue_RF_select_", 
+                                   x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
+write.csv(
+  unmatched_test_red_select_models, 
+  "data/process/tables/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+
+write.csv(
+  matched_test_red_select_models, 
+  "data/process/tables/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
 
