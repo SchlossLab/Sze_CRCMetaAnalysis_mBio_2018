@@ -77,7 +77,199 @@ assign_disease <- function(metadata_table_name,
   
 }
 
+# Function to apply and get the nzv and preProcess for the training data
+get_align_info <- function(datatable){
+  # datatable is the RF data table (OTU + disease + random) for study of interest
+  
+  # stores the disease vector (it gets removed during processing for some studies)
+  disease <- datatable$disease
+  random_disease <- datatable$random_disease
+  # gets the respective data set i for training
+  training_data <- datatable %>% select(-disease, -random_disease)
+  # Check for columns that have near zero variance
+  nzv <- nearZeroVar(training_data)
+  # check to see if at least one value has near zero variance
+  if(length(nzv) == 0){
+    # No nzv then assign training data to be itself
+    training_data <- training_data
+  } else{
+    
+    # remove columns that have near zero variance
+    training_data <- training_data[, -nzv]
+  }
+  
+  # Re add disease to the training data at the beginning of the data table
+  train_data <- training_data %>% 
+    mutate(disease = disease) %>% 
+    select(disease, everything())
+  # Re add random_disease to the random data at the beginning of the data table
+  random_data <- training_data %>% 
+    mutate(disease = random_disease) %>% 
+    select(disease, everything())
+  # create a final list with the tranformed data, the nzv columns, and the transformations
+  final_info <- list(train_data = train_data, 
+                     rand_data = random_data)
+  # Write out the final data list
+  return(final_info)
+}
 
+
+# Function that will run and create the needed models
+make_rf_model <- function(run_marker, study, train_data){
+  # run_marker is the model iteration that has currently completed
+  # study is a vector for the data set to be used
+  # train_data is the data table to be used for model training
+  
+  # Create a smaller cross-validation amount based on small n present
+  if(study %in% c("weir")){
+    # type of training method to be used (cv stands for cross-validation)
+    method_used <- "cv"
+    
+    #Create Overall specifications for model tuning
+    # number controls fold of cross validation
+    # Repeats control the number of times to run it
+    
+    fitControl <- trainControl(## 10-fold CV
+      method = method_used,
+      number = 2,
+      p = 0.8,
+      classProbs = TRUE, 
+      summaryFunction = twoClassSummary, 
+      savePredictions = "final")
+    # Uses a default 10 fold cross validation if n is not small  
+  } else{
+    # type of method to be used (cv stands for cross-validation)
+    method_used <- "cv"
+    
+    #Create Overall specifications for model tuning
+    # number controls fold of cross validation
+    # Repeats control the number of times to run it
+    
+    fitControl <- trainControl(## 10-fold CV
+      method = method_used,
+      number = 10,
+      p = 0.8, 
+      classProbs = TRUE, 
+      summaryFunction = twoClassSummary, 
+      savePredictions = "final")
+  }
+  
+  
+  
+  # Set the mtry to be based on the number of total variables in data table to be modeled
+  # this formula seems to be an accepted default to use
+  number_try <- round(sqrt(ncol(train_data)))
+  
+  # Set the mtry hyperparameter for the training model
+  tunegrid <- expand.grid(.mtry = number_try)
+  
+  #Train the model
+  training_model <- 
+    train(disease ~ ., data = train_data, 
+          method = "rf", 
+          ntree = 500, 
+          trControl = fitControl,
+          tuneGrid = tunegrid, 
+          metric = "ROC", 
+          na.action = na.omit, 
+          verbose = FALSE)
+  
+  #Print out tracking message
+  print(paste("Completed ", run_marker, " RF model for ", 
+              study, " using ", method_used, sep = ""))
+  
+  # Return the model object
+  return(training_model)
+}
+
+
+# Function to get the min and max models to generate roc curves for
+# actual and random models.
+get_min_max <- function(a_models, r_models, a_summary, r_summary){
+  # a_models is an object with the actual models
+  # r_models is an object with the random models
+  # a_summary is a table with the actual model information for each run (e.g. AUC, sens, etc.)
+  # r_summary is a table with the random model information for each run (e.g. AUC, sens, etc.)
+  
+  # get the min and max AUC for the actual model
+  a_min_row <- as.numeric((a_summary %>% filter(ROC == min(ROC)) %>% select(runs))[, "runs"])
+  a_max_row <- as.numeric((a_summary %>% filter(ROC == max(ROC)) %>% select(runs))[, "runs"])
+  # Get the min and max AUC for the random model
+  r_min_row <- as.numeric((r_summary %>% filter(ROC == min(ROC)) %>% select(runs))[, "runs"])
+  r_max_row <- as.numeric((r_summary %>% filter(ROC == max(ROC)) %>% select(runs))[, "runs"])
+  # Check to see if there are more than one option for best or worse AUC
+  if(length(r_max_row) > 1 | length(r_min_row) > 1 | 
+     length(a_max_row) > 1 | length(a_min_row) > 1){
+    # Takes the first choice if there are multiple to choose from
+    a_min_row <- a_min_row[1]
+    a_max_row <- a_max_row[1]
+    r_min_row <- r_min_row[1]
+    r_max_row <- r_max_row[1]
+    
+  }
+  
+  # Create a summary list with the best and worst model information 
+  # for the actual and random models
+  tempList <- list(
+    actual_mod = list(
+      min_model = a_models[[a_min_row]], 
+      max_model = a_models[[a_max_row]]), 
+    random_mod = list(
+      min_model = r_models[[r_min_row]], 
+      max_model = r_models[[r_max_row]]))
+  # Return the variable to the global work environment
+  return(tempList)
+}
+
+
+
+# Function that generates ROC curves and then compares them to random
+make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,  
+                              train_name, random_name){
+  # i is the study variable
+  # model_info is a list with the best and worst models for the actual and random models
+  # dataList is the list that contains the acutal data that was used to create the models
+  # a_summary is a table with the actual model information for each run (e.g. AUC, sens, etc.)
+  # r_summary is a table with the random model information for each run (e.g. AUC, sens, etc.)
+  # train_name is the name of the training set
+  # random_name is the name of the random set
+  
+  # Generate the best and worst roc curves for the actual model
+  best_actual_roc <- roc(dataList[[train_name]]$disease ~ 
+                           model_info[["actual_mod"]][["max_model"]][["pred"]][, "cancer"])
+  worst_actual_roc <- roc(dataList[[train_name]]$disease ~ 
+                            model_info[["actual_mod"]][["min_model"]][["pred"]][, "cancer"])
+  
+  # Generate the best and worst roc curves for the random model
+  best_random_roc <- roc(dataList[[random_name]]$disease ~ 
+                           model_info[["random_mod"]][["max_model"]][["pred"]][, "cancer"])
+  worst_random_roc <- roc(dataList[[random_name]]$disease ~ 
+                            model_info[["random_mod"]][["min_model"]][["pred"]][, "cancer"])
+  # Generate a p-value on whether the distribution between actual and random are different
+  pvalue <- t.test(a_summary$ROC, r_summary$ROC)$p.value
+  # Create a final list with all the needed ROC curve data and respective p-value
+  finalData <- list(
+    all_data = cbind(
+      sens = c(best_actual_roc$sensitivities, worst_actual_roc$sensitivities, 
+               best_random_roc$sensitivities, worst_random_roc$sensitivities), 
+      spec = c(best_actual_roc$specificities, worst_actual_roc$specificities, 
+               best_random_roc$specificities, worst_random_roc$specificities), 
+      type = c(rep("actual_mod", 
+                   length(c(best_actual_roc$sensitivities, worst_actual_roc$sensitivities))), 
+               rep("random_mod", 
+                   length(c(best_random_roc$sensitivities, worst_random_roc$sensitivities)))), 
+      roc_type = c(rep("best", length(best_actual_roc$sensitivities)), 
+                   rep("worst", length(worst_actual_roc$sensitivities)), 
+                   rep("best", length(best_random_roc$sensitivities)), 
+                   rep("worst", length(worst_random_roc$sensitivities)))) %>% 
+      as.data.frame(., stringsAsFactors = F) %>% 
+      mutate(sens = as.numeric(sens), spec = as.numeric(spec), 
+             study = rep(i, length(spec))), 
+    pvalue = pvalue)
+  # Return the final list back to the global work environment
+  return(finalData)
+  
+}
 
 
 
