@@ -18,11 +18,64 @@ stool_sets <- c("brim", "zeller", "baxter", "hale")
 ############### List of function to allow for the analysis to work ###########################
 ##############################################################################################
 
+# Control function to get all the data, basically runs the above functions in a
+# contained location withouth having to repeat them
+get_data <- function(i){
+  # i is the study of interest
+  
+  # grabs subsampled data and assigns rownames from sample names to table
+  shared_data <- read.delim(paste("data/process/", i, "/", i, ".0.03.subsample.shared", 
+                                  sep = ""), header = T, stringsAsFactors = F) %>% 
+    select(-label, -numOtus)
+  # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
+  study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
+                         "stool", metadata = T) %>% 
+    filter(disease != "cancer", !is.na(disease)) %>% 
+    mutate(sampleID = as.character(sampleID)) %>% 
+    select(sampleID, disease)
+  
+  sub_genera_data <- study_meta %>% 
+    inner_join(shared_data, by = c("sampleID" = "Group")) %>% 
+    select(-sampleID)
+  
+  dataList <- list(shared_data = sub_genera_data, 
+                   study_meta = study_meta, 
+                   column_length = length(colnames(sub_genera_data)))
+  # returns the combined list file
+  return(dataList)
+  
+}
 
 
-
-
-
+# Function that grabs the meta data and replaces sampleID with disease call
+assign_disease <- function(metadata_table_name, 
+                           shared_data_name, fullDataList, randomize = "include"){
+  # metadata_table_name is the variable with the name of the metadata file
+  # shared_data_name is the variable with the name of the shared file
+  # fullDataList is the original created data list
+  
+  # Get the respective metadata file of interest
+  tempMetadata <- fullDataList[[metadata_table_name]]
+  
+  # create a random group label
+  vars_to_sample <-  ifelse(tempMetadata$disease != "polyp", invisible(0), invisible(1))
+  set.seed(12345)
+  random_sample <- sample(vars_to_sample)
+  
+  
+  # Gets transforms sample_ID column into a disease column with control v cancer calls
+  tempData <- fullDataList[[shared_data_name]] %>% 
+    mutate(Group = factor(ifelse(disease == "normal", 
+                          invisible("control"), invisible(disease)), 
+           levels = c("control", "polyp")), 
+           random_disease = factor(ifelse(random_sample == 1, invisible("polyp"), 
+                                          invisible("control")), 
+                                   levels = c("control", "polyp"))) %>% 
+    select(disease, random_disease, everything())
+  # Returns the modified data frame that can be used for RF analysis
+  return(as.data.frame(tempData))
+  
+}
 
 
 
@@ -44,7 +97,7 @@ actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
 # Iteratively run through each study for stool
-for(i in c(stool_sets, "flemer")){
+for(i in c("brim")){
   # Gets the respective data
   dataList <- get_data(i = i)
   # merges the needed metadata with the variables to test and creates a random label as well
