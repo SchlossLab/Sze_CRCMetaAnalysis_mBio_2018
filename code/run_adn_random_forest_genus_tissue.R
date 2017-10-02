@@ -423,9 +423,81 @@ matched_stool_model <- randomForest(disease ~ ., data = matched_rf_datasets[["lu
                                     mtry = round(sqrt(ncol(matched_rf_datasets[["lu"]]))), 
                                     importance = TRUE)
 
+matched_model_rocs <- roc(matched_matched_genera_list$lu$disease ~ 
+                            matched_stool_model$votes[, "polyp"])
+
 # Get important OTUs to the model, are they relevant 
 matched_model_importance_table <- matched_stool_model$importance %>% as.data.frame() %>% 
   mutate(genera = rownames(.)) %>% 
   arrange(desc(abs(MeanDecreaseAccuracy)))
+
+
+##############################################################################################
+############### Run the actual programs to get the data (CRC Specific Genera - unmatched) ####
+##############################################################################################
+
+# reduce the data sets down to only the CRC associated genera
+select_unmatched_matched_genera_list <- lapply(unmatched_matched_genera_list, 
+                                     function(x) 
+                                       x %>% select(c("disease", "Fusobacterium", 
+                                                      "Peptostreptococcus", 
+                                                      "Porphyromonas", "Parvimonas")))
+
+# Run the models
+selected_unmatched_stool_final_data <- 
+  sapply(c(both_sets, tissue_sets),  
+  function(x) run_rf_tests(x, select_unmatched_matched_genera_list, specific_vars = T), simplify = F)
+
+
+# Generate summary data based on rocs
+selected_pvalue_summaries <- sapply(
+  names(selected_unmatched_stool_final_data), 
+  function(x) make_model_comparisons(x, selected_unmatched_stool_final_data), simplify = F)
+
+# Generate final overal roc data for plotting
+selected_unmatched_all_roc_values <- sapply(
+  names(selected_unmatched_stool_final_data), 
+  function(x) make_data_table(selected_unmatched_stool_final_data[[x]]), simplify = F)
+
+# Compare the full data roc to the selected data roc and create a nice table
+unmatched_test_red_select_models <- t(
+  sapply(c(both_sets, tissue_sets), 
+         function(x) 
+           select_full_comparison(unmatched_stool_final_data[[x]][[x]], 
+                                  selected_unmatched_stool_final_data[[x]][[x]]))) %>% 
+  as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
+  select(study, full_model, select_model, pvalue, BH)
+
+##############################################################################################
+############### Run the actual programs to get the data (CRC Specific Genera - matched) ####
+##############################################################################################
+
+# reduce the data sets down to only the CRC associated genera
+select_matched_matched_genera_list <- lapply(
+  matched_matched_genera_list, 
+  function(x) 
+    x %>% 
+    select(c("disease", "Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")) %>% 
+    mutate(disease = as.factor(disease)))
+
+
+# Generate data for each test (study) set
+# Definitely overfit since the classification is 100%
+select_matched_stool_model <- randomForest(disease ~ ., data = select_matched_matched_genera_list[["lu"]], 
+                                    mtry = round(sqrt(ncol(select_matched_matched_genera_list[["lu"]]))), 
+                                    importance = TRUE)
+
+
+select_matched_model_rocs <- roc(matched_matched_genera_list$lu$disease ~ 
+                                   select_matched_stool_model$votes[, "polyp"])
+
+# Compare the full data roc to the selected data roc and create a nice table
+matched_test_red_select_models <- t(
+  sapply(c(tissue_sets), 
+         function(x) 
+           select_full_comparison(matched_model_rocs, 
+                                  select_matched_model_rocs))) %>% 
+  as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
+  select(study, full_model, select_model, pvalue, BH)
 
 
