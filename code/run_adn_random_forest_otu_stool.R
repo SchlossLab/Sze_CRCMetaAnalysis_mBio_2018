@@ -26,7 +26,7 @@ get_data <- function(i){
   # grabs subsampled data and assigns rownames from sample names to table
   shared_data <- read.delim(paste("data/process/", i, "/", i, ".0.03.subsample.shared", 
                                   sep = ""), header = T, stringsAsFactors = F) %>% 
-    select(-label, -numOtus)
+    select(-label, -numOtus) %>% mutate(Group = as.character(Group))
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
                          "stool", metadata = T) %>% 
