@@ -55,7 +55,7 @@ assign_disease <- function(metadata_table_name,
   # fullDataList is the original created data list
   
   # Get the respective metadata file of interest
-  tempMetadata <- fullDataList[[metadata_table_name]]
+  tempMetadata <- fullDataList[[shared_data_name]]
   
   # create a random group label
   vars_to_sample <-  ifelse(tempMetadata$disease != "polyp", invisible(0), invisible(1))
