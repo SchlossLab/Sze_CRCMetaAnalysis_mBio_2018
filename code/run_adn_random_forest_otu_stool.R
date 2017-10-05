@@ -65,7 +65,7 @@ assign_disease <- function(metadata_table_name,
   
   # Gets transforms sample_ID column into a disease column with control v cancer calls
   tempData <- fullDataList[[shared_data_name]] %>% 
-    mutate(Group = factor(ifelse(disease == "normal", 
+    mutate(disease = factor(ifelse(disease == "normal", 
                           invisible("control"), invisible(disease)), 
            levels = c("control", "polyp")), 
            random_disease = factor(ifelse(random_sample == 1, invisible("polyp"), 
