@@ -173,9 +173,9 @@ polyp_pwr_data <- sapply(c(stool_sets, tissue_sets, "flemer_t"),
   bind_rows()
 
 # Write out the needed data
-write.csv(cancer_pwr_data, file="data/process/cancer_predicted_pwr_and_n.csv", 
+write.csv(cancer_pwr_data, file="data/process/tables/cancer_predicted_pwr_and_n.csv", 
           row.names=F)
-write.csv(polyp_pwr_data, file="data/process/adn_predicted_pwr_and_n.csv", 
+write.csv(polyp_pwr_data, file="data/process/tables/adn_predicted_pwr_and_n.csv", 
           row.names=F)
 
 
