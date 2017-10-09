@@ -35,11 +35,24 @@ get_data <- function(i){
                                   sep = ""), header = T, stringsAsFactors = F) %>% 
     select(-label, -numOtus) %>% mutate(Group = as.character(Group))
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
-  study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "tissue", metadata = T) %>% 
-    filter(disease != "cancer", !is.na(disease)) %>% 
-    mutate(sampleID = as.character(sampleID)) %>% 
-    select(sampleID, disease)
+  
+  if(i == "lu"){
+    
+    study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
+                           "tissue", metadata = T) %>% 
+      filter(disease != "cancer", !is.na(disease)) %>% 
+      mutate(sampleID = as.character(sampleID)) %>% 
+      select(sampleID, disease)
+  } else{
+    
+    study_meta <- read.csv("data/process/tables/alpha_tissue_unmatched_data.csv", 
+                           header = T, stringsAsFactors = F) %>% 
+      filter(study == i, disease != "cancer", !is.na(disease)) %>% 
+      mutate(sampleID = group) %>% 
+      select(sampleID, disease)
+    
+  }
+  
   
   sub_genera_data <- study_meta %>% 
     inner_join(shared_data, by = c("sampleID" = "Group")) %>% 
