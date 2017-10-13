@@ -5,7 +5,7 @@
 source("code/functions.R")
 
 # Load in needed libraries
-loadLibs(c("tidyverse", "gridExtra"))
+loadLibs(c("tidyverse", "gridExtra", "viridis", "scales"))
 
 # Load needed data tables (adenoma)
 adn_all_stool <- read_csv("data/process/tables/alpha_adn_RR_composite.csv") %>% 
@@ -35,21 +35,21 @@ crc_all_tissue <- read_csv("data/process/tables/alpha_RR_tissue_composite.csv") 
   mutate(region = c(rep("combined", 3), rep("V3-V5", 3), rep("V1-V2", 6), rep("V5-V6", 3), 
                     rep("V3-V4", 3), rep("V1-V3", 3)))
 
-
-#### zeller = V4 - #CDB38B
-#### hale = V3-V5 - #FFA500
-#### brim = V1-V3 - #8B5A00
-#### baxter = V4 - #CDB38B
-#### weir = V4 - #CDB38B
-#### wang = V3 - #B8860B
-### flemer = V3-V4 - #E3CF57
-### ahn = V3-V4 - #E3CF57
-### lu = V3-V4 - #E3CF57
-### dejea = V3-V5 - #FFA500
-### geng = V1-V2 - #EEEE00
-### sana = V1-V2 - #EEEE00
-### burns = V5-V6 - #C76114
-### chen = V1-V3 - #8B5A00
+### Used the `viridis_pal()(7)` to choose colors to use
+#### zeller = V4 - #440154FF
+#### hale = V3-V5 - #443A83FF
+#### brim = V1-V3 - #31688EFF
+#### baxter = V4 - #440154FF
+#### weir = V4 - #440154FF
+#### wang = V3 - #21908CFF
+### flemer = V3-V4 - #35B779FF
+### ahn = V3-V4 - #35B779FF
+### lu = V3-V4 - #35B779FF
+### dejea = V3-V5 - #443A83FF
+### geng = V1-V2 - #8FD744FF
+### sana = V1-V2 - #8FD744FF
+### burns = V5-V6 - #FDE725FF
+### chen = V1-V3 - #31688EFF
 
 ##############################################################################################
 ############################## List of code to make figures ##################################
@@ -58,7 +58,9 @@ crc_all_tissue <- read_csv("data/process/tables/alpha_RR_tissue_composite.csv") 
 adn_stool_graph <- adn_all_stool %>% 
   mutate(study = factor(study, 
                         levels = c("composite", "zeller", "hale", "brim", "baxter"), 
-                        labels = c( "Combined", "Zeller", "Hale", "Brim", "Baxter"))) %>% 
+                        labels = c( "Combined", "Zeller", "Hale", "Brim", "Baxter")), 
+         region = factor(region, 
+                         levels = c("combined", "V4", "V3-V5", "V1-V3"))) %>% 
   filter(measure == "shannon") %>% 
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
   coord_cartesian(xlim=c(-2.2, 2.2)) + 
@@ -66,7 +68,7 @@ adn_stool_graph <- adn_all_stool %>%
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("A") + 
-  scale_color_manual(values = c( '#000000', '#8B5A00', '#FFA500', '#CDB38B')) + 
+  scale_color_manual(values = c( '#000000', '#440154FF', '#443A83FF', '#31688EFF')) + 
   annotate("text", label = paste("Adenoma (Stool)"), x = -1.8, y = 5.5, size = 1.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
@@ -89,7 +91,7 @@ crc_stool_graph <- crc_all_stool %>%
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("B") + 
-  scale_color_manual(values = c( '#000000', '#B8860B', '#CDB38B', '#E3CF57', '#FFA500')) + 
+  scale_color_manual(values = c('#000000', '#21908CFF', '#440154FF', '#35B779FF', '#443A83FF')) + 
   annotate("text", label = paste("Carcinoma (Stool)"), x = -1.8, y = 8.4, size = 1.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
@@ -99,7 +101,7 @@ crc_stool_graph <- crc_all_stool %>%
 adn_tissue_graph <- adn_all_tissue %>% 
   mutate(study = factor(study, 
                         levels = c("composite", "flemer", "lu"), 
-                        labels = c( "Combined", "Flemer", "Lu"))) %>% 
+                        labels = c( "Combined", "Flemer", "Lu")))  %>% 
   filter(measure == "shannon") %>% 
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
   coord_cartesian(xlim=c(-2.2, 3.2)) + 
@@ -107,7 +109,7 @@ adn_tissue_graph <- adn_all_tissue %>%
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("C") + 
-  scale_color_manual(values = c('#000000', '#E3CF57')) + 
+  scale_color_manual(values = c('#000000', '#35B779FF')) + 
   annotate("text", label = paste("Adenoma (Tissue)"), x = -1.65, y = 3.55, size = 1.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
@@ -127,7 +129,8 @@ crc_tissue_graph <- crc_all_tissue %>%
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("D") + 
-  scale_color_manual(values = c( '#000000', '#EEEE00', '#8B5A00', '#E3CF57', '#FFA500', '#C76114')) + 
+  scale_color_manual(values = c('#000000', '#8FD744FF', '#31688EFF', 
+                                '#35B779FF', '#443A83FF', '#FDE725FF')) + 
   annotate("text", label = paste("Carcinoma (Tissue)"), x = -3.25, y = 7.45, size = 1.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
