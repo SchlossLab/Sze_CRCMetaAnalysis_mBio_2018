@@ -1,4 +1,4 @@
-### Code to create needed alpha diversity RR graphs
+### Code to create needed Shannon diversity RR graphs
 ### Marc Sze
 
 # Load in needed generic functions
@@ -58,21 +58,22 @@ crc_all_tissue <- read_csv("data/process/tables/alpha_RR_tissue_composite.csv") 
 adn_stool_graph <- adn_all_stool %>% 
   mutate(study = factor(study, 
                         levels = c("composite", "zeller", "hale", "brim", "baxter"), 
-                        labels = c( "Combined", "Zeller", "Hale", "Brim", "Baxter")), 
+                        labels = c( "Pooled", "Zeller", "Hale", "Brim", "Baxter")), 
          region = factor(region, 
                          levels = c("combined", "V4", "V3-V5", "V1-V3"))) %>% 
   filter(measure == "shannon") %>% 
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
-  coord_cartesian(xlim=c(-2.2, 2.2)) + 
+  coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("A") + 
   scale_color_manual(values = c( '#000000', '#440154FF', '#443A83FF', '#31688EFF')) + 
-  annotate("text", label = paste("Adenoma (Stool)"), x = -1.8, y = 5.5, size = 1.5) + 
+  annotate("text", label = paste("Adenoma (Stool)"), x = -3.25, y = 5.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+        panel.grid.minor = element_blank(), 
+        axis.text.y = element_text(size = 6))
   
 
 
@@ -80,46 +81,48 @@ crc_stool_graph <- crc_all_stool %>%
   mutate(study = factor(study, 
                         levels = c("composite", "zeller", "weir", "wang", "hale", 
                                    "flemer", "baxter", "ahn"), 
-                        labels = c( "Combined", "Zeller", "Weir", "Wang",  "Hale", 
+                        labels = c( "Pooled", "Zeller", "Weir", "Wang",  "Hale", 
                                     "Flemer", "Baxter", "Ahn")), 
          region = factor(region, 
                          levels = c("combined", "V3", "V4", "V3-V4", "V3-V5"))) %>%  
   filter(measure == "shannon") %>% 
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
-  coord_cartesian(xlim=c(-2.2, 2.2)) + 
+  coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("B") + 
   scale_color_manual(values = c('#000000', '#21908CFF', '#440154FF', '#35B779FF', '#443A83FF')) + 
-  annotate("text", label = paste("Carcinoma (Stool)"), x = -1.8, y = 8.4, size = 1.5) + 
+  annotate("text", label = paste("Carcinoma (Stool)"), x = -3.25, y = 8.3, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+        panel.grid.minor = element_blank(), 
+        axis.text.y = element_text(size = 6))
 
 
 adn_tissue_graph <- adn_all_tissue %>% 
   mutate(study = factor(study, 
                         levels = c("composite", "flemer", "lu"), 
-                        labels = c( "Combined", "Flemer", "Lu")))  %>% 
+                        labels = c( "Pooled", "Flemer", "Lu")))  %>% 
   filter(measure == "shannon") %>% 
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
-  coord_cartesian(xlim=c(-2.2, 3.2)) + 
+  coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("C") + 
   scale_color_manual(values = c('#000000', '#35B779FF')) + 
-  annotate("text", label = paste("Adenoma (Tissue)"), x = -1.65, y = 3.55, size = 1.5) + 
+  annotate("text", label = paste("Adenoma (Tissue)"), x = -3.25, y = 3.45, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+        panel.grid.minor = element_blank(), 
+        axis.text.y = element_text(size = 6))
 
 
 crc_tissue_graph <- crc_all_tissue %>% 
   mutate(study = factor(study, 
                         levels = c("composite", "sana", "geng", "flemer", "dejea", "chen", "burns"), 
-                        labels = c( "Combined", "Sanapareddy", "Geng", "Flemer", "Dejea", "Chen", "Burns")), 
+                        labels = c( "Pooled", "Sanapareddy", "Geng", "Flemer", "Dejea", "Chen", "Burns")), 
          region = factor(region, 
                          levels = c("combined", "V1-V2", "V1-V3", "V3-V4", "V3-V5", "V5-V6"))) %>%  
   filter(measure == "shannon") %>% 
@@ -131,10 +134,11 @@ crc_tissue_graph <- crc_all_tissue %>%
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("D") + 
   scale_color_manual(values = c('#000000', '#8FD744FF', '#31688EFF', 
                                 '#35B779FF', '#443A83FF', '#FDE725FF')) + 
-  annotate("text", label = paste("Carcinoma (Tissue)"), x = -3.25, y = 7.45, size = 1.5) + 
+  annotate("text", label = paste("Carcinoma (Tissue)"), x = -3.25, y = 7.3, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+        panel.grid.minor = element_blank(), 
+        axis.text.y = element_text(size = 6))
 
 
 
@@ -144,7 +148,7 @@ crc_tissue_graph <- crc_all_tissue %>%
 
 shannon_RR <- grid.arrange(adn_stool_graph, crc_stool_graph, adn_tissue_graph, crc_tissue_graph)
 
-ggsave("results/figures/shannon_RR.pdf", shannon_RR, width = 6, height = 6, dpi = 300)
+ggsave("results/figures/shannon_RR.pdf", shannon_RR, width = 8, height = 6, dpi = 300)
 
 
 
