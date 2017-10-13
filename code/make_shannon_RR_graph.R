@@ -5,7 +5,7 @@
 source("code/functions.R")
 
 # Load in needed libraries
-loadLibs(c("tidyverse", "gridExtra", "viridis", "scales"))
+loadLibs(c("tidyverse", "gridExtra", "viridis"))
 
 # Load needed data tables (adenoma)
 adn_all_stool <- read_csv("data/process/tables/alpha_adn_RR_composite.csv") %>% 
