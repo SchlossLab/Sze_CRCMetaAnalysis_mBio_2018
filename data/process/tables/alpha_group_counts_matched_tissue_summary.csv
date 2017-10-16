@@ -1,0 +1,10 @@
+measure,study,high_N,high_Y,low_N,low_Y
+shannon,burns,0,3,3,0
+shannon,dejea,7,7,8,6
+shannon,geng,3,5,5,3
+shannoneven,burns,0,3,3,0
+shannoneven,dejea,7,7,8,6
+shannoneven,geng,3,5,5,3
+sobs,burns,1,2,2,1
+sobs,dejea,8,6,7,7
+sobs,geng,2,6,6,2
