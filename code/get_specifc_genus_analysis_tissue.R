@@ -22,6 +22,9 @@ tissue_sets <- c("dejea", "geng", "sana", "burns")
 # Flemer, Chen
 both_sets <- c("flemer", "chen")
 
+# All tissue studies
+all_studies <- c("burns", "chen", "flemer", "sana", "dejea", "geng")
+
 # CRC genera of interest
 crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
 
@@ -257,6 +260,7 @@ tissue_unmatched <- tissue_unmatched %>%
 # Remove polyp only group
 no_p_tissue_matched <- tissue_matched %>% filter(study != "lu")
 no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu")
+no_p_tissue <- tissue_matched %>% bind_rows(tissue_unmatched) %>% filter(study != "lu")
 
 # Generate RR and data tables for every study
 ind_matched_data <- sapply(c("burns", "dejea", "geng"), 
@@ -264,6 +268,9 @@ ind_matched_data <- sapply(c("burns", "dejea", "geng"),
 
 ind_unmatched_data <- sapply(c("burns", "dejea", "sana", both_sets),  
                              function(x) get_data(x, no_p_tissue_unmatched), simplify = F)
+
+ind_data <- sapply(all_studies,  
+                   function(x) get_data(x, no_p_tissue), simplify = F)
 
 
 # pull the specific genera of interest and merge with the meta data
@@ -280,6 +287,10 @@ unmatched_specific_genera_list <- sapply(
                                   ind_unmatched_data), simplify = F)
 
 
+specific_genera_list <- sapply(all_studies, 
+  function(x) get_specific_genera(x, crc_genera, 
+                                  "sub_genera_data", "study_meta", 
+                                  ind_data), simplify = F)
 
 # Generate the RR for each respective study for each genus of interest
 # Return both counts and results
@@ -294,6 +305,10 @@ unmatched_test_ind_RR <- sapply(
   function(x) analyze_study(x, "disease2", 
                             crc_genera, unmatched_specific_genera_list), simplify = F)
 
+test_ind_RR <- sapply(all_studies, 
+  function(x) analyze_study(x, "disease2", 
+                            crc_genera, specific_genera_list), simplify = F)
+
 
 # Store the results from the individual testing here
 matched_RR_data <- sapply(c("burns", "dejea", "geng"), 
@@ -304,6 +319,10 @@ unmatched_RR_data <- sapply(c("burns", "sana", both_sets),
                           function(x) make_list(x, crc_genera, "test_values", unmatched_test_ind_RR), 
                           simplify = F) %>% bind_rows()
 
+
+RR_data <- sapply(all_studies, 
+                            function(x) make_list(x, crc_genera, "test_values", test_ind_RR), 
+                            simplify = F) %>% bind_rows()
 
 # Store the counts and rearrange the table to be used in the pooled analysis
 matched_counts_data <- sapply(c("burns", "dejea", "geng"), 
@@ -321,6 +340,12 @@ unmatched_counts_data <- sapply(c("burns", "sana", both_sets),
   spread(group, Freq)
 
 
+counts_data <- sapply(all_studies, 
+                                function(x) make_list(x, crc_genera, "data_tbl", 
+                                                      test_ind_RR), simplify = F) %>% 
+  bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
+  spread(group, Freq)
+
 
 # Run the pooled analysis for each respective genera of interest
 matched_pooled_results <- t(sapply(crc_genera, 
@@ -334,6 +359,11 @@ unmatched_pooled_results <- t(sapply(crc_genera,
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
+
+pooled_results <- t(sapply(crc_genera, 
+                                     function(x) run_pooled(x, counts_data))) %>% 
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 # Write out the important tables
 write.csv(matched_counts_data, 
@@ -354,7 +384,14 @@ write.csv(unmatched_pooled_results,
           "data/process/tables/select_genus_RR_unmatched_tissue_composite.csv", 
           row.names = F)
 
-
+write.csv(counts_data, 
+          "data/process/tables/select_genus_tissue_group_counts_summary.csv", 
+          row.names = F)
+write.csv(RR_data, "data/process/tables/select_genus_RR_tissue_ind_results.csv", 
+          row.names = F)
+write.csv(pooled_results, 
+          "data/process/tables/select_genus_RR_tissue_composite.csv", 
+          row.names = F)
 
 
 
