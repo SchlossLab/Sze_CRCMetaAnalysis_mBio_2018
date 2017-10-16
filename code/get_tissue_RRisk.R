@@ -62,7 +62,7 @@ analyze_study <- function(i, group_column, dataset){
   
   # Runs the code to generate high/low calls for the alpha metrics used based on median
   highs_lows <- sapply(c("r_sobs", "r_shannon", "r_shannoneven"), 
-                       function(x) create_high_low(i, x, thresholds, 
+                       function(x) create_high_low(i, x, thresholds[x], 
                                                    "disease", dataset = dataset), simplify = F)
   names(highs_lows) <- c("sobs", "shannon", "shannoneven") # forces names for the list
   # Obtains the individual relative risk and CI for each study
@@ -172,7 +172,7 @@ run_pooled <- function(alpha_d, dataset){
 tissue_unmatched <- 
   tissue_unmatched %>% 
   select(one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")) %>% 
-  filter(study != "lu", study != "dejea")
+  filter(study != "lu")
 
 unmatched_studies <- c("burns", "chen", "flemer", "sana")
 
@@ -211,31 +211,79 @@ write_csv(unmatched_pooled_results, "data/process/tables/alpha_RR_unmatched_tiss
 ############### Run the actual programs to get the data (combined) ###########################
 ##############################################################################################
 
+all_studies <- c("burns", "chen", "flemer", "sana", "dejea", "geng")
+
 # Generate RR and data tables for every study
-ind_study_data <- mapply(analyze_study, c(tissue_sets, both_sets), "disease", SIMPLIFY = F)
+ind_study_data <- sapply(all_studies, 
+                         function(x) analyze_study(x, "disease", no_p_tissue_unmatched), 
+                         simplify = F)
 
 # Pull out the RR for every study
-ind_RR_data <- mapply(make_list, c(tissue_sets, both_sets), "test_values", SIMPLIFY = F) %>% 
+ind_RR_data <- sapply(all_studies, 
+                      function(x) make_list(x, "test_values", ind_study_data), simplify = F) %>% 
   bind_rows()
-
 
 # Pull out the counts for every study and 
 # merge the two different grouping columns together (is.cancer Y/N and high_low low/high)
-ind_counts_data <- mapply(make_list, c(tissue_sets, both_sets), "data_tbl", SIMPLIFY = F) %>% 
+ind_counts_data <- sapply(all_studies, 
+                          function(x) make_list(x, "data_tbl", ind_study_data), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
-
 # Run pooled test
-pooled_results <- t(mapply(run_pooled, c("sobs", "shannon", "shannoneven"), USE.NAMES = F)) %>% 
+pooled_results <- t(sapply(c("sobs", "shannon", "shannoneven"), 
+                           function(x) run_pooled(x, ind_counts_data), USE.NAMES = F)) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
-
 
 # Write out the important tables
 write.csv(ind_counts_data, "data/process/tables/alpha_group_counts_tissue_summary.csv", row.names = F)
 write.csv(ind_RR_data, "data/process/tables/alpha_RR_ind_tissue_results.csv", row.names = F)
 write.csv(pooled_results, "data/process/tables/alpha_RR_tissue_composite.csv", row.names = F)
+
+
+##############################################################################################
+############### Run the actual programs to get the data (unmatched) ##########################
+##############################################################################################
+
+tissue_matched <- 
+  tissue_matched %>% 
+  select(one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")) %>% 
+  filter(study != "lu")
+
+matched_studies <- c("burns", "dejea", "geng")
+
+# Generate RR and data tables for every study
+match_ind_study_data <- sapply(matched_studies, 
+                                 function(x) analyze_study(x, "disease", tissue_matched), 
+                                 simplify = F)
+
+# Pull out the RR for every study
+matched_ind_RR_data <- sapply(matched_studies, 
+                                function(x) make_list(x, "test_values", match_ind_study_data), 
+                                simplify = F) %>% bind_rows()
+
+# Pull out the counts for every study and 
+# merge the two different grouping columns together (is.cancer Y/N and high_low low/high)
+matched_ind_counts_data <- 
+  sapply(matched_studies, 
+         function(x) make_list(x, "data_tbl", match_ind_study_data), simplify = F) %>% 
+  bind_rows %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
+  spread(group, Freq)
+
+# Run pooled test
+matched_pooled_results <- t(sapply(c("sobs", "shannon", "shannoneven"), 
+                                     function(x) run_pooled(x, matched_ind_counts_data), 
+                                     USE.NAMES = F)) %>% 
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
+
+# Write out the important tables
+write_csv(matched_ind_counts_data, 
+          "data/process/tables/alpha_group_counts_matched_tissue_summary.csv")
+write_csv(matched_ind_RR_data, "data/process/tables/alpha_RR_ind_matched_tissue_results.csv")
+write_csv(matched_pooled_results, "data/process/tables/alpha_RR_matched_tissue_composite.csv")
+
 
 
 
