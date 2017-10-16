@@ -9,7 +9,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
+loadLibs(c("tidyverse", "epiR", "metafor"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -43,8 +43,13 @@ combined_tissue <- tissue_unmatched %>%
 # Remove polyp only group
 no_p_tissue_unmatched <- combined_tissue %>% filter(study != "lu")
 
+
+##############################################################################################
+############### List of functions needed to run the analysis #################################
+##############################################################################################
+
 # Function to run the analysis
-analyze_study <- function(i, group_column, dataset = no_p_tissue_unmatched){
+analyze_study <- function(i, group_column, dataset){
   
   working_data <- dataset %>% filter(study == i)
   thresholds <- apply(select(working_data, 
@@ -56,8 +61,9 @@ analyze_study <- function(i, group_column, dataset = no_p_tissue_unmatched){
                              invisible("Y"), invisible("N")), levels = c("Y", "N"))
   
   # Runs the code to generate high/low calls for the alpha metrics used based on median
-  highs_lows <- mapply(create_high_low, i, c("r_sobs", "r_shannon", "r_shannoneven"), thresholds, 
-                       "disease", SIMPLIFY = F)
+  highs_lows <- sapply(c("r_sobs", "r_shannon", "r_shannoneven"), 
+                       function(x) create_high_low(i, x, thresholds, 
+                                                   "disease", dataset = dataset), simplify = F)
   names(highs_lows) <- c("sobs", "shannon", "shannoneven") # forces names for the list
   # Obtains the individual relative risk and CI for each study
   obtained_rr <- lapply(highs_lows, 
@@ -70,7 +76,7 @@ analyze_study <- function(i, group_column, dataset = no_p_tissue_unmatched){
 
 # Function that creates the needed high/low columns
 create_high_low <- function(i, var_of_interest, threshold, grouping, 
-                            dataset = no_p_tissue_unmatched){
+                            dataset){
   # i is the study
   # var_of_interest is the alpha metrics being used
   # threshold is the vector of median values for alpha measures of interest
@@ -107,7 +113,7 @@ run_rr <- function(high_low_vector, disease_vector){
 
 
 # Function to seperate out the table data from the individual analysis data
-pull_data <- function(var_of_int, i, result, datalist = ind_study_data){
+pull_data <- function(var_of_int, i, result, datalist){
   # var_of_int is the alpha measures used e.g. "sobs"
   # i is the study
   # result is the type of data we want either "test_values" or "data_tbl"
@@ -123,21 +129,22 @@ pull_data <- function(var_of_int, i, result, datalist = ind_study_data){
 
 
 # A control function to direct final table creation for ind RR analysis
-make_list <- function(i, result, datalist = ind_study_data){
+make_list <- function(i, result, datalist){
   # i is the study
   # result is they type of data being pulled "test_values" or "data_tbl"
   # datalist is defaulted to ind_study_data to make it easier to work with mapply
   
   # runs the function iteratively to collect the specific data
-  pulled_data <- mapply(pull_data, c("sobs", "shannon", "shannoneven"), 
-                        i, result, SIMPLIFY = F) %>% bind_rows()
+  pulled_data <- sapply(c("sobs", "shannon", "shannoneven"), 
+                        function(x) pull_data(x, i = i, result = result, datalist = datalist), 
+                        simplify = F) %>% bind_rows()
   # returns a nice data table
   return(pulled_data)
 }
 
 
 # Function to run test for selected alpha measure
-run_pooled <- function(alpha_d, dataset = ind_counts_data){
+run_pooled <- function(alpha_d, dataset){
   # alpha_d is the alpha measure of interest
   # dataset is defaulted to ind_counts_data
   
@@ -159,9 +166,50 @@ run_pooled <- function(alpha_d, dataset = ind_counts_data){
 
 
 ##############################################################################################
-############### Run the actual programs to get the data ######################################
+############### Run the actual programs to get the data (unmatched) ##########################
 ##############################################################################################
 
+tissue_unmatched <- 
+  tissue_unmatched %>% 
+  select(one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")) %>% 
+  filter(study != "lu", study != "dejea")
+
+unmatched_studies <- c("burns", "chen", "flemer", "sana")
+
+# Generate RR and data tables for every study
+unmatch_ind_study_data <- sapply(unmatched_studies, 
+                                 function(x) analyze_study(x, "disease", tissue_unmatched), 
+                                 simplify = F)
+
+# Pull out the RR for every study
+unmatched_ind_RR_data <- sapply(unmatched_studies, 
+                                function(x) make_list(x, "test_values", unmatch_ind_study_data), 
+                                simplify = F) %>% bind_rows()
+
+# Pull out the counts for every study and 
+# merge the two different grouping columns together (is.cancer Y/N and high_low low/high)
+unmatched_ind_counts_data <- 
+  sapply(unmatched_studies, 
+         function(x) make_list(x, "data_tbl", unmatch_ind_study_data), simplify = F) %>% 
+  bind_rows %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
+  spread(group, Freq)
+
+# Run pooled test
+unmatched_pooled_results <- t(sapply(c("sobs", "shannon", "shannoneven"), 
+                                   function(x) run_pooled(x, unmatched_ind_counts_data), 
+                                   USE.NAMES = F)) %>% 
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
+
+# Write out the important tables
+write_csv(unmatched_ind_counts_data, 
+          "data/process/tables/alpha_group_counts_unmatched_tissue_summary.csv")
+write_csv(unmatched_ind_RR_data, "data/process/tables/alpha_RR_ind_unmatched_tissue_results.csv")
+write_csv(unmatched_pooled_results, "data/process/tables/alpha_RR_unmatched_tissue_composite.csv")
+
+##############################################################################################
+############### Run the actual programs to get the data (combined) ###########################
+##############################################################################################
 
 # Generate RR and data tables for every study
 ind_study_data <- mapply(analyze_study, c(tissue_sets, both_sets), "disease", SIMPLIFY = F)
