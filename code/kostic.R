@@ -32,5 +32,5 @@ stopifnot(shared$Group == good_meta$sample)
 
 write_tsv(shared, "data/process/kostic/kostic.shared")
 
-write_tsv(good_meta, file="data/process/kostic/kostic.metadata")
+write_tsv(good_meta, "data/process/kostic/kostic.metadata")
  
