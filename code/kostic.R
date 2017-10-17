@@ -8,34 +8,29 @@
 		# 3 = Hispanic
 		# 5 = Asian or Pacific Islander
 
-library("dplyr")
-library("tidyr")
+library("tidyverse")
 
-shared <- read.delim("data/process/ahn/ahn.shared", 
-                     stringsAsFactors=F, header=T)
+shared <- read_tsv("data/process/kostic/combined.unique.good.filter.unique.precluster.pick.pick.opti_mcc.unique_list.shared")
 
-metadata <- read.csv("data/process/ahn/AhnData.csv", stringsAsFactors=F)
-
-demodata <- read.table("data/process/ahn/phs000884.v1.pht004601.v1.p1.c1.Gut_Microbiome_Controls_Subject_Phenotypes.HMB-MDS.txt", 
-                       skip=10, stringsAsFactors=F, header=T) %>% 
-  rename(gap_subject_id_s = dbGaP_Subject_ID)
+metadata <- read_tsv("data/process/kostic/SraRunTable.txt")
 
 #merge demo and meta into one table with variables of interest
-combined_meta <- inner_join(demodata, metadata, by = "gap_subject_id_s") %>% 
-  mutate(white = ifelse(RACE == 1, 1, 0), 
-         disease = ifelse(subject_is_affected_s == "Yes", invisible("cancer"), invisible("control")), 
-         bmi = as.numeric(bmi)) %>% 
-  select(Run_s, disease, AGE, sex_s, bmi) %>% 
-  rename(sample = Run_s, age = AGE, sex = sex_s)
+good_meta <- metadata %>%  
+  mutate(white = NA,  
+         disease = ifelse(isolation_source_s == "Tumor", invisible("cancer"), invisible("control")), 
+         bmi = NA, 
+         age = NA) %>% 
+  select(Run_s, Sample_name_s, white, disease, age, host_sex_s, bmi) %>% 
+  rename(sample = Run_s, sex = host_sex_s)
 
 
-shared <- shared[match(combined_meta$sample, shared$Group), ]
+good_meta <- good_meta %>% slice(match(shared$Group, sample))
 
 
-stopifnot(shared$Group == combined_meta$sample)
+stopifnot(shared$Group == good_meta$sample)
 
 
-write.table(shared, file="data/process/ahn/ahn.shared", quote=F, sep='\t', row.names=F)
+write_tsv(shared, "data/process/kostic/kostic.shared")
 
-write.table(combined_meta, file="data/process/ahn/ahn.metadata", quote=F, sep='\t', row.names=F)
+write_tsv(good_meta, file="data/process/kostic/kostic.metadata")
  
