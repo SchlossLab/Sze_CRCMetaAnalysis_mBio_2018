@@ -21,7 +21,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("tidyverse", "car","rcompanion"))
+loadLibs(c("tidyverse", "car", "rcompanion"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -128,7 +128,7 @@ get_orig_metadata <- function(i){
     data_table <- read.delim(
       paste("data/process/", i, "/", i, ".metadata", sep = ""), 
       header = T, stringsAsFactors = F)
-  } else if(i == "dejea" | i == "geng" | i == "lu"){
+  } else if(i == "dejea" | i == "geng" | i == "kostic"){
     
     if(i == "dejea" | i == "geng"){
       
@@ -137,6 +137,10 @@ get_orig_metadata <- function(i){
       
       data_table <- read.delim(paste("data/process/", i, "/", download_name, sep = ""), 
                                header = T, stringsAsFactors = F)
+    } else if (i == "kostic"){
+      
+      data_table <- read_tsv("data/process/kostic/SraRunTable.txt")
+      
     } else {
       
       download_name <- list.files(path = paste("data/process/", i, sep = ""), 
@@ -152,8 +156,9 @@ get_orig_metadata <- function(i){
                                 pattern = "*.csv")
     wanted_download <- unique(gsub("[0-9]", "", download_names))
     
-    data_table <- read.csv(paste("data/process/", i, "/", wanted_download, sep = ""), 
-                           header = T, stringsAsFactors = F)
+    data_table <- read.csv(paste("data/process/", i, "/", 
+                                 wanted_download[grepl("data", wanted_download, ignore.case = TRUE)], 
+                                 sep = ""), header = T, stringsAsFactors = F)
   }
   
   return(data_table)
