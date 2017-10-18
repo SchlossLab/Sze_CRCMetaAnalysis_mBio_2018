@@ -97,6 +97,20 @@ get_specific_genera <- function(i, genera_to_get, table_name, meta_name,
 }
 
 
+# Function to generate total positives and overalls
+get_select_group_totals <- function(i, select_genera, dataList){
+  
+  tempData <- dataList[[i]] %>% 
+    mutate_at(select_genera, 
+              function(x) ifelse(x > 0, invisible(1), invisible(0))) %>% 
+    mutate(all_four = rowSums(.[, select_genera]), 
+           total_four = rowSums(dataList[[i]][, select_genera]))
+  
+  return(dataList[[i]] %>% mutate(all_four = tempData$all_four, total_four = tempData$total_four))
+  
+}
+
+
 
 # Analyze the data with respect to high low column table
 analyze_study <- function(i, group_column, vec_of_int, dataset){
@@ -292,41 +306,58 @@ specific_genera_list <- sapply(all_studies,
                                   "sub_genera_data", "study_meta", 
                                   ind_data), simplify = F)
 
+
+# Get specific grouping with all the big 4 considered
+mod_matched_specific_genera_list <- sapply(c("burns", "dejea", "geng"), 
+    function(x) get_select_group_totals(x, crc_genera, matched_specific_genera_list), simplify = F)
+
+mod_unmatched_specific_genera_list <- sapply(c("burns", "sana", both_sets), 
+    function(x) get_select_group_totals(x, crc_genera, unmatched_specific_genera_list), simplify = F)
+
+mod_specific_genera_list <- sapply(all_studies, 
+    function(x) get_select_group_totals(x, crc_genera, specific_genera_list), simplify = F)
+
 # Generate the RR for each respective study for each genus of interest
 # Return both counts and results
 matched_test_ind_RR <- sapply(
   c("burns", "dejea", "geng"), 
   function(x) analyze_study(x, "disease", 
-                            crc_genera, matched_specific_genera_list), simplify = F)
+                            c(crc_genera, "all_four", "total_four"), 
+                            mod_matched_specific_genera_list), simplify = F)
 
 
 unmatched_test_ind_RR <- sapply(
   c("burns", "sana", both_sets), 
   function(x) analyze_study(x, "disease2", 
-                            crc_genera, unmatched_specific_genera_list), simplify = F)
+                            c(crc_genera, "all_four", "total_four"), 
+                            mod_unmatched_specific_genera_list), simplify = F)
 
 test_ind_RR <- sapply(all_studies, 
   function(x) analyze_study(x, "disease2", 
-                            crc_genera, specific_genera_list), simplify = F)
+                            c(crc_genera, "all_four", "total_four"), 
+                            mod_specific_genera_list), simplify = F)
 
 
 # Store the results from the individual testing here
 matched_RR_data <- sapply(c("burns", "dejea", "geng"), 
-                      function(x) make_list(x, crc_genera, "test_values", matched_test_ind_RR), 
+                      function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                            "test_values", matched_test_ind_RR), 
                       simplify = F) %>% bind_rows()
 
 unmatched_RR_data <- sapply(c("burns", "sana", both_sets), 
-                          function(x) make_list(x, crc_genera, "test_values", unmatched_test_ind_RR), 
+                          function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                                "test_values", unmatched_test_ind_RR), 
                           simplify = F) %>% bind_rows()
 
 
 RR_data <- sapply(all_studies, 
-                            function(x) make_list(x, crc_genera, "test_values", test_ind_RR), 
+                            function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                                  "test_values", test_ind_RR), 
                             simplify = F) %>% bind_rows()
 
 # Store the counts and rearrange the table to be used in the pooled analysis
 matched_counts_data <- sapply(c("burns", "dejea", "geng"), 
-                          function(x) make_list(x, crc_genera, "data_tbl", 
+                          function(x) make_list(x, c(crc_genera, "all_four", "total_four"), "data_tbl", 
                                                 matched_test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
@@ -334,33 +365,33 @@ matched_counts_data <- sapply(c("burns", "dejea", "geng"),
 
 
 unmatched_counts_data <- sapply(c("burns", "sana", both_sets), 
-                              function(x) make_list(x, crc_genera, "data_tbl", 
+                              function(x) make_list(x, c(crc_genera, "all_four", "total_four"), "data_tbl", 
                                                     unmatched_test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
 
 counts_data <- sapply(all_studies, 
-                                function(x) make_list(x, crc_genera, "data_tbl", 
-                                                      test_ind_RR), simplify = F) %>% 
+                                function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                                      "data_tbl", test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
 
 # Run the pooled analysis for each respective genera of interest
-matched_pooled_results <- t(sapply(crc_genera, 
+matched_pooled_results <- t(sapply(c(crc_genera, "all_four", "total_four"), 
                          function(x) run_pooled(x, matched_counts_data))) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
-unmatched_pooled_results <- t(sapply(crc_genera, 
+unmatched_pooled_results <- t(sapply(c(crc_genera, "all_four", "total_four"), 
                                    function(x) run_pooled(x, unmatched_counts_data))) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 
-pooled_results <- t(sapply(crc_genera, 
+pooled_results <- t(sapply(c(crc_genera, "all_four", "total_four"), 
                                      function(x) run_pooled(x, counts_data))) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
