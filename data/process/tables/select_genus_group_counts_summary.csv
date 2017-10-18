@@ -1,4 +1,11 @@
 "measure","study","high_N","high_Y","low_N","low_Y"
+"all_four","ahn",29,29,119,33
+"all_four","baxter",99,67,271,53
+"all_four","flemer",14,26,23,17
+"all_four","hale",43,4,644,13
+"all_four","wang",4,22,52,24
+"all_four","weir",0,4,4,3
+"all_four","zeller",5,15,82,26
 "Fusobacterium","ahn",19,20,129,42
 "Fusobacterium","baxter",131,65,239,55
 "Fusobacterium","flemer",8,18,29,25
@@ -27,3 +34,10 @@
 "Porphyromonas","wang",7,14,49,32
 "Porphyromonas","weir",0,2,4,5
 "Porphyromonas","zeller",23,17,64,24
+"total_four","ahn",29,29,119,33
+"total_four","baxter",159,84,211,36
+"total_four","flemer",14,26,23,17
+"total_four","hale",43,4,644,13
+"total_four","wang",21,30,35,16
+"total_four","weir",0,4,4,3
+"total_four","zeller",13,25,74,16
