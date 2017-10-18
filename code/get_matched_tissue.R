@@ -21,7 +21,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "rcompanion"))
+loadLibs(c("tidyverse", "car","rcompanion"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
