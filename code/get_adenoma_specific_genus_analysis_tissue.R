@@ -300,15 +300,15 @@ RR_data <- sapply(c(both_sets, tissue_sets),
 
 # Store the counts and rearrange the table to be used in the pooled analysis
 counts_data <- sapply(c(both_sets, tissue_sets), 
-                              function(x) make_list(x, crc_genera, "data_tbl", 
-                                                    test_ind_RR), simplify = F) %>% 
+                              function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                                    "data_tbl", test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
 
 
 # Run the pooled analysis for each respective genera of interest
-pooled_results <- t(sapply(crc_genera, 
+pooled_results <- t(sapply(c(crc_genera, "all_four", "total_four"), 
                                    function(x) run_pooled(x, counts_data))) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
