@@ -1,4 +1,8 @@
 "measure","study","high_N","high_Y","low_N","low_Y"
+"all_four","baxter",40,59,132,139
+"all_four","brim",2,3,4,3
+"all_four","hale",29,14,444,200
+"all_four","zeller",24,16,26,21
 "Fusobacterium","baxter",59,72,113,126
 "Fusobacterium","brim",2,3,4,3
 "Fusobacterium","hale",28,9,445,205
@@ -15,3 +19,7 @@
 "Porphyromonas","brim",2,3,4,3
 "Porphyromonas","hale",0,2,473,212
 "Porphyromonas","zeller",11,12,39,25
+"total_four","baxter",84,101,88,97
+"total_four","brim",3,3,3,3
+"total_four","hale",29,14,444,200
+"total_four","zeller",26,17,24,20

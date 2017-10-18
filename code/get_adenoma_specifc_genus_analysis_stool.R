@@ -86,6 +86,19 @@ get_specific_genera <- function(i, genera_to_get, table_name, meta_name,
   
 }
 
+# Function to generate total positives and overalls
+get_select_group_totals <- function(i, select_genera, dataList){
+  
+  tempData <- dataList[[i]] %>% 
+    mutate_at(select_genera, 
+              function(x) ifelse(x > 0, invisible(1), invisible(0))) %>% 
+    mutate(all_four = rowSums(.[, select_genera]), 
+           total_four = rowSums(dataList[[i]][, select_genera]))
+  
+  return(dataList[[i]] %>% mutate(all_four = tempData$all_four, total_four = tempData$total_four))
+  
+}
+
 ########################################################################################
 ### not possible to power transform to a normal distribution. Too much 0 weighting #####
 ### Main other possibility is to use RR and above/below median value               #####
@@ -120,7 +133,7 @@ analyze_study <- function(i, group_column, vec_of_int, dataset){
 
 # Function that creates the needed high/low columns
 create_high_low <- function(i, threshold, var_of_interest, grouping, 
-                            dataset = specific_genera_list){
+                            dataset = mod_specific_genera_list){
   # i is the study
   # threshold is the vector of median values for alpha measures of interest
   # var_of_interest is the genera being used
@@ -163,7 +176,7 @@ run_rr <- function(high_low_vector, disease_vector){
 
 
 # Function to seperate out the table data from the individual analysis data
-pull_data <- function(var_of_int, i, result, datalist =  test_ind_RR){
+pull_data <- function(var_of_int, i, result, datalist = test_ind_RR){
   # var_of_int is the alpha measures used e.g. "sobs"
   # i is the study
   # result is the type of data we want either "test_values" or "data_tbl"
@@ -227,25 +240,32 @@ specific_genera_list <- sapply(stool_sets,
                                function(x) get_specific_genera(x, crc_genera, 
                                                                "sub_genera_data", "study_meta"))
 
+# Get specific grouping with all the big 4 considered
+mod_specific_genera_list <- sapply(stool_sets, 
+                function(x) get_select_group_totals(x, crc_genera, specific_genera_list), simplify = F)
+
 # Generate the RR for each respective study for each genus of interest
 # Return both counts and results
 test_ind_RR <- sapply(stool_sets, 
-                      function(x) analyze_study(x, "disease",crc_genera, specific_genera_list), 
-                      simplify = F)
+                      function(x) 
+                        analyze_study(x, "disease", c(crc_genera, "all_four", "total_four"), 
+                                      mod_specific_genera_list), simplify = F)
 
 # Store the results from the individual testing here
 ind_RR_data <- sapply(stool_sets, 
-                      function(x) make_list(x, crc_genera, "test_values", test_ind_RR), 
+                      function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                            "test_values", test_ind_RR), 
                       simplify = F) %>% bind_rows()
 
 # Store the counts and rearrange the table to be used in the pooled analysis
 ind_counts_data <- sapply(stool_sets, 
-                          function(x) make_list(x, crc_genera, "data_tbl", test_ind_RR), simplify = F) %>% 
+                          function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                                "data_tbl", test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
 # Run the pooled analysis for each respective genera of interest
-pooled_results <- t(mapply(run_pooled, crc_genera, USE.NAMES = F)) %>% 
+pooled_results <- t(mapply(run_pooled, c(crc_genera, "all_four", "total_four"), USE.NAMES = F)) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
