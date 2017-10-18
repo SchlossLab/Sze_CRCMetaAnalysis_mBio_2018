@@ -11,7 +11,7 @@ loadLibs(c("tidyverse", "car", "rcompanion"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
-tissue_sets <- c("lu", "dejea", "sana", "burns", "geng", "kostic")
+tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
