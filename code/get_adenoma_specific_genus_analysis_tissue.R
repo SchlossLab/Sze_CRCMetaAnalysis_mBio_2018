@@ -117,6 +117,19 @@ get_specific_genera <- function(i, genera_to_get, table_name, meta_name,
 }
 
 
+# Function to generate total positives and overalls
+get_select_group_totals <- function(i, select_genera, dataList){
+  
+  tempData <- dataList[[i]] %>% 
+    mutate_at(select_genera, 
+              function(x) ifelse(x > 0, invisible(1), invisible(0))) %>% 
+    mutate(all_four = rowSums(.[, select_genera]), 
+           total_four = rowSums(dataList[[i]][, select_genera]))
+  
+  return(dataList[[i]] %>% mutate(all_four = tempData$all_four, total_four = tempData$total_four))
+  
+}
+
 # Analyze the data with respect to high low column table
 analyze_study <- function(i, group_column, vec_of_int, dataset){
   # i represents the study 
@@ -264,17 +277,24 @@ specific_genera_list <- sapply(
                                   "sub_genera_data", "study_meta", 
                                   ind_data), simplify = F)
 
+# Get specific grouping with all the big 4 considered
+mod_specific_genera_list <- sapply(c(both_sets, tissue_sets), 
+    function(x) get_select_group_totals(x, crc_genera, specific_genera_list), simplify = F)
+
+
 
 # Generate the RR for each respective study for each genus of interest
 # Return both counts and results
 test_ind_RR <- sapply(
   c(both_sets, tissue_sets), 
   function(x) analyze_study(x, "disease", 
-                            crc_genera, specific_genera_list), simplify = F)
+                            c(crc_genera, "all_four", "total_four"), 
+                            mod_specific_genera_list), simplify = F)
 
 # Store the results from the individual testing here
 RR_data <- sapply(c(both_sets, tissue_sets), 
-                          function(x) make_list(x, crc_genera, "test_values", test_ind_RR), 
+                          function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                                                "test_values", test_ind_RR), 
                           simplify = F) %>% bind_rows()
 
 
