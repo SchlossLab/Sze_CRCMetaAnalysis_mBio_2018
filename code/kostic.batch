@@ -67,7 +67,7 @@ R -e "source('code/kostic.R')"
 
 $tempMothur "#sub.sample(shared=$WORKDIR/kostic.shared, size=1187, label=0.03);
 	dist.shared(shared=$WORKDIR/kostic.shared, calc=braycurtis, label=0.03, subsample=1187, iters=100, processors=8);
-	summary.single(shared=$WORKDIR/kostic.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=11187)"
+	summary.single(shared=$WORKDIR/kostic.shared, calc=nseqs-sobs-shannon-shannoneven, subsample=1187)"
 
 mv $WORKDIR/*.cons.taxonomy $WORKDIR/kostic.taxonomy
 mv $WORKDIR/*0.03.rep.fasta $WORKDIR/kostic.rep.seqs

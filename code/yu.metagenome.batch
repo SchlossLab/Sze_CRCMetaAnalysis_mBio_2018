@@ -7,8 +7,16 @@ DOWNDIR=data/raw/yu_metagenome
 WORKDIR=data/process/yu_metagenome
 
 # The SRA project ID is ERP012177.
+# Might need to use the aspera client download below:
+#ascp -i ~/.aspera/cli/etc/asperaweb_id_dsa.openssh -R ./ -k1 -Tr –l100m anonftp@ftp.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByRun/sra/SRR/SRR304/SRR304976/SRR304976.sra ./
 
 # Download the data set
+# Geoff Example aspera download
+#/home/ghannig/.aspera/cli/bin/ascp -QTr -k 1 -l 1G -i /home/ghannig/.aspera/cli/etc/asperaweb_id_dsa.openssh anonftp@ftp-private.ncbi.nlm.nih.gov:/sra/sra-instant/reads/ByStudy/sra/SRP/SRP002/SRP002163/ ./data/rawreads/
+
+#ascp -QTr -k 1 -l 1G -i /home/marcsze/.aspera/cli/etc/asperaweb_id_dsa.openssh anonftp@ftp-private.ncbi.nlm.nih.gov: /sra/sra-instant/reads/ByStudy/sra/ERP/ERP012/ERP012177
+
+
 wget -r -np -nd -k -P $DOWNDIR ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/ERP/ERP012/ERP012177/
 
 rm $DOWNDIR/*.sra.*
