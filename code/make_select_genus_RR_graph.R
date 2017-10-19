@@ -37,14 +37,20 @@ crc_all_tissue <- read_csv("data/process/tables/select_genus_RR_tissue_composite
 
 adn_stool_graph <- adn_all_stool %>% 
   filter(study == "composite") %>% 
+  mutate(measure = factor(measure, 
+                        levels = c("all_four", "total_four", "Fusobacterium", 
+                                   "Porphyromonas", "Peptostreptococcus", "Parvimonas"), 
+                        labels = c("Increased CRC Associated\nGenera Positivity", 
+                                   "CRC Associated\nGenera Expansion", "Fusobacterium", 
+                                   "Porphyromonas", "Peptostreptococcus", "Parvimonas"))) %>% 
   ggplot(aes(log2(est), measure, xmax=log2(upper), xmin=log2(lower), colour=measure)) + 
   coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("A") + 
-  scale_color_manual(values = c('#8B5A00', '#FFA500', '#FFC125', '#E3CF57')) + 
-  annotate("text", label = paste("Adenoma (Stool)"), x = -2.8, y = 4.4, size = 2.5) + 
+  scale_color_manual(values = c('#000000', '#000000', '#8B5A00', '#FFA500', '#FFC125', '#E3CF57')) + 
+  annotate("text", label = paste("Adenoma (Stool)"), x = -2.8, y = 6.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.6, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -53,14 +59,20 @@ adn_stool_graph <- adn_all_stool %>%
 
 crc_stool_graph <- crc_all_stool %>% 
   filter(study == "composite") %>% 
+  mutate(measure = factor(measure, 
+                          levels = c("all_four", "total_four", "Fusobacterium", 
+                                     "Porphyromonas", "Peptostreptococcus", "Parvimonas"), 
+                          labels = c("Increased CRC Associated\nGenera Positivity", 
+                                     "CRC Associated\nGenera Expansion", "Fusobacterium", 
+                                     "Porphyromonas", "Peptostreptococcus", "Parvimonas"))) %>% 
   ggplot(aes(log2(est), measure, xmax=log2(upper), xmin=log2(lower), colour=measure)) + 
   coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("B") + 
-  scale_color_manual(values = c('#B0171F', '#FF4040', '#CD5C5C', '#FFC1C1')) + 
-  annotate("text", label = paste("Carcinoma (Stool)"), x = -2.8, y = 4.4, size = 2.5) + 
+  scale_color_manual(values = c('#000000', '#000000', '#B0171F', '#FF4040', '#CD5C5C', '#FFC1C1')) + 
+  annotate("text", label = paste("Carcinoma (Stool)"), x = -2.6, y = 6.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.6, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -69,14 +81,20 @@ crc_stool_graph <- crc_all_stool %>%
 
 adn_tissue_graph <- adn_all_tissue %>% 
   filter(study == "composite") %>% 
+  mutate(measure = factor(measure, 
+                          levels = c("all_four", "total_four", "Fusobacterium", 
+                                     "Porphyromonas", "Peptostreptococcus", "Parvimonas"), 
+                          labels = c("Increased CRC Associated\nGenera Positivity", 
+                                     "CRC Associated\nGenera Expansion", "Fusobacterium", 
+                                     "Porphyromonas", "Peptostreptococcus", "Parvimonas"))) %>% 
   ggplot(aes(log2(est), measure, xmax=log2(upper), xmin=log2(lower), colour=measure)) + 
   coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("C") + 
-  scale_color_manual(values = c('#8B5A00', '#FFA500', '#FFC125', '#E3CF57')) + 
-  annotate("text", label = paste("Adenoma (Tissue)"), x = -2.8, y = 4.4, size = 2.5) + 
+  scale_color_manual(values = c('#000000', '#000000', '#8B5A00', '#FFA500', '#FFC125', '#E3CF57')) + 
+  annotate("text", label = paste("Adenoma (Tissue)"), x = -2.6, y = 6.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.6, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -85,14 +103,20 @@ adn_tissue_graph <- adn_all_tissue %>%
 
 crc_tissue_graph <- crc_all_tissue %>% 
   filter(study == "composite") %>% 
+  mutate(measure = factor(measure, 
+                          levels = c("all_four", "total_four", "Fusobacterium", 
+                                     "Porphyromonas", "Peptostreptococcus", "Parvimonas"), 
+                          labels = c("Increased CRC Associated\nGenera Positivity", 
+                                     "CRC Associated\nGenera Expansion", "Fusobacterium", 
+                                     "Porphyromonas", "Peptostreptococcus", "Parvimonas"))) %>% 
   ggplot(aes(log2(est), measure, xmax=log2(upper), xmin=log2(lower), colour=measure)) + 
   coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("D") + 
-  scale_color_manual(values = c('#B0171F', '#FF4040', '#CD5C5C', '#FFC1C1')) + 
-  annotate("text", label = paste("Carcinoma (Tissue)"), x = -2.8, y = 4.4, size = 2.5) + 
+  scale_color_manual(values = c('#000000', '#000000', '#B0171F', '#FF4040', '#CD5C5C', '#FFC1C1')) + 
+  annotate("text", label = paste("Carcinoma (Tissue)"), x = -2.5, y = 6.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.6, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
