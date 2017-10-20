@@ -70,13 +70,13 @@ generate_select_OTUS <- function(study, specific_genera, file_path, ending){
 
 # Control function to get all the data, basically runs the above functions in a
 # contained location withouth having to repeat them
-get_data <- function(i, metadata){
+get_data <- function(i, metadata, otu_list){
   # i is the study of interest
   
   # grabs subsampled data and assigns rownames from sample names to table
-  shared_data <- read.delim(paste("data/process/", i, "/", i, ".0.03.subsample.shared", 
-                                  sep = ""), header = T, stringsAsFactors = F) %>% 
-    select(-label, -numOtus)
+  shared_data <- read_tsv(paste("data/process/", i, "/", i, ".0.03.subsample.shared", sep = "")) %>% 
+    select(-label, -numOtus) %>% 
+    select(Group, one_of(otu_list[[i]]))
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- metadata %>% filter(study == i)
   
@@ -296,18 +296,123 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
 }
 
 
+##############################################################################################
+########################## Generate the OTUS to keep ############### #########################
+##############################################################################################
+
+select_OTUs <- sapply(studies, function(x) generate_select_OTUS(
+  x, crc_genera, "data/process/", ".taxonomy"), simplify = F)
 
 ##############################################################################################
 ########################## Code used to run the analysis (unmatched) #########################
 ##############################################################################################
 
+# Set up storage variables
+unmatched_all_roc_data <- NULL
+unmatched_all_comparisons <- NULL
 
-select_OTUs <- sapply(studies, function(x) generate_select_OTUS(
-  x, crc_genera, "data/process/", ".taxonomy"), simplify = F)
+# Set up direction variables
+actual_runs <- paste("act_model_", seq(1:100), sep = "")
+random_runs <- paste("rand_model_", seq(1:100), sep = "")
+
+for(i in unmatched_studies){
   
+  dataList <- get_data(i = i, tissue_unmatched, select_OTUs)
+  
+  disease_dataset <- assign_disease("study_meta", "shared_data", dataList)
+  
+  rf_data <- get_align_info(disease_dataset)
+  
+  actual_model <- sapply(actual_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["train_data"]]), simplify = F) 
+  
+  random_model <- sapply(random_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["rand_data"]]), simplify = F)
+  
+  actual_summary <- sapply(actual_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  random_summary <- sapply(random_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  model_info <- get_min_max(actual_model, random_model, 
+                            actual_summary, random_summary)
+  
+  test <- make_summary_data(i = i, model_info = model_info, rf_data, 
+                            actual_summary, random_summary, "train_data", "rand_data")
+  
+  unmatched_all_roc_data <- unmatched_all_roc_data %>% bind_rows(test[["all_data"]])
+  
+  unmatched_all_comparisons <- rbind(unmatched_all_comparisons, 
+                                     as.data.frame.list(
+                                       c(actual_summary %>% summarise(act_mean_auc = mean(ROC, na.rm = T), 
+                                                                      act_sd_auc = sd(ROC, na.rm = T)), 
+                                         random_summary %>% summarise(rand_mean_auc = mean(ROC, na.rm = T), 
+                                                                      rand_sd_auc = sd(ROC, na.rm = T)), 
+                                         pvalue = test[["pvalue"]], study = i)))
+  
+  print(paste("Completed study:", i, "RF testing"))
+  
+}
+
+write_csv(unmatched_all_roc_data, "data/process/tables/unmatched_tissue_rf_select_otu_roc.csv")
+write_csv(unmatched_all_comparisons, 
+          "data/process/tables/unmatched_tissue_rf_select_otu_random_comparison_summary.csv")
+
 
 ##############################################################################################
 ########################## Code used to run the analysis (matched) #########################
 ##############################################################################################
 
+# Set up storage variables
+matched_all_roc_data <- NULL
+matched_all_comparisons <- NULL
 
+# Runs the actual workflow for the matched studies
+for(i in matched_studies){
+  
+  dataList <- get_data(i = i, tissue_matched, select_OTUs)
+  
+  disease_dataset <- assign_disease("study_meta", "shared_data", dataList)
+  
+  rf_data <- get_align_info(disease_dataset)
+  
+  actual_model <- sapply(actual_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["train_data"]]), simplify = F) 
+  
+  random_model <- sapply(random_runs, 
+                         function(x) make_rf_model(x, i, rf_data[["rand_data"]]), simplify = F)
+  
+  actual_summary <- sapply(actual_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  random_summary <- sapply(random_model, 
+                           function(x) x$results, simplify = F) %>% bind_rows() %>% 
+    mutate(runs = rownames(.))
+  
+  model_info <- get_min_max(actual_model, random_model, 
+                            actual_summary, random_summary)
+  
+  test <- make_summary_data(i = i, model_info = model_info, rf_data, 
+                            actual_summary, random_summary, "train_data", "rand_data")
+  
+  matched_all_roc_data <- matched_all_roc_data %>% bind_rows(test[["all_data"]])
+  
+  matched_all_comparisons <- rbind(matched_all_comparisons, 
+                                   as.data.frame.list(
+                                     c(actual_summary %>% summarise(act_mean_auc = mean(ROC, na.rm = T), 
+                                                                    act_sd_auc = sd(ROC, na.rm = T)), 
+                                       random_summary %>% summarise(rand_mean_auc = mean(ROC, na.rm = T), 
+                                                                    rand_sd_auc = sd(ROC, na.rm = T)), 
+                                       pvalue = test[["pvalue"]], study = i)))
+  
+  print(paste("Completed study:", i, "RF testing"))
+}
+
+
+write_csv(matched_all_roc_data, "data/process/tables/matched_tissue_rf_select_otu_roc.csv")
+write_csv(matched_all_comparisons, 
+          "data/process/tables/matched_tissue_rf_select_otu_random_comparison_summary.csv")
