@@ -25,23 +25,6 @@ stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "hale")
 # Ignore chen for stool since there is only one case
 both_sets <- c("chen", "flemer")
 
-# Specific Genera OTUs should belong to
-crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
-
-# Function to read in taxonomies and pull specific OTUs within specific Taxa
-generate_select_OTUS <- function(study, specific_genera, file_path, ending){
-  
-  tempData <- read_tsv(paste(file_path, study, "/", study, ending, sep = "")) %>% 
-    mutate(Taxonomy = gsub("\\(\\d*\\)", "", Taxonomy)) %>% 
-    separate(Taxonomy, c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species")) %>% 
-    filter(Genus %in% specific_genera)
-  
-  tempList <- as.data.frame(tempData)[, "OTU"]
-  
-  
-  return(tempList)
-  
-}
 
 # Control function to get all the data, basically runs the above functions in a
 # contained location withouth having to repeat them
