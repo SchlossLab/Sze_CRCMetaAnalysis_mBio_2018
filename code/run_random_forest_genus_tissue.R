@@ -590,23 +590,23 @@ sapply(matched_studies,
 # Write out data table files for select models
 sapply(unmatched_studies, 
        function(x) write.csv(unmatched_tissue_selected_pvalue_summaries[[x]], 
-                             paste("data/process/tables/genus_unmatched_tissue_RF_", 
+                             paste("data/process/tables/genus_unmatched_tissue_RF_select_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
 sapply(unmatched_studies, 
        function(x) write.csv(unmatched_tissue_selected_all_roc_values[[x]], 
-                             paste("data/process/tables/genus_unmatched_tissue_RF_", 
+                             paste("data/process/tables/genus_unmatched_tissue_RF_select_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
 sapply(matched_studies, 
        function(x) write.csv(matched_tissue_selected_pvalue_summaries[[x]], 
-                             paste("data/process/tables/genus_matched_tissue_RF_", 
+                             paste("data/process/tables/genus_matched_tissue_RF_select_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
 
 sapply(matched_studies, 
        function(x) write.csv(matched_tissue_selected_all_roc_values[[x]], 
-                             paste("data/process/tables/genus_matched_tissue_RF_", 
+                             paste("data/process/tables/genus_matched_tissue_RF_select_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
 # Write out comparisons between full and selected for matched and unmatched samples
