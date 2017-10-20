@@ -307,9 +307,6 @@ all_comparisons <- NULL
 actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
-select_OTUs <- sapply(c(stool_sets, "flemer"), function(x) generate_select_OTUS(
-  x, crc_genera, "data/process/", ".taxonomy"), simplify = F)
-
 # Iteratively run through each study for stool
 for(i in c(stool_sets, "flemer")){
   # Gets the respective data
