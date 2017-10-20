@@ -25,8 +25,23 @@ stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "hale")
 # Ignore chen for stool since there is only one case
 both_sets <- c("chen", "flemer")
 
+# Specific Genera OTUs should belong to
+crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
 
-
+# Function to read in taxonomies and pull specific OTUs within specific Taxa
+generate_select_OTUS <- function(study, specific_genera, file_path, ending){
+  
+  tempData <- read_tsv(paste(file_path, study, "/", study, ending, sep = "")) %>% 
+    mutate(Taxonomy = gsub("\\(\\d*\\)", "", Taxonomy)) %>% 
+    separate(Taxonomy, c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species")) %>% 
+    filter(Genus %in% specific_genera)
+  
+  tempList <- as.data.frame(tempData)[, "OTU"]
+  
+  
+  return(tempList)
+  
+}
 
 # Control function to get all the data, basically runs the above functions in a
 # contained location withouth having to repeat them
@@ -34,8 +49,8 @@ get_data <- function(i){
   # i is the study of interest
   
   # grabs subsampled data and assigns rownames from sample names to table
-  shared_data <- read.delim(paste("data/process/", i, "/", i, ".0.03.subsample.shared", 
-                                  sep = ""), header = T, stringsAsFactors = F) %>% 
+  shared_data <- read_tsv(paste("data/process/", i, "/", i, ".0.03.subsample.shared", 
+                                  sep = "")) %>% 
     select(-label, -numOtus)
 
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
@@ -113,7 +128,7 @@ get_align_info <- function(datatable){
   # Check for columns that have near zero variance
   nzv <- nearZeroVar(training_data)
   # check to see if at least one value has near zero variance
-  if(length(nzv) == 0){
+  if(length(nzv) == 0 | length(nzv) == length(colnames(training_data))){
     # No nzv then assign training data to be itself
     training_data <- training_data
   } else{
@@ -309,10 +324,13 @@ all_comparisons <- NULL
 actual_runs <- paste("act_model_", seq(1:100), sep = "")
 random_runs <- paste("rand_model_", seq(1:100), sep = "")
 
+select_OTUs <- sapply(c(stool_sets, "flemer"), function(x) generate_select_OTUS(
+  x, crc_genera, "data/process/", ".taxonomy"), simplify = F)
+
 # Iteratively run through each study for stool
 for(i in c(stool_sets, "flemer")){
   # Gets the respective data
-  dataList <- get_data(i = i)
+  dataList <- get_data(i = i, select_OTUs)
   # merges the needed metadata with the variables to test and creates a random label as well
   disease_dataset <- assign_disease("study_meta", "shared_data", dataList)
   # makes sure all the genera are the same for every data set to be tested
@@ -354,8 +372,8 @@ for(i in c(stool_sets, "flemer")){
 
 
 # Write out the relevant data frames
-write.csv(all_roc_data, "data/process/tables/stool_rf_otu_roc.csv", row.names = F)
-write.csv(all_comparisons, "data/process/tables/stool_rf_otu_random_comparison_summary.csv", 
+write.csv(all_roc_data, "data/process/tables/stool_rf_select_tu_roc.csv", row.names = F)
+write.csv(all_comparisons, "data/process/tables/stool_rf_select_otu_random_comparison_summary.csv", 
           row.names = F)
 
 
