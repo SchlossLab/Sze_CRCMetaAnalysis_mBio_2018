@@ -108,7 +108,8 @@ get_align_info <- function(datatable){
   # Check for columns that have near zero variance
   nzv <- nearZeroVar(training_data)
   # check to see if at least one value has near zero variance
-  if(length(nzv) == 0 | length(nzv) == length(colnames(training_data))){
+  if(length(nzv) == 0 | length(nzv) == length(colnames(training_data)) | 
+     length(nzv) == length(colnames(training_data)) - 1){
     # No nzv then assign training data to be itself
     training_data <- training_data
   } else{
