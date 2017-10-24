@@ -6,7 +6,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "caret", "pROC"))
+loadLibs(c("tidyverse", "caret", "pROC"))
 
 
 # Stool Only polyp sets
