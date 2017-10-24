@@ -16,7 +16,8 @@ tissue_sets <- c("dejea", "sana", "burns", "geng")
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
 # Ignore brim since it only has polyps
-stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "hale")
+# Ignore weir since none have nzv
+stool_sets <- c("wang", "ahn", "zeller", "baxter", "hale")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -198,7 +199,7 @@ make_rf_model <- function(run_marker, study, train_data){
   
   # Set the mtry to be based on the number of total variables in data table to be modeled
   # this formula seems to be an accepted default to use
-  number_try <- round(sqrt(ncol(train_data)))
+  number_try <- round(sqrt(ncol(select(train_data, contains("Otu")))))
   
   # Set the mtry hyperparameter for the training model
   tunegrid <- expand.grid(.mtry = number_try)
