@@ -23,7 +23,11 @@ adn_all_stool <- read_csv("data/process/tables/adn_stool_rf_otu_random_compariso
   mutate(model_type = "full") %>% 
   bind_rows(read_csv("data/process/tables/adn_stool_rf_select_otu_random_comparison_summary.csv") %>% 
               mutate(model_type = "select")) %>% 
-  gather(key = measure_type, value = AUC, act_mean_auc, rand_mean_auc)
+  gather(key = measure_type, value = AUC, act_mean_auc, rand_mean_auc, act_sd_auc, rand_sd_auc) %>% 
+  separate(measure_type, c("model", "measure_type", "X1")) %>% 
+  select(-X1) %>% 
+  spread(key = measure_type, value = AUC) %>% 
+  rename(AUC = mean, deviation = sd)
 
 # Load in needed data tables (carcinoma)
 crc_tissue_matched <- read_csv("data/process/tables/matched_tissue_rf_otu_random_comparison_summary.csv") %>% 
@@ -69,7 +73,7 @@ crc_all_stool <- read_csv("data/process/tables/stool_rf_otu_random_comparison_su
 # weir - #24878EFF
 # ahn - #40BC72FF
 
-adn_tissue %>% 
+adn_tissue_graph <- adn_tissue %>% 
   mutate(type = factor(type, 
                        levels = c("unmatched", "matched"), 
                        labels = c("Unmatched Tissue", "Matched Tissue")), 
@@ -78,15 +82,14 @@ adn_tissue %>%
                              labels = c("All Genera", "CRC Associated\nGenera Only")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
-                        labels = c("Flemer", "Lu"))) %>% 
+                        labels = c("Flemer", "Lu\n(matched)"))) %>% 
   filter(grepl("rand", model) != T) %>% 
-  ggplot(aes(model_type, AUC, color = study, group = study)) + 
-  stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
-               colour = "black", geom = "crossbar", size = 0.5, width = 0.5) +
+  ggplot(aes(study, AUC, color = study, group = study)) + 
   geom_point(size = 3.5, show.legend = F) + 
   geom_errorbar(aes(ymin = AUC-deviation, ymax = AUC+deviation), 
                 width = 0.25, size = 0.7, show.legend = F) + 
-  geom_line(show.legend = F) + facet_grid(. ~ type) + coord_cartesian(ylim = c(0, 1.05)) + 
+  geom_hline(yintercept = 0.5, linetype = "dashed") + 
+  facet_grid(. ~ model_type) + coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
                      values = c('#440154FF', '#FDE725FF')) + 
@@ -97,6 +100,30 @@ adn_tissue %>%
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
 
+
+adn_stool_graph <- adn_all_stool %>% 
+  mutate(model_type = factor(model_type, 
+                             levels = c("full", "select"), 
+                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+         study = factor(study, 
+                        levels = c("baxter", "brim", "hale", "zeller"), 
+                        labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
+  filter(grepl("rand", model) != T) %>% 
+  ggplot(aes(study, AUC, color = study, group = study)) + 
+  geom_point(size = 3.5, show.legend = F) + 
+  geom_errorbar(aes(ymin = AUC-deviation, ymax = AUC+deviation), 
+                width = 0.25, size = 0.7, show.legend = F) + 
+  geom_hline(yintercept = 0.5, linetype = "dashed") + 
+  coord_cartesian(ylim = c(0, 1.05)) + 
+  facet_grid(. ~ model_type) + 
+  labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
+  scale_color_manual(name = "Study", 
+                     values = c('#481D6FFF', '#1F998AFF', '#67CC5CFF', '#FDE725FF')) + 
+  annotate("text", label = paste("Adenoma (Stool)"), x = 0.80, y = 1.09, size = 2.5) + 
+  theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        axis.text.y = element_text(size = 10))
 
 
 ##############################################################################################
