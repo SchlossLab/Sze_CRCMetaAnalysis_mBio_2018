@@ -10,11 +10,31 @@ loadLibs(c("tidyverse", "gridExtra", "viridis"))
 
 # Load needed data tables (adenoma)
 adn_tissue <- read_csv("data/process/tables/adn_tissue_rf_otu_random_comparison_summary.csv") %>% 
-  mutate(type = c("matched", "unmatched"))
+  mutate(type = c("matched", "unmatched"), model_type = "full") %>% 
+  bind_rows(read_csv("data/process/tables/adn_tissue_rf_select_otu_random_comparison_summary.csv") %>% 
+              mutate(type = c("matched", "unmatched"), model_type = "select"))
 
 adn_all_stool <- read_csv("data/process/tables/adn_stool_rf_otu_random_comparison_summary.csv") %>% 
+  mutate(model_type = "full") %>% 
+  bind_rows(read_csv("data/process/tables/adn_stool_rf_select_otu_random_comparison_summary.csv") %>% 
+              mutate(model_type = "select"))
 
 # Load in needed data tables (carcinoma)
+crc_tissue_matched <- read_csv("data/process/tables/matched_tissue_rf_otu_random_comparison_summary.csv") %>% 
+  mutate(type = "matched", model_type = "full") %>% 
+  bind_rows(read_csv("data/process/tables/matched_tissue_rf_select_otu_random_comparison_summary.csv") %>% 
+              mutate(type = "matched", model_type = "select"))
+
+crc_tissue_unmatched <- 
+  read_csv("data/process/tables/unmatched_tissue_rf_otu_random_comparison_summary.csv") %>% 
+  mutate(type = "unmatched", model_type = "full") %>% 
+  bind_rows(read_csv("data/process/tables/unmatched_tissue_rf_select_otu_random_comparison_summary.csv") %>% 
+              mutate(type = "unmatched", model_type = "select"))
+
+crc_all_stool <- read_csv("data/process/tables/stool_rf_otu_random_comparison_summary.csv") %>% 
+  mutate(model_type = "full") %>% 
+  bind_rows(read_csv("data/process/tables/stool_rf_select_otu_random_comparison_summary.csv") %>% 
+              mutate(model_type = "select"))
 
 
 
