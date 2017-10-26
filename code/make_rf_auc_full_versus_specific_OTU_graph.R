@@ -110,7 +110,7 @@ adn_tissue_graph <- adn_tissue %>%
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
                      values = c('#440154FF', '#FDE725FF')) + 
-  annotate("text", label = paste("Adenoma"), x = 2.55, y = 0.04, size = 2.5) + 
+  annotate("text", label = paste("Adenoma"), x = 2.5, y = 0.06, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
@@ -137,7 +137,7 @@ adn_stool_graph <- adn_all_stool %>%
   scale_color_manual(name = "Study", 
                      values = c('#481D6FFF', '#1F998AFF', '#67CC5CFF', '#FDE725FF')) + 
   annotate("text", label = paste("Adenoma (Stool)"), x = 4.5, y = 0.1, size = 2.5) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+  theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -165,8 +165,8 @@ crc_tissue_graph <- crc_all_tissue %>%
   scale_color_manual(name = "Study", 
                      values = c('#1F998AFF', '#CBE11EFF', '#440154FF', '#2B748EFF', 
                                 '#3D4D8AFF', '#453581FF', '#453581FF')) + 
-  annotate("text", label = paste("Cancer"), x = 0.6, y = 1.07, size = 2.5) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
+  annotate("text", label = paste("Cancer"), x = 7.35, y = 0.03, size = 2.5) + 
+  theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -174,7 +174,7 @@ crc_tissue_graph <- crc_all_tissue %>%
 
 
 
-crc_all_stool %>% 
+crc_stool_graph <- crc_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
                              labels = c("All Genera", "CRC Associated\nGenera Only")), 
@@ -193,8 +193,8 @@ crc_all_stool %>%
   scale_color_manual(name = "Study", 
                      values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#67CC5CFF', 
                                 '#440154FF', '#481D6FFF', '#40BC72FF')) + 
-  annotate("text", label = paste("Cancer (Stool)"), x = 7.45, y = 0.08, size = 2.5) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+  annotate("text", label = paste("Cancer (Stool)"), x = 7.4, y = 0.08, size = 2.5) + 
+  theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -205,6 +205,17 @@ crc_all_stool %>%
 ############### Run the actual programs to make the figure ###################################
 ##############################################################################################
 
+
+tissue_auc_graph <- grid.arrange(adn_tissue_graph, crc_tissue_graph)
+
+
+stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph)
+
+ggsave("results/figures/tissue_otu_all_v_specific.pdf", 
+       tissue_auc_graph, width = 7, height = 6, dpi = 300)
+
+ggsave("results/figures/stool_otu_all_v_specific.pdf", 
+       stool_auc_graph, width = 7, height = 6, dpi = 300)
 
 
 
