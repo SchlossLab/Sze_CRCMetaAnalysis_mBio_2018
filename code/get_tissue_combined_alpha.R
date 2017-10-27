@@ -202,7 +202,7 @@ mapply(make_the_tables,
        c("unmatched_ttest_tissue", "matched_ttest_tissue", "unmatched_tukey_results", 
          "unmatched_mixeffect_results", "matched_mixeffect_results"))
 
-
-
+write_csv(good_tissue_matched, "data/process/tables/matched_tissue_normalized_alpha_all_data.csv")
+write_csv(tissue_unmatched, "data/process/tables/unmatched_tissue_normalized_alpha_all_data.csv")
 
 
