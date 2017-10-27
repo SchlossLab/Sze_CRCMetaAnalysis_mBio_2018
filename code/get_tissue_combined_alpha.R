@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4"))
+loadLibs(c("tidyverse", "car", "lme4"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -24,11 +24,18 @@ both_sets <- c("flemer", "chen")
 
 tissue_matched <- read.csv("data/process/tables/alpha_tissue_matched_data.csv", 
                            header = T, stringsAsFactors = F) %>% 
-  mutate(matchings = ifelse(disease == "cancer" | disease == "polyp", 1, 0))
+  mutate(matchings = ifelse(disease == "cancer" | disease == "polyp", 1, 0), 
+         v_region = ifelse(study == "burns", invisible("V5-6"), 
+                           ifelse(study == "dejea", invisible("V3-5"), 
+                                  ifelse(study == "lu", invisible("V3-4"), invisible("V1-2")))))
 
 tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.csv", 
                              header = T, stringsAsFactors = F) %>% 
-  mutate(disease = gsub("adenoma", "polyp", disease))
+  mutate(disease = gsub("adenoma", "polyp", disease), 
+         v_region = ifelse(study %in% c("lu", "flemer"), invisible("V3-4"), 
+                           ifelse(study == "burns", invisible("V5-6"), 
+                                  ifelse(study == "dejea", invisible("V3-5"), 
+                                         ifelse(study == "chen", invisible("V1-3"), invisible("V1-2"))))))
 
 
 # Run tests for alpha metrics using t-tests
@@ -84,7 +91,7 @@ get_anova_comparisons <- function(alpha_metric, set_groups = "disease",
 # Run a linear mixed-effect model accounting for study
 # for each alpha metric used
 get_mixed_effect <- function(alpha_metric, study_group = "study", disease_group = "disease", 
-                             individual = NULL, data_set){
+                             variable_region = "v_region", individual = NULL, data_set){
   # alpha_metric represents the alpha variables of interest
   # study_group represents the column indicating which study the data belongs to
   # disease_group represents the column where the group variables are listed
@@ -96,10 +103,11 @@ get_mixed_effect <- function(alpha_metric, study_group = "study", disease_group 
   null_model <- lmer(
     if(is.null(individual)){
       
-      as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ")", sep = ""))
+      as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ") + ", "(1|", variable_region, ")", 
+                       sep = ""))
     } else{
       
-      as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ") + ", 
+      as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ") + ", "(1|", variable_region, ") + ", 
                        "(1|", individual, ")", sep = ""))
     }, data = data_set, REML=FALSE)
   
@@ -108,11 +116,11 @@ get_mixed_effect <- function(alpha_metric, study_group = "study", disease_group 
     if(is.null(individual)){
       
       as.formula(paste(alpha_metric, " ~ ", "(1|", disease_group, ") + ", 
-                       "(1|", study_group, ")", sep = ""))
+                       "(1|", study_group, ") + ", "(1|", variable_region, ")", sep = ""))
     } else{
       
       as.formula(paste(alpha_metric, " ~ ", "(1|", disease_group, ") + ", 
-                       "(1|", study_group, ") + ", "(1|", individual, ")", 
+                       "(1|", study_group, ") + ", "(1|", variable_region, ") + ", "(1|", individual, ")", 
                        sep = ""))
     }, data = data_set, REML=FALSE)
   
