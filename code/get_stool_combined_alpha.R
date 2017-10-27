@@ -109,13 +109,13 @@ get_mixed_effect <- function(alpha_metric, study_group = "study", disease_group 
   
   # Create the null model without group of interest
   null_model <- lmer(
-    as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ") + ", "(1|", v_region, ")", 
+    as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ") + ", "(1|", variable_region, ")", 
                      sep = "")), data = data_set, REML=FALSE)
   
   # create the disease model with the group of interest
   disease_model <- lmer(
     as.formula(paste(alpha_metric, " ~ ", "(1|", disease_group, ") + ", 
-                     "(1|", study_group, ") + ", "(1|", v_region, ")", 
+                     "(1|", study_group, ") + ", "(1|", variable_region, ")", 
                      sep = "")), data = data_set, REML=FALSE)
   
   # Test whether the disease model explains significantly more variation than the null model
@@ -184,7 +184,8 @@ mapply(make_the_tables,
        list(ttest_results, tukey_results, mixeffect_results), 
        c("ttest_results", "tukey_results", "mixeffect_results"))
 
-
+# Write out full combined table for later use in graphing
+write_csv(combined_data, "data/process/tables/stool_normalized_alpha_all.csv")
 
 
 
