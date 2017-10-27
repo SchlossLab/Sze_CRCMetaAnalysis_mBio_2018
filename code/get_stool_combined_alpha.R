@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4"))
+loadLibs(c("tidyverse", "car", "lme4"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -101,7 +101,7 @@ get_anova_comparisons <- function(alpha_metric, set_groups = "disease",
 # Run a linear mixed-effect model accounting for study
 # for each alpha metric used
 get_mixed_effect <- function(alpha_metric, study_group = "study", disease_group = "disease", 
-                             data_set = combined_data){
+                             variable_region = "v_region", data_set = combined_data){
   # alpha_metric represents the alpha variables of interest
   # study_group represents the column indicating which study the data belongs to
   # disease_group represents the column where the group variables are listed
@@ -109,14 +109,14 @@ get_mixed_effect <- function(alpha_metric, study_group = "study", disease_group 
   
   # Create the null model without group of interest
   null_model <- lmer(
-    as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ")", sep = "")), 
-    data = data_set, REML=FALSE)
+    as.formula(paste(alpha_metric, " ~ ", "(1|", study_group, ") + ", "(1|", v_region, ")", 
+                     sep = "")), data = data_set, REML=FALSE)
   
   # create the disease model with the group of interest
   disease_model <- lmer(
     as.formula(paste(alpha_metric, " ~ ", "(1|", disease_group, ") + ", 
-                     "(1|", study_group, ")", sep = "")), 
-    data = data_set, REML=FALSE)
+                     "(1|", study_group, ") + ", "(1|", v_region, ")", 
+                     sep = "")), data = data_set, REML=FALSE)
   
   # Test whether the disease model explains significantly more variation than the null model
   results <- anova(null_model, disease_model)
@@ -152,7 +152,11 @@ stool_ztrans_pwrtrans_data <- lapply(stool_transformed_data, zscore_transform)
 # create a combined data table
 combined_data <- bind_rows(lapply(stool_ztrans_pwrtrans_data, 
                                   function(x) as.data.frame(x) %>% 
-                           mutate(group = as.character(group))))
+                           mutate(group = as.character(group)))) %>% 
+  mutate(v_region = ifelse(study %in% c("baxter", "zeller", "weir"), invisible("V4"), 
+                           ifelse(study %in% c("ahn", "flemer"), invisible("V3-4"), 
+                                  ifelse(study %in% c("brim", "chen"), invisible("V1-V3"), 
+                                         ifelse(study == "wang", invisible("V3"), invisible("V3-5"))))))
 
 
 # Test the stool data for difference between cancer and non-cancer
