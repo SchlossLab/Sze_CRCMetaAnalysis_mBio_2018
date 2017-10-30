@@ -33,7 +33,7 @@ opts_chunk$set("message" = FALSE)
 
 
 
-# Normalization of the microbiota in patients after treatment for colonic lesions
+# The Importance of the Microbiota and Individual Community Members in Colorectal Cancer
 
 \begin{center}
 \vspace{25mm}
