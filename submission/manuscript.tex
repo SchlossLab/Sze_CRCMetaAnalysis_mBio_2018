@@ -1,0 +1,420 @@
+\documentclass[12pt,]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+%%% Change title format to be more compact
+\usepackage{titling}
+
+% Create subtitle command for use in maketitle
+\newcommand{\subtitle}[1]{
+  \posttitle{
+    \begin{center}\large#1\end{center}
+    }
+}
+
+\setlength{\droptitle}{-2em}
+  \title{}
+  \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+  \author{}
+  \preauthor{}\postauthor{}
+  \date{}
+  \predate{}\postdate{}
+
+\usepackage{helvet} % Helvetica font
+\renewcommand*\familydefault{\sfdefault} % Use the sans serif version of the font
+\usepackage[T1]{fontenc}
+
+\usepackage[none]{hyphenat}
+
+\usepackage{setspace}
+\doublespacing
+\setlength{\parskip}{1em}
+
+\usepackage{lineno}
+
+\usepackage{pdfpages}
+
+\begin{document}
+
+\section{The Importance of the Microbiota and Individual Community
+Members in Colorectal
+Cancer}\label{the-importance-of-the-microbiota-and-individual-community-members-in-colorectal-cancer}
+
+\begin{center}
+\vspace{25mm}
+
+Marc A Sze${^1}$ and Patrick D Schloss${^1}$${^\dagger}$
+
+\vspace{20mm}
+
+$\dagger$ To whom correspondence should be addressed: pschloss@umich.edu
+
+$1$ Department of Microbiology and Immunology, University of Michigan, Ann Arbor, MI
+
+
+
+
+\end{center}
+
+Co-author e-mails:
+
+\begin{itemize}
+\tightlist
+\item
+  \href{mailto:marcsze@med.umich.edu}{\nolinkurl{marcsze@med.umich.edu}}
+\end{itemize}
+
+\newpage
+
+\linenumbers
+
+\subsection{Abstract}\label{abstract}
+
+\textbf{Background.}
+
+\textbf{Results.}
+
+\textbf{Conclusions.}
+
+\subsubsection{Keywords}\label{keywords}
+
+microbiota; colorectal cancer; polyps; treatment; risk factor.
+
+\newpage
+
+\subsection{Background}\label{background}
+
+\newpage
+
+\subsection{Results}\label{results}
+
+\textbf{\emph{Section 1}}
+
+\textbf{\emph{Section 2}}
+
+\textbf{\emph{Section 3}}
+
+\textbf{\emph{Section 4}}
+
+\newpage
+
+\subsection{Discussion}\label{discussion}
+
+\subsection{Conclusion}\label{conclusion}
+
+\newpage
+
+\subsection{Methods}\label{methods}
+
+\textbf{\emph{Obtaining Data Sets:}} Studies used for this meta-analysis
+were identified through the review articles written by Keku, et al. and
+Vogtmann, et al. {[}1,2{]}. All studies were included that used tissue
+or feces as their sample source for 16S rRNA gene sequencing analysis.
+Studies using either 454 or Illumina sequencing technology were
+included. Only data sets that had the raw sequences available for
+analysis were included. Some studies did not have publically available
+raw sequences or did not have meta data in which the authors were able
+to share. After this filtering step the following studies remained: Ahn
+{[}3{]}, Baxter {[}4{]}, Brim {[}5{]}, Burns {[}6{]}, Chen {[}7{]},
+Dejea {[}8{]}, Flemer {[}9{]}, Geng {[}10{]}, Hale {[}11{]}, Kostic
+{[}12{]}, Lu {[}13{]}, Sanapareddy {[}14{]}, Wang {[}15{]}, Weir
+{[}16{]}, and Zeller {[}17{]}. The Zackular {[}18{]} study was not
+included becasue the 90 individuals analyzed within the study are
+contained within the larger Baxter study. The Kostic study was not used
+since after sequence processing all the case samples did not have more
+than 100 sequences remaining. This left a total of 13 studies in which
+complete analysis could be completed.
+
+\textbf{\emph{Data Set Breakdown:}} In total there were 7 studies with
+only fecal samples (Ahn, Baxter, Brim, Hale, Wang, Weir, and Zeller), 5
+studies with only tissue samples (Burns, Dejea, Geng, Lu, Sanapareddy),
+and 2 studies with both fecal and tissue samples (Chen and Flemer). The
+total number of individuals initially run through the sequence
+processing for the fecal samples was 1899 and for the tissue samples was
+462.
+
+\textbf{\emph{Sequence Processing:}} For the majority of studies raw
+sequences were downloaded from the SRA
+(\url{ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/})
+and metadata was obtained from the following website:
+\url{http://www.ncbi.nlm.nih.gov/Traces/study/} by searching the
+respective accession number of the study. Of the studies that did not
+have sequences and meta data on the SRA one study had the data stored on
+DBGap {[}3{]} and four studies the data was obtained directly from the
+authors {[}9,11,14,16{]}. Each study was processed using the mothur
+(v1.39.3) software program {[}19{]}. Where possible quality filtering
+utilized the default methods used in mothur for either 454 or Illumina
+based sequencing. If it was not possible to use these defaults the
+author stated quality cut-offs were used instead. Chimeras were
+identifed and removed using the VSEARCH {[}20{]} program and \emph{de
+novo} OTU clustering at 97\% similarity using the OptiClust algorithm
+{[}21{]} was utilized.
+
+\textbf{\emph{Statistical Analysis.}} All statistical analysis after
+sequence processing utilized the R software package (v3.4.2). For the
+alpha diversity analysis values were power transformed using the
+rcompanion (v1.10.1) package and then Z-score normalized using the car
+(v2.1.5) package. Testing for alpha diversity differences utilized both
+T-tests and ANOVA. Linear mixed-effect models were created using the
+lme4 (v1.1.14) package to correct for both study and variable region
+effect in the diversity measures when analyzing colorectal cancer
+groups. Relative Risk was analyzed using both the epiR (v0.9.87) and
+metafor (v2.0.0) packages. Relative risk significance testing utilized
+the chi-squred test. Beta-diversity differences utilized a Bray-Curtis
+distance matrix and PERMANOVA executed with the vegan (v2.4.4) package.
+Random Forest models were built using both the caret (v6.0.77) and
+randomForest (v4.6.12) packages. Random Forest testing of the obtained
+AUC versus a random model AUC utilized T-tests. Power analysis and
+estimations were made using the pwr (v1.2.1) and statmod (v1.4.30)
+packages. All figures were created using both ggplot2 (v2.2.1) and
+gridExtra (v2.3) packages.
+
+\textbf{\emph{Reproducible Methods.}} The code and analysis can be found
+here \url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_XXXX_2016}.
+Unless mentioned otherwise the accession number for the raw sequences
+for the studies used in this analysis can be found directly in the
+respective batch file, on the GitHub repository or in the original
+manuscript.
+
+\newpage
+
+\subsection{Declarations}\label{declarations}
+
+\subsubsection{Ethics approval and consent to
+participate}\label{ethics-approval-and-consent-to-participate}
+
+Need to fill in.
+
+\subsubsection{Consent for publication}\label{consent-for-publication}
+
+Not applicable.
+
+\subsubsection{Availability of data and
+material}\label{availability-of-data-and-material}
+
+Need to fill in.
+
+\subsubsection{Competing Interests}\label{competing-interests}
+
+All authors declare that they do not have any relevant competing
+interests to report.
+
+\subsubsection{Funding}\label{funding}
+
+Need to fill in.
+
+\subsubsection{Authors' contributions}\label{authors-contributions}
+
+Need to fill in.
+
+\subsubsection{Acknowledgements}\label{acknowledgements}
+
+Need to fill in.
+
+\newpage
+
+\subsection{References}\label{references}
+
+\hypertarget{refs}{}
+\hypertarget{ref-keku_gastrointestinal_2015}{}
+1. Keku TO, Dulal S, Deveaux A, Jovov B, Han X. The gastrointestinal
+microbiota and colorectal cancer. American Journal of Physiology -
+Gastrointestinal and Liver Physiology {[}Internet{]}. 2015 {[}cited 2017
+Oct 30{]};308:G351--63. Available from:
+\url{http://ajpgi.physiology.org/lookup/doi/10.1152/ajpgi.00360.2012}
+
+\hypertarget{ref-vogtmann_epidemiologic_2016}{}
+2. Vogtmann E, Goedert JJ. Epidemiologic studies of the human microbiome
+and cancer. British Journal of Cancer {[}Internet{]}. 2016 {[}cited 2017
+Oct 30{]};114:237--42. Available from:
+\url{http://www.nature.com/doifinder/10.1038/bjc.2015.465}
+
+\hypertarget{ref-ahn_human_2013}{}
+3. Ahn J, Sinha R, Pei Z, Dominianni C, Wu J, Shi J, et al. Human gut
+microbiome and risk for colorectal cancer. Journal of the National
+Cancer Institute. 2013;105:1907--11.
+
+\hypertarget{ref-baxter_microbiota-based_2016}{}
+4. Baxter NT, Ruffin MT, Rogers MAM, Schloss PD. Microbiota-based model
+improves the sensitivity of fecal immunochemical test for detecting
+colonic lesions. Genome Medicine. 2016;8:37.
+
+\hypertarget{ref-brim_microbiome_2013}{}
+5. Brim H, Yooseph S, Zoetendal EG, Lee E, Torralbo M, Laiyemo AO, et
+al. Microbiome analysis of stool samples from African Americans with
+colon polyps. PloS One. 2013;8:e81352.
+
+\hypertarget{ref-burns_virulence_2015}{}
+6. Burns MB, Lynch J, Starr TK, Knights D, Blekhman R. Virulence genes
+are a signature of the microbiome in the colorectal tumor
+microenvironment. Genome Medicine. 2015;7:55.
+
+\hypertarget{ref-chen_human_2012}{}
+7. Chen W, Liu F, Ling Z, Tong X, Xiang C. Human intestinal lumen and
+mucosa-associated microbiota in patients with colorectal cancer. PloS
+One. 2012;7:e39743.
+
+\hypertarget{ref-dejea_microbiota_2014}{}
+8. Dejea CM, Wick EC, Hechenbleikner EM, White JR, Mark Welch JL,
+Rossetti BJ, et al. Microbiota organization is a distinct feature of
+proximal colorectal cancers. Proceedings of the National Academy of
+Sciences of the United States of America. 2014;111:18321--6.
+
+\hypertarget{ref-flemer_tumour-associated_2017}{}
+9. Flemer B, Lynch DB, Brown JMR, Jeffery IB, Ryan FJ, Claesson MJ, et
+al. Tumour-associated and non-tumour-associated microbiota in colorectal
+cancer. Gut. 2017;66:633--43.
+
+\hypertarget{ref-geng_diversified_2013}{}
+10. Geng J, Fan H, Tang X, Zhai H, Zhang Z. Diversified pattern of the
+human colorectal cancer microbiome. Gut Pathogens. 2013;5:2.
+
+\hypertarget{ref-hale_shifts_2017}{}
+11. Hale VL, Chen J, Johnson S, Harrington SC, Yab TC, Smyrk TC, et al.
+Shifts in the Fecal Microbiota Associated with Adenomatous Polyps.
+Cancer Epidemiology, Biomarkers \& Prevention: A Publication of the
+American Association for Cancer Research, Cosponsored by the American
+Society of Preventive Oncology. 2017;26:85--94.
+
+\hypertarget{ref-kostic_genomic_2012}{}
+12. Kostic AD, Gevers D, Pedamallu CS, Michaud M, Duke F, Earl AM, et
+al. Genomic analysis identifies association of Fusobacterium with
+colorectal carcinoma. Genome Research. 2012;22:292--8.
+
+\hypertarget{ref-lu_mucosal_2016}{}
+13. Lu Y, Chen J, Zheng J, Hu G, Wang J, Huang C, et al. Mucosal
+adherent bacterial dysbiosis in patients with colorectal adenomas.
+Scientific Reports. 2016;6:26337.
+
+\hypertarget{ref-sanapareddy_increased_2012}{}
+14. Sanapareddy N, Legge RM, Jovov B, McCoy A, Burcal L, Araujo-Perez F,
+et al. Increased rectal microbial richness is associated with the
+presence of colorectal adenomas in humans. The ISME journal.
+2012;6:1858--68.
+
+\hypertarget{ref-wang_structural_2012}{}
+15. Wang T, Cai G, Qiu Y, Fei N, Zhang M, Pang X, et al. Structural
+segregation of gut microbiota between colorectal cancer patients and
+healthy volunteers. The ISME journal. 2012;6:320--9.
+
+\hypertarget{ref-weir_stool_2013}{}
+16. Weir TL, Manter DK, Sheflin AM, Barnett BA, Heuberger AL, Ryan EP.
+Stool microbiome and metabolome differences between colorectal cancer
+patients and healthy adults. PloS One. 2013;8:e70803.
+
+\hypertarget{ref-zeller_potential_2014}{}
+17. Zeller G, Tap J, Voigt AY, Sunagawa S, Kultima JR, Costea PI, et al.
+Potential of fecal microbiota for early-stage detection of colorectal
+cancer. Molecular Systems Biology. 2014;10:766.
+
+\hypertarget{ref-zackular_human_2014}{}
+18. Zackular JP, Rogers MAM, Ruffin MT, Schloss PD. The human gut
+microbiome as a screening tool for colorectal cancer. Cancer Prevention
+Research (Philadelphia, Pa.). 2014;7:1112--21.
+
+\hypertarget{ref-schloss_introducing_2009}{}
+19. Schloss PD, Westcott SL, Ryabin T, Hall JR, Hartmann M, Hollister
+EB, et al. Introducing mothur: Open-Source, Platform-Independent,
+Community-Supported Software for Describing and Comparing Microbial
+Communities. Appl.Environ.Microbiol. {[}Internet{]}. 2009 {[}cited 12AD
+Jan 1{]};75:7537--41. Available from:
+\url{http://aem.asm.org/cgi/content/abstract/75/23/7537}
+
+\hypertarget{ref-rognes_vsearch_2016}{}
+20. Rognes T, Flouri T, Nichols B, Quince C, Mahé F. VSEARCH: A
+versatile open source tool for metagenomics. PeerJ. 2016;4:e2584.
+
+\hypertarget{ref-westcott_opticlust_2017}{}
+21. Westcott SL, Schloss PD. OptiClust, an Improved Method for Assigning
+Amplicon-Based Sequence Data to Operational Taxonomic Units. mSphere.
+2017;2.
+
+\newpage
+
+\textbf{Table 1: }
+
+\newpage
+
+\textbf{Table 2: }
+
+\newpage
+
+\textbf{Figure 1: }
+
+\textbf{Figure 2: }
+
+\textbf{Figure 3: }
+
+\textbf{Figure 4: }
+
+\newpage
+
+\textbf{Figure S1: }
+
+\textbf{Figure S2: }
+
+\textbf{Figure S3: }
+
+\newpage
+
+
+\end{document}
