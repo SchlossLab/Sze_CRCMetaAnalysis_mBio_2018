@@ -18,7 +18,7 @@ stool_sets <- c("brim", "wang", "weir", "ahn", "zeller", "baxter", "hale", "flem
 # Remove Lu since it only has polyps and no cancer cases
 # Have to remove dejea since there are no controls
 # Have to omit Chen since their is only 1 case
-tissue_sets <- c("lu", "geng", "sana", "burns")
+tissue_sets <- c("dejea", "lu", "geng", "sana", "burns")
 
 
 
