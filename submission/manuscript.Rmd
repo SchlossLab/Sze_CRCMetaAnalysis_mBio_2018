@@ -20,7 +20,13 @@ loadLibs(c("tidyverse", "scales"))
 
 ```
 
-```{r rdata_tables}
+```{r rdata_tables, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+
+#Load in linear mixed-effect data tables
+stool_lme <- as.data.frame(read_csv("../data/process/tables/alpha_mixeffect_results.csv"))
+unmatch_tissue_lme <- as.data.frame(read_csv("../data/process/tables/alpha_unmatched_mixeffect_results.csv"))
+match_tissue_lme <- as.data.frame(read_csv("../data/process/tables/alpha_matched_mixeffect_results.csv"))
+
 
 ```
 
@@ -64,7 +70,7 @@ Co-author e-mails:
 
 ### Keywords
 
-microbiota; colorectal cancer; polyps; treatment; risk factor.
+microbiota; colorectal cancer; polyps; adenoma; meta-analysis.
 
 \newpage
 
@@ -77,8 +83,8 @@ microbiota; colorectal cancer; polyps; treatment; risk factor.
 
 ## Results
 
-***Section 1***
-
+***Fecal Diversity is Lower in Those with Carcinoma:***
+Using power transformed and Z-score normalized alpha diversity metrics both evenness and the Shannon diversity metrics in feces was lower in those with carcinoma then in controls but not for tissue samples [Figure 1]. Using linear mixed-effects to control for study and variable region there was a significant decrease from control to adenoma to carcinoma for both evenness (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannoneven")[, "BH"], digits = 2, nsmall = 2))`) and Shannon diversity (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannon")[, "BH"], digits = 2, nsmall = 2))`). This effect was not observed in tissue when additionally controlling for whether the sample came from the same individual (P-value `r ifelse(min(match_tissue_lme$BH) < 0.05 & min(unmatch_tissue_lme$BH) < 0.05, invisible("check tables"), invisible(">"))` 0.05).
 
 
 ***Section 2***
@@ -121,10 +127,10 @@ In total there were 7 studies with only fecal samples (Ahn, Baxter, Brim, Hale, 
 For the majority of studies raw sequences were downloaded from the SRA (ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/) and metadata was obtained from the following website: http://www.ncbi.nlm.nih.gov/Traces/study/ by searching the respective accession number of the study. Of the studies that did not have sequences and meta data on the SRA one study had the data stored on DBGap [@ahn_human_2013] and four studies the data was obtained directly from the authors [@flemer_tumour-associated_2017; @hale_shifts_2017; @sanapareddy_increased_2012; @weir_stool_2013]. Each study was processed using the mothur (v1.39.3) software program [@schloss_introducing_2009]. Where possible quality filtering utilized the default methods used in mothur for either 454 or Illumina based sequencing. If it was not possible to use these defaults the author stated quality cut-offs were used instead. Chimeras were identifed and removed using the VSEARCH [@rognes_vsearch_2016] program and *de novo* OTU clustering at 97% similarity using the OptiClust algorithm [@westcott_opticlust_2017] was utilized. 
 
 ***Statistical Analysis:***
-All statistical analysis after sequence processing utilized the R software package (v`r paste(version$major, ".", version$minor, sep = "")`). For the alpha diversity analysis values were power transformed using the rcompanion (v`r paste(packageVersion("rcompanion")[1])`) package and then Z-score normalized using the car (v`r paste(packageVersion("car")[1])`) package. Testing for alpha diversity differences utilized both T-tests and ANOVA. Linear mixed-effect models were created using the lme4 (v`r paste(packageVersion("lme4"))[1]`) package to correct for both study and variable region effect in the diversity measures when analyzing colorectal cancer groups. Relative Risk was analyzed using both the epiR (v`r paste(packageVersion("epiR"))[1]`) and metafor (v`r paste(packageVersion("metafor"))[1]`) packages. Relative risk significance testing utilized the chi-squred test. Beta-diversity differences utilized a Bray-Curtis distance matrix and PERMANOVA executed with the vegan (v`r paste(packageVersion("vegan"))[1]`) package. Random Forest models were built using both the caret (v`r paste(packageVersion("caret"))[1]`) and randomForest (v`r paste(packageVersion("randomForest"))[1]`) packages. Random Forest testing of the obtained AUC versus a random model AUC utilized T-tests. Power analysis and estimations were made using the pwr (v`r paste(packageVersion("pwr"))[1]`) and statmod (v`r paste(packageVersion("statmod"))[1]`) packages. All figures were created using both ggplot2 (v`r paste(packageVersion("ggplot2"))[1]`) and gridExtra (v`r paste(packageVersion("gridExtra"))[1]`) packages. 
+All statistical analysis after sequence processing utilized the R software package (v`r paste(version$major, ".", version$minor, sep = "")`). For the alpha diversity analysis values were power transformed using the rcompanion (v`r paste(packageVersion("rcompanion")[1])`) package and then Z-score normalized using the car (v`r paste(packageVersion("car")[1])`) package. Testing for alpha diversity differences utilized linear mixed-effect models created using the lme4 (v`r paste(packageVersion("lme4"))[1]`) package to correct for both study and variable region effect in the diversity measures when analyzing colorectal cancer groups. Relative Risk was analyzed using both the epiR (v`r paste(packageVersion("epiR"))[1]`) and metafor (v`r paste(packageVersion("metafor"))[1]`) packages. Relative risk significance testing utilized the chi-squred test. Beta-diversity differences utilized a Bray-Curtis distance matrix and PERMANOVA executed with the vegan (v`r paste(packageVersion("vegan"))[1]`) package. Random Forest models were built using both the caret (v`r paste(packageVersion("caret"))[1]`) and randomForest (v`r paste(packageVersion("randomForest"))[1]`) packages. Random Forest testing of the obtained AUC versus a random model AUC utilized T-tests. Power analysis and estimations were made using the pwr (v`r paste(packageVersion("pwr"))[1]`) and statmod (v`r paste(packageVersion("statmod"))[1]`) packages. All figures were created using both ggplot2 (v`r paste(packageVersion("ggplot2"))[1]`) and gridExtra (v`r paste(packageVersion("gridExtra"))[1]`) packages. 
 
 ***Study Analysis Overview:***
-Alpha diversity was first assessed for differences between controls and adenoma versus cancer and controls versus adenoma. We analyzed the data using standard T-tests, ANOVA, linear mixed-effect models, and relative risk. Next, four specific CRC-associated genera (*Fusobacterium*, *Parvimonas*, *Peptostreptococcus*, and *Porphyromonas*) were assessed for differences in relative risk. We then built Random Forest models based on all genera or the select CRC-associated genera. The models were trained on one study then tested on the remaining studies for every study. The data was split between feces and tissue samples. Within the tissue groups the data was further divided between matched and unmatched tissue samples. Both prediction for adenoma and carcinoma were tested. This same approach was then applied at the OTU level with the exception that instead of testing on the other studies a 10-fold cross validation was utilized and 100 different models were created based on random 80/20 splitting of the data to generate a range of expected AUCs. The power of each study was assessed for and effect size ranging from 1% to 30%. An estimated sample n for these effect sizes was also generated based on 80% power.
+Alpha diversity was first assessed for differences between controls and adenoma versus cancer and controls versus adenoma. We analyzed the data using linear mixed-effect models, and relative risk. Beta-diversity was then assessed for each inidividual study. Next, four specific CRC-associated genera (*Fusobacterium*, *Parvimonas*, *Peptostreptococcus*, and *Porphyromonas*) were assessed for differences in relative risk. We then built Random Forest models based on all genera or the select CRC-associated genera. The models were trained on one study then tested on the remaining studies for every study. The data was split between feces and tissue samples. Within the tissue groups the data was further divided between matched and unmatched tissue samples. Both prediction for adenoma and carcinoma were tested. This same approach was then applied at the OTU level with the exception that instead of testing on the other studies a 10-fold cross validation was utilized and 100 different models were created based on random 80/20 splitting of the data to generate a range of expected AUCs. The power of each study was assessed for and effect size ranging from 1% to 30%. An estimated sample n for these effect sizes was also generated based on 80% power.
 
 ***Reproducible Methods:***
 The code and analysis can be found here https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017. Unless mentioned otherwise the accession number for the raw sequences for the studies used in this analysis can be found directly in the respective batch file, on the GitHub repository or in the original manuscript.
