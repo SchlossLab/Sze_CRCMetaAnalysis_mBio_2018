@@ -99,10 +99,38 @@ table_s3 <- temp_t3a %>%
 
 
 
-colnames(table_s3) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma n", "Control n")
+colnames(table_s3) <- c("F statistic", "R2", "P-value", "Study", "Adenoma n", "Control n")
 
 kable(table_s3, format = "markdown", align = 'c', padding = 2)
 ```
+
+\newpage
+
+**Table S4: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Tissue Carcinoma**
+
+```{r supplemental_table4, echo=FALSE, message=FALSE, warning=FALSE}
+
+temp_t4a <- read_csv("../data/process/tables/beta_perm_unmatched_tissue_summary.csv")
+temp_t4b <- read_csv("../data/process/tables/beta_perm_matched_tissue_summary.csv")
+
+table_s4 <- temp_t4a %>% 
+  bind_rows(temp_t4b) %>% 
+  mutate(fstat = round(fstat, digits = 2), 
+         r2 = round(r2, digits = 3), 
+         pvalue = round(pvalue, digits = 4), 
+         study = c("Sanapareddy", "Burns", "Flemer", "Chen", 
+                   "Dejea (Matched)", "Geng (Matched)", "Burns (Matched)"))
+
+
+
+colnames(table_s4) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma n", "Control n")
+
+kable(table_s4, format = "markdown", align = 'c', padding = 2)
+
+
+
+```
+
 
 \newpage
 
@@ -125,18 +153,7 @@ kable(table_s3, format = "markdown", align = 'c', padding = 2)
 
 
 
-**Table S4: Summary of Adenoma based on Surgery Received**
 
-```{r supplemental_table5, echo=FALSE, message=FALSE, warning=FALSE}
-
-
-
-
-
-```
-
-
-\newpage
 
 
 **Table S5: Summary of mtry ranges used for the treatment and diagnosis models**
