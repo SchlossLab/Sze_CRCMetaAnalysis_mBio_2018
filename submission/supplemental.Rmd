@@ -36,7 +36,7 @@ loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown"))
 
 
 
-**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Adenoma**
+**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool Adenoma**
 
 ```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -58,7 +58,7 @@ kable(table_s1, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
-**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Carcinoma**
+**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool Carcinoma**
 
 ```{r supplemental_table2, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -83,16 +83,26 @@ kable(table_s2, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S3: **
-\footnotesize
+**Table S3: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Tissue Adenoma**
+
 ```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
 
+temp_t3a <- read_csv("../data/process/tables/beta_perm_adn_unmatched_tissue_summary.csv")
+temp_t3b <- read_csv("../data/process/tables/beta_perm_adn_matched_tissue_summary.csv")
+
+table_s3 <- temp_t3a %>% 
+  bind_rows(temp_t3b) %>% 
+  mutate(fstat = round(fstat, digits = 2), 
+         r2 = round(r2, digits = 3), 
+         pvalue = round(pvalue, digits = 4), 
+         study = c("Lu", "Flemer", "Lu (Matched)"))
 
 
+
+colnames(table_s3) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma n", "Control n")
+
+kable(table_s3, format = "markdown", align = 'c', padding = 2)
 ```
-\normalsize
-
-
 
 \newpage
 
