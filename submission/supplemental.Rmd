@@ -36,7 +36,7 @@ loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown"))
 
 
 
-**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA Adenoma Stool Studies**
+**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Adenoma**
 
 ```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -58,15 +58,45 @@ kable(table_s1, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
+**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Carcinoma**
 
 ```{r supplemental_table2, echo=FALSE, message=FALSE, warning=FALSE}
 
+temp_t2 <- read_csv("../data/process/tables/beta_perm_stool_summary.csv")
 
+table_s2 <- temp_t2 %>% 
+  mutate(fstat = round(fstat, digits = 2), 
+         r2 = round(r2, digits = 3), 
+         pvalue = round(pvalue, digits = 4), 
+         study = stringr::str_replace(study, 
+                                      c("wang", "weir", "ahn", "zeller", "baxter", "hale", "flemer"), 
+                                      c("Wang", "Weir", "Ahn", "Zeller", "Baxter", "Hale", "Flemer")))
+
+
+colnames(table_s2) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma n", "Control n")
+
+kable(table_s2, format = "markdown", align = 'c', padding = 2)
 ```
 
 
 
 \newpage
+
+
+**Table S3: **
+\footnotesize
+```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+
+```
+\normalsize
+
+
+
+\newpage
+
+
 
 \newcommand{\blandscape}{\begin{landscape}}
 \newcommand{\elandscape}{\end{landscape}}
@@ -75,7 +105,7 @@ kable(table_s1, format = "markdown", align = 'c', padding = 2)
 
 \footnotesize
 
-```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
+```{r supplemental_table, echo=FALSE, message=FALSE, warning=FALSE}
 
 
 ```
@@ -83,18 +113,7 @@ kable(table_s1, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S3: Summary of Comparisons Based on Additive Treatment Received (Chemotherapy or Chemotherapy and Radiation)**
-\footnotesize
-```{r supplemental_table4, echo=FALSE, message=FALSE, warning=FALSE}
 
-
-
-```
-\normalsize
-
-
-
-\newpage
 
 **Table S4: Summary of Adenoma based on Surgery Received**
 
