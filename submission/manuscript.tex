@@ -209,7 +209,7 @@ identifed and removed using the VSEARCH {[}20{]} program and \emph{de
 novo} OTU clustering at 97\% similarity using the OptiClust algorithm
 {[}21{]} was utilized.
 
-\textbf{\emph{Statistical Analysis.}} All statistical analysis after
+\textbf{\emph{Statistical Analysis:}} All statistical analysis after
 sequence processing utilized the R software package (v3.4.2). For the
 alpha diversity analysis values were power transformed using the
 rcompanion (v1.10.1) package and then Z-score normalized using the car
@@ -228,7 +228,27 @@ estimations were made using the pwr (v1.2.1) and statmod (v1.4.30)
 packages. All figures were created using both ggplot2 (v2.2.1) and
 gridExtra (v2.3) packages.
 
-\textbf{\emph{Reproducible Methods.}} The code and analysis can be found
+\textbf{\emph{Study Analysis Overview:}} Alpha diversity was first
+assessed for differences between controls and adenoma versus cancer and
+controls versus adenoma. We analyzed the data using standard T-tests,
+ANOVA, linear mixed-effect models, and relative risk. Next, four
+specific CRC-associated genera (\emph{Fusobacterium}, \emph{Parvimonas},
+\emph{Peptostreptococcus}, and \emph{Porphyromonas}) were assessed for
+differences in relative risk. We then built Random Forest models based
+on all genera or the select CRC-associated genera. The models were
+trained on one study then tested on the remaining studies for every
+study. The data was split between feces and tissue samples. Within the
+tissue groups the data was further divided between matched and unmatched
+tissue samples. Both prediction for adenoma and carcinoma were tested.
+This same approach was then applied at the OTU level with the exception
+that instead of testing on the other studies a 10-fold cross validation
+was utilized and 100 different models were created based on random 80/20
+splitting of the data to generate a range of expected AUCs. The power of
+each study was assessed for and effect size ranging from 1\% to 30\%. An
+estimated sample n for these effect sizes was also generated based on
+80\% power.
+
+\textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 here \url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_XXXX_2016}.
 Unless mentioned otherwise the accession number for the raw sequences
 for the studies used in this analysis can be found directly in the
