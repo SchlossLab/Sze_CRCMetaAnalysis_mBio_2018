@@ -22,10 +22,19 @@ loadLibs(c("tidyverse", "scales"))
 
 ```{r rdata_tables, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
 
-#Load in linear mixed-effect data tables
+#Load in linear mixed-effect alpha diversity data tables 
 stool_lme <- as.data.frame(read_csv("../data/process/tables/alpha_mixeffect_results.csv"))
 unmatch_tissue_lme <- as.data.frame(read_csv("../data/process/tables/alpha_unmatched_mixeffect_results.csv"))
 match_tissue_lme <- as.data.frame(read_csv("../data/process/tables/alpha_matched_mixeffect_results.csv"))
+
+#Load in relative risk alpha diversity data tables
+alpha_RR_crc_stool <- as.data.frame(read_csv("../data/process/tables/alpha_RR_composite.csv"))
+alpha_RR_adn_stool <- as.data.frame(read_csv("../data/process/tables/alpha_adn_RR_composite.csv"))
+
+alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_RR_unmatched_tissue_composite.csv"))
+alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_RR_matched_tissue_composite.csv"))
+
+alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_RR_tissue_composite.csv"))
 
 
 ```
@@ -83,8 +92,8 @@ microbiota; colorectal cancer; polyps; adenoma; meta-analysis.
 
 ## Results
 
-***Fecal Diversity is Lower in Those with Carcinoma:***
-Using power transformed and Z-score normalized alpha diversity metrics both evenness and the Shannon diversity metrics in feces was lower in those with carcinoma then in controls but not for tissue samples [Figure 1]. Using linear mixed-effects to control for study and variable region there was a significant decrease from control to adenoma to carcinoma for both evenness (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannoneven")[, "BH"], digits = 2, nsmall = 2))`) and Shannon diversity (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannon")[, "BH"], digits = 2, nsmall = 2))`). This effect was not observed in tissue when additionally controlling for whether the sample came from the same individual (P-value `r ifelse(min(match_tissue_lme$BH) < 0.05 & min(unmatch_tissue_lme$BH) < 0.05, invisible("check tables"), invisible(">"))` 0.05).
+***Fecal Diversity is Lower in Those with Carcinoma and increases Relative Risk:***
+Using power transformed and Z-score normalized alpha diversity metrics both evenness and the Shannon diversity metrics in feces are lower in those with carcinoma then in controls but not for tissue samples [Figure 1]. Using linear mixed-effects to control for study and variable region there was a significant decrease from control to adenoma to carcinoma for both evenness (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannoneven")[, "BH"], digits = 2, nsmall = 2))`) and Shannon diversity (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannon")[, "BH"], digits = 2, nsmall = 2))`). This effect was not observed in tissue when additionally controlling for whether the sample came from the same individual (P-value `r ifelse(min(match_tissue_lme$BH) < 0.05 & min(unmatch_tissue_lme$BH) < 0.05, invisible("check tables"), invisible(">"))` 0.05). For fecal samples a decrease in Shannon diversity and evenness resulted in a significantly increased relative risk for carcinoma (P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannon")[, "pvalue"], digits = 2, nsmall = 2))` and P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "pvalue"], digits = 2, nsmall = 2))`, respectively) [Figure 2]. Although these values were significant the effect size was relatively small for both metrics (Shannon RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannon")[, "rr"], digits = 2))` and evenness RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "rr"], digits = 2))`) [Figure 2]. There was no increased relative risk for these metrics for adenoma or for tissue in general [Figure S1-3] 
 
 
 ***Section 2***
