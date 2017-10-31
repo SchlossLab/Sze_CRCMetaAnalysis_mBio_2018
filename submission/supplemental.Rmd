@@ -1,0 +1,129 @@
+---
+title: ''
+csl: microbiome.csl
+fontsize: 12pt
+output:
+  pdf_document:
+    includes:
+      in_header: header.tex
+    keep_tex: yes
+geometry: margin=1.0in
+bibliography: null
+---
+
+# The Microbiota and Individual Community Members in Colorectal Cancer: Is There a Common Theme?
+
+\vspace{10mm}
+
+\begin{center}
+Marc A Sze and Patrick D Schloss
+
+\vspace{10mm}
+
+Supplemental
+\end{center}
+
+
+\newpage
+
+```{r knitr_settings, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+
+source('../code/functions.R')
+
+loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown"))
+
+```
+
+
+
+**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA Adenoma Stool Studies**
+
+```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
+
+temp_t1 <- read_csv("../data/process/tables/beta_perm_adn_stool_summary.csv")
+
+table_s1 <- temp_t1 %>% 
+  mutate(fstat = round(fstat, digits = 2), 
+         r2 = round(r2, digits = 3), 
+         pvalue = round(pvalue, digits = 4), 
+         study = stringr::str_replace(study, 
+                                      c("brim", "zeller", "baxter", "hale"), 
+                                      c("Brim", "Zeller", "Baxter", "Hale")))
+
+colnames(table_s1) <- c("F statistic", "R2", "P-value", "Study", "Adenoma n", "Control n")
+
+kable(table_s1, format = "markdown", align = 'c', padding = 2)
+```
+
+
+\newpage
+
+
+```{r supplemental_table2, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+```
+
+
+
+\newpage
+
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+
+**Table S2: Summary of Common OTUs for All Diagnosis Groups**
+
+\footnotesize
+
+```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+```
+\normalsize
+\newpage
+
+
+**Table S3: Summary of Comparisons Based on Additive Treatment Received (Chemotherapy or Chemotherapy and Radiation)**
+\footnotesize
+```{r supplemental_table4, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+
+```
+\normalsize
+
+
+
+\newpage
+
+**Table S4: Summary of Adenoma based on Surgery Received**
+
+```{r supplemental_table5, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+
+
+
+```
+
+
+\newpage
+
+
+**Table S5: Summary of mtry ranges used for the treatment and diagnosis models**
+
+\footnotesize
+
+```{r supplemental_table6, echo=FALSE, message=FALSE, warning=FALSE}
+
+
+
+
+```
+\normalsize
+
+
+
+
+
+
