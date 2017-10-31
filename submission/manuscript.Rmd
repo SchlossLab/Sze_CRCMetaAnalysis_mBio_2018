@@ -26,7 +26,7 @@ loadLibs(c("tidyverse", "scales"))
 
 
 
-# The Importance of the Microbiota and Individual Community Members in Colorectal Cancer
+# The Microbiota and Individual Community Members in Colorectal Cancer: Is There a Common Theme?
 
 \begin{center}
 \vspace{25mm}
