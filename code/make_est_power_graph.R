@@ -12,7 +12,9 @@ loadLibs(c("tidyverse", "gridExtra", "viridis"))
 adn_power <- read_csv("data/process/tables/adn_predicted_pwr_and_n.csv")
 crc_power <- read_csv("data/process/tables/cancer_predicted_pwr_and_n.csv")
 
-
+combined_data <- adn_power %>% 
+  filter(study %in% c("lu", "brim")) %>% 
+  bind_rows(crc_power)
 
 ##############################################################################################
 ############################## List of functions to be used  #################################
@@ -51,28 +53,8 @@ adn_study_power <- adn_power %>%
   scale_color_manual(name = "Study", 
                      values = c('#FDE725FF', '#FDE725FF', '#67CC5CFF', '#440154FF', 
                                 '#34618DFF', '#481D6FFF')) + 
+  annotate("text", label = paste("Adenoma"), x = 0.78, y = 1.03, size = 2.5) +
   theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank(), 
-        axis.text.y = element_text(size = 10))
-
-
-adn_sample_n <- adn_power %>% 
-  mutate(study = factor(study, 
-                        levels = c("zeller", "lu", "hale", "flemer_t", "brim", "baxter"), 
-                        labels = c("Zeller", "Lu", "Hale", "Flemer\n(Tissue)", "Brim", "Baxter")), 
-         effect_size = factor(effect_size, 
-                              levels = c(0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3), 
-                              labels = c("1%", "5%", "10%", "15%", "20%", "25%", "30%"))) %>% 
-  ggplot(aes(effect_size, log(pwr80_needed_n), color = study, group = study)) + 
-  geom_jitter(width = 0.3, size = 3) + 
-  coord_cartesian(ylim = c(0,12)) + 
-  geom_vline(xintercept = c(1.5, 2.5, 3.5, 4.5, 5.5, 6.5), color = "gray") + 
-  labs(x = "Effect Size", y = expression(Log["10"]~Sample~Number)) + theme_bw() + ggtitle("B") + 
-  scale_color_manual(name = "Study", 
-                     values = c('#FDE725FF', '#FDE725FF', '#67CC5CFF', '#440154FF', 
-                                '#34618DFF', '#481D6FFF')) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -92,23 +74,24 @@ crc_study_power <- crc_power %>%
   coord_cartesian(ylim = c(0,1)) + 
   geom_vline(xintercept = c(1.5, 2.5, 3.5, 4.5, 5.5, 6.5), color = "gray") + 
   geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") + 
-  labs(x = "Effect Size", y = "Study Power") + theme_bw() + ggtitle("C") + 
+  labs(x = "Effect Size", y = "Study Power") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
                      values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', 
                                 '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', 
                                 '#453581FF', '#481D6FFF', '#40BC72FF')) + 
+  annotate("text", label = paste("Cancer"), x = 0.7, y = 1.03, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
 
 
-crc_sample_n <- crc_power %>% 
+combined_sample_n <- combined_data %>% 
   mutate(study = factor(study, 
-                        levels = c("zeller", "weir", "wang", "sana", "hale", "geng", 
-                                   "flemer", "dejea", "burns", "baxter", "ahn"), 
-                        labels = c("Zeller", "Weir", "Wang", "Sanapareddy", "Hale", "Geng", 
-                                   "Flemer","Dejea", "Burns", "Baxter", "Ahn")), 
+                        levels = c("zeller", "weir", "wang", "sana", "lu", "hale", "geng", 
+                                   "flemer", "dejea", "burns", "brim", "baxter", "ahn"), 
+                        labels = c("Zeller", "Weir", "Wang", "Sanapareddy", "Lu", "Hale", "Geng", 
+                                   "Flemer","Dejea", "Burns", "Brim", "Baxter", "Ahn")), 
          effect_size = factor(effect_size, 
                               levels = c(0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3), 
                               labels = c("1%", "5%", "10%", "15%", "20%", "25%", "30%"))) %>% 
@@ -116,11 +99,11 @@ crc_sample_n <- crc_power %>%
   geom_jitter(width = 0.3, size = 3) + 
   coord_cartesian(ylim = c(0,12)) + 
   geom_vline(xintercept = c(1.5, 2.5, 3.5, 4.5, 5.5, 6.5), color = "gray") + 
-  labs(x = "Effect Size", y = expression(Log["10"]~Sample~Number)) + theme_bw() + ggtitle("D") + 
+  labs(x = "Effect Size", y = expression(Log["10"]~Sample~Number)) + theme_bw() + ggtitle("C") + 
   scale_color_manual(name = "Study", 
-                     values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', 
-                                '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', 
-                                '#453581FF', '#481D6FFF', '#40BC72FF')) + 
+                     values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', '#FDE725FF',  
+                                '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', '#453581FF', 
+                                '#34618DFF', '#481D6FFF', '#40BC72FF')) + 
   theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -131,8 +114,8 @@ crc_sample_n <- crc_power %>%
 ############################## Execution of needed functions  ################################
 ##############################################################################################
 
-power_graph <- grid.arrange(adn_study_power, adn_sample_n, 
-                                crc_study_power, crc_sample_n)
+power_graph <- grid.arrange(adn_study_power, crc_study_power, combined_sample_n, 
+                            layout_matrix = rbind(c(1, 3), c(2, 3)))
 
 ggsave("results/figures/power_graph.pdf", 
        power_graph, width = 10, height = 8, dpi = 300)
