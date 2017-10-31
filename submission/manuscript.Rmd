@@ -96,14 +96,14 @@ microbiota; colorectal cancer; polyps; adenoma; meta-analysis.
 ## Results
 
 ***Fecal Diversity is Lower in Those with Carcinoma and Increases Relative Risk:***
-Using power transformed and Z-score normalized alpha diversity metrics both evenness and the Shannon diversity metrics in feces are lower in those with carcinoma then in controls but not for tissue samples [Figure 1]. Using linear mixed-effects to control for study and variable region there was a significant decrease from control to adenoma to carcinoma for both evenness (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannoneven")[, "BH"], digits = 2, nsmall = 2))`) and Shannon diversity (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannon")[, "BH"], digits = 2, nsmall = 2))`). This effect was not observed in tissue when additionally controlling for whether the sample came from the same individual (P-value `r ifelse(min(match_tissue_lme$BH) < 0.05 & min(unmatch_tissue_lme$BH) < 0.05, invisible("check tables"), invisible(">"))` 0.05). For fecal samples a decrease in Shannon diversity and evenness resulted in a significantly increased relative risk for carcinoma (P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannon")[, "pvalue"], digits = 2, nsmall = 2))` and P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "pvalue"], digits = 2, nsmall = 2))`, respectively) [Figure 2]. Although these values were significant the effect size was relatively small for both metrics (Shannon RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannon")[, "rr"], digits = 2))` and evenness RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "rr"], digits = 2))`) [Figure 2]. There was no increased relative risk for these metrics for adenoma or for tissue in general [Figure S1-3] 
+Using power transformed and Z-score normalized alpha diversity metrics both evenness and the Shannon diversity metrics in feces are lower in those with carcinoma then in controls but not for tissue samples [Figure 1]. Using linear mixed-effects to control for study and variable region there was a significant decrease from control to adenoma to carcinoma for both evenness (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannoneven")[, "BH"], digits = 2, nsmall = 2))`) and Shannon diversity (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannon")[, "BH"], digits = 2, nsmall = 2))`). This effect was not observed in tissue when additionally controlling for whether the sample came from the same individual (P-value `r ifelse(min(match_tissue_lme$BH) < 0.05 & min(unmatch_tissue_lme$BH) < 0.05, invisible("check tables"), invisible(">"))` 0.05). For fecal samples a decrease in Shannon diversity and evenness resulted in a significantly increased relative risk for carcinoma (P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannon")[, "pvalue"], digits = 2, nsmall = 2))` and P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "pvalue"], digits = 2, nsmall = 2))`, respectively) [Figure 2]. Although these values were significant the effect size was relatively small for both metrics (Shannon RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannon")[, "rr"], digits = 2))` and evenness RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "rr"], digits = 2))`) [Figure 2]. There was no increased relative risk for these metrics for adenoma or for tissue in general [Figure S1-3].  
 
 
 ***Genera Previously Associated with Carcinoma Increases Relative Risk More than Alpha Diversity:***
 Both fecal and tissue samples had a significantly increased RR for carcinoma but not for adenoma [Figure 3] which was greater than either evenness or Shannon diversity [Figure 2 & 3]. The relative risk did not increase when considering the total abundance or increasing number of carcinoma associated genera [Figure 3]. The RR effect size was greater for stool (RR range = `r paste(round(min(filter(select_RR_stool, !(measure %in% c("all_four", "total_four")))[, "rr"]), digits = 2))` - `r paste(round(max(filter(select_RR_stool, !(measure %in% c("all_four", "total_four")))[, "rr"]), digits = 2))`) then for tissue (RR range = `r paste(round(min(filter(select_RR_tissue, !(measure %in% c("all_four", "total_four")))[, "rr"]), digits = 2))` - `r paste(round(max(filter(select_RR_tissue, !(measure %in% c("all_four", "total_four")))[, "rr"]), digits = 2))`) . This decrease may be explained by the fact that tissue samples include matched samples.
 
 
-***Section 3***
+***Using the Whole Community Increases AUC:***
 
 
 
@@ -190,9 +190,11 @@ Need to fill in.
 \newpage
 
 
-**Table 1: **
+**Table 1:**
 
 ```{r table1, echo=FALSE, message=FALSE, warning=FALSE}
+
+
 
 ```
 
