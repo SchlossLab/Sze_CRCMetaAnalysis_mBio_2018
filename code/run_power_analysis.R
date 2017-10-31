@@ -113,7 +113,7 @@ generate_pwr <- function(i, dataList){
   # grab the vector of data of interest from list
   tempData <- dataList[[i]]
   # The % difference we are interested in
-  differences <- c(0.01, 0.05, 0.10, 0.15, 0.20)
+  differences <- c(0.01, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30)
   # check to see if the study is null
   if(is.null(tempData)){
     # If it is null assign null to the values
