@@ -1,4 +1,4 @@
-## Colorectal Cancer Meta-Analysis of Stool and Tissue
+## The Microbiota and Individual Community Members in Colorectal Cancer: Is There a Common Theme?
 
 ### Main Questions to Answer
 
@@ -6,11 +6,6 @@
 * Can we identify global discriminative OTUs in tissue that classify stool?
 * Using all data is there a common signature of health and disease
 
-
-
-### Active To Do list
-
-* Need to run the Lu data set from the cluster split step onward to incorporate opticlust
 
 
 ### Overview
@@ -52,9 +47,9 @@
 ### How to regenerate this repository
 #### Dependencies and locations  
 * Gnu Make (v3.81) should be located in the user's PATH  
-* mothur (v1.37.4) should be located in the user's PATH
+* mothur (v1.39.3) should be located in the user's PATH
 	* Note v1.37.0 causes all sorts of headaches  	
-* R (v. 3.3.0) should be located in the user's PATH  
+* R (v. 3.4.2) should be located in the user's PATH  
 
 #### Running analysis  
 ```git clone https://github.com/SchlossLab/Sze_CRCMetaAnalysis_XXXX_2016.git```  
