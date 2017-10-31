@@ -1,51 +1,51 @@
-sample	disease	age	sex	race	site	biofilm	stage	size_mm	histology	white	matched
-SRR1556453	adenoma	50	m	caucasian	ascending	y	NA	40	tubular_adenoma_no_dysplasia	1	y
-SRR1556454	adenoma	50	m	caucasian	ascending	y	NA	40	tubular_adenoma_no_dysplasia	1	y
-SRR1556455	cancer	69	m	caucasian	ascending	y	1	87	adenocarcinoma	1	y
-SRR1556456	cancer	69	m	caucasian	ascending	y	1	87	adenocarcinoma	1	y
-SRR1556457	cancer	74	m	caucasian	ascending	y	2	30	adenocarcinoma	1	y
-SRR1556458	cancer	74	m	caucasian	ascending	y	2	30	adenocarcinoma	1	y
-SRR1556459	cancer	64	m	caucasian	rectum	n	3	70	adenocarcinoma	1	y
-SRR1556460	cancer	64	m	caucasian	rectum	n	3	70	adenocarcinoma	1	y
-SRR1556461	cancer	39	m	caucasian	sigmoid	n	3	50	adenocarcinoma	1	y
-SRR1556462	cancer	39	m	caucasian	sigmoid	n	3	50	adenocarcinoma	1	y
-SRR1556463	cancer	73	f	caucasian	transverse	n	2	25	adenocarcinoma	1	y
-SRR1556464	cancer	73	f	caucasian	transverse	n	2	25	adenocarcinoma	1	y
-SRR1556465	cancer	49	f	african_american	ascending	y	4	47	mucinous_adenocarcinoma	0	y
-SRR1556466	cancer	49	f	african_american	ascending	y	4	47	mucinous_adenocarcinoma	0	y
-SRR1556467	cancer	67	f	african_american	ascending	y	2	30	adenocarcinoma	0	y
-SRR1556468	cancer	67	f	african_american	ascending	y	2	30	adenocarcinoma	0	y
-SRR1556469	cancer	54	m	caucasian	sigmoid	y	4	45	adenocarcinoma	1	y
-SRR1556470	cancer	54	m	caucasian	sigmoid	y	4	45	adenocarcinoma	1	y
-SRR1556471	cancer	29	f	caucasian	rectosigmoid	n	2	80	adenocarcinoma	1	y
-SRR1556472	cancer	29	f	caucasian	rectosigmoid	n	2	80	adenocarcinoma	1	y
-SRR1556473	cancer	73	m	caucasian	ascending	y	4	54	adenocarcinoma	1	y
-SRR1556474	cancer	73	m	caucasian	ascending	y	4	54	adenocarcinoma	1	y
-SRR1556475	cancer	66	f	caucasian	ascending	y	2	30	adenocarcinoma	1	y
-SRR1556476	cancer	66	f	caucasian	ascending	y	2	30	adenocarcinoma	1	y
-SRR1556477	cancer	59	f	caucasian	ascending	y	4	22	adenocarcinoma	1	y
-SRR1556478	cancer	59	f	caucasian	ascending	y	4	22	adenocarcinoma	1	y
-SRR1556479	cancer	56	f	caucasian	sigmoid	n	4	55	adenocarcinoma	1	y
-SRR1556480	cancer	56	f	caucasian	sigmoid	n	4	55	adenocarcinoma	1	y
-SRR1556481	cancer	78	f	african_american	splenic_flexure	n	3	60	adenocarcinoma	0	y
-SRR1556482	cancer	78	f	african_american	splenic_flexure	n	3	60	adenocarcinoma	0	y
-SRR1556483	cancer	71	m	caucasian	hepatic_flexure	n	1	35	adenocarcinoma	1	y
-SRR1556484	cancer	71	m	caucasian	hepatic_flexure	n	1	35	adenocarcinoma	1	y
-SRR1556485	cancer	45	m	asian	hepatic_flexure	y	2	45	adenocarcinoma	0	y
-SRR1556486	cancer	45	m	asian	hepatic_flexure	y	2	45	adenocarcinoma	0	y
-SRR1556487	adenoma	84	f	caucasian	ascending	y	NA	35	tubular_adenoma_no_dysplasia	1	y
-SRR1556488	adenoma	84	f	caucasian	ascending	y	NA	35	tubular_adenoma_no_dysplasia	1	y
-SRR1556489	cancer	54	f	caucasian	rectosigmoid	n	3	40	adenocarcinoma	1	y
-SRR1556490	cancer	54	f	caucasian	rectosigmoid	n	3	40	adenocarcinoma	1	y
-SRR1556491	cancer	55	m	hispanic	descending	n	3	50	adenocarcinoma	1	y
-SRR1556492	cancer	55	m	hispanic	descending	n	3	50	adenocarcinoma	1	y
-SRR1556493	cancer	78	m	caucasian	cecum	y	3	40	adenocarcinoma	1	y
-SRR1556494	cancer	78	m	caucasian	cecum	y	3	40	adenocarcinoma	1	y
-SRR1556495	cancer	52	f	caucasian	transverse	n	1	20	mucinous_adenocarcinoma	1	y
-SRR1556496	cancer	52	f	caucasian	transverse	n	1	20	mucinous_adenocarcinoma	1	y
-SRR1556497	cancer	38	f	caucasian	sigmoid	n	1	50	adenocarcinoma	1	y
-SRR1556498	cancer	38	f	caucasian	sigmoid	n	1	50	adenocarcinoma	1	y
-SRR1556499	cancer	77	f	african_american	cecum	y	3	35	adenocarcinoma	0	y
-SRR1556500	cancer	77	f	african_american	cecum	y	3	35	adenocarcinoma	0	y
-SRR1556501	cancer	62	m	caucasian	ascending	y	2	45	mucinous_adenocarcinoma	1	y
-SRR1556502	cancer	62	m	caucasian	ascending	y	2	45	mucinous_adenocarcinoma	1	y
+sample	patient_id	disease	location	age	sex	race	site	biofilm	stage	size_mm	histology	white	matched
+SRR1556453	3726	control	Right	50	m	caucasian	ascending	y	NA	40	tubular_adenoma_no_dysplasia	1	y
+SRR1556454	3726	polyp	Right	50	m	caucasian	ascending	y	NA	40	tubular_adenoma_no_dysplasia	1	y
+SRR1556455	3728	control	Right	69	m	caucasian	ascending	y	1	87	adenocarcinoma	1	y
+SRR1556456	3728	cancer	Right	69	m	caucasian	ascending	y	1	87	adenocarcinoma	1	y
+SRR1556457	3731	control	Right	74	m	caucasian	ascending	y	2	30	adenocarcinoma	1	y
+SRR1556458	3731	cancer	Right	74	m	caucasian	ascending	y	2	30	adenocarcinoma	1	y
+SRR1556459	3735	control	Left	64	m	caucasian	rectum	n	3	70	adenocarcinoma	1	y
+SRR1556460	3735	cancer	Left	64	m	caucasian	rectum	n	3	70	adenocarcinoma	1	y
+SRR1556461	3749	control	Left	39	m	caucasian	sigmoid	n	3	50	adenocarcinoma	1	y
+SRR1556462	3749	cancer	Left	39	m	caucasian	sigmoid	n	3	50	adenocarcinoma	1	y
+SRR1556463	3752	control	Left	73	f	caucasian	transverse	n	2	25	adenocarcinoma	1	y
+SRR1556464	3752	cancer	Left	73	f	caucasian	transverse	n	2	25	adenocarcinoma	1	y
+SRR1556465	3753	control	Right	49	f	african_american	ascending	y	4	47	mucinous_adenocarcinoma	0	y
+SRR1556466	3753	cancer	Right	49	f	african_american	ascending	y	4	47	mucinous_adenocarcinoma	0	y
+SRR1556467	3754	control	Right	67	f	african_american	ascending	y	2	30	adenocarcinoma	0	y
+SRR1556468	3754	cancer	Right	67	f	african_american	ascending	y	2	30	adenocarcinoma	0	y
+SRR1556469	3756	control	Left	54	m	caucasian	sigmoid	y	4	45	adenocarcinoma	1	y
+SRR1556470	3756	cancer	Left	54	m	caucasian	sigmoid	y	4	45	adenocarcinoma	1	y
+SRR1556471	3760	control	Left	29	f	caucasian	rectosigmoid	n	2	80	adenocarcinoma	1	y
+SRR1556472	3760	cancer	Left	29	f	caucasian	rectosigmoid	n	2	80	adenocarcinoma	1	y
+SRR1556473	3762	control	Right	73	m	caucasian	ascending	y	4	54	adenocarcinoma	1	y
+SRR1556474	3762	cancer	Right	73	m	caucasian	ascending	y	4	54	adenocarcinoma	1	y
+SRR1556475	3763	control	Right	66	f	caucasian	ascending	y	2	30	adenocarcinoma	1	y
+SRR1556476	3763	cancer	Right	66	f	caucasian	ascending	y	2	30	adenocarcinoma	1	y
+SRR1556477	3764	control	Right	59	f	caucasian	ascending	y	4	22	adenocarcinoma	1	y
+SRR1556478	3764	cancer	Right	59	f	caucasian	ascending	y	4	22	adenocarcinoma	1	y
+SRR1556479	3766	control	Left	56	f	caucasian	sigmoid	n	4	55	adenocarcinoma	1	y
+SRR1556480	3766	cancer	Left	56	f	caucasian	sigmoid	n	4	55	adenocarcinoma	1	y
+SRR1556481	3769	control	Left	78	f	african_american	splenic_flexure	n	3	60	adenocarcinoma	0	y
+SRR1556482	3769	cancer	Left	78	f	african_american	splenic_flexure	n	3	60	adenocarcinoma	0	y
+SRR1556483	3770	control	Right	71	m	caucasian	hepatic_flexure	n	1	35	adenocarcinoma	1	y
+SRR1556484	3770	cancer	Right	71	m	caucasian	hepatic_flexure	n	1	35	adenocarcinoma	1	y
+SRR1556485	3774	control	Right	45	m	asian	hepatic_flexure	y	2	45	adenocarcinoma	0	y
+SRR1556486	3774	cancer	Right	45	m	asian	hepatic_flexure	y	2	45	adenocarcinoma	0	y
+SRR1556487	3776	control	Right	84	f	caucasian	ascending	y	NA	35	tubular_adenoma_no_dysplasia	1	y
+SRR1556488	3776	polyp	Right	84	f	caucasian	ascending	y	NA	35	tubular_adenoma_no_dysplasia	1	y
+SRR1556489	3785	control	Left	54	f	caucasian	rectosigmoid	n	3	40	adenocarcinoma	1	y
+SRR1556490	3785	cancer	Left	54	f	caucasian	rectosigmoid	n	3	40	adenocarcinoma	1	y
+SRR1556491	3789	control	Left	55	m	hispanic	descending	n	3	50	adenocarcinoma	1	y
+SRR1556492	3789	cancer	Left	55	m	hispanic	descending	n	3	50	adenocarcinoma	1	y
+SRR1556493	3972	control	Right	78	m	caucasian	cecum	y	3	40	adenocarcinoma	1	y
+SRR1556494	3972	cancer	Right	78	m	caucasian	cecum	y	3	40	adenocarcinoma	1	y
+SRR1556495	3976	control	Left	52	f	caucasian	transverse	n	1	20	mucinous_adenocarcinoma	1	y
+SRR1556496	3976	cancer	Left	52	f	caucasian	transverse	n	1	20	mucinous_adenocarcinoma	1	y
+SRR1556497	3977	control	Left	38	f	caucasian	sigmoid	n	1	50	adenocarcinoma	1	y
+SRR1556498	3977	cancer	Left	38	f	caucasian	sigmoid	n	1	50	adenocarcinoma	1	y
+SRR1556499	3979	control	Right	77	f	african_american	cecum	y	3	35	adenocarcinoma	0	y
+SRR1556500	3979	cancer	Right	77	f	african_american	cecum	y	3	35	adenocarcinoma	0	y
+SRR1556501	3982	control	Right	62	m	caucasian	ascending	y	2	45	mucinous_adenocarcinoma	1	y
+SRR1556502	3982	cancer	Right	62	m	caucasian	ascending	y	2	45	mucinous_adenocarcinoma	1	y
