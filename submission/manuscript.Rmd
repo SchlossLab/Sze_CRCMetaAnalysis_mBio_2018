@@ -156,7 +156,7 @@ The code and analysis can be found here https://github.com/SchlossLab/Sze_CRCMet
 
 ### Ethics approval and consent to participate
 
-Need to fill in.
+Ethics approval and informed consent for each of the studies used is mentioned in the respective manuscript used in this meta-analysis.
 
 ### Consent for publication
 
@@ -164,7 +164,7 @@ Not applicable.
 
 ### Availability of data and material
 
-Need to fill in.
+A detailed and reporducible description of how the data were processed and analyzed for each study can be found at https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017. Raw sequences can be downloaded from the SRA in most cases and can be found in the respective studies batch file in the GitHub repo or within the original publication. When sequences were not publicly available contacting the corresponding author for raw sequences needs to be undertaken.  
 
 ### Competing Interests
 
@@ -172,15 +172,15 @@ All authors declare that they do not have any relevant competing interests to re
 
 ### Funding
 
-Need to fill in.
+MAS is supported by a CIHR fellowship and a University of Michigan PTSP fellowship grant.
 
 ### Authors' contributions
 
-Need to fill in.
+All authors helped to design and conceptualize the study. MAS identified and analyzed the data. MAS and PDS interpreted the data. MAS wrote the first draft of the manuscript and both he and PDS reviewed and revised updated versions. All authors approved the final manuscript.
 
 ### Acknowledgements
 
-Need to fill in.
+The authors would like to thank all the study participants who were apart of each of the individual studies uitlized. We would also like to thank each of the study authors for making their data available for use. Finally we would like to thank the members of the Schloss lab for valuable feed back and proof reading during the formulation of this manuscript.
 
 \newpage
 
@@ -203,17 +203,6 @@ Need to fill in.
 \newpage
 
 
-**Table 2: **
-
-```{r table2, echo=FALSE, message=FALSE, warning=FALSE}
-
-
-```
-
-
-\newpage
-
-
 
 **Figure 1: **
 
@@ -223,7 +212,9 @@ Need to fill in.
 
 **Figure 4: **  
 
+**Figure 5: ** 
 
+**Figure 6: **  
 
 
 \newpage
@@ -234,5 +225,17 @@ Need to fill in.
 **Figure S2: ** 
 
 **Figure S3: **
+
+**Figure S4: ** 
+
+**Figure S5: ** 
+
+**Figure S6: **
+
+**Figure S7: ** 
+
+**Figure S8: ** 
+
+
 
 \newpage
