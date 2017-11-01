@@ -95,11 +95,11 @@ combined_sample_n <- combined_data %>%
          effect_size = factor(effect_size, 
                               levels = c(0.01, 0.05, 0.1, 0.15, 0.2, 0.25, 0.3), 
                               labels = c("1%", "5%", "10%", "15%", "20%", "25%", "30%"))) %>% 
-  ggplot(aes(effect_size, log(pwr80_needed_n), color = study, group = study)) + 
+  ggplot(aes(effect_size, log2(pwr80_needed_n), color = study, group = study)) + 
   geom_jitter(width = 0.3, size = 3) + 
-  coord_cartesian(ylim = c(0,12)) + 
+  coord_cartesian(ylim = c(0,16)) + 
   geom_vline(xintercept = c(1.5, 2.5, 3.5, 4.5, 5.5, 6.5), color = "gray") + 
-  labs(x = "Effect Size", y = expression(Log["10"]~Sample~Number)) + theme_bw() + ggtitle("C") + 
+  labs(x = "Effect Size", y = expression(Log["2"]~Sample~Number)) + theme_bw() + ggtitle("C") + 
   scale_color_manual(name = "Study", 
                      values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', '#FDE725FF',  
                                 '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', '#453581FF', 
