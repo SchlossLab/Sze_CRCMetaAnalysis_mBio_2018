@@ -16,12 +16,18 @@ bibliography: references.bib
 
 source('../code/functions.R')
 
-loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown"))
+loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown", "stringr"))
 
 ```
 
 ```{r rdata_tables, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
 
+#Read in meta data files used
+studies <- c("Ahn", "Baxter", "Brim", "Burns", "Chen", "Dejea", "Flemer", "Geng", "Hale", "Lu", "Sana", "Wang", "Weir", "Zeller")
+
+study_metadata <- sapply(studies, function(x) 
+  read_tsv(paste("../data/process/", str_to_lower(x), "/", str_to_lower(x), ".metadata", sep = "")), simplify = F)
+  
 #Load in linear mixed-effect alpha diversity data tables 
 stool_lme <- as.data.frame(read_csv("../data/process/tables/alpha_mixeffect_results.csv"))
 unmatch_tissue_lme <- as.data.frame(read_csv("../data/process/tables/alpha_unmatched_mixeffect_results.csv"))
@@ -208,17 +214,29 @@ The authors would like to thank all the study participants who were apart of eac
 
 **Table 1:**
 
+\footnotesize
+
 ```{r table1, echo=FALSE, message=FALSE, warning=FALSE}
 
 studies <- c("Ahn", "Baxter", "Brim", "Burns", "Chen", "Dejea", "Flemer", "Geng", "Hale", "Lu", "Sanapareddy", "Wang", "Weir", "Zeller")
 
+sample_type <- c("Stool", "Stool", "Stool", "Tissue", "Stool + Tissue", "Tissue", "Stool + Tissue", "Tissue", "Stool", "Tissue", "Tissue", "Stool", "Stool", "Stool")
 
+individuals <- c("control, carcinoma", "control, adenoma, carcinoma", "control, adenoma", "carcinoma", "control, carcinoma", "adenoma, carcinoma", "control, adenoma, carcinoma", "carcinoma", "control, adenoma, carcinoma", "control, adenoma", "control, carcinoma", "control, carcinoma", "control, carcinoma", "control, adenoma, carcinoma")
 
+data_obtained <- c("DBGap", "SRA", "SRA", "SRA", "SRA", "SRA", "Author", "SRA", "Author", "SRA", "Author", 
+                   "SRA", "Author", "SRA")
+
+final_n <- c(length(unique(study_metadata[["Ahn"]]$sample)), length(unique(study_metadata[["Baxter"]]$sample)), length(unique(study_metadata[["Brim"]]$sample)), length(rownames(filter(study_metadata[["Burns"]], disease == "cancer"))), length(rownames(filter(study_metadata[["Chen"]], sample_type != "swab"))), length(unique(study_metadata[["Dejea"]]$patient_id)), length(unique(study_metadata[["Flemer"]]$sample)), length(rownames(filter(study_metadata[["Geng"]], disease == "cancer"))), length(unique(study_metadata[["Hale"]]$sample)), round((length(rownames(filter(study_metadata[["Lu"]], disease == "control"))) - length(rownames(filter(study_metadata[["Lu"]], disease == "polyp"))))/2) + length(rownames(filter(study_metadata[["Lu"]], matched == "n"))) + length(rownames(filter(study_metadata[["Lu"]], disease == "polyp"))) + 1, length(unique(study_metadata[["Sana"]]$sample)), length(unique(study_metadata[["Wang"]]$sample)), length(unique(study_metadata[["Weir"]]$sample)), length(unique(study_metadata[["Zeller"]]$sample)))
+
+table1 <- cbind(studies, sample_type, individuals, data_obtained, final_n)
+
+colnames(table1) <- c("Study", "Sample Type", "Individuals", "Data Stored", "mothur Processed n")
 
 kable(table1, format = "markdown", align = 'c', padding = 2)
 ```
 
-
+\normalsize
 \newpage
 
 
