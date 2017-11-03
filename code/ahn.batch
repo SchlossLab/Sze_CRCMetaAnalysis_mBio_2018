@@ -7,11 +7,6 @@ DOWNDIR=data/raw/ahn
 WORKDIR=data/process/ahn
 REF=data/references
 
-# Need to add in a bunch of stuff on the study and what they were looking for.
-# Might adjust parameters to those set by authors of original manuscript
-# (Geng, J et al 2013).  mothur default for 454 allowed only an average of
-# 855 sequence per sample. Author method leave ~1,190 sequences per sample. 
-# The SRA project ID is SRP016877.
 
 # Download the data set
 	# Need to obtain permission from dbgap and then download the data from there
