@@ -89,7 +89,11 @@ microbiota; colorectal cancer; polyps; adenoma; meta-analysis.
 
 ## Background
 
+Colorectal cancer (CRC) is a growing world wide health problem in which the microbiota has been purported to play an active role in disease pathogenesis. Numerous studies have shown the importance of both individual microbes () and the overall community () in polyp formation in mouse models. There has also been numerous case control studies investigating the microbiota in both adenoma and carcinoma. Recently, a meta-analysis was published investigating whether specific biomarkers could be consistently identified using multiple data sets (). Many of the studies along with the current meta-analysis focus on identifying biomarkers or individual microbes but do not critically investigate the community role in the disease. 
 
+Using both fecal and tissue samples totalling over 2100 total individuals across 14 studies within our data analysis we exapnd both the breadth and scope of the previous meta-analysis to investigate whether the bacterial community is an important risk factor for both adenoma and carcinoma. We first assessed the diversity of controls, adenoma, and carcinoma individuals and tested whether they change and if it results in an increased relative risk of adenoma or carcinoma. Next, we assessed how this relative risk compared to CRC associated genera for both adenoma and carcinoma. Third, using Random Forest models we assessed whether the community context can increase the classification model area under the curve (AUC). Finally, we examine whether the studies that were used were adequately powered and if not what effect size they were powered for.
+
+Our analysis found a continuous decreae in Shannon diversity from control to adenoma to carcinoma and a significantly increased relative risk for carcinoma with lower diversity. Using the CRC associated genera only this relative risk was higher than Shannon diversity. However, adding the community context in which these CRC associated genera are present increases prediction models AUC. Although we analyze a data set with a large number of total individuals each individual study was underpowered for effect size differences of 10% or below between the case and control.   
 
 \newpage
 
