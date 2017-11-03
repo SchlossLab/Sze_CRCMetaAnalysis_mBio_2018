@@ -143,31 +143,32 @@ microbiota; colorectal cancer; polyps; adenoma; meta-analysis.
 
 \subsection{Background}\label{background}
 
-Colorectal cancer (CRC) is a growing world wide health problem in which
-the microbiota has been purported to play an active role in disease
-pathogenesis. Numerous studies have shown the importance of both
-individual microbes () and the overall community () in polyp formation
-in mouse models. There has also been numerous case control studies
-investigating the microbiota in both adenoma and carcinoma. Recently, a
-meta-analysis was published investigating whether specific biomarkers
-could be consistently identified using multiple data sets (). Many of
-the studies along with the current meta-analysis focus on identifying
-biomarkers or individual microbes but do not critically investigate the
-community role in the disease.
+Colorectal cancer (CRC) is a growing world wide health problem {[}1{]}
+in which the microbiota has been purported to play an active role in
+disease pathogenesis {[}2{]}. Numerous studies have shown the importance
+of both individual microbes {[}3--7{]} and the overall community
+{[}8--10{]} in polyp formation in mouse models. There has also been
+numerous case control studies investigating the microbiota in both
+adenoma and carcinoma. Recently, a meta-analysis was published
+investigating whether specific biomarkers could be consistently
+identified using multiple data sets {[}11{]}. Many of the studies along
+with the current meta-analysis focus on identifying biomarkers or
+individual microbes but do not critically investigate the community role
+in the disease.
 
 Using both fecal and tissue samples totalling over 2100 total
-individuals across 14 studies within our data analysis we exapnd both
-the breadth and scope of the previous meta-analysis to investigate
-whether the bacterial community is an important risk factor for both
-adenoma and carcinoma. We first assessed the diversity of controls,
-adenoma, and carcinoma individuals and tested whether they change and if
-it results in an increased relative risk of adenoma or carcinoma. Next,
-we assessed how this relative risk compared to CRC associated genera for
-both adenoma and carcinoma. Third, using Random Forest models we
-assessed whether the community context can increase the classification
-model area under the curve (AUC). Finally, we examine whether the
-studies that were used were adequately powered and if not what effect
-size they were powered for.
+individuals across 14 studies {[}12--25{]} within our data analysis we
+expand both the breadth and scope of the previous meta-analysis to
+investigate whether the bacterial community is an important risk factor
+for both adenoma and carcinoma. We first assessed the diversity of
+controls, adenoma, and carcinoma individuals and tested whether they
+change and if it results in an increased relative risk of adenoma or
+carcinoma. Next, we assessed how this relative risk compared to CRC
+associated genera for both adenoma and carcinoma. Third, using Random
+Forest models we assessed whether the community context can increase the
+classification model area under the curve (AUC). Finally, we examine
+whether the studies that were used were adequately powered and if not
+what effect size they were powered for.
 
 Our analysis found a continuous decreae in Shannon diversity from
 control to adenoma to carcinoma and a significantly increased relative
@@ -269,7 +270,7 @@ occuring that are important in the disease progression of colorectal
 cancer and that they may not directly involve CRC associated genera.
 
 The driver-passenger model of the microbial role in CRC, as summarized
-by Flynn {[}1{]}, can be supported with this data for carcinoma but not
+by Flynn {[}2{]}, can be supported with this data for carcinoma but not
 necessarily for adenoma. The drasitically increased relative risk of
 disease when considering the CRC associated genera is highly supportive
 of this type of process. In a driver-passenger scenario it is possible
@@ -330,17 +331,17 @@ ahead in the invesitgation of colorectal cancer and the microbiota.
 
 \textbf{\emph{Obtaining Data Sets:}} Studies used for this meta-analysis
 were identified through the review articles written by Keku, et al. and
-Vogtmann, et al. {[}2,3{]}. All studies were included that used tissue
+Vogtmann, et al. {[}26,27{]}. All studies were included that used tissue
 or feces as their sample source for 16S rRNA gene sequencing analysis.
 Studies using either 454 or Illumina sequencing technology were
 included. Only data sets that had the raw sequences available for
 analysis were included. Some studies did not have publically available
 raw sequences or did not have meta data in which the authors were able
 to share. After this filtering step the following studies remained: Ahn
-{[}4{]}, Baxter {[}5{]}, Brim {[}6{]}, Burns {[}7{]}, Chen {[}8{]},
-Dejea {[}9{]}, Flemer {[}10{]}, Geng {[}11{]}, Hale {[}12{]}, Kostic
-{[}13{]}, Lu {[}14{]}, Sanapareddy {[}15{]}, Wang {[}16{]}, Weir
-{[}17{]}, and Zeller {[}18{]}. The Zackular {[}19{]} study was not
+{[}21{]}, Baxter {[}24{]}, Brim {[}17{]}, Burns {[}22{]}, Chen {[}14{]},
+Dejea {[}19{]}, Flemer {[}13{]}, Geng {[}25{]}, Hale {[}12{]}, Kostic
+{[}28{]}, Lu {[}16{]}, Sanapareddy {[}20{]}, Wang {[}15{]}, Weir
+{[}18{]}, and Zeller {[}23{]}. The Zackular {[}29{]} study was not
 included becasue the 90 individuals analyzed within the study are
 contained within the larger Baxter study. The Kostic study was not used
 since after sequence processing all the case samples did not have more
@@ -362,15 +363,15 @@ and metadata was obtained from the following website:
 \url{http://www.ncbi.nlm.nih.gov/Traces/study/} by searching the
 respective accession number of the study. Of the studies that did not
 have sequences and meta data on the SRA one study had the data stored on
-DBGap {[}4{]} and four studies the data was obtained directly from the
-authors {[}10,12,15,17{]}. Each study was processed using the mothur
-(v1.39.3) software program {[}20{]}. Where possible quality filtering
+DBGap {[}21{]} and four studies the data was obtained directly from the
+authors {[}12,13,18,20{]}. Each study was processed using the mothur
+(v1.39.3) software program {[}30{]}. Where possible quality filtering
 utilized the default methods used in mothur for either 454 or Illumina
 based sequencing. If it was not possible to use these defaults the
 author stated quality cut-offs were used instead. Chimeras were
-identifed and removed using the VSEARCH {[}21{]} program and \emph{de
+identifed and removed using the VSEARCH {[}31{]} program and \emph{de
 novo} OTU clustering at 97\% similarity using the OptiClust algorithm
-{[}22{]} was utilized.
+{[}32{]} was utilized.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
 sequence processing utilized the R software package (v3.4.2). For the
@@ -478,62 +479,61 @@ manuscript.
 \subsection{References}\label{references}
 
 \hypertarget{refs}{}
+\hypertarget{ref-siegel_cancer_2016}{}
+1. Siegel RL, Miller KD, Jemal A. Cancer statistics, 2016. CA: a cancer
+journal for clinicians. 2016;66:7--30.
+
 \hypertarget{ref-flynn_metabolic_2016}{}
-1. Flynn KJ, Baxter NT, Schloss PD. Metabolic and Community Synergy of
+2. Flynn KJ, Baxter NT, Schloss PD. Metabolic and Community Synergy of
 Oral Bacteria in Colorectal Cancer. mSphere. 2016;1.
 
-\hypertarget{ref-keku_gastrointestinal_2015}{}
-2. Keku TO, Dulal S, Deveaux A, Jovov B, Han X. The gastrointestinal
-microbiota and colorectal cancer. American Journal of Physiology -
-Gastrointestinal and Liver Physiology {[}Internet{]}. 2015 {[}cited 2017
-Oct 30{]};308:G351--63. Available from:
-\url{http://ajpgi.physiology.org/lookup/doi/10.1152/ajpgi.00360.2012}
+\hypertarget{ref-goodwin_polyamine_2011}{}
+3. Goodwin AC, Destefano Shields CE, Wu S, Huso DL, Wu X, Murray-Stewart
+TR, et al. Polyamine catabolism contributes to enterotoxigenic
+Bacteroides fragilis-induced colon tumorigenesis. Proceedings of the
+National Academy of Sciences of the United States of America.
+2011;108:15354--9.
 
-\hypertarget{ref-vogtmann_epidemiologic_2016}{}
-3. Vogtmann E, Goedert JJ. Epidemiologic studies of the human microbiome
-and cancer. British Journal of Cancer {[}Internet{]}. 2016 {[}cited 2017
-Oct 30{]};114:237--42. Available from:
-\url{http://www.nature.com/doifinder/10.1038/bjc.2015.465}
+\hypertarget{ref-abed_fap2_2016}{}
+4. Abed J, Emgård JEM, Zamir G, Faroja M, Almogy G, Grenov A, et al.
+Fap2 Mediates Fusobacterium nucleatum Colorectal Adenocarcinoma
+Enrichment by Binding to Tumor-Expressed Gal-GalNAc. Cell Host \&
+Microbe. 2016;20:215--25.
 
-\hypertarget{ref-ahn_human_2013}{}
-4. Ahn J, Sinha R, Pei Z, Dominianni C, Wu J, Shi J, et al. Human gut
-microbiome and risk for colorectal cancer. Journal of the National
-Cancer Institute. 2013;105:1907--11.
+\hypertarget{ref-arthur_intestinal_2012}{}
+5. Arthur JC, Perez-Chanona E, Mühlbauer M, Tomkovich S, Uronis JM, Fan
+T-J, et al. Intestinal inflammation targets cancer-inducing activity of
+the microbiota. Science (New York, N.Y.). 2012;338:120--3.
 
-\hypertarget{ref-baxter_microbiota-based_2016}{}
-5. Baxter NT, Ruffin MT, Rogers MAM, Schloss PD. Microbiota-based model
-improves the sensitivity of fecal immunochemical test for detecting
-colonic lesions. Genome Medicine. 2016;8:37.
+\hypertarget{ref-kostic_fusobacterium_2013}{}
+6. Kostic AD, Chun E, Robertson L, Glickman JN, Gallini CA, Michaud M,
+et al. Fusobacterium nucleatum potentiates intestinal tumorigenesis and
+modulates the tumor-immune microenvironment. Cell Host \& Microbe.
+2013;14:207--15.
 
-\hypertarget{ref-brim_microbiome_2013}{}
-6. Brim H, Yooseph S, Zoetendal EG, Lee E, Torralbo M, Laiyemo AO, et
-al. Microbiome analysis of stool samples from African Americans with
-colon polyps. PloS One. 2013;8:e81352.
+\hypertarget{ref-wu_human_2009}{}
+7. Wu S, Rhee K-J, Albesiano E, Rabizadeh S, Wu X, Yen H-R, et al. A
+human colonic commensal promotes colon tumorigenesis via activation of T
+helper type 17 T cell responses. Nature Medicine. 2009;15:1016--22.
 
-\hypertarget{ref-burns_virulence_2015}{}
-7. Burns MB, Lynch J, Starr TK, Knights D, Blekhman R. Virulence genes
-are a signature of the microbiome in the colorectal tumor
-microenvironment. Genome Medicine. 2015;7:55.
+\hypertarget{ref-zackular_manipulation_2016}{}
+8. Zackular JP, Baxter NT, Chen GY, Schloss PD. Manipulation of the Gut
+Microbiota Reveals Role in Colon Tumorigenesis. mSphere. 2016;1.
 
-\hypertarget{ref-chen_human_2012}{}
-8. Chen W, Liu F, Ling Z, Tong X, Xiang C. Human intestinal lumen and
-mucosa-associated microbiota in patients with colorectal cancer. PloS
-One. 2012;7:e39743.
+\hypertarget{ref-zackular_gut_2013}{}
+9. Zackular JP, Baxter NT, Iverson KD, Sadler WD, Petrosino JF, Chen GY,
+et al. The gut microbiome modulates colon tumorigenesis. mBio.
+2013;4:e00692--00613.
 
-\hypertarget{ref-dejea_microbiota_2014}{}
-9. Dejea CM, Wick EC, Hechenbleikner EM, White JR, Mark Welch JL,
-Rossetti BJ, et al. Microbiota organization is a distinct feature of
-proximal colorectal cancers. Proceedings of the National Academy of
-Sciences of the United States of America. 2014;111:18321--6.
+\hypertarget{ref-baxter_structure_2014}{}
+10. Baxter NT, Zackular JP, Chen GY, Schloss PD. Structure of the gut
+microbiome following colonization with human feces determines colonic
+tumor burden. Microbiome. 2014;2:20.
 
-\hypertarget{ref-flemer_tumour-associated_2017}{}
-10. Flemer B, Lynch DB, Brown JMR, Jeffery IB, Ryan FJ, Claesson MJ, et
-al. Tumour-associated and non-tumour-associated microbiota in colorectal
-cancer. Gut. 2017;66:633--43.
-
-\hypertarget{ref-geng_diversified_2013}{}
-11. Geng J, Fan H, Tang X, Zhai H, Zhang Z. Diversified pattern of the
-human colorectal cancer microbiome. Gut Pathogens. 2013;5:2.
+\hypertarget{ref-shah_leveraging_2017}{}
+11. Shah MS, DeSantis TZ, Weinmaier T, McMurdie PJ, Cope JL, Altrichter
+A, et al. Leveraging sequence-based faecal microbial community survey
+data to identify a composite biomarker for colorectal cancer. Gut. 2017;
 
 \hypertarget{ref-hale_shifts_2017}{}
 12. Hale VL, Chen J, Johnson S, Harrington SC, Yab TC, Smyrk TC, et al.
@@ -542,44 +542,97 @@ Cancer Epidemiology, Biomarkers \& Prevention: A Publication of the
 American Association for Cancer Research, Cosponsored by the American
 Society of Preventive Oncology. 2017;26:85--94.
 
-\hypertarget{ref-kostic_genomic_2012}{}
-13. Kostic AD, Gevers D, Pedamallu CS, Michaud M, Duke F, Earl AM, et
-al. Genomic analysis identifies association of Fusobacterium with
-colorectal carcinoma. Genome Research. 2012;22:292--8.
+\hypertarget{ref-flemer_tumour-associated_2017}{}
+13. Flemer B, Lynch DB, Brown JMR, Jeffery IB, Ryan FJ, Claesson MJ, et
+al. Tumour-associated and non-tumour-associated microbiota in colorectal
+cancer. Gut. 2017;66:633--43.
+
+\hypertarget{ref-chen_human_2012}{}
+14. Chen W, Liu F, Ling Z, Tong X, Xiang C. Human intestinal lumen and
+mucosa-associated microbiota in patients with colorectal cancer. PloS
+One. 2012;7:e39743.
+
+\hypertarget{ref-wang_structural_2012}{}
+15. Wang T, Cai G, Qiu Y, Fei N, Zhang M, Pang X, et al. Structural
+segregation of gut microbiota between colorectal cancer patients and
+healthy volunteers. The ISME journal. 2012;6:320--9.
 
 \hypertarget{ref-lu_mucosal_2016}{}
-14. Lu Y, Chen J, Zheng J, Hu G, Wang J, Huang C, et al. Mucosal
+16. Lu Y, Chen J, Zheng J, Hu G, Wang J, Huang C, et al. Mucosal
 adherent bacterial dysbiosis in patients with colorectal adenomas.
 Scientific Reports. 2016;6:26337.
 
+\hypertarget{ref-brim_microbiome_2013}{}
+17. Brim H, Yooseph S, Zoetendal EG, Lee E, Torralbo M, Laiyemo AO, et
+al. Microbiome analysis of stool samples from African Americans with
+colon polyps. PloS One. 2013;8:e81352.
+
+\hypertarget{ref-weir_stool_2013}{}
+18. Weir TL, Manter DK, Sheflin AM, Barnett BA, Heuberger AL, Ryan EP.
+Stool microbiome and metabolome differences between colorectal cancer
+patients and healthy adults. PloS One. 2013;8:e70803.
+
+\hypertarget{ref-dejea_microbiota_2014}{}
+19. Dejea CM, Wick EC, Hechenbleikner EM, White JR, Mark Welch JL,
+Rossetti BJ, et al. Microbiota organization is a distinct feature of
+proximal colorectal cancers. Proceedings of the National Academy of
+Sciences of the United States of America. 2014;111:18321--6.
+
 \hypertarget{ref-sanapareddy_increased_2012}{}
-15. Sanapareddy N, Legge RM, Jovov B, McCoy A, Burcal L, Araujo-Perez F,
+20. Sanapareddy N, Legge RM, Jovov B, McCoy A, Burcal L, Araujo-Perez F,
 et al. Increased rectal microbial richness is associated with the
 presence of colorectal adenomas in humans. The ISME journal.
 2012;6:1858--68.
 
-\hypertarget{ref-wang_structural_2012}{}
-16. Wang T, Cai G, Qiu Y, Fei N, Zhang M, Pang X, et al. Structural
-segregation of gut microbiota between colorectal cancer patients and
-healthy volunteers. The ISME journal. 2012;6:320--9.
+\hypertarget{ref-ahn_human_2013}{}
+21. Ahn J, Sinha R, Pei Z, Dominianni C, Wu J, Shi J, et al. Human gut
+microbiome and risk for colorectal cancer. Journal of the National
+Cancer Institute. 2013;105:1907--11.
 
-\hypertarget{ref-weir_stool_2013}{}
-17. Weir TL, Manter DK, Sheflin AM, Barnett BA, Heuberger AL, Ryan EP.
-Stool microbiome and metabolome differences between colorectal cancer
-patients and healthy adults. PloS One. 2013;8:e70803.
+\hypertarget{ref-burns_virulence_2015}{}
+22. Burns MB, Lynch J, Starr TK, Knights D, Blekhman R. Virulence genes
+are a signature of the microbiome in the colorectal tumor
+microenvironment. Genome Medicine. 2015;7:55.
 
 \hypertarget{ref-zeller_potential_2014}{}
-18. Zeller G, Tap J, Voigt AY, Sunagawa S, Kultima JR, Costea PI, et al.
+23. Zeller G, Tap J, Voigt AY, Sunagawa S, Kultima JR, Costea PI, et al.
 Potential of fecal microbiota for early-stage detection of colorectal
 cancer. Molecular Systems Biology. 2014;10:766.
 
+\hypertarget{ref-baxter_microbiota-based_2016}{}
+24. Baxter NT, Ruffin MT, Rogers MAM, Schloss PD. Microbiota-based model
+improves the sensitivity of fecal immunochemical test for detecting
+colonic lesions. Genome Medicine. 2016;8:37.
+
+\hypertarget{ref-geng_diversified_2013}{}
+25. Geng J, Fan H, Tang X, Zhai H, Zhang Z. Diversified pattern of the
+human colorectal cancer microbiome. Gut Pathogens. 2013;5:2.
+
+\hypertarget{ref-keku_gastrointestinal_2015}{}
+26. Keku TO, Dulal S, Deveaux A, Jovov B, Han X. The gastrointestinal
+microbiota and colorectal cancer. American Journal of Physiology -
+Gastrointestinal and Liver Physiology {[}Internet{]}. 2015 {[}cited 2017
+Oct 30{]};308:G351--63. Available from:
+\url{http://ajpgi.physiology.org/lookup/doi/10.1152/ajpgi.00360.2012}
+
+\hypertarget{ref-vogtmann_epidemiologic_2016}{}
+27. Vogtmann E, Goedert JJ. Epidemiologic studies of the human
+microbiome and cancer. British Journal of Cancer {[}Internet{]}. 2016
+{[}cited 2017 Oct 30{]};114:237--42. Available from:
+\url{http://www.nature.com/doifinder/10.1038/bjc.2015.465}
+
+\hypertarget{ref-kostic_genomic_2012}{}
+28. Kostic AD, Gevers D, Pedamallu CS, Michaud M, Duke F, Earl AM, et
+al. Genomic analysis identifies association of Fusobacterium with
+colorectal carcinoma. Genome Research. 2012;22:292--8.
+
 \hypertarget{ref-zackular_human_2014}{}
-19. Zackular JP, Rogers MAM, Ruffin MT, Schloss PD. The human gut
+29. Zackular JP, Rogers MAM, Ruffin MT, Schloss PD. The human gut
 microbiome as a screening tool for colorectal cancer. Cancer Prevention
 Research (Philadelphia, Pa.). 2014;7:1112--21.
 
 \hypertarget{ref-schloss_introducing_2009}{}
-20. Schloss PD, Westcott SL, Ryabin T, Hall JR, Hartmann M, Hollister
+30. Schloss PD, Westcott SL, Ryabin T, Hall JR, Hartmann M, Hollister
 EB, et al. Introducing mothur: Open-Source, Platform-Independent,
 Community-Supported Software for Describing and Comparing Microbial
 Communities. Appl.Environ.Microbiol. {[}Internet{]}. 2009 {[}cited 12AD
@@ -587,11 +640,11 @@ Jan 1{]};75:7537--41. Available from:
 \url{http://aem.asm.org/cgi/content/abstract/75/23/7537}
 
 \hypertarget{ref-rognes_vsearch_2016}{}
-21. Rognes T, Flouri T, Nichols B, Quince C, Mahé F. VSEARCH: A
+31. Rognes T, Flouri T, Nichols B, Quince C, Mahé F. VSEARCH: A
 versatile open source tool for metagenomics. PeerJ. 2016;4:e2584.
 
 \hypertarget{ref-westcott_opticlust_2017}{}
-22. Westcott SL, Schloss PD. OptiClust, an Improved Method for Assigning
+32. Westcott SL, Schloss PD. OptiClust, an Improved Method for Assigning
 Amplicon-Based Sequence Data to Operational Taxonomic Units. mSphere.
 2017;2.
 
