@@ -27,6 +27,7 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -157,10 +158,10 @@ adequately powered for large effect size differences which may be more
 amenable for carcinoma than for adenoma.
 
 \textbf{Conclusions.} This data provides support for the idea of the
-``driver-passenger'' model in both adenoma and carinoma. The data is
-much stronger for carcinoma and this may in part be due to the low power
-to detect more subtle changes in the majority of studies that have been
-performed to date.
+``driver-passenger'' model in carinoma but only partially for adenoma.
+The data is much stronger for carcinoma and this may in part be due to
+the low power to detect more subtle changes in the majority of studies
+that have been performed to date.
 
 \subsubsection{Keywords}\label{keywords}
 
@@ -319,17 +320,19 @@ our models along with the CRC associated genera the model AUC increases.
 Our carcinoma observations fit the driver-passenger model and support
 this concept within the framework of the transition from adenoma to
 carcinoma. In contrast, with the present data we can only suggest that
-the adenoma observations might fit well with this model but the changes
-that occur at this timepoint are small and possibly focal to the adenoma
-or specific location. The stepwise decrease in diversity suggests that
-the adenoma community is not normal but this change is subtle. Although
+the adenoma observations might fit with this model but the changes that
+occur at this timepoint are small and possibly focal to the adenoma or
+specific location. The stepwise decrease in diversity suggests that the
+adenoma community is not normal but this change is subtle. Although
 there may be localized changes that do depend on the driver-passenger
 model, supported by the \emph{Porphyromonas} finding in adenoma stool
 and the relative total abundance of all four CRC associated genera in
-tissue, there may be another process involved that ultimately
-exacerbates the condition from a subtle localized change to a global
-community one. It is possible to hypothesize that at early stages of the
-diease, how the host interacts to these subtle changes could be the
+tissue {[}Figure 3{]}, there may be another process involved that
+ultimately exacerbates the condition from a subtle localized change to a
+global community one. The poor performance of the Random Forest models
+for classifying adenoma based only on the microbiota would suggest that
+this is the case. It is possible to hypothesize that at early stages of
+the diease, how the host interacts to these subtle changes could be the
 catlyst that ultimately leads to this larger global dysfunctional
 community.
 
@@ -687,6 +690,20 @@ Amplicon-Based Sequence Data to Operational Taxonomic Units. mSphere.
 \newpage
 
 \textbf{Table 1:}
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+country & year & cases & population\tabularnewline
+\midrule
+\endhead
+Afghanistan & 1999 & 745 & 19987071\tabularnewline
+Afghanistan & 2000 & 2666 & 20595360\tabularnewline
+Brazil & 1999 & 37737 & 172006362\tabularnewline
+Brazil & 2000 & 80488 & 174504898\tabularnewline
+China & 1999 & 212258 & 1272915272\tabularnewline
+China & 2000 & 213766 & 1280428583\tabularnewline
+\bottomrule
+\end{longtable}
 
 \newpage
 
