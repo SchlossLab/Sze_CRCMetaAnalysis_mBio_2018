@@ -42,10 +42,10 @@ analyze_study <- function(i, group_column, dataset = stool_data){
   tempData <- dataset[[i]] %>% filter(disease != "cancer")
   
   # Vector of whether sample was cancer or not
-  is_adn <- factor(ifelse(dataset[[i]][, group_column] == "polyp", 
+  is_adn <- factor(ifelse(tempData[, group_column] == "polyp", 
                              invisible("Y"), invisible("N")), levels = c("Y", "N"))
   # Vector of median values 
-  thresholds <- apply(select(dataset[[i]], one_of("sobs", "shannon", "shannoneven")), 2, 
+  thresholds <- apply(select(tempData, one_of("sobs", "shannon", "shannoneven")), 2, 
                       function(x) median(x))
   # Runs the code to generate high/low calls for the alpha metrics used based on median
   highs_lows <- mapply(create_high_low, i, thresholds, 
@@ -68,7 +68,7 @@ create_high_low <- function(i, threshold, var_of_interest, grouping,
   # dataset is default to the stool_data list to allow for mapply to work
   
   # get specific data table of interest based on study
-  select_data <- dataset[[i]]
+  select_data <- dataset[[i]] %>% filter(disease != "cancer")
   
   # create a vector with high/low versus the median value provided
   high_low <- factor(ifelse(select_data[, var_of_interest] <= threshold, 
