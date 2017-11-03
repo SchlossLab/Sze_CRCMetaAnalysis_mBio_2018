@@ -12,13 +12,15 @@ loadLibs(c("tidyverse"))
 # Read in needed data tables
 
 adn_stool <- read_csv("data/process/tables/alpha_adn_group_counts_summary.csv") %>% 
-  filter(measure == "sobs") %>% 
-  mutate(control = high_N + low_N)
+  filter(measure == "shannon") %>% 
+  mutate(control = high_N + low_N, adenoma = high_Y + low_Y) %>% 
+  select(study, control, adenoma)
   
   
 crc_stool <- read_csv("data/process/tables/alpha_group_counts_summary.csv") %>% 
   filter(measure == "shannon") %>% 
-  mutate(cancer = high_Y + low_Y)
+  mutate(control = high_N + low_N, cancer = high_Y + low_Y) %>% 
+  select(study, control, cancer)
 
 adn_tissue <- read.csv("data/process/tables/alpha_adn_group_counts_tissue_summary.csv") %>% 
   filter(measure == "shannon")
