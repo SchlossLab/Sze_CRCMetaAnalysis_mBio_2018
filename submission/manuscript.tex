@@ -145,17 +145,17 @@ adenoma to carcinoma for both Shannon diversity and evenness for fecal
 samples (P-value \textless{} 0.05) after correcting for study and
 variable region. Lower Shannon diversity and evennes in fecal samples
 resulted in a significant increase in relative risk for carinoma
-(P-value \textless{} 0.05) but not adenoma (P-value \textgreater{}
-0.05). Previously associated colorectal cancer genera
-(\emph{Fusobacterium}, \emph{Parvimonas}, \emph{Peptostreptococcus}, or
-\emph{Porphyromonas}) followed a similar pattern with a significantly
-increased relative risk by their presence for carcinoma (P-value
-\textless{} 0.05) but not adenoma (P-value \textgreater{} 0.05) with the
-exception of \emph{Porphyromonas} (P-value \textless{} 0.05). Using the
-whole community resulted in a higher classification model AUC for both
-adenoma and carcinoma for fecal and tissue samples. Most studies are
-adequately powered for large effect size differences which may be more
-amenable for carcinoma than for adenoma.
+(P-value \textless{} 0.05) but not adenoma (P-value check tables 0.05).
+Previously associated colorectal cancer genera (\emph{Fusobacterium},
+\emph{Parvimonas}, \emph{Peptostreptococcus}, or \emph{Porphyromonas})
+followed a similar pattern with a significantly increased relative risk
+by their presence for carcinoma (P-value \textless{} 0.05) but not
+adenoma (P-value \textgreater{} 0.05) with the exception of
+\emph{Porphyromonas} (P-value \textless{} 0.05). Using the whole
+community resulted in a higher classification model AUC for both adenoma
+and carcinoma for fecal and tissue samples. Most studies are adequately
+powered for large effect size differences which may be more amenable for
+carcinoma than for adenoma.
 
 \textbf{Conclusions.} This data provides support for the idea of the
 ``driver-passenger'' model in carinoma but only partially for adenoma.
@@ -689,31 +689,47 @@ Amplicon-Based Sequence Data to Operational Taxonomic Units. mSphere.
 
 \newpage
 
-\textbf{Table 1:}
+\textbf{Table 1: Studies with Stool Samples Included in the Analysis}
 
 \footnotesize
 
-\begin{longtable}[]{@{}ccccc@{}}
+\begin{longtable}[]{@{}cccccc@{}}
 \toprule
-Study & Sample Type & Individuals & Data Stored & mothur Processed
-n\tabularnewline
+Study & Data Stored & 16S Region & Controls & Adenoma &
+Carcinoma\tabularnewline
 \midrule
 \endhead
-Ahn & Stool & control, carcinoma & DBGap & 240\tabularnewline
-Baxter & Stool & control, adenoma, carcinoma & SRA & 490\tabularnewline
-Brim & Stool & control, adenoma & SRA & 12\tabularnewline
-Burns & Tissue & carcinoma & SRA & 43\tabularnewline
-Chen & Stool + Tissue & control, carcinoma & SRA & 100\tabularnewline
-Dejea & Tissue & adenoma, carcinoma & SRA & 25\tabularnewline
-Flemer & Stool + Tissue & control, adenoma, carcinoma & Author &
-314\tabularnewline
-Geng & Tissue & carcinoma & SRA & 8\tabularnewline
-Hale & Stool & control, adenoma, carcinoma & Author & 770\tabularnewline
-Lu & Tissue & control, adenoma & SRA & 67\tabularnewline
-Sanapareddy & Tissue & control, carcinoma & Author & 71\tabularnewline
-Wang & Stool & control, carcinoma & SRA & 102\tabularnewline
-Weir & Stool & control, carcinoma & Author & 15\tabularnewline
-Zeller & Stool & control, adenoma, carcinoma & SRA & 224\tabularnewline
+Ahn & DBGap & V3-4 & 148 & 0 & 62\tabularnewline
+Baxter & SRA & V4 & 172 & 198 & 120\tabularnewline
+Brim & SRA & V1-3 & 6 & 6 & 0\tabularnewline
+Flemer & Author & V3-4 & 37 & 0 & 43\tabularnewline
+Hale & Author & V3-5 & 473 & 214 & 17\tabularnewline
+Wang & SRA & V3 & 56 & 0 & 46\tabularnewline
+Weir & Author & V4 & 4 & 0 & 7\tabularnewline
+Zeller & SRA & V4 & 50 & 37 & 41\tabularnewline
+\bottomrule
+\end{longtable}
+
+\normalsize
+\newpage
+
+\textbf{Table 2: Studies with Tissue Samples Included in the Analysis}
+
+\footnotesize
+
+\begin{longtable}[]{@{}cccccc@{}}
+\toprule
+Study & Data Stored & 16S Region & Controls & Adenoma &
+Carcinoma\tabularnewline
+\midrule
+\endhead
+Burns & SRA & V5-6 & 18 & 0 & 16\tabularnewline
+Chen & SRA & V1-V3 & 9 & 0 & 9\tabularnewline
+Dejea & SRA & V3-5 & 31 & 0 & 32\tabularnewline
+Flemer & Author & V3-4 & 103 & 37 & 94\tabularnewline
+Geng & SRA & V1-2 & 16 & 0 & 16\tabularnewline
+Lu & SRA & V3-4 & 20 & 20 & 0\tabularnewline
+Sanapareddy & Author & V1-2 & 38 & 0 & 33\tabularnewline
 \bottomrule
 \end{longtable}
 
