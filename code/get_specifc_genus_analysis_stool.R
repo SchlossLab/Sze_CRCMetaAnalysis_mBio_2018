@@ -315,6 +315,8 @@ inc_4_pooled_results <- t(sapply(c("one_or_more", "two_or_more",
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
+pooled_results <- pooled_results %>% bind_rows(inc_4_pooled_results)
+
 # Write out the important tables
 write.csv(ind_counts_data, "data/process/tables/select_genus_group_counts_summary.csv", row.names = F)
 write.csv(ind_RR_data, "data/process/tables/select_genus_RR_stool_ind_results.csv", row.names = F)
