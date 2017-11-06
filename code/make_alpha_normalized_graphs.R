@@ -93,7 +93,7 @@ matched_tissue_graph <- matched_tissue_data %>%
 alpha_all_graph <- grid.arrange(stool_graph, unmatched_tissue_graph, matched_tissue_graph)
 
 
-ggsave("results/figures/zscore_alpha_graph.pdf", 
+ggsave("results/figures/Figure1.pdf", 
        alpha_all_graph, width = 6, height = 9, dpi = 300)
 
 
