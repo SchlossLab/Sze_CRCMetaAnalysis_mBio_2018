@@ -103,9 +103,15 @@ get_select_group_totals <- function(i, select_genera, dataList){
     mutate_at(select_genera, 
               function(x) ifelse(x > 0, invisible(1), invisible(0))) %>% 
     mutate(all_four = rowSums(.[, select_genera]), 
-           total_four = rowSums(dataList[[i]][, select_genera]))
+           total_four = rowSums(dataList[[i]][, select_genera]), 
+           one_or_more = ifelse(all_four >= 1, invisible(1), invisible(0)), 
+           two_or_more = ifelse(all_four >=2, invisible(1), invisible(0)), 
+           three_or_more = ifelse(all_four >= 3, invisible(1), invisible(0)), 
+           four_only = ifelse(all_four == 4, invisible(1), invisible(0)))
   
-  return(dataList[[i]] %>% mutate(all_four = tempData$all_four, total_four = tempData$total_four))
+  return(dataList[[i]] %>% mutate(all_four = tempData$all_four, total_four = tempData$total_four, 
+                                  one_or_more = tempData$one_or_more, two_or_more = tempData$two_or_more, 
+                                  three_or_more = tempData$three_or_more, four_only = tempData$four_only))
   
 }
 
@@ -128,6 +134,12 @@ analyze_study <- function(i, group_column, vec_of_int, dataset){
   # Vector of median values 
   thresholds <- apply(select(dataset[[i]], one_of(vec_of_int)), 2, 
                       function(x) median(x))
+  # Set up testing by amount of CRC associated genera
+  if("one_or_more" %in% vec_of_int){
+    
+    thresholds[c("one_or_more", "two_or_more", "three_or_more", "four_only")] <- 0
+  }
+  
   # Runs the code to generate high/low calls for the alpha metrics used based on median
   highs_lows <- mapply(create_high_low, i, thresholds, 
                        vec_of_int, group_column, SIMPLIFY = F)
@@ -184,7 +196,7 @@ run_rr <- function(high_low_vector, disease_vector){
 
 
 # Function to seperate out the table data from the individual analysis data
-pull_data <- function(var_of_int, i, result, datalist =  test_ind_RR){
+pull_data <- function(var_of_int, i, result, datalist){
   # var_of_int is the alpha measures used e.g. "sobs"
   # i is the study
   # result is the type of data we want either "test_values" or "data_tbl"
@@ -207,8 +219,9 @@ make_list <- function(i, vec_of_interest, result, datalist){
   # datalist is defaulted to ind_study_data to make it easier to work with mapply
   
   # runs the function iteratively to collect the specific data
-  pulled_data <- mapply(pull_data, vec_of_interest, 
-                        i, result, SIMPLIFY = F) %>% bind_rows()
+  pulled_data <- sapply(vec_of_interest, 
+                        function(x) pull_data(x, i = i, result = result, 
+                                              datalist = datalist), simplify = F) %>% bind_rows()
   # returns a nice data table
   return(pulled_data)
 }
@@ -259,10 +272,21 @@ test_ind_RR <- sapply(c(stool_sets, "flemer"),
                function(x) analyze_study(x, "disease2", c(crc_genera, "all_four", "total_four"), 
                                          mod_specific_genera_list), simplify = F)
 
+inc_4_ind_RR <- sapply(c("wang", "zeller", "baxter", "flemer"), 
+                      function(x) analyze_study(x, "disease2", c("one_or_more", "two_or_more", 
+                                                                 "three_or_more", "four_only"), 
+                                                mod_specific_genera_list), simplify = F)
+
+
 # Store the results from the individual testing here
 ind_RR_data <- sapply(c(stool_sets, "flemer"), 
                         function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
                                               "test_values", test_ind_RR), simplify = F) %>% bind_rows()
+
+inc_4_ind_data <- sapply(c("wang", "zeller", "baxter", "flemer"), 
+                      function(x) make_list(x, c("one_or_more", "two_or_more", 
+                                                 "three_or_more", "four_only"), 
+                                            "test_values", inc_4_ind_RR), simplify = F) %>% bind_rows()
 
 # Store the counts and rearrange the table to be used in the pooled analysis
 ind_counts_data <- sapply(c(stool_sets, "flemer"), 
@@ -271,11 +295,25 @@ ind_counts_data <- sapply(c(stool_sets, "flemer"),
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
+inc_4_ind_counts_data <- sapply(c("wang", "zeller", "baxter", "flemer"),  
+                          function(x) make_list(x, c("one_or_more", "two_or_more", 
+                                                     "three_or_more", "four_only"), 
+                                                "data_tbl", inc_4_ind_RR), simplify = F) %>% 
+  bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
+  spread(group, Freq)
+
 # Run the pooled analysis for each respective genera of interest
 pooled_results <- t(mapply(run_pooled, c(crc_genera, "all_four", "total_four"), USE.NAMES = F)) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
+
+inc_4_pooled_results <- t(sapply(c("one_or_more", "two_or_more", 
+                                 "three_or_more", "four_only"), 
+                               function(x) run_pooled(x, dataset = inc_4_ind_counts_data), 
+                               USE.NAMES = F)) %>%  
+  as.data.frame(stringsAsFactors = FALSE) %>% 
+  mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
 # Write out the important tables
 write.csv(ind_counts_data, "data/process/tables/select_genus_group_counts_summary.csv", row.names = F)
