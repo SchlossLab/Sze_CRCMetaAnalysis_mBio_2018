@@ -1,4 +1,4 @@
-### Test each increasing positive amount against 0 for RR of CRC or adenoma
+### Test each increasing positive amount against 0 for RR of CRC
 ### Marc Sze
 
 
