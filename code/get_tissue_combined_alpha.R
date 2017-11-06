@@ -27,7 +27,8 @@ tissue_matched <- read.csv("data/process/tables/alpha_tissue_matched_data.csv",
   mutate(matchings = ifelse(disease == "cancer" | disease == "polyp", 1, 0), 
          v_region = ifelse(study == "burns", invisible("V5-6"), 
                            ifelse(study == "dejea", invisible("V3-5"), 
-                                  ifelse(study == "lu", invisible("V3-4"), invisible("V1-2")))))
+                                  ifelse(study == "lu", invisible("V3-4"), invisible("V1-2"))))) %>% 
+  mutate(disease = stringr::str_replace(disease, "Polyp", "polyp"))
 
 tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.csv", 
                              header = T, stringsAsFactors = F) %>% 
@@ -189,7 +190,7 @@ unmatched_mixeffect_results <- mapply(get_mixed_effect, c("sobs", "shannon", "sh
 
 
 matched_mixeffect_results <- mapply(get_mixed_effect, c("sobs", "shannon", "shannoneven"), 
-                                      individual = "id", data_set = "good_tissue_matched", 
+                                      individual = "id", data_set = "tissue_matched", 
                                     USE.NAMES = T, SIMPLIFY = F) %>% 
   bind_rows() %>% gather(key = alpha_metric, value = value) %>% 
   mutate(measure = rep(c("chi_sq", "pvalue"), length(value)/2)) %>% 
@@ -202,7 +203,7 @@ mapply(make_the_tables,
        c("unmatched_ttest_tissue", "matched_ttest_tissue", "unmatched_tukey_results", 
          "unmatched_mixeffect_results", "matched_mixeffect_results"))
 
-write_csv(good_tissue_matched, "data/process/tables/matched_tissue_normalized_alpha_all_data.csv")
+write_csv(tissue_matched, "data/process/tables/matched_tissue_normalized_alpha_all_data.csv")
 write_csv(tissue_unmatched, "data/process/tables/unmatched_tissue_normalized_alpha_all_data.csv")
 
 
