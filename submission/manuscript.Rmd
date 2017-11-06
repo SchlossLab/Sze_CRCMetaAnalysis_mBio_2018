@@ -107,7 +107,7 @@ Our analysis found a continuous decrease in Shannon diversity from control to ad
 ## Results
 
 ***Fecal Diversity is Lower in Those with Carcinoma and Increases Relative Risk:***
-Using power transformed and Z-score normalized alpha diversity metrics both evenness and the Shannon diversity metrics in feces are lower in those with carcinoma then in controls but not for tissue samples [Figure 1]. Using linear mixed-effects to control for study and variable region there was a significant decrease from control to adenoma to carcinoma for both evenness (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannoneven")[, "BH"], digits = 2, nsmall = 2))`) and Shannon diversity (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannon")[, "BH"], digits = 2, nsmall = 2))`). This effect was not observed in tissue when additionally controlling for whether the sample came from the same individual (P-value `r ifelse(min(match_tissue_lme$BH) < 0.05 & min(unmatch_tissue_lme$BH) < 0.05, invisible("check tables"), invisible(">"))` 0.05). For fecal samples a decrease in Shannon diversity and evenness resulted in a significantly increased relative risk for carcinoma (P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannon")[, "pvalue"], digits = 2, nsmall = 2))` and P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "pvalue"], digits = 2, nsmall = 2))`, respectively) [Figure 2]. Although these values were significant the effect size was relatively small for both metrics (Shannon RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannon")[, "rr"], digits = 2))` and evenness RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "rr"], digits = 2))`) [Figure 2]. There was no increased relative risk for these metrics for adenoma or for tissue in general [Figure S1-3].  
+Using power transformed and Z-score normalized alpha diversity metrics both evenness and the Shannon diversity metrics in feces are lower in those with carcinoma then in controls but not for tissue samples [Figure 1]. Using linear mixed-effects to control for study and variable region there was a significant decrease from control to adenoma to carcinoma for both evenness (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannoneven")[, "BH"], digits = 2, nsmall = 2))`) and Shannon diversity (P-value = `r paste(format(filter(stool_lme, alpha_metric == "shannon")[, "BH"], digits = 2, nsmall = 2))`). This effect was not observed in tissue when additionally controlling for whether the sample came from the same individual (P-value `r ifelse(min(match_tissue_lme$BH) < 0.05 & min(unmatch_tissue_lme$BH) < 0.05, invisible("check tables"), invisible(">"))` 0.05). For fecal samples a decrease in Shannon diversity and evenness resulted in a significantly increased relative risk for carcinoma (P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannon")[, "pvalue"], digits = 2, nsmall = 2))` and P-value = `r paste(format(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "pvalue"], digits = 2, nsmall = 2))`, respectively) [Figure 2]. Although these values were significant the effect size was relatively small for both metrics (Shannon RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannon")[, "rr"], digits = 2))` and evenness RR = `r paste(round(filter(alpha_RR_crc_stool, measure == "shannoneven")[, "rr"], digits = 2))`) [Figure 2]. There was no increased relative risk for these metrics for adenoma or for tissue in general [Figure 2A & S1].  
 
 Using the Bray-Curtis distance metric, the fecal microbiota did not have a different community diversity between adenoma and control but did for carcinoma across studies [Table S1 & S2]. The majority of unmatched tissue samples had a significant difference for both adenoma and carcinoma versus controls [Table S3 & S4]. All matched tissue samples accross studies had no difference between any of the compared groups [Table S3 & S4].
 
@@ -271,11 +271,11 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 
 
-**Figure 1: **
+**Figure 1: Alpha Diversity Differences between Control, Adenoma, and Carcinoma Across Sampling Site.** A) Alpha diversity metric differences by group in stool samples. B) Alpha diversity metric differences by group in unmatched tissue samples. C) Alpha diversity metric differences by group in matched tissue samples. The dashed line represents a Z-score of 0 or no difference from the median.
 
-**Figure 2: ** 
+**Figure 2: Relative Risk for Adenoma or Carcinoma based on Alpha Diversity Metrics in Stool.** A) Alpha metric relative risk for adenoma. B) Alpha metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study. 
 
-**Figure 3: ** 
+**Figure 3: Colorectal Cancer Associated Genera Relative Risk for Adenoma and Carcinoma in Stool and Tissue.** A) Adenoma relative risk in stool. B) Carinoma relative risk in stool. C) Adenoma relative risk in tissue. D) Carcinoma relative risk in tissue. For all panels CRC Associated Genera Expansion is the total relative abundance of all 4 CRC associated genera above or below the median. Increased CRC Associated Genera Positivity  
 
 **Figure 4: **  
 
@@ -287,7 +287,7 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Figure S1: ** 
+**Figure S1: Relative Risk for Adenoma or Carcinoma based on Alpha Diversity Metrics in Tissue.** A) Alpha metric relative risk for adenoma. B) Alpha metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study.
 
 **Figure S2: ** 
 
