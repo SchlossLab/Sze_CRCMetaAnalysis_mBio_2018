@@ -36,7 +36,7 @@ stool_graph <- stool_data %>%
                           labels = c("Control", "Adenoma", "Cancer")), 
          alpha_metric = factor(alpha_metric, 
                                levels = c("sobs", "shannoneven", "shannon"), 
-                               labels = c("Observed OTUs", "Shannon Evenness", "Shannon Diversity"))) %>% 
+                               labels = c("Observed OTUs", "Evenness", "Shannon Diversity"))) %>% 
   ggplot(aes(disease, measurement, color = disease)) + 
   geom_boxplot(show.legend = F) + facet_grid(. ~ alpha_metric) + 
   scale_color_manual(values = c('#228B22', '#FFD700', '#DC143C')) + 
@@ -55,7 +55,7 @@ unmatched_tissue_graph <- unmatched_tissue_data %>%
                           labels = c("Control", "Adenoma", "Cancer")), 
          alpha_metric = factor(alpha_metric, 
                                levels = c("sobs", "shannoneven", "shannon"), 
-                               labels = c("Observed OTUs", "Shannon Evenness", "Shannon Diversity"))) %>% 
+                               labels = c("Observed OTUs", "Evenness", "Shannon Diversity"))) %>% 
   ggplot(aes(disease, measurement, color = disease)) + 
   geom_boxplot(show.legend = F) + facet_grid(. ~ alpha_metric) + 
   scale_color_manual(values = c('#228B22', '#FFD700', '#DC143C')) + 
@@ -73,7 +73,7 @@ matched_tissue_graph <- matched_tissue_data %>%
                           labels = c("Control", "Cancer")), 
          alpha_metric = factor(alpha_metric, 
                                levels = c("sobs", "shannoneven", "shannon"), 
-                               labels = c("Observed OTUs", "Shannon Evenness", "Shannon Diversity"))) %>% 
+                               labels = c("Observed OTUs", "Evenness", "Shannon Diversity"))) %>% 
   ggplot(aes(disease, measurement, color = disease)) + 
   geom_boxplot(show.legend = F) + facet_grid(. ~ alpha_metric) + 
   scale_color_manual(values = c('#228B22', '#DC143C')) + 
