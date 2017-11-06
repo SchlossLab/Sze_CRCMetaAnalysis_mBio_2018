@@ -275,7 +275,7 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure 2: Relative Risk for Adenoma or Carcinoma based on Alpha Diversity Metrics in Stool.** A) Alpha metric relative risk for adenoma. B) Alpha metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study. 
 
-**Figure 3: Colorectal Cancer Associated Genera Relative Risk for Adenoma and Carcinoma in Stool and Tissue.** A) Adenoma relative risk in stool. B) Carinoma relative risk in stool. C) Adenoma relative risk in tissue. D) Carcinoma relative risk in tissue. For all panels CRC Associated Genera Expansion is the total relative abundance of all 4 CRC associated genera above or below the median. Increased CRC Associated Genera Positivity  
+**Figure 3: Colorectal Cancer Associated Genera Relative Risk for Adenoma and Carcinoma in Stool and Tissue.** A) Adenoma relative risk in stool. B) Carinoma relative risk in stool. C) Adenoma relative risk in tissue. D) Carcinoma relative risk in tissue. For all panels the relative risk was also compared to whether one, two, three, or four of the CRC associated genera were present.  
 
 **Figure 4: **  
 
