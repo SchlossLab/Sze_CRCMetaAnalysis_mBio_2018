@@ -6,7 +6,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
+loadLibs(c("tidyverse", "epiR", "metafor"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -183,5 +183,5 @@ pooled_results <- sapply(c(1:4),
                              run_pooled(x, count_names, test), simplify = F) %>% bind_rows()
   
   
-
+write_csv(pooled_results, "data/process/tables/select_genus_inc_4_stool.csv")
 
