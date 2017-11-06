@@ -9,7 +9,7 @@ source("code/functions.R")
 loadLibs(c("tidyverse", "gridExtra", "viridis"))
 
 
-# Load in needed data tables (carcinoma)
+# Load in needed data tables
 adn_all_stool <- read_csv("data/process/tables/alpha_adn_RR_composite.csv") %>% 
   rename(est = rr, lower = ci_lb, upper = ci_ub) %>% 
   mutate(study = "composite") %>% 
