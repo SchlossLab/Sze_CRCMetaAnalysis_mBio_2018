@@ -145,7 +145,7 @@ crc_stool_graph <- crc_all_stool %>%
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
                      values = c('#40BC72FF', '#481D6FFF', '#440154FF', '#67CC5CFF', '#97D83FFF', '#24878EFF', '#FDE725FF')) + 
-  annotate("text", label = paste("Cancer (Stool)"), x = 0.75, y = 1.09, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Stool)"), x = 0.8, y = 1.09, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -159,9 +159,9 @@ crc_stool_graph <- crc_all_stool %>%
 tissue_auc_graph <- grid.arrange(adn_tissue_graph, crc_tissue_graph)
 stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph, ncol = 2)
 
-ggsave("results/figures/tissue_all_vs_select_genera_AUC.pdf", 
+ggsave("results/figures/FigureS3.pdf", 
        tissue_auc_graph, width = 6, height = 6, dpi = 300)
 
-ggsave("results/figures/stool_all_vs_select_genera_AUC.pdf", 
+ggsave("results/figures/FigureS2.pdf", 
        stool_auc_graph, width = 6, height = 6, dpi = 300)
 
