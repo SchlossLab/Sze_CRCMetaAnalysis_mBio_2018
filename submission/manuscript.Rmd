@@ -295,9 +295,9 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure S1: Relative Risk for Adenoma or Carcinoma based on Alpha Diversity Metrics in Tissue.** A) Alpha metric relative risk for adenoma. B) Alpha metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study.
 
-**Figure S2: ** 
+**Figure S2: Random Forest Genus Model AUC for each Stool Study.** A) AUC of Adenoma models using all genera or CRC associated genera only. B) AUC of Carcinoma models using all genera or CRC associated genera only. The black line represents the median within each group.  
 
-**Figure S3: **
+**Figure S3: Random Forest Genus Model AUC for each Tissue Study.** A) AUC of Adenoma models using all genera or CRC associated genera only divided between matched and unmatched tissue. B) AUC of Carcinoma models using all genera or CRC associated genera only. The black line represents the median within each group divided between matched and unmatched tissue. 
 
 **Figure S4: ** 
 
