@@ -211,10 +211,10 @@ tissue_auc_graph <- grid.arrange(adn_tissue_graph, crc_tissue_graph)
 
 stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph)
 
-ggsave("results/figures/tissue_otu_all_v_specific.pdf", 
+ggsave("results/figures/Figure5.pdf", 
        tissue_auc_graph, width = 7, height = 6, dpi = 300)
 
-ggsave("results/figures/stool_otu_all_v_specific.pdf", 
+ggsave("results/figures/Figure4.pdf", 
        stool_auc_graph, width = 7, height = 6, dpi = 300)
 
 
