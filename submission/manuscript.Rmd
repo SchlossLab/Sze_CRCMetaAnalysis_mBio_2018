@@ -47,6 +47,12 @@ select_RR_tissue <- as.data.frame(read_csv("../data/process/tables/select_genus_
 adn_select_RR_stool <- as.data.frame(read_csv("../data/process/tables/adn_select_genus_RR_stool_composite.csv"))
 adn_select_RR_tissue <- as.data.frame(read_csv("../data/process/tables/adn_select_genus_RR_tissue_composite.csv"))
 
+select_inc_4_stool <- as.data.frame(read_csv("../data/process/tables/select_genus_inc_4_stool.csv"))
+select_inc_4_tissue <- as.data.frame(read_csv("../data/process/tables/select_genus_inc_4_tissue.csv"))
+
+adn_select_inc_4_RR_stool <- as.data.frame(read_csv("../data/process/tables/adn_select_genus_inc_4_stool.csv"))
+adn_select_inc_4_RR_tissue <- as.data.frame(read_csv("../data/process/tables/adn_select_genus_inc_4_tissue.csv"))
+
 ```
 
 
