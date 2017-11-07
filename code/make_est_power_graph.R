@@ -79,7 +79,7 @@ crc_study_power <- crc_power %>%
                      values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', 
                                 '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', 
                                 '#453581FF', '#481D6FFF', '#40BC72FF')) + 
-  annotate("text", label = paste("Cancer"), x = 0.7, y = 1.03, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma"), x = 0.85, y = 1.03, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -104,7 +104,7 @@ combined_sample_n <- combined_data %>%
                      values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', '#FDE725FF',  
                                 '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', '#453581FF', 
                                 '#34618DFF', '#481D6FFF', '#40BC72FF')) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+  theme(plot.title = element_text(face="bold", hjust = -0.18, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -117,7 +117,7 @@ combined_sample_n <- combined_data %>%
 power_graph <- grid.arrange(adn_study_power, crc_study_power, combined_sample_n, 
                             layout_matrix = rbind(c(1, 3), c(2, 3)))
 
-ggsave("results/figures/power_graph.pdf", 
+ggsave("results/figures/Figure6.pdf", 
        power_graph, width = 10, height = 8, dpi = 300)
 
 
