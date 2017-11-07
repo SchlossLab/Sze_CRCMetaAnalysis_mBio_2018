@@ -122,7 +122,7 @@ crc_tissue_graph <- crc_all_tissue %>%
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
                      values = c('#453581FF', '#3D4D8AFF', '#2B748EFF', '#440154FF', '#CBE11EFF', '#1F998AFF')) + 
-  annotate("text", label = paste("Cancer"), x = 0.55, y = 1.07, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma"), x = 0.6, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
