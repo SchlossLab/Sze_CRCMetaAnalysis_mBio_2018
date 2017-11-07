@@ -142,7 +142,7 @@ adn_stool_graph <- adn_all_stool %>%
   scale_color_manual(name = "Study", 
                      values = c('#481D6FFF', '#34618DFF', '#67CC5CFF', '#FDE725FF')) + 
   annotate("text", label = paste("Adenoma (Stool)"), x = 1.0, y = 1.07, size = 2.5) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+  theme(plot.title = element_text(face="bold", hjust = -0.09, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -217,7 +217,7 @@ crc_stool_graph <- crc_all_stool %>%
                      values = c('#40BC72FF', '#481D6FFF', '#440154FF', '#67CC5CFF', 
                                 '#97D83FFF', '#24878EFF', '#FDE725FF')) + 
   annotate("text", label = paste("Carcinoma (Stool)"), x = 1.4, y = 1.07, size = 2.5) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+  theme(plot.title = element_text(face="bold", hjust = -0.09, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
