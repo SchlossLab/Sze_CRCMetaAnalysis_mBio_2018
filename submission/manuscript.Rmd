@@ -299,15 +299,11 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure S3: Random Forest Genus Model AUC for each Tissue Study.** A) AUC of Adenoma models using all genera or CRC associated genera only divided between matched and unmatched tissue. B) AUC of Carcinoma models using all genera or CRC associated genera only. The black line represents the median within each group divided between matched and unmatched tissue. 
 
-**Figure S4: ** 
+**Figure S4: Random Forest Prediction Success Using Genera for each Stool Study.** A) AUC for prediction in Adenoma using all genera or CRC associated genera only. B) AUC for prediction in Carcinoma using all genera or CRC associated genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on. 
 
-**Figure S5: ** 
+**Figure S5: Random Forest Prediction Success of Carcinoma Using Genera for each Tissue Study.** A) AUC for prediction in unmatched tissue for all genera or CRC associated genera only. B) AUC for prediction in matched tissue using all genera or CRC associated genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on.
 
-**Figure S6: **
-
-**Figure S7: ** 
-
-**Figure S8: ** 
+**Figure S6: Random Forest Prediction Success of Adenoma Using Genera for each Tissue Study.** 
 
 
 
