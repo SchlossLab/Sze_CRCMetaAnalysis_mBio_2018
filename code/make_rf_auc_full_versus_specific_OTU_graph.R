@@ -110,7 +110,7 @@ adn_tissue_graph <- adn_tissue %>%
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
                      values = c('#440154FF', '#FDE725FF')) + 
-  annotate("text", label = paste("Adenoma"), x = 2.5, y = 0.06, size = 2.5) + 
+  annotate("text", label = paste("Adenoma"), x = 2.5, y = 0.05, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
@@ -165,7 +165,7 @@ crc_tissue_graph <- crc_all_tissue %>%
   scale_color_manual(name = "Study", 
                      values = c('#1F998AFF', '#CBE11EFF', '#440154FF', '#2B748EFF', 
                                 '#3D4D8AFF', '#453581FF', '#453581FF')) + 
-  annotate("text", label = paste("Cancer"), x = 7.35, y = 0.03, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma"), x = 7.35, y = 0.06, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
@@ -193,7 +193,7 @@ crc_stool_graph <- crc_all_stool %>%
   scale_color_manual(name = "Study", 
                      values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#67CC5CFF', 
                                 '#440154FF', '#481D6FFF', '#40BC72FF')) + 
-  annotate("text", label = paste("Cancer (Stool)"), x = 7.4, y = 0.08, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Stool)"), x = 7.4, y = 0.1, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
