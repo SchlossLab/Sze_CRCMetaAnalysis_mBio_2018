@@ -103,13 +103,13 @@ crc_all_unmatched_tissue <- make_table(crc_unmatched_tissue_studies, "data/proce
 adn_tissue_graph <- adn_all_tissue %>% 
   mutate(model = factor(model, 
                         levels = c("flemer", "lu"), 
-                        labels = c("Flemer", "Lu")), 
+                        labels = c("Flemer", "Lu\n(Matched)")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
                              labels = c("All Genera", "CRC Associated\nGenera Only")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
-                        labels = c("Flemer", "Lu"))) %>% 
+                        labels = c("Flemer", "Lu\n(Matched)"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_point(size = 3.5, show.legend = F) + facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
