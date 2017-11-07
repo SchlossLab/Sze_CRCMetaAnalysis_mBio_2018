@@ -218,12 +218,11 @@ differences of 10\% or below between the case and control.
 
 \subsection{Results}\label{results}
 
-\textbf{\emph{Fecal Diversity is Lower in Those with Carcinoma and
-Increases Relative Risk:}} Using power transformed and Z-score
-normalized alpha diversity metrics both evenness and the Shannon
-diversity metrics in feces are lower in those with carcinoma then in
-controls but not for tissue samples {[}Figure 1{]}. Using linear
-mixed-effects to control for study and variable region there was a
+\textbf{\emph{Diversity is Lower in Those with Carcinoma and Increases
+Relative Risk:}} Using power transformed and Z-score normalized alpha
+diversity metrics, both evenness and Shannon diversity in feces and not
+tissue were lower in those with carcinoma {[}Figure 1{]}. Using linear
+mixed-effect models to control for study and variable region there was a
 significant decrease from control to adenoma to carcinoma for both
 evenness (P-value = 0.025) and Shannon diversity (P-value = 0.043). This
 effect was not observed in tissue when additionally controlling for
@@ -231,29 +230,32 @@ whether the sample came from the same individual (P-value \textgreater{}
 0.05). For fecal samples a decrease in Shannon diversity and evenness
 resulted in a significantly increased relative risk for carcinoma
 (P-value = 0.01 and P-value = 0.0011, respectively) {[}Figure 2{]}.
-Although these values were significant the effect size was relatively
+Although these values were significant, the effect size was relatively
 small for both metrics (Shannon RR = 1.31 and evenness RR = 1.34)
-{[}Figure 2{]}. There was no increased relative risk for these metrics
-for adenoma or for tissue in general {[}Figure 2A \& S1{]}.
+{[}Figure 2{]}. Only a decrease in evenness had an increased relative
+risk for adenoma (P-value = 0.032) {[}Figure 2A \& S1{]} but this effect
+size was even smaller than what was observed for carcinoma (RR = 1.16).
 
-Using the Bray-Curtis distance metric, the fecal microbiota did not have
-a different community diversity between adenoma and control but did for
-carcinoma across studies {[}Table S1 \& S2{]}. The majority of unmatched
-tissue samples had a significant difference for both adenoma and
-carcinoma versus controls {[}Table S3 \& S4{]}. All matched tissue
-samples accross studies had no difference between any of the compared
-groups {[}Table S3 \& S4{]}.
+Using the Bray-Curtis distance metric, there was a significant
+difference across studies in the bacterial community of fecal samples
+between carcinoma and controls but not between adenoma and controls
+{[}Table S1 \& S2{]}. Many studies with unmatched tissue samples had a
+significant difference for both adenoma and carcinoma versus controls
+{[}Table S3 \& S4{]} while studies with matched tissue samples had no
+differences {[}Table S3 \& S4{]}.
 
-\textbf{\emph{Genera Previously Associated with Carcinoma Increases
-Relative Risk More than Alpha Diversity:}} Both fecal and tissue samples
-had a significantly increased RR for carcinoma but not for adenoma
-{[}Figure 3{]}. The relative risk for feces was greater than either
-evenness or Shannon diversity {[}Figure 2 \& 3{]}. The relative risk of
-carcinoma continuously increased as individuals tested positive for more
-CRC associated genera {[}Figure 3B \& 3D{]}. The RR effect size was
-greater for stool (RR range = 1.61 - 2.74) then for tissue (RR range =
-1.21 - 1.81). This decrease may be explained by the fact that tissue
-samples include matched samples.
+\textbf{\emph{Genera Previously Associated with Carcinoma Predominately
+Increases Relative Risk for Carcinoma but not Adenoma:}} The majority of
+CRC associated genera for both feces and tissue had a significantly
+increased relative risk for carcinoma but not for adenoma {[}Figure
+3{]}. In fecal samples the relative risk due to CRC associated genera
+was greater than either evenness or Shannon diversity {[}Figure 2 \&
+3{]}. Additionally, the relative risk of carcinoma continuously
+increased as individuals tested positive for more CRC associated genera
+{[}Figure 3B \& 3D{]}. The relative risk effect size was greater for
+stool (RR range = 1.61 - 2.74) then for tissue (RR range = 1.21 - 1.81).
+This decrease may be explained by the fact that the tissue analysis
+include matched samples.
 
 Two measures in stool for adenoma were significant when investigating
 these CRC associated genera. The first was \emph{Porphyromonas} (P-value
@@ -266,27 +268,27 @@ adenoma were significant; being positive for one CRC associated genera
 
 \textbf{\emph{Using the Whole Community Increases Model AUC over CRC
 Associated Genera:}} For both fecal and tissue samples (matched and
-unmatched) there was a decrease in AUC when only OTUs from the CRC
-associated genera are used {[}Figure 4 \& 5{]}. This decrease is
-observed in both adenoma and carcinoma groups {[}Figure 4 \& 5{]}. The
-genus models generally had similar trends as observed for the OTU based
-models with the full genera models performing better then the CRC
-associated genera models {[}Figure S2-S3{]}. Both genus models perform
-similarily in their ability to be able to predict lesion (adenoma or
-carcinoma) with carcinoma having a higher AUC then adenoma {[}Figure
-S4-S5{]}. Matched tissue samples for those with carcinoma had an AUC
-that was more similar to the adenoma models {[}Figure S4A, S5B, \& S6{]}
-then carcinoma models {[}Figure S4B \& S5A{]}.
+unmatched) the AUC decreases when only OTUs from the CRC associated
+genera are used {[}Figure 4 \& 5{]}. This decrease is observed in both
+adenoma and carcinoma groups {[}Figure 4 \& 5{]}. The genus models
+generally had similar trends as observed for the OTU based models with
+the full genera models performing better then the CRC associated genera
+models {[}Figure S2-S3{]}. Both genus models perform similarily in their
+ability to be able to predict lesion (adenoma or carcinoma) with
+carcinoma having a higher AUC then adenoma {[}Figure S4-S5{]}. Matched
+tissue samples for those with carcinoma had an AUC that was more similar
+to the adenoma models {[}Figure S4A, S5B, \& S6{]} then carcinoma models
+{[}Figure S4B \& S5A{]}.
 
 \textbf{\emph{Majority of Studies are Underpowered for Detecting Small
 Effect Size Differences:}} When assessing the power of each study at
 different effect sizes the majority of studies for both adenoma and
 carcinoma have an 80\% power to detect a 30\% difference {[}Figure 6A \&
 B{]}. No single study that was analyzed had the standard 80\% power to
-detect a difference that was eqaul to or below 10\% {[}Figure 6A \&
-B{]}. In order to achieve adequate power for small effect sizes it would
-be necessary to recruit over 1000 individuals for each arm of the study
-{[}Figure 6C{]}.
+detect an effect size difference that was eqaul to or below 10\%
+{[}Figure 6A \& B{]}. In order to achieve adequate power for small
+effect sizes it would be necessary to recruit over 1000 individuals for
+each arm of the study {[}Figure 6C{]}.
 
 \newpage
 
