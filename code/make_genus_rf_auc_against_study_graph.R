@@ -114,10 +114,9 @@ adn_tissue_graph <- adn_all_tissue %>%
   geom_point(size = 3.5, show.legend = F) + facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
-  labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
+  labs(x = "", y = "AUC") + theme_bw() + 
   scale_color_manual(name = "Study", 
                      values = c('#440154FF', '#FDE725FF')) + 
-  annotate("text", label = paste("Adenoma (Unmatched Tissue)"), x = 0.9, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
@@ -166,7 +165,7 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
                      values = c('#453581FF', '#3D4D8AFF', '#440154FF', '#1F998AFF')) + 
-  annotate("text", label = paste("Cancer (Unmatched Tissue)"), x = 1.4, y = 1.07, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Unmatched Tissue)"), x = 1.6, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
@@ -191,7 +190,7 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
                      values = c('#453581FF', '#2B748EFF', '#CBE11EFF')) + 
-  annotate("text", label = paste("Cancer (Matched Tissue)"), x = 1.1, y = 1.07, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Matched Tissue)"), x = 1.3, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.text = element_text(size = 6), 
         panel.grid.major = element_blank(), 
@@ -217,7 +216,7 @@ crc_stool_graph <- crc_all_stool %>%
   scale_color_manual(name = "Study", 
                      values = c('#40BC72FF', '#481D6FFF', '#440154FF', '#67CC5CFF', 
                                 '#97D83FFF', '#24878EFF', '#FDE725FF')) + 
-  annotate("text", label = paste("Cancer (Stool)"), x = 1.3, y = 1.07, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Stool)"), x = 1.4, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -231,12 +230,12 @@ crc_stool_graph <- crc_all_stool %>%
 crc_tissue_auc_graph <- grid.arrange(crc_unmatched_tissue_graph, crc_matched_tissue_graph)
 stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph)
 
-ggsave("results/figures/crc_tissue_genera_model_performance.pdf", 
+ggsave("results/figures/FigureS5.pdf", 
        crc_tissue_auc_graph, width = 6, height = 6, dpi = 300)
 
-ggsave("results/figures/stool_genera_model_performance.pdf", 
+ggsave("results/figures/FigureS4.pdf", 
        stool_auc_graph, width = 7, height = 6, dpi = 300)
 
-ggsave("results/figures/adn_tissue_genera_model_performance.pdf", 
+ggsave("results/figures/FigureS6.pdf", 
        adn_tissue_graph, width = 3, height = 3, dpi = 300)
 
