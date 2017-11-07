@@ -96,7 +96,7 @@ adn_tissue_graph <- adn_tissue %>%
                        labels = c("Unmatched Tissue", "Matched Tissue")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(matched)"))) %>% 
@@ -121,7 +121,7 @@ adn_tissue_graph <- adn_tissue %>%
 adn_stool_graph <- adn_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
          study = factor(study, 
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
@@ -147,7 +147,7 @@ adn_stool_graph <- adn_all_stool %>%
 crc_tissue_graph <- crc_all_tissue %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
          combined_study = factor(combined_study, 
                         levels = c("sana_unmatched", "geng_matched", "flemer_unmatched", 
                                    "dejea_matched", "chen_unmatched", "burns_unmatched",
@@ -177,7 +177,7 @@ crc_tissue_graph <- crc_all_tissue %>%
 crc_stool_graph <- crc_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
          study = factor(study, 
                         levels = c("zeller", "weir", "wang", "hale", "flemer", "baxter", "ahn"), 
                         labels = c("Zeller", "Weir", "Wang", "Hale", "Flemer", "Baxter", "Ahn"))) %>% 
