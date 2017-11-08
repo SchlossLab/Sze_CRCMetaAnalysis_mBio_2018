@@ -266,13 +266,13 @@ code/get_adneoma_select_inc_genera_positivity_RR_tissue.R
 CRC_STOOL_STUDY = wang weir ahn zeller baxter hale flemer
 ADN_STOOL_STUDY = brim zeller baxter hale
 
-# Set up directory for stool RF
+# Set up directory for stool genera RF
 G_CRC_STOOL_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_stool_RF_full_$(S))
 G_CRC_STOOL_SELECT = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_stool_RF_select_$(S))
 G_ADN_STOOL_FULL = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_stool_RF_full_$(S))
-G_ADN_STOOL_SELECT = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_stool_RF_full_$(S))
+G_ADN_STOOL_SELECT = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_stool_RF_select_$(S))
 
-# Set up files to be created for stool RF
+# Set up files to be created for stool genera RF
 G_CRC_FULL_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_STOOL_FULL))
 G_CRC_FULL_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_STOOL_FULL))
 G_CRC_SELECT_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_STOOL_SELECT))
@@ -297,7 +297,54 @@ code/run_adn_random_forest_genus_stool.R
 	R -e "source('code/run_adn_random_forest_genus_stool.R')"
 
 
+# Create Variables for the tissue dependencies
+CRC_MATCH_TISSUE_STUDY = burns dejea geng
+CRC_UNMATCH_TISSUE_STUDY = burns chen flemer sana
+ADN_TISSUE_STUDY = lu flemer
 
+# Set up directory for genera tissue RF
+G_CRC_MATCH_T_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_matched_tissue_RF_$(S))
+G_CRC_MATCH_T_SELECT = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_matched_tissue_RF_select_$(S))
+
+G_CRC_UNMATCH_T_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_unmatched_tissue_RF_$(S))
+G_CRC_UNMATCH_T_SELECT = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_unmatched_tissue_RF_select_$(S))
+
+G_ADN_TISSUE_FULL = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_unmatched_tissue_RF_full_$(S))
+G_ADN_TISSUE_SELECT = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_unmatched_tissue_RF_select_$(S))
+
+# Set up files to be created for genera tissue RF
+G_CRC_FULL_MATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_MATCH_T_FULL))
+G_CRC_FULL_MATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_MATCH_T_FULL))
+G_CRC_FULL_UNMATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_UNMATCH_T_FULL))
+G_CRC_FULL_UNMATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_UNMATCH_T_FULL))
+
+G_CRC_SELECT_MATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_MATCH_T_SELECT))
+G_CRC_SELECT_MATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_MATCH_T_SELECT))
+G_CRC_SELECT_UNMATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_UNMATCH_T_SELECT))
+G_CRC_SELECT_UNMATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_UNMATCH_T_SELECT))
+
+
+G_ADN_FULL_TISSUE_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_TISSUE_FULL))
+G_ADN_FULL_TISSUE_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_TISSUE_FULL))
+G_ADN_SELECT_TISSUE_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_TISSUE_SELECT))
+G_ADN_SELECT_TISSUE_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_TISSUE_SELECT))
+
+# Run the Stool Genera Random Forest Models
+$(G_CRC_FULL_MATCH_T_PVALUE) $(G_CRC_FULL_MATCH_T_ROC)\
+$(G_CRC_FULL_UNMATCH_T_PVALUE) $(G_CRC_FULL_UNMATCH_T_ROC)\
+$(G_CRC_SELECT_MATCH_T_PVALUE) $(G_CRC_SELECT_MATCH_T_ROC)\
+$(G_CRC_SELECT_UNMATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_ROC)\
+$(G_ADN_FULL_TISSUE_PVALUE) $(G_ADN_FULL_TISSUE_ROC)\
+$(G_ADN_SELECT_TISSUE_PVALUE) $(G_ADN_SELECT_TISSUE_ROC)\
+$(TABLES)/genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv : $(GENERA_FILE)\
+$(SUB_GENERA_FILE) $(TABLES)/alpha_tissue_matched_data.csv\
+$(TABLES)/alpha_tissue_unmatched_data.csv\
+code/run_random_forest_genus_tissue.R code/run_adn_random_forest_genus_tissue.R
+	R -e "source('code/run_random_forest_genus_tissue.R')"
+	R -e "source('code/run_adn_random_forest_genus_tissue.R')"
 
 
 
