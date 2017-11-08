@@ -236,6 +236,38 @@ code/get_adneoma_select_inc_genera_positivity_RR_stool.R
 	R -e "source('code/get_adneoma_select_inc_genera_positivity_RR_stool.R')"
 
 
+# Analyze Tissue Genera Relative Risk
+$(TABLES)/select_genus_matched_tissue_group_counts_summary.csv\
+$(TABLES)/select_genus_RR_matched_tissue_ind_results.csv\
+$(TABLES)/select_genus_RR_matched_tissue_composite.csv\
+$(TABLES)/select_genus_unmatched_tissue_group_counts_summary.csv\
+$(TABLES)/select_genus_RR_unmatched_tissue_ind_results.csv\
+$(TABLES)/select_genus_RR_unmatched_tissue_composite.csv\
+$(TABLES)/select_genus_tissue_group_counts_summary.csv\
+$(TABLES)/select_genus_RR_tissue_ind_results.csv\
+$(TABLES)/select_genus_RR_tissue_composite.csv\
+$(TABLES)/select_genus_inc_4_tissue.csv\
+$(TABLES)/adn_select_genus_tissue_group_counts_summary.csv\
+$(TABLES)/adn_select_genus_RR_tissue_ind_results.csv\
+$(TABLES)/adn_select_genus_RR_tissue_composite\
+$(TABLES)/adn_select_genus_inc_4_tissue.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
+$(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
+code/get_specifc_genus_analysis_tissue.R\
+code/get_select_inc_genera_positivity_RR_tissue.R\
+code/get_adenoma_specific_genus_analysis_tissue.R\
+code/get_adneoma_select_inc_genera_positivity_RR_tissue.R
+	R -e "source('code/get_specifc_genus_analysis_tissue.R')"
+	R -e "source('code/get_select_inc_genera_positivity_RR_tissue.R')"
+	R -e "source('code/get_adenoma_specific_genus_analysis_tissue.R')"
+	R -e "source('code/get_adneoma_select_inc_genera_positivity_RR_tissue.R')"
+
+
+
+
+
+
+
+
 
 
 
