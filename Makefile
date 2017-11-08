@@ -218,6 +218,23 @@ $(SUB_GENERA_FILE) : $(GENERA_FILE) code/get_genera_randomization.R
 
 
 # Analyze Stool Genera Relative Risk
+$(TABLES)/select_genus_group_counts_summary.csv\
+$(TABLES)/select_genus_RR_stool_ind_results.csv\
+$(TABLES)/select_genus_RR_stool_composite.csv\
+$(TABLES)/select_genus_inc_4_stool.csv\
+$(TABLES)/adn_select_genus_group_counts_summary.csv\
+$(TABLES)/adn_select_genus_RR_stool_ind_results.csv\
+$(TABLES)/adn_select_genus_RR_stool_composite.csv\
+$(TABLES)/adn_select_genus_inc_4_stool.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
+$(METADATA) code/get_specifc_genus_analysis_stool.R\
+code/get_select_inc_genera_positivity_RR_stool.R\
+code/get_adenoma_specifc_genus_analysis_stool.R\
+code/get_adneoma_select_inc_genera_positivity_RR_stool.R
+	R -e "source('code/get_specifc_genus_analysis_stool.R')"
+	R -e "source('code/get_select_inc_genera_positivity_RR_stool.R')"
+	R -e "source('code/get_adenoma_specifc_genus_analysis_stool.R')"
+	R -e "source('code/get_adneoma_select_inc_genera_positivity_RR_stool.R')"
+
 
 
 
