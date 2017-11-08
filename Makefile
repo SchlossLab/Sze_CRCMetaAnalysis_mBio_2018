@@ -1,4 +1,3 @@
-STUDIES = sana brim geng weir dejea baxter lu ahn zeller burns wang chen flemer hale
 REFS = data/references
 FIGS = results/figures
 TABLES = results/tables
