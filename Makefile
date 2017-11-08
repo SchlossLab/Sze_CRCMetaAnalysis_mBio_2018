@@ -382,6 +382,15 @@ $(TABLES)/alpha_tissue_unmatched_data.csv code/run_power_analysis.R
 
 
 
+# Generate total n used in study for stool and tissue
+$(TABLES)/stool_study_n_analyzed.csv\
+$(TABLES)/tissue_study_n_analyzed.csv : $(TABLES)/alpha_adn_group_counts_summary.csv\
+$(TABLES)/alpha_group_counts_summary.csv $(TABLES)/alpha_adn_group_counts_tissue_summary.csv\
+$(TABLES)/alpha_group_counts_matched_tissue_summary.csv $(TABLES)/alpha_group_counts_tissue_summary.csv\
+code/make_study_count_table.R
+	R -e "source('code/make_study_count_table.R')"
+
+
 
 ################################################################################
 #
