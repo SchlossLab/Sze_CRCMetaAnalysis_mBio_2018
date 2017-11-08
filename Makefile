@@ -172,6 +172,18 @@ code/get_beta_tissue.R code/get_adenoma_beta_tissue.R
 	R -e "source('code/get_adenoma_beta_tissue.R')"
 
 
+# Generate Relative Risk for stool alpha diversity
+$(TABLES)/alpha_group_counts_summary.csv\
+$(TABLES)/alpha_RR_ind_results.csv\
+$(TABLES)/alpha_RR_composite.csv\
+$(TABLES)/alpha_adn_group_counts_summary.csv\
+$(TABLES)/alpha_adn_RR_ind_results.csv\
+$(TABLES)/alpha_adn_RR_composite.csv : $(ALPHA_STOOL_RAW)\
+code/get_stool_RRisk.R code/get_adenoma_stool_RRisk.R
+	R -e "source('code/get_stool_RRisk.R')"
+	R -e "source('code/get_adenoma_stool_RRisk.R')"
+
+# Generate Relative Risk for tissue alpha diversity
 
 
 
