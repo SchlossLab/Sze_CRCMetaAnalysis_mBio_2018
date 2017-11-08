@@ -203,6 +203,24 @@ code/get_adenoma_tissue_RRisk.R
 	R -e "source('code/get_adenoma_tissue_RRisk.R')"
 
 
+# Set up the genera share file variable
+GENERA_FILE=$(addsuffix _genera_shared.csv,$(STUB))
+SUB_GENERA_FILE=$(addsuffix _subsample_genera.csv,$(STUB))
+
+# Create Genus level shared file
+$(GENERA_FILE) : $(ALPHA) $(TAXONOMY) $(SHARED)\
+code/get_taxonomy.R
+	R -e "source('code/get_taxonomy.R')"
+
+# Create a subsampled Genus level shared file
+$(SUB_GENERA_FILE) : $(GENERA_FILE) code/get_genera_randomization.R
+	R -e "source('code/get_genera_randomization.R')"
+
+
+# Analyze Stool Genera Relative Risk
+
+
+
 
 
 
