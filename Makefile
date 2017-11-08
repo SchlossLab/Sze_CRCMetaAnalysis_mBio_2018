@@ -150,6 +150,28 @@ $(TABLES)/alpha_tissue_unmatched_data.csv code/get_tissue_combined_alpha.R
 	R -e "source('code/get_tissue_combined_alpha.R')"
 
 
+# Code to run stool Beta analysis - adneoma and carcinoma
+$(TABLES)/beta_perm_stool_summary.csv\
+$(TABLES)/beta_perm_adn_stool_summary.csv : $(BETA) $(ALPHA_STOOL_TRANS)\
+code/get_beta_stool.R code/get_adenoma_beta_stool.R
+	R -e "source('code/get_beta_stool.R')"
+	R -e "source('code/get_adenoma_beta_stool.R')"
+
+# Code to run the tissue Beta analysis - adenoma and carcinoma
+$(TABLES)/beta_perm_unmatched_tissue_summary.csv\
+$(TABLES)/beta_perm_matched_tissue_summary.csv\
+$(TABLES)/bray_matched_v_cont_tissue_summary.csv\
+$(TABLES)/bray_matched_v_cases_tissue_summary.csv\
+$(TABLES)/beta_perm_adn_unmatched_tissue_summary.csv\
+$(TABLES)/beta_perm_adn_matched_tissue_summary.csv\
+$(TABLES)/bray_adn_matched_v_cont_tissue_summary.csv\
+$(TABLES)/bray_adn_matched_v_cases_tissue_summary.csv : $(TABLES)/alpha_tissue_matched_data.csv\
+$(TABLES)/alpha_tissue_unmatched_data.csv $(BETA)\
+code/get_beta_tissue.R code/get_adenoma_beta_tissue.R
+	R -e "source('code/get_beta_tissue.R')"
+	R -e "source('code/get_adenoma_beta_tissue.R')"
+
+
 
 
 ################################################################################
