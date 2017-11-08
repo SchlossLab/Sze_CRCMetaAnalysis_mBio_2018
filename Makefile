@@ -32,27 +32,27 @@ print-%:
 # also contains the reference taxonomy. We will limit the databases to only
 # include bacterial sequences.
 
-#$(REFS)/silva.seed.align :
-#	wget -N http://mothur.org/w/images/1/15/Silva.seed_v123.tgz
-#	tar xvzf Silva.seed_v123.tgz silva.seed_v123.align silva.seed_v123.tax
-#	mothur "#get.lineage(fasta=silva.seed_v123.align, taxonomy=silva.seed_v123.tax, taxon=Bacteria);degap.seqs(fasta=silva.seed_v123.pick.align, processors=8)"
-#	mv silva.seed_v123.pick.align $(REFS)/silva.seed.align
-#	rm Silva.seed_v123.tgz silva.seed_v123.*
+$(REFS)/silva.seed.align :
+	wget -N http://mothur.org/w/images/1/15/Silva.seed_v123.tgz
+	tar xvzf Silva.seed_v123.tgz silva.seed_v123.align silva.seed_v123.tax
+	mothur "#get.lineage(fasta=silva.seed_v123.align, taxonomy=silva.seed_v123.tax, taxon=Bacteria);degap.seqs(fasta=silva.seed_v123.pick.align, processors=8)"
+	mv silva.seed_v123.pick.align $(REFS)/silva.seed.align
+	rm Silva.seed_v123.tgz silva.seed_v123.*
 
-#$(REFS)/silva.v4.align : $(REFS)/silva.seed.align
-#	mothur "#pcr.seqs(fasta=$(REFS)/silva.seed.align, start=11894, end=25319, keepdots=F, processors=8)"
-#	mv $(REFS)/silva.seed.pcr.align $(REFS)/silva.v4.align
+$(REFS)/silva.v4.align : $(REFS)/silva.seed.align
+	mothur "#pcr.seqs(fasta=$(REFS)/silva.seed.align, start=11894, end=25319, keepdots=F, processors=8)"
+	mv $(REFS)/silva.seed.pcr.align $(REFS)/silva.v4.align
 
 # Next, we want the RDP reference taxonomy. The current version is v10 and we
 # use a "special" pds version of the database files, which are described at
 # http://blog.mothur.org/2014/10/28/RDP-v10-reference-files/
 
-#$(REFS)/trainset14_032015.% :
-#	wget -N http://mothur.org/w/images/8/88/Trainset14_032015.pds.tgz
-#	tar xvzf Trainset14_032015.pds.tgz trainset14_032015.pds/trainset14_032015.pds.*
-#	mv trainset14_032015.pds/* $(REFS)/
-#	rmdir trainset14_032015.pds
-#	rm Trainset14_032015.pds.tgz
+$(REFS)/trainset14_032015.% :
+	wget -N http://mothur.org/w/images/8/88/Trainset14_032015.pds.tgz
+	tar xvzf Trainset14_032015.pds.tgz trainset14_032015.pds/trainset14_032015.pds.*
+	mv trainset14_032015.pds/* $(REFS)/
+	rmdir trainset14_032015.pds
+	rm Trainset14_032015.pds.tgz
 
 ################################################################################
 #
@@ -76,18 +76,18 @@ TAXONOMY = $(addsuffix .taxonomy,$(STUB))
 METADATA = $(addsuffix .metadata,$(STUB))
 
 
-#.SECONDEXPANSION:
-#data/process/%.groups.ave-std.summary\
-#	data/process/%.braycurtis.0.03.lt.ave.dist\
-#	data/process/%.shared\
-#	data/process/%.0.03.subsample.shared\
-#	data/process/%.rep.seqs\
-#	data/process/%.taxonomy\
-#	data/process/%.metadata : code/$$(notdir $$*).batch code/$$(notdir $$*).R\
-#			$(REFS)/silva.seed.align $(REFS)/silva.v4.align\
-#			$(REFS)/trainset14_032015.pds.fasta\
-#			$(REFS)/trainset14_032015.pds.tax
-#	bash $<
+.SECONDEXPANSION:
+data/process/%.groups.ave-std.summary\
+	data/process/%.braycurtis.0.03.lt.ave.dist\
+	data/process/%.shared\
+	data/process/%.0.03.subsample.shared\
+	data/process/%.rep.seqs\
+	data/process/%.taxonomy\
+	data/process/%.metadata : code/$$(notdir $$*).batch code/$$(notdir $$*).R\
+			$(REFS)/silva.seed.align $(REFS)/silva.v4.align\
+			$(REFS)/trainset14_032015.pds.fasta\
+			$(REFS)/trainset14_032015.pds.tax
+	bash $<
 
 
 
@@ -462,6 +462,29 @@ $(TABLES)/alpha_RR_ind_tissue_results.csv code/make_tissue_alpha_RR_graph.R
 	R -e "source('code/make_tissue_alpha_RR_graph.R')"
 
 
+# Run code to make supplemental Figure 2 and Figure 3
+$(FIGS)/FigureS2.pdf\
+$(FIGS)/FigureS3.pdf : $(TABLES)/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/genus_stool_RF_fullvsselect_pvalue_summary.csv\
+code/make_rf_auc_full_versus_specific_graph.R
+	R -e "source('code/make_rf_auc_full_versus_specific_graph.R')"
+
+
+# Run code to make supplemental Figure 4, 5, and 6
+$(FIGS)/FigureS4.pdf\
+$(FIGS)/FigureS5.pdf\
+$(FIGS)/FigureS6.pdf : $(G_ADN_FULL_STOOL_PVALUE) $(G_ADN_STOOL_SELECT)\
+$(G_ADN_FULL_TISSUE_PVALUE) $(G_ADN_SELECT_TISSUE_PVALUE)\
+$(G_CRC_FULL_STOOL_PVALUE) $(G_CRC_SELECT_STOOL_PVALUE)\
+$(G_CRC_FULL_MATCH_T_PVALUE) $(G_CRC_FULL_UNMATCH_T_PVALUE)\
+$(G_CRC_SELECT_MATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_PVALUE)\
+code/make_genus_rf_auc_against_study_graph.R
+	R -e "source('code/make_genus_rf_auc_against_study_graph.R')"
+
 
 
 ################################################################################
@@ -472,17 +495,12 @@ $(TABLES)/alpha_RR_ind_tissue_results.csv code/make_tissue_alpha_RR_graph.R
 #
 ################################################################################
 
-
-#$(FINAL)/study.% : 			\ #include data files that are needed for paper
-#						$(FINAL)/peerj.csl\
-#						$(FINAL)/references.bib\
-#						$(FINAL)/study.Rmd
-#	R -e 'render("$(FINAL)/study.Rmd", clean=FALSE)'
-#	mv $(FINAL)/study.knit.md $@
-#	rm $(FINAL)/study.utf8.md
-
-#write.paper : $(TABLES)/table_1.pdf $(TABLES)/table_2.pdf\ #customize to include
-#				$(FIGS)/figure_1.pdf $(FIGS)/figure_2.pdf\	# appropriate tables and
-#				$(FIGS)/figure_3.pdf $(FIGS)/figure_4.pdf\	# figures
-#				$(FINAL)/study.Rmd $(FINAL)/study.md\
-#				$(FINAL)/study.tex $(FINAL)/study.pdf
+write.paper : $(FINAL)/manuscript.Rmd $(FINAL)/supplement.Rmd\
+$(FIGS)/Figure1.pdf $(FIGS)/Figure2.pdf\
+$(FIGS)/Figure3.pdf $(FIGS)/Figure4.pdf\
+$(FIGS)/Figure5.pdf $(FIGS)/Figure6.pdf\
+$(FIGS)/FigureS1.pdf $(FIGS)/FigureS2.pdf\ 
+$(FIGS)/FigureS3.pdf $(FIGS)/FigureS4.pdf\
+$(FIGS)/FigureS5.pdf $(FIGS)/FigureS6.pdf\
+code/Run_render_paper.R
+	R -e "source('code/Run_render_paper.R')"
