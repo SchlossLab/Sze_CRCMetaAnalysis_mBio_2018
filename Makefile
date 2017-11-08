@@ -373,6 +373,16 @@ code/run_random_forest_otu_tissue.R code/run_adn_random_forest_otu_tissue.R
 	R -e "source('code/run_adn_random_forest_otu_tissue.R')"
 
 
+
+# Run the power analysis for each study
+$(TABLES)/cancer_predicted_pwr_and_n.csv\
+$(TABLES)/adn_predicted_pwr_and_n.csv : $(GENERA_FILE) $(SUB_GENERA_FILE) $(METADATA)\
+$(TABLES)/alpha_tissue_unmatched_data.csv code/run_power_analysis.R
+	R -e "source('code/run_power_analysis.R')"	
+
+
+
+
 ################################################################################
 #
 # Part 3: Figure and table generation
