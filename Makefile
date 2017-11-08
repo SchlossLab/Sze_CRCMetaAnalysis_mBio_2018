@@ -329,7 +329,7 @@ G_ADN_FULL_TISSUE_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_TISSUE_FULL))
 G_ADN_SELECT_TISSUE_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_TISSUE_SELECT))
 G_ADN_SELECT_TISSUE_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_TISSUE_SELECT))
 
-# Run the Stool Genera Random Forest Models
+# Run the Tissue Genera Random Forest Models
 $(G_CRC_FULL_MATCH_T_PVALUE) $(G_CRC_FULL_MATCH_T_ROC)\
 $(G_CRC_FULL_UNMATCH_T_PVALUE) $(G_CRC_FULL_UNMATCH_T_ROC)\
 $(G_CRC_SELECT_MATCH_T_PVALUE) $(G_CRC_SELECT_MATCH_T_ROC)\
@@ -345,6 +345,21 @@ $(TABLES)/alpha_tissue_unmatched_data.csv\
 code/run_random_forest_genus_tissue.R code/run_adn_random_forest_genus_tissue.R
 	R -e "source('code/run_random_forest_genus_tissue.R')"
 	R -e "source('code/run_adn_random_forest_genus_tissue.R')"
+
+
+
+# Run the Stool OTU Random Forest Models
+$(TABLES)/stool_rf_select_tu_roc.csv\
+$(TABLES)/stool_rf_select_otu_random_comparison_summary.csv\
+$(TABLES)/adn_stool_rf_otu_roc.csv\
+$(TABLES)/adn_stool_rf_otu_random_comparison_summary.csv : $(SUBSHARED) $(METADATA)\
+code/run_random_forest_otu_stool.R\
+code/run_adn_random_forest_otu_stool.R\
+	R -e "source('code/run_random_forest_otu_stool.R')"
+	R -e "source('code/run_adn_random_forest_otu_stool.R')"
+
+
+
 
 
 
