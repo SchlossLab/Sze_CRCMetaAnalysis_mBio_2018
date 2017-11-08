@@ -183,8 +183,24 @@ code/get_stool_RRisk.R code/get_adenoma_stool_RRisk.R
 	R -e "source('code/get_stool_RRisk.R')"
 	R -e "source('code/get_adenoma_stool_RRisk.R')"
 
-# Generate Relative Risk for tissue alpha diversity
 
+# Generate Relative Risk for tissue alpha diversity
+$(TABLES)/alpha_group_counts_unmatched_tissue_summary.csv\
+$(TABLES)/alpha_RR_ind_unmatched_tissue_results.csv\
+$(TABLES)/alpha_RR_unmatched_tissue_composite.csv\
+$(TABLES)/alpha_group_counts_tissue_summary.csv\
+$(TABLES)/alpha_RR_ind_tissue_results.csv\
+$(TABLES)/alpha_RR_tissue_composite.csv\
+$(TABLES)/alpha_group_counts_matched_tissue_summary.csv\
+$(TABLES)/alpha_RR_ind_matched_tissue_results.csv\
+$(TABLES)/alpha_RR_matched_tissue_composite.csv\
+$(TABLES)/alpha_adn_group_counts_tissue_summary.csv\
+$(TABLES)/alpha_adn_RR_ind_tissue_results.csv\
+$(TABLES)/alpha_adn_RR_tissue_composite.csv : $(TABLES)/alpha_tissue_matched_data.csv\
+$(TABLES)/alpha_tissue_unmatched_data.csv code/get_tissue_RRisk.R\
+code/get_adenoma_tissue_RRisk.R
+	R -e "source('code/get_tissue_RRisk.R')"
+	R -e "source('code/get_adenoma_tissue_RRisk.R')"
 
 
 
