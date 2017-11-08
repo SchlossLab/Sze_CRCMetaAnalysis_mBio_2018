@@ -360,7 +360,17 @@ code/run_adn_random_forest_otu_stool.R\
 
 
 
-
+# Run the Tissue OTU Random Forest Models
+$(TABLES)/unmatched_tissue_rf_otu_roc.csv\
+$(TABLES)/unmatched_tissue_rf_otu_random_comparison_summary.csv\
+$(TABLES)/matched_tissue_rf_otu_roc.csv\
+$(TABLES)/matched_tissue_rf_otu_random_comparison_summary.csv\
+$(TABLES)/adn_tissue_rf_otu_roc.csv
+$(TABLES)/adn_tissue_rf_otu_random_comparison_summary.csv : $(SUBSHARED) S(METADATA)\
+$(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
+code/run_random_forest_otu_tissue.R code/run_adn_random_forest_otu_tissue.R
+	R -e "source('code/run_random_forest_otu_tissue.R')"
+	R -e "source('code/run_adn_random_forest_otu_tissue.R')"
 
 
 ################################################################################
