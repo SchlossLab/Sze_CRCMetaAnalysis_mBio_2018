@@ -262,11 +262,39 @@ code/get_adneoma_select_inc_genera_positivity_RR_tissue.R
 	R -e "source('code/get_adneoma_select_inc_genera_positivity_RR_tissue.R')"
 
 
+# Create Variables for the stool dependencies
+CRC_STOOL_STUDY = wang weir ahn zeller baxter hale flemer
+ADN_STOOL_STUDY = brim zeller baxter hale
 
+# Set up directory for stool RF
+G_CRC_STOOL_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_stool_RF_full_$(S))
+G_CRC_STOOL_SELECT = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_stool_RF_select_$(S))
+G_ADN_STOOL_FULL = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_stool_RF_full_$(S))
+G_ADN_STOOL_SELECT = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_stool_RF_full_$(S))
 
+# Set up files to be created for stool RF
+G_CRC_FULL_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_STOOL_FULL))
+G_CRC_FULL_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_STOOL_FULL))
+G_CRC_SELECT_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_STOOL_SELECT))
+G_CRC_SELECT_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_STOOL_SELECT))
 
+G_ADN_FULL_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_STOOL_FULL))
+G_ADN_FULL_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_STOOL_FULL))
+G_ADN_SELECT_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_STOOL_SELECT))
+G_ADN_SELECT_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_STOOL_SELECT))
 
-
+# Run the Stool Genera Random Forest Models
+$(G_CRC_FULL_STOOL_PVALUE) $(G_CRC_FULL_STOOL_ROC)\
+$(G_CRC_SELECT_STOOL_PVALUE) $(G_CRC_SELECT_STOOL_ROC)\
+$(G_ADN_FULL_STOOL_PVALUE) $(G_ADN_FULL_STOOL_ROC)\
+$(G_ADN_SELECT_STOOL_PVALUE) $(G_ADN_SELECT_STOOL_ROC)\
+$(TABLES)/genus_stool_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv : $(GENERA_FILE)\
+$(SUB_GENERA_FILE) $(METADATA)\
+code/run_random_forest_genus_stool.R\
+code/run_adn_random_forest_genus_stool.R
+	R -e "source('code/run_random_forest_genus_stool.R')"
+	R -e "source('code/run_adn_random_forest_genus_stool.R')"
 
 
 
