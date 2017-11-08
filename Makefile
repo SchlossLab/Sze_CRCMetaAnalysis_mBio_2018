@@ -1,6 +1,7 @@
+STUDIES = sana brim geng weir dejea baxter lu ahn zeller burns wang chen flemer hale
 REFS = data/references
 FIGS = results/figures
-TABLES = results/tables
+TABLES = data/process/tables
 PROC = data/process
 FINAL = submission/
 
@@ -31,27 +32,27 @@ print-%:
 # also contains the reference taxonomy. We will limit the databases to only
 # include bacterial sequences.
 
-$(REFS)/silva.seed.align :
-	wget -N http://mothur.org/w/images/1/15/Silva.seed_v123.tgz
-	tar xvzf Silva.seed_v123.tgz silva.seed_v123.align silva.seed_v123.tax
-	mothur "#get.lineage(fasta=silva.seed_v123.align, taxonomy=silva.seed_v123.tax, taxon=Bacteria);degap.seqs(fasta=silva.seed_v123.pick.align, processors=8)"
-	mv silva.seed_v123.pick.align $(REFS)/silva.seed.align
-	rm Silva.seed_v123.tgz silva.seed_v123.*
+#$(REFS)/silva.seed.align :
+#	wget -N http://mothur.org/w/images/1/15/Silva.seed_v123.tgz
+#	tar xvzf Silva.seed_v123.tgz silva.seed_v123.align silva.seed_v123.tax
+#	mothur "#get.lineage(fasta=silva.seed_v123.align, taxonomy=silva.seed_v123.tax, taxon=Bacteria);degap.seqs(fasta=silva.seed_v123.pick.align, processors=8)"
+#	mv silva.seed_v123.pick.align $(REFS)/silva.seed.align
+#	rm Silva.seed_v123.tgz silva.seed_v123.*
 
-$(REFS)/silva.v4.align : $(REFS)/silva.seed.align
-	mothur "#pcr.seqs(fasta=$(REFS)/silva.seed.align, start=11894, end=25319, keepdots=F, processors=8)"
-	mv $(REFS)/silva.seed.pcr.align $(REFS)/silva.v4.align
+#$(REFS)/silva.v4.align : $(REFS)/silva.seed.align
+#	mothur "#pcr.seqs(fasta=$(REFS)/silva.seed.align, start=11894, end=25319, keepdots=F, processors=8)"
+#	mv $(REFS)/silva.seed.pcr.align $(REFS)/silva.v4.align
 
 # Next, we want the RDP reference taxonomy. The current version is v10 and we
 # use a "special" pds version of the database files, which are described at
 # http://blog.mothur.org/2014/10/28/RDP-v10-reference-files/
 
-$(REFS)/trainset14_032015.% :
-	wget -N http://mothur.org/w/images/8/88/Trainset14_032015.pds.tgz
-	tar xvzf Trainset14_032015.pds.tgz trainset14_032015.pds/trainset14_032015.pds.*
-	mv trainset14_032015.pds/* $(REFS)/
-	rmdir trainset14_032015.pds
-	rm Trainset14_032015.pds.tgz
+#$(REFS)/trainset14_032015.% :
+#	wget -N http://mothur.org/w/images/8/88/Trainset14_032015.pds.tgz
+#	tar xvzf Trainset14_032015.pds.tgz trainset14_032015.pds/trainset14_032015.pds.*
+#	mv trainset14_032015.pds/* $(REFS)/
+#	rmdir trainset14_032015.pds
+#	rm Trainset14_032015.pds.tgz
 
 ################################################################################
 #
@@ -75,18 +76,78 @@ TAXONOMY = $(addsuffix .taxonomy,$(STUB))
 METADATA = $(addsuffix .metadata,$(STUB))
 
 
-.SECONDEXPANSION:
-data/process/%.groups.ave-std.summary\
-	data/process/%.braycurtis.0.03.lt.ave.dist\
-	data/process/%.shared\
-	data/process/%.0.03.subsample.shared\
-	data/process/%.rep.seqs\
-	data/process/%.taxonomy\
-	data/process/%.metadata : code/$$(notdir $$*).batch code/$$(notdir $$*).R\
-			$(REFS)/silva.seed.align $(REFS)/silva.v4.align\
-			$(REFS)/trainset14_032015.pds.fasta\
-			$(REFS)/trainset14_032015.pds.tax
-	bash $<
+#.SECONDEXPANSION:
+#data/process/%.groups.ave-std.summary\
+#	data/process/%.braycurtis.0.03.lt.ave.dist\
+#	data/process/%.shared\
+#	data/process/%.0.03.subsample.shared\
+#	data/process/%.rep.seqs\
+#	data/process/%.taxonomy\
+#	data/process/%.metadata : code/$$(notdir $$*).batch code/$$(notdir $$*).R\
+#			$(REFS)/silva.seed.align $(REFS)/silva.v4.align\
+#			$(REFS)/trainset14_032015.pds.fasta\
+#			$(REFS)/trainset14_032015.pds.tax
+#	bash $<
+
+
+
+
+################################################################################
+#
+# Part 3: Metadata Processing and Analysis
+#
+#	Run scripts that analyze the generated data
+#
+################################################################################
+
+# Set up output files from power transformation
+COMMON_PATH=$(addprefix $(TABLES)/,$(STUDIES))
+ALPHA_STOOL_RAW=$(addsuffix _stool_alpha_raw_values.csv,$(COMMON_PATH))
+ALPHA_STOOL_SUMMARY=$(addsuffix _stool_summary_stats_alpha_raw_values.csv,$(COMMON_PATH))
+ALPHA_STOOL_TRANS=$(addsuffix _stool_transformed_data_alpha_raw_values.csv,$(COMMON_PATH))
+ALPHA_TISS_RAW=$(addsuffix _tissue_alpha_raw_values.csv,$(COMMON_PATH))
+ALPHA_TISS_SUMMARY=$(addsuffix _tissue_summary_stats_alpha_raw_values.csv,$(COMMON_PATH))
+ALPHA_TISS_TRANS=$(addsuffix _tissue_transformed_data_alpha_raw_values.csv,$(COMMON_PATH))
+
+# Code to power transform the Alpha diversity values of each study
+$(ALPHA_STOOL_RAW)\
+$(ALPHA_STOOL_SUMMARY)\
+$(ALPHA_STOOL_TRANS)\
+$(ALPHA_TISS_RAW)\
+$(ALPHA_TISS_SUMMARY)\
+$(ALPHA_TISS_TRANS)\
+$(TABLES)/stool_power_transformation_summary.csv : $(METADATA) $(ALPHA)\
+code/get_power_transform.R
+	R -e "source('code/get_power_transform.R')"
+
+
+# Code to run the stool Alpha analysis
+$(TABLES)/alpha_tukey_results.csv\
+$(TABLES)/alpha_ttest_results.csv\
+$(TABLES)/alpha_mixeffect_results.csv\
+$(TABLES)/stool_normalized_alpha_all.csv : $(ALPHA_STOOL_TRANS)\
+code/get_stool_combined_alpha.R
+	R -e "source('code/get_stool_combined_alpha.R')"
+
+
+#Generate matched and unmatched tissue samples
+$(TABLES)/alpha_tissue_matched_data.csv\
+$(TABLES)/alpha_tissue_unmatched_data.csv : $(METADATA) $(ALPHA_TISS_TRANS)\
+$(ALPHA) $(PROC)/geng/GengData.txt $(PROC)/dejea/SraRunTable.txt\
+$(PROC)/kostic/SraRunTable.txt $(PROC)/burns/burnsMetadata.csv\
+$(PROC)/lu/luData.csv code/get_matched_tissue.R
+	R -e "source('code/get_matched_tissue.R')"
+
+# Code to run the tissue Alpha analysis
+$(TABLES)/alpha_unmatched_ttest_tissue.csv\
+$(TABLES)/alpha_matched_ttest_tissue.csv\
+$(TABLES)/alpha_unmatched_tukey_results.csv\
+$(TABLES)/alpha_unmatched_mixeffect_results.csv\
+$(TABLES)/alpha_matched_mixeffect_results.csv\
+$(TABLES)/matched_tissue_normalized_alpha_all_data.csv\
+$(TABLES)/unmatched_tissue_normalized_alpha_all_data.csv : $(TABLES)/alpha_tissue_matched_data.csv\
+$(TABLES)/alpha_tissue_unmatched_data.csv code/get_tissue_combined_alpha.R
+	R -e "source('code/get_tissue_combined_alpha.R')"
 
 
 
@@ -98,12 +159,6 @@ data/process/%.groups.ave-std.summary\
 #	Run scripts to generate figures and tables
 #
 ################################################################################
-
-
-
-
-
-
 
 
 ################################################################################
