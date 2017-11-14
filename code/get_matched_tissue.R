@@ -275,8 +275,6 @@ raw_alpha <- mapply(get_data, c(tissue_sets, both_sets), "tissue", SIMPLIFY = F)
 tissue_matched_data <- tissue_matched_data %>% inner_join(raw_alpha, by = "group")
 tissue_unmatched_data <- tissue_unmatched_data %>% inner_join(raw_alpha, by = "group")
 
-test <- get_matched_set_data("flemer", "matched")
-
 
 
 # Write out the data tables for analysis
