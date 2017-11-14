@@ -33,7 +33,7 @@ tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 both_sets <- c("flemer", "chen")
 
 # Create vector with data that has matched samples
-matched_sets <- c("burns", "dejea", "lu", "geng", "flemer")
+matched_sets <- c("burns", "dejea", "lu", "geng")
 
 
 
@@ -242,9 +242,7 @@ data_to_match_list <- list(
   geng = tissue_metadata[["geng"]] %>% 
     select(Run_s, Sample_Name_s) %>% 
     mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
-    rename(id = Sample_Name_s, group = Run_s), 
-  flemer = tissue_metadata[["flemer"]] %>% select(sample, Individual) %>% 
-    rename(id = Individual, group = sample))
+    rename(id = Sample_Name_s, group = Run_s))
 
 alpha_to_match_list <- zscore_pwr_transform_data[matched_sets]
 
@@ -260,7 +258,7 @@ tissue_matched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "mat
                     ifelse(disease == "Tumor", invisible("cancer"), invisible(disease))))
 
 tissue_unmatched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "unmatched"), 
-                  zscore_pwr_transform_data[c("chen", "sana")]) %>% 
+                  zscore_pwr_transform_data[c("chen", "flemer", "sana")]) %>% 
   mutate(disease = ifelse(is.na(disease), invisible(disease.x), invisible(disease)))
 
 
