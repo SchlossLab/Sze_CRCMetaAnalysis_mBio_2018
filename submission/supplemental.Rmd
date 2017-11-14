@@ -132,41 +132,9 @@ kable(table_s4, format = "markdown", align = 'c', padding = 2)
 ```
 
 
-\newpage
 
 
 
-\newcommand{\blandscape}{\begin{landscape}}
-\newcommand{\elandscape}{\end{landscape}}
-
-**Table S2: Summary of Common OTUs for All Diagnosis Groups**
-
-\footnotesize
-
-```{r supplemental_table, echo=FALSE, message=FALSE, warning=FALSE}
-
-
-```
-\normalsize
-\newpage
-
-
-
-
-
-
-
-**Table S5: Summary of mtry ranges used for the treatment and diagnosis models**
-
-\footnotesize
-
-```{r supplemental_table6, echo=FALSE, message=FALSE, warning=FALSE}
-
-
-
-
-```
-\normalsize
 
 
 
