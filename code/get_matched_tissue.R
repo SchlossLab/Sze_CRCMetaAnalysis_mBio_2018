@@ -5,10 +5,9 @@
 ###### Notes to self ######################################################
 
 # Chen is unmatched - chen.metadata
-# Flemer is unmatched - flemer.metadata
 # Sanaparedy is unmatched - sana.metadata
 
-
+# Flemer is matched (want Individual column)- flemer.metadata
 # Burns is matched (want host_subject_id_s column) - burnsMetadata.csv
 # Lu data A matches with B - luData.csv
 # Dejea is matched (host_tissue_sampled_s column) - SraRunTable.txt
@@ -34,7 +33,7 @@ tissue_sets <- c("lu", "dejea", "sana", "burns", "geng")
 both_sets <- c("flemer", "chen")
 
 # Create vector with data that has matched samples
-matched_sets <- c("burns", "dejea", "lu", "geng")
+matched_sets <- c("burns", "dejea", "lu", "geng", "flemer")
 
 
 
@@ -243,7 +242,9 @@ data_to_match_list <- list(
   geng = tissue_metadata[["geng"]] %>% 
     select(Run_s, Sample_Name_s) %>% 
     mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
-    rename(id = Sample_Name_s, group = Run_s))
+    rename(id = Sample_Name_s, group = Run_s), 
+  flemer = tissue_metadata[["flemer"]] %>% select(sample, Individual) %>% 
+    rename(id = Individual, group = sample))
 
 alpha_to_match_list <- zscore_pwr_transform_data[matched_sets]
 
@@ -259,7 +260,7 @@ tissue_matched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "mat
                     ifelse(disease == "Tumor", invisible("cancer"), invisible(disease))))
 
 tissue_unmatched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "unmatched"), 
-                  zscore_pwr_transform_data[c("chen", "flemer", "sana")]) %>% 
+                  zscore_pwr_transform_data[c("chen", "sana")]) %>% 
   mutate(disease = ifelse(is.na(disease), invisible(disease.x), invisible(disease)))
 
 
