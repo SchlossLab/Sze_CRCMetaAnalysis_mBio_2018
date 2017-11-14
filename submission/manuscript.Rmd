@@ -281,13 +281,13 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure 2: Relative Risk for Adenoma or Carcinoma based on $\alpha$-Diversity Metrics in Stool.** A) $\alpha$-metric relative risk for adenoma. B) $\alpha$-metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study. 
 
-**Figure 3: Colorectal Cancer Associated Genera Relative Risk for Adenoma and Carcinoma in Stool and Tissue.** A) Adenoma relative risk in stool. B) Carinoma relative risk in stool. C) Adenoma relative risk in tissue. D) Carcinoma relative risk in tissue. For all panels the relative risk was also compared to whether one, two, three, or four of the CRC associated genera were present.  
+**Figure 3: CRC-Associated Genera Relative Risk for Adenoma and Carcinoma in Stool and Tissue.** A) Adenoma relative risk in stool. B) Carcinoma relative risk in stool. C) Adenoma relative risk in tissue. D) Carcinoma relative risk in tissue. For all panels the relative risk was also compared to whether one, two, three, or four of the CRC-associated genera were present.  
 
-**Figure 4: OTU Random Forest Model of Stool Across Studies.** A) Adenoma random forest model between the full community and CRC associated genera OTUs only. B) Carcinoma random forest model between the full community and CRC associated genera OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between.
+**Figure 4: OTU Random Forest Model of Stool Across Studies.** A) Adenoma random forest model between the full community and CRC-associated genera OTUs only. B) Carcinoma random forest model between the full community and CRC-associated genera OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between.
 
-**Figure 5: OTU Random Forest Model of Tissue Across Studies.** A) Adenoma random forest model between the full community and CRC associated genera OTUs only. B) Carcinoma random forest model between the full community and CRC associated genera OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between.
+**Figure 5: OTU Random Forest Model of Tissue Across Studies.** A) Adenoma random forest model between the full community and CRC-associated genera OTUs only. B) Carcinoma random forest model between the full community and CRC-associated genera OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between.
 
-**Figure 6: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with Adenoma individuals. B) Power based on effect size for studies with Carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect aneffect size of 1-30%. The dotted red lines in A) and B) represent the generally used power of 0.8.  
+**Figure 6: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with adenoma individuals. B) Power based on effect size for studies with carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect aneffect size of 1-30%. The dotted red lines in A) and B) represent a power of 0.8.  
 
 
 \newpage
@@ -295,13 +295,13 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure S1: Relative Risk for Adenoma or Carcinoma based on $\alpha$-Diversity Metrics in Tissue.** A) $\alpha$-metric relative risk for adenoma. B) $\alpha$-metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study.
 
-**Figure S2: Random Forest Genus Model AUC for each Stool Study.** A) AUC of Adenoma models using all genera or CRC associated genera only. B) AUC of Carcinoma models using all genera or CRC associated genera only. The black line represents the median within each group.  
+**Figure S2: Random Forest Genus Model AUC for each Stool Study.** A) AUC of adenoma models using all genera or CRC-associated genera only. B) AUC of carcinoma models using all genera or CRC-associated genera only. The black line represents the median within each group.  
 
-**Figure S3: Random Forest Genus Model AUC for each Tissue Study.** A) AUC of Adenoma models using all genera or CRC associated genera only divided between matched and unmatched tissue. B) AUC of Carcinoma models using all genera or CRC associated genera only. The black line represents the median within each group divided between matched and unmatched tissue. 
+**Figure S3: Random Forest Genus Model AUC for each Tissue Study.** A) AUC of adenoma models using all genera or only CRC-associated genera divided between matched and unmatched tissue. B) AUC of carcinoma models using all genera or CRC-associated genera only. The black line represents the median within each group divided between matched and unmatched tissue. 
 
-**Figure S4: Random Forest Prediction Success Using Genera for each Stool Study.** A) AUC for prediction in Adenoma using all genera or CRC associated genera only. B) AUC for prediction in Carcinoma using all genera or CRC associated genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on. 
+**Figure S4: Random Forest Prediction Success Using Genera for each Stool Study.** A) AUC for prediction in adenoma using all genera or CRC associated genera only. B) AUC for prediction in carcinoma using all genera or CRC-associated genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on. 
 
-**Figure S5: Random Forest Prediction Success of Carcinoma Using Genera for each Tissue Study.** A) AUC for prediction in unmatched tissue for all genera or CRC associated genera only. B) AUC for prediction in matched tissue using all genera or CRC associated genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on.
+**Figure S5: Random Forest Prediction Success of Carcinoma Using Genera for each Tissue Study.** A) AUC for prediction in unmatched tissue for all genera or CRC-associated genera only. B) AUC for prediction in matched tissue using all genera or CRC-associated genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on.
 
 **Figure S6: Random Forest Prediction Success of Adenoma Using Genera for each Tissue Study.** 
 
