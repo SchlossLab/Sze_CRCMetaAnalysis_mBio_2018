@@ -443,16 +443,17 @@ rcompanion (v1.10.1) package and then Z-score normalized using the car
 linear mixed-effect models created using the lme4 (v1.1.14) package to
 correct for study and variable region effects in feces and study,
 variable region, and individual effects in tissue. Relative risk was
-analyzed using both the epiR (v0.9.87) and metafor (v2.0.0) packages.
-Relative risk significance testing utilized the chi-squred test.
-\(\beta\)-diversity differences utilized a Bray-Curtis distance matrix
-and PERMANOVA executed with the vegan (v2.4.4) package. Random Forest
-models were built using both the caret (v6.0.77) and randomForest
-(v4.6.12) packages. Differences between the obtained AUC versus a random
-model AUC was assessed using T-tests. Power analysis and estimations
-were made using the pwr (v1.2.1) and statmod (v1.4.30) packages. All
-figures were created using both ggplot2 (v2.2.1) and gridExtra (v2.3)
-packages.
+analyzed using both the epiR (v0.9.87) and metafor (v2.0.0) packages by
+assessing how many with and without disease were above and below the
+overall median value within the specific study. Relative risk
+significance testing utilized the chi-squred test. \(\beta\)-diversity
+differences utilized a Bray-Curtis distance matrix and PERMANOVA
+executed with the vegan (v2.4.4) package. Random Forest models were
+built using both the caret (v6.0.77) and randomForest (v4.6.12)
+packages. Differences between the obtained AUC versus a random model AUC
+was assessed using T-tests. Power analysis and estimations were made
+using the pwr (v1.2.1) and statmod (v1.4.30) packages. All figures were
+created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages.
 
 \textbf{\emph{Study Analysis Overview:}} \(\alpha\)-diversity was first
 assessed for differences between controls, adenoma, and carcinoma. We
