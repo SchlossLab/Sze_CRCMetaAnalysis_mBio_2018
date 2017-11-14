@@ -36,7 +36,8 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
          v_region = ifelse(study %in% c("lu", "flemer"), invisible("V3-4"), 
                            ifelse(study == "burns", invisible("V5-6"), 
                                   ifelse(study == "dejea", invisible("V3-5"), 
-                                         ifelse(study == "chen", invisible("V1-3"), invisible("V1-2"))))))
+                                         ifelse(study == "chen", invisible("V1-3"), invisible("V1-2")))))) %>% 
+  mutate(id = ifelse(study %in% c("chen", "sana"), invisible(group), invisible(id)))
 
 
 # Run tests for alpha metrics using t-tests
@@ -182,7 +183,7 @@ unmatched_tukey_results <- mapply(get_anova_comparisons, c("sobs", "shannon", "s
 
 # RUn linear mixed-effect models
 unmatched_mixeffect_results <- mapply(get_mixed_effect, c("sobs", "shannon", "shannoneven"), 
-                            data_set = "tissue_unmatched", USE.NAMES = T, SIMPLIFY = F) %>% 
+                                      individual = "id", data_set = "tissue_unmatched", USE.NAMES = T, SIMPLIFY = F) %>% 
   bind_rows() %>% gather(key = alpha_metric, value = value) %>% 
   mutate(measure = rep(c("chi_sq", "pvalue"), length(value)/2)) %>% 
   spread(measure, value) %>% 
