@@ -242,12 +242,14 @@ data_to_match_list <- list(
   geng = tissue_metadata[["geng"]] %>% 
     select(Run_s, Sample_Name_s) %>% 
     mutate(Sample_Name_s = gsub("[A-Z]", "", Sample_Name_s)) %>% 
-    rename(id = Sample_Name_s, group = Run_s))
+    rename(id = Sample_Name_s, group = Run_s), 
+  flemer = tissue_metadata[["flemer"]] %>% select(sample, Individual) %>% 
+    rename(id = Individual, group = sample))
 
-alpha_to_match_list <- zscore_pwr_transform_data[matched_sets]
+alpha_to_match_list <- zscore_pwr_transform_data[c(matched_sets, "flemer")]
 
 # generate the combined data
-combination_data <- mapply(get_combinations, matched_sets, USE.NAMES = T, SIMPLIFY = F)
+combination_data <- mapply(get_combinations, c(matched_sets, "flemer"), USE.NAMES = T, SIMPLIFY = F)
 
 
 # Get the matched data
@@ -258,7 +260,9 @@ tissue_matched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "mat
                     ifelse(disease == "Tumor", invisible("cancer"), invisible(disease))))
 
 tissue_unmatched_data <- bind_rows(mapply(get_matched_set_data, matched_sets, "unmatched"), 
-                  zscore_pwr_transform_data[c("chen", "flemer", "sana")]) %>% 
+                                   get_matched_set_data("flemer", "matched"), 
+                                   get_matched_set_data("flemer", "unmatched"), 
+                  zscore_pwr_transform_data[c("chen", "sana")]) %>% 
   mutate(disease = ifelse(is.na(disease), invisible(disease.x), invisible(disease)))
 
 
@@ -271,7 +275,7 @@ raw_alpha <- mapply(get_data, c(tissue_sets, both_sets), "tissue", SIMPLIFY = F)
 tissue_matched_data <- tissue_matched_data %>% inner_join(raw_alpha, by = "group")
 tissue_unmatched_data <- tissue_unmatched_data %>% inner_join(raw_alpha, by = "group")
 
-
+test <- get_matched_set_data("flemer", "matched")
 
 
 
