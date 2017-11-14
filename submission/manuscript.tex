@@ -94,6 +94,10 @@
 
 \usepackage{pdfpages}
 
+\usepackage{amsmath}
+
+\usepackage{mathtools}
+
 \begin{document}
 
 \section{The Microbiota and Individual Community Members in Colorectal
@@ -219,22 +223,23 @@ differences of 10\% or below between the case and control group.
 \subsection{Results}\label{results}
 
 \textbf{\emph{Diversity is Lower in Those with Carcinoma and Increases
-Relative Risk:}} Using power transformed and Z-score normalized alpha
-diversity metrics, both evenness and Shannon diversity in feces and not
-tissue were lower in those with carcinoma {[}Figure 1{]}. Using linear
-mixed-effect models to control for study and variable region there was a
-significant decrease from control to adenoma to carcinoma for both
-evenness (P-value = 0.025) and Shannon diversity (P-value = 0.043). This
-effect was not observed in tissue when additionally controlling for
-whether the sample came from the same individual (P-value \textgreater{}
-0.05). For fecal samples a decrease in Shannon diversity and evenness
-resulted in a significantly increased relative risk for carcinoma
-(P-value = 0.01 and P-value = 0.0011, respectively) {[}Figure 2{]}.
-Although these values were significant, the effect size was relatively
-small for both metrics (Shannon RR = 1.31 and evenness RR = 1.34)
-{[}Figure 2{]}. Only a decrease in evenness had an increased relative
-risk for adenoma (P-value = 0.032) {[}Figure 2A \& S1{]} but this effect
-size was even smaller than what was observed for carcinoma (RR = 1.16).
+Relative Risk:}} Using power transformed and Z-score normalized
+\(\alpha\)-diversity metrics, both evenness and Shannon diversity in
+feces and not tissue were lower in those with carcinoma {[}Figure 1{]}.
+Using linear mixed-effect models to control for study and variable
+region there was a significant decrease from control to adenoma to
+carcinoma for both evenness (P-value = 0.025) and Shannon diversity
+(P-value = 0.043). This effect was not observed in tissue when
+additionally controlling for whether the sample came from the same
+individual (P-value \textgreater{} 0.05). For fecal samples a decrease
+in Shannon diversity and evenness resulted in a significantly increased
+relative risk for carcinoma (P-value = 0.01 and P-value = 0.0011,
+respectively) {[}Figure 2{]}. Although these values were significant,
+the effect size was relatively small for both metrics (Shannon RR = 1.31
+and evenness RR = 1.34) {[}Figure 2{]}. Only a decrease in evenness had
+an increased relative risk for adenoma (P-value = 0.032) {[}Figure 2A \&
+S1{]} but this effect size was even smaller than what was observed for
+carcinoma (RR = 1.16).
 
 Using the Bray-Curtis distance metric, there was a significant
 difference across studies in the bacterial community of fecal samples
@@ -381,98 +386,103 @@ in the community.
 \subsection{Methods}\label{methods}
 
 \textbf{\emph{Obtaining Data Sets:}} Studies used for this meta-analysis
-were identified through the review articles written by Keku, et al. and
-Vogtmann, et al. {[}26,27{]}. Additional studies not mentioned in the
-reviews were obtained from the authors knowledge of the literature. All
-studies were included that used tissue or feces as their sample source
-for 16S rRNA gene sequencing analysis. Studies using either 454 or
-Illumina sequencing technology were included. Only data sets that had
-sequences available for analysis were included. Some studies did not
-have publically available sequences or did not have meta data in which
-the authors were able to share. After these filtering steps the
-following studies remained: Ahn {[}21{]}, Baxter {[}24{]}, Brim
-{[}17{]}, Burns {[}22{]}, Chen {[}14{]}, Dejea {[}19{]}, Flemer
-{[}13{]}, Geng {[}25{]}, Hale {[}12{]}, Kostic {[}28{]}, Lu {[}16{]},
-Sanapareddy {[}20{]}, Wang {[}15{]}, Weir {[}18{]}, and Zeller {[}23{]}.
-The Zackular {[}29{]} study was not included becasue the 90 individuals
-analyzed within the study are contained within the larger Baxter study.
-The Kostic study was not used since after sequence processing all the
-case samples did not have more than 100 sequences remaining. This left a
-total of 14 studies in which complete analysis could be completed.
+were identified through the review articles written by Keku, \emph{et
+al.} and Vogtmann, \emph{et al.} {[}26,27{]}. Additional studies not
+mentioned in the reviews were obtained based on the authors' knowledge
+of the literature. Studies that used tissue or feces as their sample
+source for 16S rRNA gene sequencing analysis were included. Studies
+using either 454 or Illumina sequencing technology were included. Only
+data sets that had sequences available for analysis were included. Some
+studies did not have publically available sequences or did not have
+metadata in which the authors were able to share. After these filtering
+steps, the following studies remained: Ahn, \emph{et al.} {[}21{]},
+Baxter, \emph{et al.} {[}24{]}, Brim, \emph{et al.} {[}17{]}, Burns,
+\emph{et al.} {[}22{]}, Chen, \emph{et al.} {[}14{]}, Dejea, \emph{et
+al.} {[}19{]}, Flemer, \emph{et al.} {[}13{]}, Geng, \emph{et al.}
+{[}25{]}, Hale, \emph{et al.} {[}12{]}, Kostic, \emph{et al.} {[}28{]},
+Lu, \emph{et al.} {[}16{]}, Sanapareddy, \emph{et al.} {[}20{]}, Wang,
+\emph{et al.} {[}15{]}, Weir, \emph{et al.} {[}18{]}, and Zeller,
+\emph{et al.} {[}23{]}. The Zackular {[}29{]} study was not included
+becasue the 90 individuals analyzed within the study are contained
+within the larger Baxter study {[}24{]}. Additionally, after sequence
+processing all the case samples for the Kostic study only had 100
+sequences remaining and was not used. This left a total of 14 studies
+for which analysis could be completed.
 
-\textbf{\emph{Data Set Breakdown:}} In total there were 7 studies with
-only fecal samples (Ahn, Baxter, Brim, Hale, Wang, Weir, and Zeller), 5
-studies with only tissue samples (Burns, Dejea, Geng, Lu, Sanapareddy),
-and 2 studies with both fecal and tissue samples (Chen and Flemer). The
-total number of individuals that were analyzed after sequence processing
-for feces was 1737 {[}Table 1{]}. The total number of matched and
-unmatched tissue samples that were analyzed after sequence processing
-was 492 {[}Table 2{]}.
+\textbf{\emph{Data Set Breakdown:}} In total, there were seven studies
+with only fecal samples (Ahn, Baxter, Brim, Hale, Wang, Weir, and
+Zeller), five studies with only tissue samples (Burns, Dejea, Geng, Lu,
+Sanapareddy), and two studies with both fecal and tissue samples (Chen
+and Flemer). The total number of individuals that were analyzed after
+sequence processing for feces was 1737 {[}Table 1{]}. The total number
+of matched and unmatched tissue samples that were analyzed after
+sequence processing was 492 {[}Table 2{]}.
 
 \textbf{\emph{Sequence Processing:}} For the majority of studies raw
-sequences were downloaded from the SRA
+sequences were downloaded from the Sequence Read Archive (SRA)
 (\url{ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/})
-and metadata was obtained from the following website:
-\url{http://www.ncbi.nlm.nih.gov/Traces/study/} by searching the
-respective accession number of the study. Of the studies that did not
-have sequences and meta data on the SRA one study had the data stored on
-DBGap {[}21{]} and for four studies the data was obtained directly from
+and metadata was obtained from the by searching the respective accession
+number of the study following website:
+\url{http://www.ncbi.nlm.nih.gov/Traces/study/}. Of the studies that did
+not have sequences and metadata on the SRA, data was obtained from DBGap
+for one study {[}21{]} and for four studies was obtained directly from
 the authors {[}12,13,18,20{]}. Each study was processed using the mothur
-(v1.39.3) software program {[}30{]}. Where possible quality filtering
+(v1.39.3) software program {[}30{]}. Where possible, quality filtering
 utilized the default methods used in mothur for either 454 or Illumina
-based sequencing. If it was not possible to use these defaults the
-author stated quality cut-offs were used instead. Chimeras were
-identifed and removed using the VSEARCH {[}31{]} program and \emph{de
-novo} OTU clustering at 97\% similarity using the OptiClust algorithm
-{[}32{]} was utilized.
+based sequencing. If it was not possible to use these defaults, the
+stated quality cut-offs were used instead. Chimeras were identifed and
+removed using VSEARCH {[}31{]} before \emph{de novo} OTU clustering at
+97\% similarity using the OptiClust algorithm {[}32{]} was utilized.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
 sequence processing utilized the R software package (v3.4.2). For the
-alpha diversity analysis values were power transformed using the
+\(\alpha\)-diversity analysis, values were power transformed using the
 rcompanion (v1.10.1) package and then Z-score normalized using the car
-(v2.1.5) package. Testing for alpha diversity differences utilized
+(v2.1.5) package. Testing for \(\alpha\)-diversity differences utilized
 linear mixed-effect models created using the lme4 (v1.1.14) package to
 correct for study and variable region effects in feces and study,
-variable region, and individual effects in tissue. Relative Risk was
+variable region, and individual effects in tissue. Relative risk was
 analyzed using both the epiR (v0.9.87) and metafor (v2.0.0) packages.
 Relative risk significance testing utilized the chi-squred test.
-Beta-diversity differences utilized a Bray-Curtis distance matrix and
-PERMANOVA executed with the vegan (v2.4.4) package. Random Forest models
-were built using both the caret (v6.0.77) and randomForest (v4.6.12)
-packages. Random Forest testing of the obtained AUC versus a random
-model AUC utilized T-tests. Power analysis and estimations were made
-using the pwr (v1.2.1) and statmod (v1.4.30) packages. All figures were
-created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages.
+\(\beta\)-diversity differences utilized a Bray-Curtis distance matrix
+and PERMANOVA executed with the vegan (v2.4.4) package. Random Forest
+models were built using both the caret (v6.0.77) and randomForest
+(v4.6.12) packages. Differences between the obtained AUC versus a random
+model AUC was assessed using T-tests. Power analysis and estimations
+were made using the pwr (v1.2.1) and statmod (v1.4.30) packages. All
+figures were created using both ggplot2 (v2.2.1) and gridExtra (v2.3)
+packages.
 
-\textbf{\emph{Study Analysis Overview:}} Alpha diversity was first
+\textbf{\emph{Study Analysis Overview:}} \(\alpha\)-diversity was first
 assessed for differences between controls, adenoma, and carcinoma. We
 analyzed the data using linear mixed-effect models and relative risk.
-Beta-diversity was then assessed for each inidividual study. Next, four
-specific CRC-associated genera (\emph{Fusobacterium}, \emph{Parvimonas},
-\emph{Peptostreptococcus}, and \emph{Porphyromonas}) were assessed for
-differences in relative risk. We then built Random Forest models based
-on all genera or the select CRC-associated genera. The models were
-trained on one study then tested on the remaining studies for every
-study. The data was split between feces and tissue samples. Within the
-tissue groups the data was further divided between matched and unmatched
-tissue samples. Where applicable for each study predictions for adenoma
-and carcinoma were tested. This same approach was then applied at the
-OTU level with the exception that instead of testing on the other
-studies a 10-fold cross validation was utilized and 100 different models
-were created based on random 80/20 splitting of the data to generate a
-range of expected AUCs. For OTU based models the CRC associated genera
-included all OTUs that had a taxonomic classification to
-\emph{Fusobacterium}, \emph{Parvimonas}, \emph{Peptostreptococcus}, or
-\emph{Porphyromonas}. The power of each study was assessed for an effect
-size ranging from 1\% to 30\%. An estimated sample n for these effect
-sizes was also generated based on 80\% power.
+\(\beta\)-diversity was then assessed for each inidividual study. Next,
+four specific CRC-associated genera (\emph{Fusobacterium},
+\emph{Parvimonas}, \emph{Peptostreptococcus}, and \emph{Porphyromonas})
+were assessed for differences in relative risk. We then built Random
+Forest models based on all genera or the select CRC-associated genera.
+The models were trained on one study then tested on the remaining
+studies for every study. The data was split between feces and tissue
+samples. Within the tissue groups the data was further divided between
+matched and unmatched tissue samples. Where applicable for each study,
+predictions for adenoma and carcinoma were tested. This same approach
+was then applied at the OTU level with the exception that instead of
+testing on the other studies, a 10-fold cross validation was utilized
+and 100 different models were created based on random 80/20 splitting of
+the data to generate a range of expected AUCs. For OTU based models the
+CRC associated genera included all OTUs that had a taxonomic
+classification to \emph{Fusobacterium}, \emph{Parvimonas},
+\emph{Peptostreptococcus}, or \emph{Porphyromonas}. The power of each
+study was assessed for an effect size ranging from 1\% to 30\%. An
+estimated sample n for these effect sizes was also generated based on
+80\% power.
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 here
 \url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017}.
-Unless mentioned otherwise the accession number for the raw sequences
+Unless mentioned otherwise, the accession number for the raw sequences
 for the studies used in this analysis can be found directly in the
-respective batch file, on the GitHub repository or in the original
+respective batch file in the GitHub repository or in the original
 manuscript.
 
 \newpage
@@ -750,17 +760,19 @@ Sanapareddy & Author & V1-2 & 38 & 0 & 33\tabularnewline
 \normalsize
 \newpage
 
-\textbf{Figure 1: Alpha Diversity Differences between Control, Adenoma,
-and Carcinoma Across Sampling Site.} A) Alpha diversity metric
-differences by group in stool samples. B) Alpha diversity metric
-differences by group in unmatched tissue samples. C) Alpha diversity
-metric differences by group in matched tissue samples. The dashed line
-represents a Z-score of 0 or no difference from the median.
+\textbf{Figure 1: \(\alpha\)-Diversity Differences between Control,
+Adenoma, and Carcinoma Across Sampling Site.} A) \(\alpha\)-diversity
+metric differences by group in stool samples. B) \(\alpha\)-diversity
+metric differences by group in unmatched tissue samples. C)
+\(\alpha\)-diversity metric differences by group in matched tissue
+samples. The dashed line represents a Z-score of 0 or no difference from
+the median.
 
-\textbf{Figure 2: Relative Risk for Adenoma or Carcinoma based on Alpha
-Diversity Metrics in Stool.} A) Alpha metric relative risk for adenoma.
-B) Alpha metric relative risk for carcinoma. Colors represent the
-different variable regions used within the respective study.
+\textbf{Figure 2: Relative Risk for Adenoma or Carcinoma based on
+\(\alpha\)-Diversity Metrics in Stool.} A) \(\alpha\)-metric relative
+risk for adenoma. B) \(\alpha\)-metric relative risk for carcinoma.
+Colors represent the different variable regions used within the
+respective study.
 
 \textbf{Figure 3: Colorectal Cancer Associated Genera Relative Risk for
 Adenoma and Carcinoma in Stool and Tissue.} A) Adenoma relative risk in
@@ -792,10 +804,11 @@ generally used power of 0.8.
 
 \newpage
 
-\textbf{Figure S1: Relative Risk for Adenoma or Carcinoma based on Alpha
-Diversity Metrics in Tissue.} A) Alpha metric relative risk for adenoma.
-B) Alpha metric relative risk for carcinoma. Colors represent the
-different variable regions used within the respective study.
+\textbf{Figure S1: Relative Risk for Adenoma or Carcinoma based on
+\(\alpha\)-Diversity Metrics in Tissue.} A) \(\alpha\)-metric relative
+risk for adenoma. B) \(\alpha\)-metric relative risk for carcinoma.
+Colors represent the different variable regions used within the
+respective study.
 
 \textbf{Figure S2: Random Forest Genus Model AUC for each Stool Study.}
 A) AUC of Adenoma models using all genera or CRC associated genera only.
