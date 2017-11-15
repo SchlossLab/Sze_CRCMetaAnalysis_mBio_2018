@@ -11,7 +11,7 @@ geometry: margin=1.0in
 bibliography: null
 ---
 
-# The Microbiota and Individual Community Members in Colorectal Cancer: Is There a Common Theme?
+# Investigating the Microbiota and Colorectal Cancer: The Importance of Community
 
 \vspace{10mm}
 
