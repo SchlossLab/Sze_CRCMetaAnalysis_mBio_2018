@@ -90,6 +90,15 @@ crc_all_stool <- read_csv("data/process/tables/stool_rf_otu_random_comparison_su
 # weir - #24878EFF
 # ahn - #40BC72FF
 
+# Creates a median secondary table for adenoma tissue
+adn_tissue_medians <- adn_tissue %>% 
+  filter(model == "act") %>% group_by(model_type) %>% 
+  summarise(auc_median = median(AUC)) %>% 
+  mutate(model_type = factor(model_type, 
+                             levels = c("full", "select"), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
+
+# Creates the adenoma tissue graph
 adn_tissue_graph <- adn_tissue %>% 
   mutate(type = factor(type, 
                        levels = c("unmatched", "matched"), 
@@ -102,6 +111,7 @@ adn_tissue_graph <- adn_tissue %>%
                         labels = c("Flemer", "Lu\n(matched)"))) %>% 
   filter(grepl("rand", model) != T) %>% 
   ggplot(aes(study, AUC, color = study, group = study)) + 
+  geom_hline(data = adn_tissue_medians, aes(yintercept = auc_median), linetype = "solid", color = "red", alpha = 0.7) + 
   geom_point(size = 3.5, show.legend = F) + 
   geom_errorbar(aes(ymin = AUC-deviation, ymax = AUC+deviation), 
                 width = 0.25, size = 0.7, show.legend = F) + 
@@ -117,7 +127,15 @@ adn_tissue_graph <- adn_tissue %>%
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
 
+# Creates a median secondary table for adenoma stool
+adn_stool_medians <- adn_all_stool %>% 
+  filter(model == "act") %>% group_by(model_type) %>% 
+  summarise(auc_median = median(AUC)) %>% 
+  mutate(model_type = factor(model_type, 
+                             levels = c("full", "select"), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
 
+# Creates the adenoma stool graph
 adn_stool_graph <- adn_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
@@ -127,11 +145,12 @@ adn_stool_graph <- adn_all_stool %>%
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
   filter(grepl("rand", model) != T) %>% 
   ggplot(aes(study, AUC, color = study, group = study)) + 
+  geom_hline(data = adn_stool_medians, aes(yintercept = auc_median), linetype = "solid", color = "red", alpha = 0.7) + 
   geom_point(size = 3.5, show.legend = F) + 
   geom_errorbar(aes(ymin = AUC-deviation, ymax = AUC+deviation), 
                 width = 0.25, size = 0.7, show.legend = F) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
-  coord_flip(ylim = c(0, 1.05)) + 
+   coord_flip(ylim = c(0, 1.05)) + 
   facet_grid(. ~ model_type) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
@@ -143,7 +162,15 @@ adn_stool_graph <- adn_all_stool %>%
         axis.text.y = element_text(size = 10))
 
 
+# Creates a median secondary table for carcinoma tissue
+crc_tissue_medians <- crc_all_tissue %>% 
+  filter(model == "act") %>% group_by(model_type) %>% 
+  summarise(auc_median = median(AUC)) %>% 
+  mutate(model_type = factor(model_type, 
+                             levels = c("full", "select"), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
 
+# Creates the crc tissue graph
 crc_tissue_graph <- crc_all_tissue %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
@@ -156,6 +183,7 @@ crc_tissue_graph <- crc_all_tissue %>%
                                    "Chen", "Burns\n(matched)", "Burns"))) %>% 
   filter(grepl("rand", model) != T) %>% 
   ggplot(aes(combined_study, AUC, color = combined_study, group = combined_study)) + 
+  geom_hline(data = crc_tissue_medians, aes(yintercept = auc_median), linetype = "solid", color = "red", alpha = 0.7) +
   geom_point(size = 3.5, show.legend = F) + 
   geom_errorbar(aes(ymin = AUC-deviation, ymax = AUC+deviation), 
                 width = 0.25, size = 0.7, show.legend = F) + 
@@ -173,7 +201,15 @@ crc_tissue_graph <- crc_all_tissue %>%
         axis.text.y = element_text(size = 10))
 
 
+# Creates a median secondary table for carcinoma stool
+crc_stool_medians <- crc_all_stool %>% 
+  filter(model == "act") %>% group_by(model_type) %>% 
+  summarise(auc_median = median(AUC)) %>% 
+  mutate(model_type = factor(model_type, 
+                             levels = c("full", "select"), 
+                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
 
+# Creates the crc stool graph
 crc_stool_graph <- crc_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
@@ -183,6 +219,7 @@ crc_stool_graph <- crc_all_stool %>%
                         labels = c("Zeller", "Weir", "Wang", "Hale", "Flemer", "Baxter", "Ahn"))) %>% 
   filter(grepl("rand", model) != T) %>% 
   ggplot(aes(study, AUC, color = study, group = study)) + 
+  geom_hline(data = crc_stool_medians, aes(yintercept = auc_median), linetype = "solid", color = "red", alpha = 0.7) +
   geom_point(size = 3.5, show.legend = F) + 
   geom_errorbar(aes(ymin = AUC-deviation, ymax = AUC+deviation), 
                 width = 0.25, size = 0.7, show.legend = F) + 
