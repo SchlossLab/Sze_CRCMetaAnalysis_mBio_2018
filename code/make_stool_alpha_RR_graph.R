@@ -50,18 +50,19 @@ adn_stool_graph <- adn_all_stool %>%
                         levels = c("composite", "zeller", "hale", "brim", "baxter"), 
                         labels = c( "Pooled", "Zeller", "Hale", "Brim", "Baxter")), 
          region = factor(region, 
-                         levels = c("combined", "V4", "V3-V5", "V1-V3")), 
+                         levels = c("combined", "V4", "V3-V5", "V1-V3"), 
+                         labels = c("Combined", "V4", "V3-V5", "V1-V3")), 
          measure = factor(measure, 
                           levels = c("sobs", "shannoneven", "shannon"), 
                           labels = c("Observed OTUs", "Evenness", "Shannon Diversity"))) %>% 
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
   coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
-  geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
-  geom_point(size = 3, show.legend = F) + 
+  geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = T) + 
+  geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("A") + 
-  scale_color_manual(values = c( '#000000', '#440154FF', '#443A83FF', '#31688EFF')) + 
+  scale_color_manual(name = "Variable Region", values = c( '#000000', '#440154FF', '#443A83FF', '#31688EFF')) + 
   annotate("text", label = paste("Adenoma (Stool)"), x = -2.75, y = 5.5, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
@@ -77,18 +78,20 @@ crc_stool_graph <- crc_all_stool %>%
                         labels = c( "Pooled", "Zeller", "Weir", "Wang",  "Hale", 
                                     "Flemer", "Baxter", "Ahn")), 
          region = factor(region, 
-                         levels = c("combined", "V3", "V4", "V3-V4", "V3-V5")), 
+                         levels = c("combined", "V3", "V4", "V3-V4", "V3-V5"), 
+                         labels = c("Combined", "V3", "V4", "V3-V4", "V3-V5")), 
          measure = factor(measure, 
                           levels = c("sobs", "shannoneven", "shannon"), 
                           labels = c("Observed OTUs", "Evenness", "Shannon Diversity"))) %>%  
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
   coord_cartesian(xlim=c(-4.2, 4.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
-  geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
-  geom_point(size = 3, show.legend = F) + 
+  geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = T) + 
+  geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("B") + 
-  scale_color_manual(values = c('#000000', '#21908CFF', '#440154FF', '#35B779FF', '#443A83FF')) + 
+  scale_color_manual(name = "Variable Region", 
+                     values = c('#000000', '#21908CFF', '#440154FF', '#35B779FF', '#443A83FF')) + 
   annotate("text", label = paste("Carcinoma (Stool)"), x = -2.70, y = 8.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
@@ -102,5 +105,5 @@ crc_stool_graph <- crc_all_stool %>%
 
 stool_alpha_RR <- grid.arrange(adn_stool_graph, crc_stool_graph)
 
-ggsave("results/figures/Figure2.pdf", stool_alpha_RR, width = 8, height = 7, dpi = 300)
+ggsave("results/figures/Figure2.pdf", stool_alpha_RR, width = 8.5, height = 7, dpi = 300)
 
