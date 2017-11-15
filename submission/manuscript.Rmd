@@ -58,7 +58,7 @@ adn_select_inc_4_RR_tissue <- as.data.frame(read_csv("../data/process/tables/adn
 
 
 
-# The Microbiota and Individual Community Members in Colorectal Cancer: Is There a Common Theme?
+# Investigating the Microbiota and Colorectal Cancer: The Importance of Community
 
 \begin{center}
 \vspace{25mm}
