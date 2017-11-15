@@ -438,24 +438,26 @@ removed using VSEARCH {[}31{]} before \emph{de novo} OTU clustering at
 97\% similarity using the OptiClust algorithm {[}32{]} was utilized.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
-sequence processing utilized the R software package (v3.4.2). For the
-\(\alpha\)-diversity analysis, values were power transformed using the
-rcompanion (v1.10.1) package and then Z-score normalized using the car
-(v2.1.5) package. Testing for \(\alpha\)-diversity differences utilized
-linear mixed-effect models created using the lme4 (v1.1.14) package to
-correct for study and variable region effects in feces and study,
-variable region, and individual effects in tissue. Relative risk was
-analyzed using both the epiR (v0.9.87) and metafor (v2.0.0) packages by
-assessing how many with and without disease were above and below the
-overall median value within the specific study. Relative risk
-significance testing utilized the chi-squred test. \(\beta\)-diversity
-differences utilized a Bray-Curtis distance matrix and PERMANOVA
-executed with the vegan (v2.4.4) package. Random Forest models were
-built using both the caret (v6.0.77) and randomForest (v4.6.12)
-packages. Differences between the obtained AUC versus a random model AUC
-was assessed using T-tests. Power analysis and estimations were made
-using the pwr (v1.2.1) and statmod (v1.4.30) packages. All figures were
-created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages.
+sequence processing utilized the R (v3.4.2) software package {[}33{]}.
+For the \(\alpha\)-diversity analysis, values were power transformed
+using the rcompanion (v1.10.1) package {[}34{]} and then Z-score
+normalized using the car (v2.1.5) package {[}35{]}. Testing for
+\(\alpha\)-diversity differences utilized linear mixed-effect models
+created using the lme4 (v1.1.14) package {[}36{]} to correct for study
+and variable region effects in feces and study, variable region, and
+individual effects in tissue. Relative risk was analyzed using both the
+epiR (v0.9.87) and metafor (v2.0.0) packages {[}37,38{]} by assessing
+how many with and without disease were above and below the overall
+median value within the specific study. Relative risk significance
+testing utilized the chi-squred test. \(\beta\)-diversity differences
+utilized a Bray-Curtis distance matrix and PERMANOVA executed with the
+vegan (v2.4.4) package {[}39{]}. Random Forest models were built using
+both the caret (v6.0.77) and randomForest (v4.6.12) packages
+{[}40,41{]}. Differences between the obtained AUC versus a random model
+AUC was assessed using T-tests. Power analysis and estimations were made
+using the pwr (v1.2.1) and statmod (v1.4.30) packages {[}42,43{]}. All
+figures were created using both ggplot2 (v2.2.1) and gridExtra (v2.3)
+packages {[}44,45{]}.
 
 \textbf{\emph{Study Analysis Overview:}} \(\alpha\)-diversity was first
 assessed for differences between controls, adenoma, and carcinoma. We
@@ -715,6 +717,70 @@ versatile open source tool for metagenomics. PeerJ. 2016;4:e2584.
 32. Westcott SL, Schloss PD. OptiClust, an Improved Method for Assigning
 Amplicon-Based Sequence Data to Operational Taxonomic Units. mSphere.
 2017;2.
+
+\hypertarget{ref-r_citation_2017}{}
+33. R Core Team. R: A language and environment for statistical computing
+{[}Internet{]}. Vienna, Austria: R Foundation for Statistical Computing;
+2017. Available from: \url{https://www.R-project.org/}
+
+\hypertarget{ref-rcompanion_citation_2017}{}
+34. Mangiafico S. Rcompanion: Functions to support extension education
+program evaluation {[}Internet{]}. 2017. Available from:
+\url{https://CRAN.R-project.org/package=rcompanion}
+
+\hypertarget{ref-car_citation_2011}{}
+35. Fox J, Weisberg S. An R companion to applied regression
+{[}Internet{]}. Second. Thousand Oaks CA: Sage; 2011. Available from:
+\url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
+
+\hypertarget{ref-lme4_citation_2015}{}
+36. Bates D, Mächler M, Bolker B, Walker S. Fitting linear mixed-effects
+models using lme4. Journal of Statistical Software. 2015;67:1--48.
+
+\hypertarget{ref-epir_citation_2017}{}
+37. Telmo Nunes MS with contributions from, Heuer C, Marshall J, Sanchez
+J, Thornton R, Reiczigel J, et al. EpiR: Tools for the analysis of
+epidemiological data {[}Internet{]}. 2017. Available from:
+\url{https://CRAN.R-project.org/package=epiR}
+
+\hypertarget{ref-metafor_citation_2010}{}
+38. Viechtbauer W. Conducting meta-analyses in R with the metafor
+package. Journal of Statistical Software {[}Internet{]}. 2010;36:1--48.
+Available from: \url{http://www.jstatsoft.org/v36/i03/}
+
+\hypertarget{ref-vegan_citation_2017}{}
+39. Oksanen J, Blanchet FG, Friendly M, Kindt R, Legendre P, McGlinn D,
+et al. Vegan: Community ecology package {[}Internet{]}. 2017. Available
+from: \url{https://CRAN.R-project.org/package=vegan}
+
+\hypertarget{ref-caret_citation_2017}{}
+40. Jed Wing MKC from, Weston S, Williams A, Keefer C, Engelhardt A,
+Cooper T, et al. Caret: Classification and regression training
+{[}Internet{]}. 2017. Available from:
+\url{https://CRAN.R-project.org/package=caret}
+
+\hypertarget{ref-randomforest_citation_2002}{}
+41. Liaw A, Wiener M. Classification and regression by randomForest. R
+News {[}Internet{]}. 2002;2:18--22. Available from:
+\url{http://CRAN.R-project.org/doc/Rnews/}
+
+\hypertarget{ref-pwr_citation_2017}{}
+42. Champely S. Pwr: Basic functions for power analysis {[}Internet{]}.
+2017. Available from: \url{https://CRAN.R-project.org/package=pwr}
+
+\hypertarget{ref-statmod_citation_2016}{}
+43. Giner G, Smyth GK. Statmod: Probability calculations for the inverse
+gaussian distribution. R Journal. 2016;8:339--51.
+
+\hypertarget{ref-ggplot2_citation_2009}{}
+44. Wickham H. Ggplot2: Elegant graphics for data analysis
+{[}Internet{]}. Springer-Verlag New York; 2009. Available from:
+\url{http://ggplot2.org}
+
+\hypertarget{ref-gridextra_citation_2017}{}
+45. Auguie B. GridExtra: Miscellaneous functions for ``grid'' graphics
+{[}Internet{]}. 2017. Available from:
+\url{https://CRAN.R-project.org/package=gridExtra}
 
 \newpage
 
