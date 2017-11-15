@@ -65,7 +65,7 @@ adn_stool_graph <- adn_all_stool %>%
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("A") + 
   scale_color_manual(values = c('#000000', '#000000', '#000000', '#000000', 
-                                '#8B5A00', '#FFA500', '#FFC125', '#E3CF57')) + 
+                                '#778899', '#778899', '#778899', '#778899')) + 
   scale_y_discrete(labels=expression(All~4, At~Least~3, At~Least~2, At~Least~1, italic(Fusobacterium), 
                                      italic(Porphyromonas), italic(Peptostreptococcus), italic(Parvimonas))) +
   annotate("text", label = paste("Adenoma (Stool)"), x = -2.9, y = 8.4, size = 2.5) + 
@@ -91,7 +91,7 @@ crc_stool_graph <- crc_all_stool %>%
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("B") + 
   scale_color_manual(values = c('#000000', '#000000', '#000000', '#000000', 
-                                '#B0171F', '#FF4040', '#CD5C5C', '#FFC1C1')) + 
+                                '#778899', '#778899', '#778899', '#778899')) + 
   scale_y_discrete(labels=expression(All~4, At~Least~3, At~Least~2, At~Least~1, italic(Fusobacterium), 
                                      italic(Porphyromonas), italic(Peptostreptococcus), italic(Parvimonas))) +
   annotate("text", label = paste("Carcinoma (Stool)"), x = -2.8, y = 8.4, size = 2.5) + 
@@ -117,7 +117,7 @@ adn_tissue_graph <- adn_all_tissue %>%
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("C") + 
   scale_color_manual(values = c('#000000', '#000000', '#000000', '#000000', 
-                                '#8B5A00', '#FFA500', '#FFC125', '#E3CF57')) + 
+                                '#778899', '#778899', '#778899', '#778899')) + 
   scale_y_discrete(labels=expression(All~4, At~Least~3, At~Least~2, At~Least~1, italic(Fusobacterium), 
                                      italic(Porphyromonas), italic(Peptostreptococcus), italic(Parvimonas))) + 
   annotate("text", label = paste("Adenoma (Tissue)"), x = -2.8, y = 8.4, size = 2.5) + 
@@ -143,7 +143,7 @@ crc_tissue_graph <- crc_all_tissue %>%
   geom_point(size = 3, show.legend = F) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("D") + 
   scale_color_manual(values = c('#000000', '#000000', '#000000', '#000000', 
-                                '#B0171F', '#FF4040', '#CD5C5C', '#FFC1C1')) + 
+                                '#778899', '#778899', '#778899', '#778899')) + 
   scale_y_discrete(labels=expression(All~4, At~Least~3, At~Least~2, At~Least~1, italic(Fusobacterium), 
                                      italic(Porphyromonas), italic(Peptostreptococcus), italic(Parvimonas))) + 
   annotate("text", label = paste("Carcinoma (Tissue)"), x = -2.7, y = 8.4, size = 2.5) + 
