@@ -288,7 +288,7 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure 5: OTU Random Forest Model of Tissue Across Studies.** A) Adenoma random forest model between the full community and CRC-associated genera OTUs only. B) Carcinoma random forest model between the full community and CRC-associated genera OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between. The solid red line represents the median AUC of all the studies for either the full community or CRC-associated genera OTUS only model.
 
-**Figure 6: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with adenoma individuals. B) Power based on effect size for studies with carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect aneffect size of 1-30%. The dotted red lines in A) and B) represent a power of 0.8.  
+**Figure 6: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with adenoma individuals. B) Power based on effect size for studies with carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect an effect size of 1-30%. The dotted red lines in A) and B) represent a power of 0.8.  
 
 
 \newpage
