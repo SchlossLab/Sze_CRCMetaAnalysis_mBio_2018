@@ -47,7 +47,7 @@ get_data <- function(i){
     select(sample_ID, everything())
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "stool", metadata = T)
+                         "stool", metadata = T) %>% filter(disease != "polyp")
   # conditional that checks for whether length of rows of meta data is smaller
   if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
     # grab only the samples in the meta data file for down stream analysis
