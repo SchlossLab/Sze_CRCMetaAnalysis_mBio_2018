@@ -6,7 +6,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "caret", "pROC"))
+loadLibs(c("tidyverse", "caret", "pROC"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -41,7 +41,7 @@ get_data <- function(i){
     select(sample_ID, everything())
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "stool", metadata = T)
+                         "stool", metadata = T) %>% filter(disease != "polyp")
   
   # Looks for Na in the meta data of interest and removes respective samples
   study_meta <- study_meta %>% filter(!is.na(disease))
@@ -50,6 +50,11 @@ get_data <- function(i){
   if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
     # grab only the samples in the meta data file for down stream analysis
     sub_genera_data <- sub_genera_data %>% slice(match(study_meta$sampleID, sample_ID))
+    
+    if(i == "hale"){
+      
+      study_meta <- study_meta %>% slice(match(sub_genera_data$sample_ID, sampleID))
+    }
     
   } else{
     # grab only files in the data file for analysis
