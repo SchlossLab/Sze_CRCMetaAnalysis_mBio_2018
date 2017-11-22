@@ -5,7 +5,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
+loadLibs(c("tidyverse", "epiR", "metafor"))
 
 
 # Stool Only sets
@@ -28,9 +28,8 @@ get_data <- function(i, sampleType){
   # sampleType represents whether it is stool or tissue
   
   # Command that actually does the reading in
-  data_list <- read.csv(paste("data/process/tables/", i, "_", sampleType, "_",  
-                              "alpha_raw_values.csv", sep = ""), 
-                        header = T, stringsAsFactors = F)
+  data_list <- read_csv(paste("data/process/tables/", i, "_", sampleType, "_",  
+                              "alpha_raw_values.csv", sep = "")) %>% filter(disease != "polyp")
   
   # return to working environment the data list
   return(data_list)
