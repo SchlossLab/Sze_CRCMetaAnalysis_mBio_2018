@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
+loadLibs(c("tidyverse", "epiR", "metafor"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
@@ -46,7 +46,7 @@ get_data <- function(i){
     select(sample_ID, everything())
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "stool", metadata = T)
+                         "stool", metadata = T) %>% filter(disease != "polyp")
   # conditional that checks for whether length of rows of meta data is smaller
   if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
     # grab only the samples in the meta data file for down stream analysis
@@ -183,12 +183,12 @@ run_rr <- function(high_low_vector, disease_vector){
   check_values <- as.vector(contingency)
   
   # runs the RR test based on the obtained 2x2 table
-  test <- epi.2by2(contingency, method="cohort.count")
+  test <- try(epi.2by2(contingency, method="cohort.count"))
   # Pull only specific information from the stored list in "test"
-  test_values <- cbind(test$massoc$RR.strata.score, 
-                       pvalue = test$massoc$chisq.strata$p.value)
+  test_values <- try(cbind(test$massoc$RR.strata.score, 
+                       pvalue = test$massoc$chisq.strata$p.value))
   # store both the obtained raw counts and the resulting RR with pvalue
-  combined_data <- list(data_tbl = contingency, test_values = test_values)
+  combined_data <- try(list(data_tbl = contingency, test_values = test_values))
     
   # Returns a list with all information needed for downstream analysis
   return(combined_data)
@@ -204,7 +204,8 @@ pull_data <- function(var_of_int, i, result, datalist){
   
   # Pull the needed data and add identifiers
   tempData <- datalist[[i]][[var_of_int]][[result]] %>% as.data.frame() %>% 
-    mutate(measure = var_of_int, study = i)
+      mutate(measure = var_of_int, study = i)
+    
   # return the pulled data
   return(tempData)
   
@@ -222,6 +223,7 @@ make_list <- function(i, vec_of_interest, result, datalist){
   pulled_data <- sapply(vec_of_interest, 
                         function(x) pull_data(x, i = i, result = result, 
                                               datalist = datalist), simplify = F) %>% bind_rows()
+  
   # returns a nice data table
   return(pulled_data)
 }
@@ -271,6 +273,9 @@ mod_specific_genera_list <- sapply(c(stool_sets, "flemer"),
 test_ind_RR <- sapply(c(stool_sets, "flemer"), 
                function(x) analyze_study(x, "disease2", c(crc_genera, "all_four", "total_four"), 
                                          mod_specific_genera_list), simplify = F)
+
+test_ind_RR$hale$Porphyromonas$test_values <- data.frame(est = NA, lower = NA, upper = NA, pvalue = NA)
+
 
 inc_4_ind_RR <- sapply(c("wang", "zeller", "baxter", "flemer"), 
                       function(x) analyze_study(x, "disease2", c("one_or_more", "two_or_more", 
