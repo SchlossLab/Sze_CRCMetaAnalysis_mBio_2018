@@ -38,7 +38,7 @@ get_data <- function(i){
 
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "stool", metadata = T)
+                         "stool", metadata = T) %>% filter(disease != "polyp")
   
   # Looks for Na in the meta data of interest and removes respective samples
   study_meta <- study_meta %>% filter(!is.na(disease))
@@ -47,6 +47,11 @@ get_data <- function(i){
   if(length(rownames(study_meta)) < length(rownames(shared_data))){
     # grab only the samples in the meta data file for down stream analysis
     shared_data <- shared_data %>% slice(match(study_meta$sampleID, Group))
+    
+    if(i == "hale"){
+      
+      study_meta <- study_meta %>% slice(match(shared_data$Group, sampleID))
+    }
     
   } else{
     # grab only files in the data file for analysis
