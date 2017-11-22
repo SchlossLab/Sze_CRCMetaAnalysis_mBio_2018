@@ -315,7 +315,7 @@ random_runs <- paste("rand_model_", seq(1:100), sep = "")
 # Iteratively run through each study for stool
 for(i in c(stool_sets, "flemer")){
   # Gets the respective data
-  dataList <- get_data(i = i, select_OTUs)
+  dataList <- get_data(i = i)
   # merges the needed metadata with the variables to test and creates a random label as well
   disease_dataset <- assign_disease("study_meta", "shared_data", dataList)
   # makes sure all the genera are the same for every data set to be tested
