@@ -7,7 +7,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4", "vegan"))
+loadLibs(c("tidyverse", "car", "lme4", "vegan"))
 
 # Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
@@ -42,10 +42,10 @@ get_metadata_data <- function(i, sampleType){
   # sampleType represents whether it is stool or tissue
   
   # Command that actually does the reading in and removes uneeded alpha metrics
-  data_list <- read.csv(paste("data/process/tables/", i, "_", sampleType, "_",  
-                              "transformed_data_alpha_raw_values.csv", sep = ""), 
-                        header = T, stringsAsFactors = F) %>% 
-    select(-sobs, -shannon, -shannoneven)
+  data_list <- read_csv(paste("data/process/tables/", i, "_", sampleType, "_",  
+                              "transformed_data_alpha_raw_values.csv", sep = "")) %>% 
+    select(-sobs, -shannon, -shannoneven) %>% 
+    filter(disease != "polyp")
   
   # return to working environment the data list
   return(data_list)
@@ -94,7 +94,7 @@ make_adonis_test <- function(i, distanceList = reordered_dist,
   # set the seed number so results don't keep changing
   set.seed(1234567)
   # run the permanova test using vegan for the selected data set
-  temptest <- adonis(as.dist(distanceList[[i]]) ~ metaList[[i]]$is_cancer, 
+  temptest <- adonis(as.dist(distanceList[[i]]) ~ metaList[[i]]$disease, 
                      permutations = 9999)
   # pull only results of interest to be saved
   result_vector <- c(fstat = temptest$aov.tab$F.Model[1], r2 = temptest$aov.tab$R2[1], 
