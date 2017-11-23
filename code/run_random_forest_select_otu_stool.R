@@ -293,9 +293,6 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
   worst_random_roc <- roc(dataList[[random_name]]$disease ~ 
                             model_info[["random_mod"]][["min_model"]][["pred"]][, "cancer"])
   # Generate a p-value on whether the distribution between actual and random are different
-<<<<<<< HEAD
-  pvalue <- try(t.test(a_summary$ROC, r_summary$ROC)$p.value)
-=======
   if(i != "hale"){
     
     pvalue <- t.test(a_summary$ROC, r_summary$ROC)$p.value
@@ -304,9 +301,7 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
     pvalue <- NA
   }
   
-  
->>>>>>> 36ccd0bef18c2dbbfad90b66fa07281428a8f2f4
-  # Create a final list with all the needed ROC curve data and respective p-value
+    # Create a final list with all the needed ROC curve data and respective p-value
   finalData <- list(
     all_data = cbind(
       sens = c(best_actual_roc$sensitivities, worst_actual_roc$sensitivities, 
