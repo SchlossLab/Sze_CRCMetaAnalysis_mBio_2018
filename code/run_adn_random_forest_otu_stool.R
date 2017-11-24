@@ -272,6 +272,22 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
 }
 
 
+# Function that gathers the important OTUs and takes the median with quartiles
+get_imp_otu_data <- function(run_vector, a_modelList){
+  
+  tempData <- sapply(run_vector, 
+                     function(x) varImp(a_modelList[[x]], scale = F)$importance %>% 
+                       as.data.frame() %>% 
+                       mutate(otu = rownames(.)), simplify = F) %>% 
+    bind_rows() %>% 
+    group_by(otu) %>% 
+    summarise(mda_median = median(Overall), 
+              iqr25 = quantile(Overall)["25%"], 
+              iqr75 = quantile(Overall)["75%"]) %>% 
+    arrange(desc(mda_median))
+  
+  return(tempData)
+}
 
 
 
@@ -326,6 +342,11 @@ for(i in stool_sets){
                                random_summary %>% summarise(rand_mean_auc = mean(ROC, na.rm = T), 
                                                             rand_sd_auc = sd(ROC, na.rm = T)), 
                                pvalue = test[["pvalue"]], study = i)))
+  # Generate the summary importance table and write it to file
+  imp_table <- get_imp_otu_data(actual_runs, actual_model)
+  
+  write_csv(imp_table, paste("data/process/tables/adn_", i, "_imp_otu_table.csv", sep = ""))
+  
   # Tracking print out that allows tracking of which study has completed
   print(paste("Completed study:", i, "RF testing"))
   
