@@ -463,10 +463,6 @@ selected_stool_final_data <- sapply(c(stool_sets, "flemer"),
                              run_rf_tests(x, selected_rf_datasets, specific_vars = T), simplify = F)
 
 
-# generate the important variables in the model
-selected_imp_vars <- sapply(c(stool_sets, "flemer"), 
-                   function(x) get_imp_otu_data(x, rf_datasets), simplify = F)
-
 # Generate summary data based on rocs
 selected_pvalue_summaries <- sapply(names(selected_stool_final_data), 
                            function(x) 
@@ -495,6 +491,10 @@ sapply(c(stool_sets, "flemer"),
        function(x) write.csv(pvalue_summaries[[x]], 
                              paste("data/process/tables/genus_stool_RF_full_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
+sapply(c(stool_sets, "flemer"), 
+       function(x) write.csv(imp_vars[[x]], 
+                             paste("data/process/tables/genus_stool_RF_full_", 
+                                   x, "_imp_vars.csv", sep = ""), row.names = F))
 
 sapply(c(stool_sets, "flemer"), 
        function(x) write.csv(all_roc_values[[x]], 

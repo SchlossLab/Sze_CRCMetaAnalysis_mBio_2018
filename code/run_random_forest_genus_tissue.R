@@ -398,6 +398,24 @@ select_full_comparison <- function(full_model, select_model,
 }
 
 
+# Function that gathers the important OTUs and takes the median with quartiles
+get_imp_otu_data <- function(i, a_modelList){
+  
+  temp_rf_model <- make_rf_model(a_modelList[[i]])
+  
+  tempData <- varImp(temp_rf_model, scale = F)$importance %>% 
+    as.data.frame() %>% 
+    mutate(otu = rownames(.)) %>% 
+    bind_rows() %>% 
+    group_by(otu) %>% 
+    summarise(mda_median = median(Overall), 
+              iqr25 = quantile(Overall)["25%"], 
+              iqr75 = quantile(Overall)["75%"]) %>% 
+    arrange(desc(mda_median))
+  
+  return(tempData)
+}
+
 
 ##############################################################################################
 ########################## Code used to run the analysis (unmatched) #########################
@@ -418,6 +436,11 @@ unmatched_rf_datasets <- sapply(
   unmatched_studies, 
   function(x) assign_disease(x, "study_meta", 
                              unmatched_matched_genera_list, unmatched_stool_study_data), simplify = F)
+
+
+# generate the important variables in the model
+unmatched_imp_vars <- sapply(unmatched_studies, 
+                   function(x) get_imp_otu_data(x, unmatched_rf_datasets), simplify = F)
 
 
 # Run the models
@@ -457,6 +480,10 @@ matched_rf_datasets <- sapply(
   function(x) assign_disease(x, "study_meta", 
                              matched_matched_genera_list, matched_stool_study_data), simplify = F)
 
+
+# generate the important variables in the model
+matched_imp_vars <- sapply(matched_studies, 
+                             function(x) get_imp_otu_data(x, matched_rf_datasets), simplify = F)
 
 # Run the models
 # Used actual values since there were a few that normalization could not be done for
@@ -577,6 +604,11 @@ sapply(unmatched_studies,
                              paste("data/process/tables/genus_unmatched_tissue_RF_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
 
+sapply(unmatched_studies, 
+       function(x) write.csv(unmatched_imp_vars[[x]], 
+                             paste("data/process/tables/genus_unmatched_tissue_RF_", 
+                                   x, "_imp_vars.csv", sep = ""), row.names = F))
+
 sapply(matched_studies, 
        function(x) write.csv(matched_tissue_pvalue_summaries[[x]], 
                              paste("data/process/tables/genus_matched_tissue_RF_", 
@@ -586,6 +618,11 @@ sapply(matched_studies,
        function(x) write.csv(matched_tissue_all_roc_values[[x]], 
                              paste("data/process/tables/genus_matched_tissue_RF_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
+
+sapply(matched_studies, 
+       function(x) write.csv(matched_imp_vars[[x]], 
+                             paste("data/process/tables/genus_matched_tissue_RF_", 
+                                   x, "_imp_vars.csv", sep = ""), row.names = F))
 
 # Write out data table files for select models
 sapply(unmatched_studies, 
