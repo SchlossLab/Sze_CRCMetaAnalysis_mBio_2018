@@ -8,7 +8,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "caret", "pROC"))
+loadLibs(c("tidyverse", "caret", "pROC"))
 
 # Read in specific data tables to be used
 
