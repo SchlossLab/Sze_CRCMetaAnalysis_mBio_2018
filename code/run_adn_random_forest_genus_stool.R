@@ -337,6 +337,25 @@ select_full_comparison <- function(full_model, select_model,
   
 }
 
+# Function that gathers the important OTUs and takes the median with quartiles
+get_imp_otu_data <- function(i, a_modelList){
+  
+  set.seed(12345)
+  temp_rf_model <- make_rf_model(a_modelList[[i]])
+  
+  tempData <- varImp(temp_rf_model, scale = F)$importance %>% 
+    as.data.frame() %>% 
+    mutate(otu = rownames(.)) %>% 
+    bind_rows() %>% 
+    group_by(otu) %>% 
+    summarise(mda_median = median(Overall), 
+              iqr25 = quantile(Overall)["25%"], 
+              iqr75 = quantile(Overall)["75%"]) %>% 
+    arrange(desc(mda_median))
+  
+  return(tempData)
+}
+
 
 
 ##############################################################################################
@@ -354,6 +373,10 @@ matched_genera_list <- align_genera(stool_sets, "column_length",
 rf_datasets <- sapply(stool_sets, 
                       function(x) assign_disease(x, matched_genera_list), simplify = F)
 
+
+# generate the important variables in the model
+imp_vars <- sapply(stool_sets, 
+                   function(x) get_imp_otu_data(x, rf_datasets), simplify = F)
 
 # Generate data for each test (study) set
 stool_final_data <- sapply(stool_sets, 
@@ -420,6 +443,11 @@ sapply(stool_sets,
        function(x) write.csv(all_roc_values[[x]], 
                              paste("data/process/tables/adn_genus_stool_RF_full_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
+sapply(stool_sets, 
+       function(x) write.csv(imp_vars[[x]], 
+                             paste("data/process/tables/adn_genus_stool_RF_full_", 
+                                   x, "_imp_vars.csv", sep = ""), row.names = F))
+
 
 sapply(stool_sets, 
        function(x) write.csv(selected_pvalue_summaries[[x]], 
