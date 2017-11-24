@@ -383,6 +383,25 @@ select_full_comparison <- function(full_model, select_model,
 }
 
 
+# Function that gathers the important OTUs and takes the median with quartiles
+get_imp_otu_data <- function(i, a_modelList){
+  
+  temp_rf_model <- make_rf_model(a_modelList[[i]])
+  
+  tempData <- varImp(temp_rf_model, scale = F)$importance %>% 
+                       as.data.frame() %>% 
+                       mutate(otu = rownames(.)) %>% 
+    bind_rows() %>% 
+    group_by(otu) %>% 
+    summarise(mda_median = median(Overall), 
+              iqr25 = quantile(Overall)["25%"], 
+              iqr75 = quantile(Overall)["75%"]) %>% 
+    arrange(desc(mda_median))
+  
+  return(tempData)
+}
+
+
 
 ##############################################################################################
 ############### Run the actual programs to get the data (ALL Data) ###########################
@@ -407,7 +426,9 @@ stool_final_data <- sapply(c(stool_sets, "flemer"),
                      function(x) run_rf_tests(x, rf_datasets), simplify = F)
 
 
-
+# generate the important variables in the model
+imp_vars <- sapply(c(stool_sets, "flemer"), 
+                   function(x) get_imp_otu_data(x, rf_datasets), simplify = F)
 
 # Generate summary data based on rocs
 pvalue_summaries <- sapply(names(stool_final_data), 
@@ -441,6 +462,10 @@ selected_stool_final_data <- sapply(c(stool_sets, "flemer"),
                            function(x) 
                              run_rf_tests(x, selected_rf_datasets, specific_vars = T), simplify = F)
 
+
+# generate the important variables in the model
+selected_imp_vars <- sapply(c(stool_sets, "flemer"), 
+                   function(x) get_imp_otu_data(x, rf_datasets), simplify = F)
 
 # Generate summary data based on rocs
 selected_pvalue_summaries <- sapply(names(selected_stool_final_data), 
