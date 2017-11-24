@@ -371,6 +371,27 @@ select_full_comparison <- function(full_model, select_model,
   
 }
 
+
+# Function that gathers the important OTUs and takes the median with quartiles
+get_imp_otu_data <- function(i, a_modelList){
+  
+  set.seed(12345)
+  temp_rf_model <- make_rf_model(a_modelList[[i]])
+  
+  tempData <- varImp(temp_rf_model, scale = F)$importance %>% 
+    as.data.frame() %>% 
+    mutate(otu = rownames(.)) %>% 
+    bind_rows() %>% 
+    group_by(otu) %>% 
+    summarise(mda_median = median(Overall), 
+              iqr25 = quantile(Overall)["25%"], 
+              iqr75 = quantile(Overall)["75%"]) %>% 
+    arrange(desc(mda_median))
+  
+  return(tempData)
+}
+
+
 ##############################################################################################
 ########################## Code used to run the analysis (unmatched) #########################
 ##############################################################################################
@@ -386,6 +407,10 @@ unmatched_matched_genera_list <- align_genera(c(both_sets, tissue_sets), "column
 # Generate data sets to be used in random forest
 unmatched_rf_datasets <- sapply(c(both_sets, tissue_sets), 
                       function(x) assign_disease(x, unmatched_matched_genera_list), simplify = F)
+
+# generate the important variables in the model
+unmatched_imp_vars <- sapply(c(both_sets, tissue_sets), 
+                   function(x) get_imp_otu_data(x, unmatched_rf_datasets), simplify = F)
 
 # Generate data for each test (study) set
 unmatched_stool_final_data <- sapply(c(both_sets, tissue_sets), 
@@ -416,6 +441,7 @@ matched_matched_genera_list <- list(lu = align_genera(c(tissue_sets), "column_le
 # Generate data sets to be used in random forest
 matched_rf_datasets <- sapply(c(tissue_sets), 
                                 function(x) assign_disease(x, matched_matched_genera_list), simplify = F)
+
 
 # Generate data for each test (study) set
 # Definitely overfit since the classification is 100%
@@ -516,6 +542,12 @@ sapply(c(both_sets, tissue_sets),
        function(x) write.csv(unmatched_all_roc_values[[x]], 
                              paste("data/process/tables/adn_genus_unmatched_tissue_RF_full_", 
                                    x, "_raw_roc_data.csv", sep = ""), row.names = F))
+
+sapply(c(both_sets, tissue_sets), 
+       function(x) write.csv(unmatched_imp_vars[[x]], 
+                             paste("data/process/tables/adn_genus_unmatched_tissue_RF_full_", 
+                                   x, "_imp_vars.csv", sep = ""), row.names = F))
+
 
 sapply(c(both_sets, tissue_sets), 
        function(x) write.csv(selected_unmatched_pvalue_summaries[[x]], 
