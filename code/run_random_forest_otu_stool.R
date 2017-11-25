@@ -379,8 +379,8 @@ for(i in c(stool_sets, "flemer")){
 
 
 # Write out the relevant data frames
-write.csv(all_roc_data, "data/process/tables/stool_rf_select_tu_roc.csv", row.names = F)
-write.csv(all_comparisons, "data/process/tables/stool_rf_select_otu_random_comparison_summary.csv", 
+write.csv(all_roc_data, "data/process/tables/stool_rf_select_otu_roc.csv", row.names = F)
+write.csv(all_comparisons, "data/process/tables/stool_rf_otu_random_comparison_summary.csv", 
           row.names = F)
 
 
