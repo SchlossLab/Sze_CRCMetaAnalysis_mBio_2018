@@ -111,7 +111,10 @@ adn_tissue_graph <- adn_all_tissue %>%
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(Matched)"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_point(size = 3.5, show.legend = F) + facet_grid(. ~ model_type) + 
+  geom_point(size = 3.5, show.legend = F) + 
+  stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
+               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+  facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + 
@@ -135,7 +138,10 @@ adn_stool_graph <- adn_all_stool %>%
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.2, size = 3.5, show.legend = F) + facet_grid(. ~ model_type) + 
+  geom_jitter(width = 0.2, size = 3.5, show.legend = F) + 
+  stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
+               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+  facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
@@ -159,7 +165,10 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
                         levels = c("burns", "chen", "flemer", "sana"), 
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.25, size = 3.5, show.legend = F) + facet_grid(. ~ model_type) + 
+  geom_jitter(width = 0.25, size = 3.5, show.legend = F) + 
+  stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
+               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+  facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
@@ -184,7 +193,10 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
                         levels = c("burns", "dejea", "geng"), 
                         labels = c("Burns", "Dejea", "Geng"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.25, size = 3.5, show.legend = F) + facet_grid(. ~ model_type) + 
+  geom_jitter(width = 0.25, size = 3.5, show.legend = F) + 
+  stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
+               colour = "red", geom = "crossbar", size = 0.5, width = 0.5)  + 
+  facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("B") + 
@@ -209,7 +221,10 @@ crc_stool_graph <- crc_all_stool %>%
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.2, size = 3.5, show.legend = F) + facet_grid(. ~ model_type) + 
+  geom_jitter(width = 0.2, size = 3.5, show.legend = F) + 
+  stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
+               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+  facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("B") + 
