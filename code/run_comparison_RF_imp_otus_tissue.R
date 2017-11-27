@@ -26,8 +26,21 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
   select(group, id, disease, study) %>% 
   rename(sample_id = group)
 
+# Get studies that contain matched samples
+# Remove Lu since it only has polyps
+matched_studies <- unique(
+  tissue_matched$study[!(tissue_matched$study %in% c("lu"))])
+
+# Get studies that contain unmatched samples
+# Need to remove dejea and lu
+# Lu only has polyps
+# Dejea only has cancer 
+unmatched_studies <- unique(
+  tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu"))]) 
+
 adn_tissue <- c("flemer", "lu")
 
+rm(tissue_matched, tissue_unmatched)
 
 ##############################################################################################
 ########################## Group of Functions needed to run the analysis #####################
@@ -50,7 +63,8 @@ get_data <- function(i, file_path, ending, genera = F){
       separate(Taxonomy, c("kingdom", "phylum", "class", "order", "family", "genus", "species"), sep = ";") %>% 
       select(-kingdom, -class, -order, -species, -Size) %>% 
       mutate_at(vars(phylum:genus), function(x) str_replace(x, "_unclassified", "")) %>% 
-      mutate_at(vars(phylum:genus), function(x) str_replace(x, "(\\d$)", ""))
+      mutate_at(vars(phylum:genus), function(x) str_replace(x, "(\\d$)", "")) %>% 
+      mutate(genus = ifelse(grepl("", genus) == T, invisible(family), invisible(genus)))
     
     
   } else{
@@ -93,33 +107,46 @@ get_occurances <- function(study_vector, dataList, lowest_var, var_of_int){
 ##############################################################################################
 
 # Read in the summary important Genera tables
-crc_imp_genera <- sapply(c(stool_sets, "flemer"), 
-                         function(x) get_data(x, "data/process/tables/genus_stool_RF_full_", 
+crc_unmatched_imp_genera <- sapply(unmatched_studies, 
+                         function(x) get_data(x, "data/process/tables/genus_unmatched_tissue_RF_", 
                                               "_imp_vars.csv", genera = T), simplify = F)
 
-adn_imp_genera <- sapply(adn_stool_sets, 
-                         function(x) get_data(x, "data/process/tables/adn_genus_stool_RF_full_", 
+crc_matched_imp_genera <- sapply(matched_studies, 
+                         function(x) get_data(x, "data/process/tables/genus_matched_tissue_RF_", 
                                               "_imp_vars.csv", genera = T), simplify = F)
 
+
+adn_imp_genera <- sapply(adn_tissue, 
+                                 function(x) get_data(x, "data/process/tables/adn_genus_unmatched_tissue_RF_full_", 
+                                                      "_imp_vars.csv", genera = T), simplify = F)
 
 # Read in the summary important OTU tables
-crc_imp_otu_data <- sapply(c(stool_sets, "flemer"), 
+crc_unmatched_imp_otu_data <- sapply(unmatched_studies, 
                            function(x) get_data(x, "data/process/tables/", 
-                                                "_imp_otu_table.csv", genera = F), simplify = F)
+                                                "_unmatched_tissue_imp_otu_table.csv", genera = F), simplify = F)
 
-adn_imp_otu_data <- sapply(adn_stool_sets, 
-                           function(x) get_data(x, "data/process/tables/adn_", 
-                                                "_imp_otu_table.csv", genera = F), simplify = F)
+crc_matched_imp_otu_data <- sapply(matched_studies, 
+                           function(x) get_data(x, "data/process/tables/", 
+                                                "_matched_tissue_imp_otu_table.csv", genera = F), simplify = F)
+
+adn_imp_otu_data <- sapply(adn_tissue, 
+                                   function(x) get_data(x, "data/process/tables/adn_", 
+                                                        "_tissue_imp_otu_table.csv", genera = F), simplify = F)
+
 
 # Generate the occurances tables
-crc_genera_occurances <- get_occurances(c(stool_sets, "flemer"), crc_imp_genera, lowest_var = 10, "otu")
-adn_genera_occurances <- get_occurances(adn_stool_sets, adn_imp_genera, lowest_var = 10, "otu")
+crc_unmatched_genera_occurances <- get_occurances(unmatched_studies, crc_unmatched_imp_genera, lowest_var = 10, "otu")
+crc_matched_genera_occurances <- get_occurances(matched_studies, crc_matched_imp_genera, lowest_var = 10, "otu")
+adn_genera_occurances <- get_occurances(adn_tissue, adn_imp_genera, lowest_var = 10, "otu")
 
-crc_otu_occurances <- get_occurances(c(stool_sets, "flemer"), crc_imp_otu_data, lowest_var = 10, "genus")
-adn_otu_occurances <- get_occurances(adn_stool_sets, adn_imp_otu_data, lowest_var = 10, "genus")
+crc_unmatched_otu_occurances <- get_occurances(unmatched_studies, crc_unmatched_imp_otu_data, lowest_var = 10, "genus")
+crc_matched_otu_occurances <- get_occurances(matched_studies, crc_matched_imp_otu_data, lowest_var = 10, "genus")
+adn_otu_occurances <- get_occurances(adn_tissue, adn_imp_otu_data, lowest_var = 10, "genus")
 
 # Read out data tables
-write_csv(crc_genera_occurances, "data/process/tables/crc_RF_genera_stool_top10.csv")
-write_csv(adn_genera_occurances, "data/process/tables/adn_RF_genera_stool_top10.csv")
-write_csv(crc_otu_occurances, "data/process/tables/crc_RF_otu_stool_top10.csv")
-write_csv(adn_otu_occurances, "data/process/tables/adn_RF_otu_stool_top10.csv")
+write_csv(crc_unmatched_genera_occurances, "data/process/tables/crc_RF_genera_unmatched_tissue_top10.csv")
+write_csv(crc_matched_genera_occurances, "data/process/tables/adn_RF_genera_matched_tissue_top10.csv")
+write_csv(adn_genera_occurances, "data/process/tables/adn_RF_genera_tissue_top10.csv")
+write_csv(crc_unmatched_otu_occurances, "data/process/tables/crc_RF_otu_unmatched_tissue_top10.csv")
+write_csv(crc_matched_otu_occurances, "data/process/tables/adn_RF_otu_matched_tissue_top10.csv")
+write_csv(adn_otu_occurances, "data/process/tables/adn_RF_otu_tissue_top10.csv")
