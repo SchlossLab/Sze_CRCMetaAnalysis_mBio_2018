@@ -226,40 +226,52 @@ or below between the case and control groups.
 \subsection{Results}\label{results}
 
 \textbf{\emph{Lower Community Diversity is Associated with Increased RR
-of Carcinomas:}} Using power transformed and Z-score normalized
-\(\alpha\)-diversity metrics, both evenness and Shannon diversity in
-feces, but not tissue, were lower in those with carcinoma {[}Figure
-1{]}. Using linear mixed-effect models to control for study and variable
-region, there was a significant decrease from control to adenoma to
-carcinoma for both evenness (P-value = 0.025) and Shannon diversity
-(P-value = 0.043). However, in tissue, this effect was not observed in
-tissue when resampling of the same individual was also controlled for
-(P-value \textgreater{} 0.05). Within fecal samples, a decrease in
-Shannon diversity and evenness resulted in a significantly increased RR
-for carcinoma (P-value = 0.01 and 0.0011, respectively) {[}Figure 2{]}.
-Although these values were significant, the effect size was relatively
-small for both metrics (Shannon RR = 1.31 and evenness RR = 1.34)
+of Carcinomas:}} Using the combined data set we first assessed whether
+there were any broad scale community differences that could be detected
+as disease severity worsened. Using power transformed and Z-score
+normalized \(\alpha\)-diversity metrics, both evenness and Shannon
+diversity in feces, but not tissue, were lower in those with carcinoma
+{[}Figure 1{]}. Using linear mixed-effect models to control for study
+and variable region, there was a significant decrease from control to
+adenoma to carcinoma for both evenness (P-value = 0.025) and Shannon
+diversity (P-value = 0.043). However, in tissue, this effect was not
+observed when resampling of the same individual was also controlled for
+(P-value \textgreater{} 0.05). We next tested whether these detectable
+differences in the community resulted in a significant increase in RR.
+Within fecal samples, a decrease in Shannon diversity and evenness
+resulted in a significantly increased RR for carcinoma (P-value = 0.0047
+and 0.00034, respectively) {[}Figure 2{]}. Although these values were
+significant, the effect size was relatively small for both metrics
+(Shannon RR = 1.33 (1.09 - 1.62) and evenness RR = 1.36 (1.15 - 1.61))
 {[}Figure 2{]}. Only a decrease in evenness had an increased RR for
 adenoma (P-value = 0.032) {[}Figure 2A \& S1{]} but this effect size was
-even smaller than what was observed for carcinoma (RR = 1.16).
+even smaller than what was observed for carcinoma (RR = 1.16 (1.01 -
+1.34)). Interestingly, for both adenoma and carcinoma there was no
+increase in RR within tissue samples for any alpha diversity metric
+investigated {[}Table S1-S3{]}.
 
 Using the Bray-Curtis distance metric, there was a significant
 difference across studies in the bacterial community of fecal samples
-between carcinoma and controls, but not adenoma and controls {[}Table S1
-\& S2{]}. For studies with unmatched tissue samples a similar trend was
+between carcinoma and controls, but not adenoma and controls {[}Table S4
+\& S5{]}. For studies with unmatched tissue samples a similar trend was
 observed {[}Table S3 \& S4{]} while studies with tissue samples from the
-same individual (matched) had no differences {[}Table S3 \& S4{]}.
+same individual (matched) had no differences {[}Table S6 \& S7{]}.
 
 \textbf{\emph{Carcinoma-Associated Genera Minimally Impacts RR of
-Adenoma:}} The majority of CRC-associated genera for both feces and
-tissue had a significantly increased RR for carcinoma but not for
-adenoma {[}Figure 3{]}. In fecal samples the RR due to CRC associated
-genera was greater than either the RR assoicated with evenness or
-Shannon diversity {[}Figure 2 \& 3{]}. Additionally, the RR of carcinoma
-continuously increased as individuals tested positive for more CRC
-associated genera {[}Figure 3B \& 3D{]}. The RR effect size was greater
-for stool (RR range = 1.61 - 2.74) than for tissue (RR range = 1.21 -
-1.81). This decrease may be explained by the fact that the tissue
+Adenoma:}} Based on the small increase in RR using \(\alpha\)-diversity
+metrics, we wanted to know if the presence of specific genera resulted
+in a higher RR for both stool and tissue. To investigate this we
+analyzed the classically associated CRC genera, \emph{Fusobacterium},
+\emph{Parvimonas}, \emph{Peptostreptococcus}, and \emph{Porphyromonas}
+for and increase in RR. The majority of CRC-associated genera for both
+feces and tissue had a significantly increased RR for carcinoma but not
+for adenoma {[}Figure 3{]}. In fecal samples the RR due to CRC
+associated genera was greater than either the RR assoicated with
+evenness or Shannon diversity {[}Figure 2 \& 3{]}. Additionally, the RR
+of carcinoma continuously increased as individuals tested positive for
+more CRC associated genera {[}Figure 3B \& 3D{]}. The RR effect size was
+greater for stool (RR range = 1.62 - 2.37) than for tissue (RR range =
+1.21 - 1.81). This decrease may be explained by the fact that the tissue
 analysis included matched samples from the same individual.
 
 There were two significant measures for increased RR of adenoma when
@@ -273,28 +285,44 @@ genera (P-value = 0.008), and 3) being positive for four CRC associated
 genera (P-value = 0.039) {[}Figure 3C{]}.
 
 \textbf{\emph{Using the Whole Community Instead of Only CRC-Associated
-Genera Increases Model AUC:}} For both fecal and tissue (matched and
-unmatched) samples, the AUC decreases when only OTUs from the
-CRC-associated genera are used {[}Figure 4 \& 5{]}. This decrease is
-observed in both adenoma and carcinoma groups {[}Figure 4 \& 5{]}. The
-genus models generally performed similar to the OTU-based models with
-the full genera models performing better than the CRC-associated genera
-models {[}Figure S2-S3{]}. Both genus models were similarily predictive
-in their ability to detect adenomas or carcinomas, with carcinoma having
-a higher AUC then adenoma {[}Figure S4-S5{]}. Of note, matched tissue
-samples for those with carcinoma had an AUC that was more similar to the
-adenoma models {[}Figure S4A, S5B, \& S6{]} than carcinoma models
-{[}Figure S4B \& S5A{]}.
+Genera Increases Model AUC:}} We then tested whether the overall
+bacterial community was at all important to classifying disease or if
+the CRC-associated genera were sufficient alone. To test this we used
+two approaches. The first used genus level data and tested whether there
+were any differences in AUC when training on one study and testing on
+all the others when using either all genera present or only the
+CRC-associated genera. The second approach used OTU level data and
+tested whether there was a generalized decrease in the 10-fold cross
+validation (CV) model across studies using either all OTUs or only OTUs
+that taxonomically classified to CRC-associated genera.
+
+The genus based models showed an AUC decrease in model classification on
+the training set for both stool and tissue studies {[}Figure S2-S3{]}.
+With respect to the test sets, comprised of genera data from other
+studies, both the all genera model and CRC-associated models had a
+similar ability to detect adenomas or carcinomas {[}Figure S4-S6{]}. The
+AUC for classification of adenomas was lower than carcionmas for both
+tissue and stool {[}Figure S4-S6{]}.
+
+The OTU based models for both fecal and tissue (matched and unmatched)
+samples, showed an AUC decrease when only OTUs from the CRC-associated
+genera are used versus full community of OTUs {[}Figure 4 \& 5{]}. This
+decrease is observed in both adenoma and carcinoma groups {[}Figure 4 \&
+5{]} with the largest difference in median AUC for stool being in
+carcinoma classification {[}Figure 4B{]} and for tissue being in adenoma
+{[}Figure 5A{]}.
 
 \textbf{\emph{A Majority of Studies are Underpowered for Detecting Small
-Effect Size Differences:}} When assessing the power of each study at
-different effect sizes the majority of studies for both adenoma and
-carcinoma have an 80\% power to detect a 30\% difference {[}Figure 6A \&
-B{]}. No single study that was analyzed had the standard 80\% power to
-detect an effect size difference that was equal to or below 10\%
-{[}Figure 6A \& B{]}. In order to achieve adequate power for small
-effect sizes, studies would need to recruit over 1000 individuals for
-each arm {[}Figure 6C{]}.
+Effect Size Differences:}} Based on the previous observations we then
+assessed whether the studies that we included are realistically powered
+to identify small, medium, and large scale differences between case and
+control. When assessing the power of each study at different effect
+sizes the majority of studies for both adenoma and carcinoma have an
+80\% power to detect a 30\% difference {[}Figure 6A \& B{]}. No single
+study that was analyzed had the standard 80\% power to detect an effect
+size difference that was equal to or below 10\% {[}Figure 6A \& B{]}. In
+order to achieve adequate power for small effect sizes, studies would
+need to recruit over 1000 individuals for each arm {[}Figure 6C{]}.
 
 \newpage
 
@@ -482,7 +510,36 @@ classification to \emph{Fusobacterium}, \emph{Parvimonas},
 \emph{Peptostreptococcus}, or \emph{Porphyromonas}. The power of each
 study was assessed for an effect size ranging from 1\% to 30\%. An
 estimated sample n for these effect sizes was also generated based on
-80\% power.
+80\% power. For comparisons in which normal versus adenoma were made the
+carcinoma samples were excluded from each respective study. Similarily,
+for comparisons in which normal versus carcinoma were made the adenoma
+samples were excluded from each respective study.
+
+\textbf{\emph{Obtaining CRC-Associated Genera:}} For the CRC-associated
+genera analysis of the RR, the total average counts were collected for
+each respective OTU that had a genus level taxonomic classification to
+\emph{Fusobacterium}, \emph{Parvimonas}, \emph{Peptostreptococcus}, and
+\emph{Porphyromonas} for 100 different subsamplings. The OTU based
+Random Forest Models that used CRC-associated genera used a similar
+approach except that the OTUs were not aggregated together by genus by
+kept as separate OTUs. So, OTU Random Forest models using the full
+community included all OTUs while those using CRC-associated genera
+included only those OTUs that had a genus level taxonomic classification
+to \emph{Fusobacterium}, \emph{Parvimonas}, \emph{Peptostreptococcus},
+and \emph{Porphyromonas}.
+
+\textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
+tissue samples that had control and lesion samples that did not belong
+to the same indivdiual were classified as unmatched while samples that
+belonged to the same individual were classified as matched. Studies with
+matched data included Burns, Dejea, Geng, and Lu. Studies that had
+unmatched data were Burns, Flemer, Chen, and Sanapareddy. For some
+studies samples became unmatched due to one of the corresponding matched
+samples not making it through sequence processing. For the linear
+mixed-effect models samples from the same individual were taken into
+account. For all other analysis matched and unmatched samples were
+analyzed separately using the statistical approaches mentioned in the
+Statistical Analysis section.
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 here
@@ -904,17 +961,20 @@ each Stool Study.} A) AUC for prediction in adenoma using all genera or
 CRC associated genera only. B) AUC for prediction in carcinoma using all
 genera or CRC-associated genera only. The dotted line represents an AUC
 of 0.5. The x-axis is the data set in which the model was initially
-trained on.
+trained on. The red lines represent the median AUC using that specific
+study as the training set.
 
 \textbf{Figure S5: Random Forest Prediction Success of Carcinoma Using
 Genera for each Tissue Study.} A) AUC for prediction in unmatched tissue
 for all genera or CRC-associated genera only. B) AUC for prediction in
 matched tissue using all genera or CRC-associated genera only. The
 dotted line represents an AUC of 0.5. The x-axis is the data set in
-which the model was initially trained on.
+which the model was initially trained on. The red lines represent the
+median AUC using that specific study as the training set.
 
 \textbf{Figure S6: Random Forest Prediction Success of Adenoma Using
-Genera for each Tissue Study.}
+Genera for each Tissue Study.} The red lines represent the median AUC
+using that specific study as the training set.
 
 \newpage
 

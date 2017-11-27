@@ -35,14 +35,72 @@ loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown"))
 ```
 
 
-
-**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool Adenoma**
+**Table S1: Alpha Diversity Metrics RR in Tissue for Adenoma**
 
 ```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
 
+alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_RR_tissue_composite.csv")) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 2), 
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"))
+
+colnames(alpha_RR_adn_tissue) <- c("Relative Risk", "Lower Bound", "Upper Bound", "P-value", "Measure")
+
+kable(alpha_RR_adn_tissue, format = "markdown", align = 'c', padding = 2)
+```
+
+
+\newpage
+
+
+**Table S2: Alpha Diversity Metrics RR in Tissue for Unmatched Carcinoma Non-Carcinoma Samples**
+
+```{r supplemental_table2, echo=FALSE, message=FALSE, warning=FALSE}
+
+alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_RR_unmatched_tissue_composite.csv")) %>%   mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 2), 
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"))
+
+colnames(alpha_RR_crc_unmatch_tissue) <- c("Relative Risk", "Lower Bound", "Upper Bound", "P-value", "Measure")
+
+kable(alpha_RR_crc_unmatch_tissue, format = "markdown", align = 'c', padding = 2)
+```
+
+
+\newpage
+
+
+**Table S3: Alpha Diversity Metrics RR in Tissue for Matched Carcinoma Non-Carcinoma Samples**
+
+```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
+
+alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_RR_matched_tissue_composite.csv")) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 2), 
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"))
+
+colnames(alpha_RR_crc_match_tissue) <- c("Relative Risk", "Lower Bound", "Upper Bound", "P-value", "Measure")
+
+kable(alpha_RR_crc_match_tissue, format = "markdown", align = 'c', padding = 2)
+```
+
+
+\newpage
+
+
+**Table S4: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool Adenoma**
+
+```{r supplemental_table4, echo=FALSE, message=FALSE, warning=FALSE}
+
 temp_t1 <- read_csv("../data/process/tables/beta_perm_adn_stool_summary.csv")
 
-table_s1 <- temp_t1 %>% 
+table_s4 <- temp_t1 %>% 
   mutate(fstat = round(fstat, digits = 2), 
          r2 = round(r2, digits = 3), 
          pvalue = round(pvalue, digits = 4), 
@@ -50,21 +108,21 @@ table_s1 <- temp_t1 %>%
                                       c("brim", "zeller", "baxter", "hale"), 
                                       c("Brim", "Zeller", "Baxter", "Hale")))
 
-colnames(table_s1) <- c("F statistic", "R2", "P-value", "Study", "Adenoma (n)", "Control (n)")
+colnames(table_s4) <- c("F statistic", "R2", "P-value", "Study", "Adenoma (n)", "Control (n)")
 
-kable(table_s1, format = "markdown", align = 'c', padding = 2)
+kable(table_s4, format = "markdown", align = 'c', padding = 2)
 ```
 
 
 \newpage
 
-**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool Carcinoma**
+**Table S5: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool Carcinoma**
 
-```{r supplemental_table2, echo=FALSE, message=FALSE, warning=FALSE}
+```{r supplemental_table5, echo=FALSE, message=FALSE, warning=FALSE}
 
 temp_t2 <- read_csv("../data/process/tables/beta_perm_stool_summary.csv")
 
-table_s2 <- temp_t2 %>% 
+table_s5 <- temp_t2 %>% 
   mutate(fstat = round(fstat, digits = 2), 
          r2 = round(r2, digits = 3), 
          pvalue = round(pvalue, digits = 4), 
@@ -73,9 +131,9 @@ table_s2 <- temp_t2 %>%
                                       c("Wang", "Weir", "Ahn", "Zeller", "Baxter", "Hale", "Flemer")))
 
 
-colnames(table_s2) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma (n)", "Control (n)")
+colnames(table_s5) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma (n)", "Control (n)")
 
-kable(table_s2, format = "markdown", align = 'c', padding = 2)
+kable(table_s5, format = "markdown", align = 'c', padding = 2)
 ```
 
 
@@ -83,14 +141,14 @@ kable(table_s2, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S3: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Tissue Adenoma**
+**Table S6: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Tissue Adenoma**
 
-```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
+```{r supplemental_table6, echo=FALSE, message=FALSE, warning=FALSE}
 
 temp_t3a <- read_csv("../data/process/tables/beta_perm_adn_unmatched_tissue_summary.csv")
 temp_t3b <- read_csv("../data/process/tables/beta_perm_adn_matched_tissue_summary.csv")
 
-table_s3 <- temp_t3a %>% 
+table_s6 <- temp_t3a %>% 
   bind_rows(temp_t3b) %>% 
   mutate(fstat = round(fstat, digits = 2), 
          r2 = round(r2, digits = 3), 
@@ -99,21 +157,21 @@ table_s3 <- temp_t3a %>%
 
 
 
-colnames(table_s3) <- c("F statistic", "R2", "P-value", "Study", "Adenoma (n)", "Control (n)")
+colnames(table_s6) <- c("F statistic", "R2", "P-value", "Study", "Adenoma (n)", "Control (n)")
 
-kable(table_s3, format = "markdown", align = 'c', padding = 2)
+kable(table_s6, format = "markdown", align = 'c', padding = 2)
 ```
 
 \newpage
 
-**Table S4: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Tissue Carcinoma**
+**Table S7: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Tissue Carcinoma**
 
-```{r supplemental_table4, echo=FALSE, message=FALSE, warning=FALSE}
+```{r supplemental_table7, echo=FALSE, message=FALSE, warning=FALSE}
 
 temp_t4a <- read_csv("../data/process/tables/beta_perm_unmatched_tissue_summary.csv")
 temp_t4b <- read_csv("../data/process/tables/beta_perm_matched_tissue_summary.csv")
 
-table_s4 <- temp_t4a %>% 
+table_s7 <- temp_t4a %>% 
   bind_rows(temp_t4b) %>% 
   mutate(fstat = round(fstat, digits = 2), 
          r2 = round(r2, digits = 3), 
@@ -123,9 +181,9 @@ table_s4 <- temp_t4a %>%
 
 
 
-colnames(table_s4) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma (n)", "Control (n)")
+colnames(table_s7) <- c("F statistic", "R2", "P-value", "Study", "Carcinoma (n)", "Control (n)")
 
-kable(table_s4, format = "markdown", align = 'c', padding = 2)
+kable(table_s7, format = "markdown", align = 'c', padding = 2)
 
 
 
