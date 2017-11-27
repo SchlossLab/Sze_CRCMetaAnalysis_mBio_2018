@@ -50,13 +50,15 @@ get_data <- function(i, file_path, ending, genera = F){
       mutate(Taxonomy = str_replace_all(Taxonomy, "\\((\\d{2,3})\\)", "")) %>% 
       separate(Taxonomy, c("kingdom", "phylum", "class", "order", "family", "genus", "species"), sep = ";") %>% 
       select(-kingdom, -class, -order, -species, -Size) %>% 
-      mutate_at(vars(phylum:genus), function(x) str_replace(x, "_unclassified", ""))
+      mutate_at(vars(phylum:genus), function(x) str_replace(x, "_unclassified", "")) %>% 
+      mutate_at(vars(phylum:genus), function(x) str_replace(x, "(\\d$)", ""))
     
     
   } else{
     
     # grabs subsampled data and assigns rownames from sample names to table
-    tempData <- read_csv(paste(file_path, i, ending, sep = ""))
+    tempData <- read_csv(paste(file_path, i, ending, sep = "")) %>% 
+      mutate(otu = str_replace(otu, "(\\d$)", ""))
     
   }
   
@@ -69,12 +71,15 @@ get_data <- function(i, file_path, ending, genera = F){
 
 # Function to collect the top X OTUs or genera and see how many times it occurs across studies
 get_occurances <- function(study_vector, dataList, lowest_var, var_of_int){
+  # study_vector is the vector of studies to analyze
+  # dataList is a variable with the read in data
+  # lowest_var is the maximum number of OTUs/genera to include
+  # var_of_int is the column of interest
   
   tempData <- sapply(study_vector, function(x) slice(dataList[[x]], 1:lowest_var) %>% 
                        mutate(study = x) %>% distinct_(var_of_int, .keep_all = T), simplify = F) %>% 
     bind_rows() %>% 
     select(one_of(var_of_int)) %>% 
-    mutate_(var_of_int = str_replace(var_of_int, "Ruminococcus2", "Ruminococcus")) %>% 
     count_(var_of_int) %>% 
     arrange(desc(n)) %>% 
     rename(occurance = n)
@@ -107,8 +112,21 @@ adn_imp_otu_data <- sapply(adn_stool_sets,
                            function(x) get_data(x, "data/process/tables/adn_", 
                                                 "_imp_otu_table.csv", genera = F), simplify = F)
 
+# Generate the occurances tables
+crc_genera_occurances <- get_occurances(c(stool_sets, "flemer"), crc_imp_genera, lowest_var = 10, "otu")
+adn_genera_occurances <- get_occurances(adn_stool_sets, adn_imp_genera, lowest_var = 10, "otu")
 
-test <- get_occurances(c(stool_sets, "flemer"), crc_imp_genera, lowest_var = 10, "otu")
+crc_otu_occurances <- get_occurances(c(stool_sets, "flemer"), crc_imp_otu_data, lowest_var = 10, "genus")
+adn_otu_occurances <- get_occurances(adn_stool_sets, adn_imp_otu_data, lowest_var = 10, "genus")
+
+# Read out data tables
+write_csv(crc_genera_occurances, "data/process/tables/crc_RF_genera_stool_top10.csv")
+write_csv(adn_genera_occurances, "data/process/tables/adn_RF_genera_stool_top10.csv")
+write_csv(crc_otu_occurances, "data/process/tables/crc_RF_otu_stool_top10.csv")
+write_csv(adn_otu_occurances, "data/process/tables/adn_RF_otu_stool_top10.csv")
 
 
-test <- get_similarity(adn_stool_sets, adn_imp_genera, lowest_var = 10)
+
+
+
+
