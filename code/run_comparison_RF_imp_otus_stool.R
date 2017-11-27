@@ -1,8 +1,6 @@
-### Run Random Forest Analysis OTU Level - Tissue
-### Generate model and then test on remaining studies
+### GEnerate Summary data for important genus and OTU - Stool
+### For both adenoma and CRC
 ### Marc Sze
-
-## For tissue set CV to 5 since there are in general less samples per study
 
 # Load in needed functions and libraries
 source('code/functions.R')
