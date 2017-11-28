@@ -117,7 +117,7 @@ combined_sample_n <- combined_data %>%
 power_graph <- grid.arrange(adn_study_power, crc_study_power, combined_sample_n, 
                             layout_matrix = rbind(c(1, 3), c(2, 3)))
 
-ggsave("results/figures/Figure8.pdf", 
+ggsave("results/figures/Figure7.pdf", 
        power_graph, width = 10, height = 8, dpi = 300)
 
 
