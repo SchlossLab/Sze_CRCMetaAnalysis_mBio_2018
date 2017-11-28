@@ -85,20 +85,20 @@ crc_all_unmatched_tissue <- make_table(crc_unmatched_tissue_studies, "data/proce
 ### Study Colors by Viridis 
 ##  library(scales) 
 ## show_col(viridis_pal()(16))
-# flemer - #440154FF
-# lu - #FDE725FF
+# flemer - #ED9121
+# lu - #8B7500
 # burns - #453581FF
-# chen - #3D4D8AFF
-# sana - #1F998AFF
-# dejea - #2B748EFF
-# geng - #CBE11EFF
+# chen - #CD6889
+# sana - #8EE5EE
+# dejea - #1874CD
+# geng - #EEDC82
 # brim - #34618DFF
 # zeller - #FDE725FF
-# baxter - #481D6FFF
-# hale - #67CC5CFF
+# baxter - #8968CD
+# hale - #006400
 # wang - #97D83FFF
-# weir - #24878EFF
-# ahn - #40BC72FF
+# weir - #8B4513
+# ahn - #B0C4DE
 
 adn_tissue_graph <- adn_all_tissue %>% 
   mutate(model = factor(model, 

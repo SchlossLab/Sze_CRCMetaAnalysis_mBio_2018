@@ -75,20 +75,20 @@ crc_all_stool <- read_csv("data/process/tables/stool_rf_otu_random_comparison_su
 ### Study Colors by Viridis 
 ##  library(scales) 
 ## show_col(viridis_pal()(16))
-# flemer - #440154FF
-# lu - #FDE725FF
+# flemer - #ED9121
+# lu - #8B7500
 # burns - #453581FF
-# chen - #3D4D8AFF
-# sana - #1F998AFF
-# dejea - #2B748EFF
-# geng - #CBE11EFF
+# chen - #CD6889
+# sana - #8EE5EE
+# dejea - #1874CD
+# geng - #EEDC82
 # brim - #34618DFF
 # zeller - #FDE725FF
-# baxter - #481D6FFF
-# hale - #67CC5CFF
+# baxter - #8968CD
+# hale - #006400
 # wang - #97D83FFF
-# weir - #24878EFF
-# ahn - #40BC72FF
+# weir - #8B4513
+# ahn - #B0C4DE
 
 # Creates a median secondary table for adenoma tissue
 adn_tissue_medians <- adn_tissue %>% 
@@ -119,7 +119,7 @@ adn_tissue_graph <- adn_tissue %>%
   facet_grid(. ~ model_type) + coord_flip(ylim = c(0, 1.05)) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
-                     values = c('#440154FF', '#FDE725FF')) + 
+                     values = c('#ED9121', '#8B7500')) + 
   annotate("text", label = paste("Adenoma"), x = 2.5, y = 0.05, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.text = element_text(size = 6), 
@@ -154,7 +154,7 @@ adn_stool_graph <- adn_all_stool %>%
   facet_grid(. ~ model_type) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
-                     values = c('#481D6FFF', '#1F998AFF', '#67CC5CFF', '#FDE725FF')) + 
+                     values = c('#8968CD', '#1F998AFF', '#006400', '#FDE725FF')) + 
   annotate("text", label = paste("Adenoma (Stool)"), x = 4.5, y = 0.1, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         panel.grid.major = element_blank(), 
@@ -191,8 +191,8 @@ crc_tissue_graph <- crc_all_tissue %>%
   facet_grid(. ~ model_type) + coord_flip(ylim = c(0, 1.05)) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
-                     values = c('#1F998AFF', '#CBE11EFF', '#440154FF', '#2B748EFF', 
-                                '#3D4D8AFF', '#453581FF', '#453581FF')) + 
+                     values = c('#8EE5EE', '#EEDC82', '#ED9121', '#1874CD', 
+                                '#CD6889', '#453581FF', '#453581FF')) + 
   annotate("text", label = paste("Carcinoma"), x = 7.35, y = 0.06, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         legend.text = element_text(size = 6), 
@@ -228,8 +228,8 @@ crc_stool_graph <- crc_all_stool %>%
   facet_grid(. ~ model_type) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
-                     values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#67CC5CFF', 
-                                '#440154FF', '#481D6FFF', '#40BC72FF')) + 
+                     values = c('#FDE725FF', '#8B4513', '#97D83FFF', '#006400', 
+                                '#ED9121', '#8968CD', '#B0C4DE')) + 
   annotate("text", label = paste("Carcinoma (Stool)"), x = 7.4, y = 0.1, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         panel.grid.major = element_blank(), 

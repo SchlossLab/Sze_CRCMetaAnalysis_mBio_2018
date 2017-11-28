@@ -21,20 +21,21 @@ combined_data <- adn_power %>%
 ##############################################################################################
 
 
-# flemer - #440154FF
-# lu - #FDE725FF
+### Study Colors by Viridis 
+# flemer - #ED9121
+# lu - #8B7500
 # burns - #453581FF
-# chen - #3D4D8AFF
-# sana - #1F998AFF
-# dejea - #2B748EFF
-# geng - #CBE11EFF
+# chen - #CD6889
+# sana - #8EE5EE
+# dejea - #1874CD
+# geng - #EEDC82
 # brim - #34618DFF
 # zeller - #FDE725FF
-# baxter - #481D6FFF
-# hale - #67CC5CFF
+# baxter - #8968CD
+# hale - #006400
 # wang - #97D83FFF
-# weir - #24878EFF
-# ahn - #40BC72FF
+# weir - #8B4513
+# ahn - #B0C4DE
 
 
 adn_study_power <- adn_power %>% 
@@ -51,8 +52,8 @@ adn_study_power <- adn_power %>%
   geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") + 
   labs(x = "Effect Size", y = "Study Power") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
-                     values = c('#FDE725FF', '#FDE725FF', '#67CC5CFF', '#440154FF', 
-                                '#34618DFF', '#481D6FFF')) + 
+                     values = c('#FDE725FF', '#8B7500', '#006400', '#ED9121', 
+                                '#34618DFF', '#8968CD')) + 
   annotate("text", label = paste("Adenoma"), x = 0.78, y = 1.03, size = 2.5) +
   theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         panel.grid.major = element_blank(), 
@@ -76,9 +77,9 @@ crc_study_power <- crc_power %>%
   geom_hline(yintercept = 0.8, linetype = "dashed", color = "red") + 
   labs(x = "Effect Size", y = "Study Power") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
-                     values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', 
-                                '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', 
-                                '#453581FF', '#481D6FFF', '#40BC72FF')) + 
+                     values = c('#FDE725FF', '#8B4513', '#97D83FFF', '#8EE5EE', 
+                                '#006400', '#EEDC82', '#ED9121', '#1874CD', 
+                                '#453581FF', '#8968CD', '#B0C4DE')) + 
   annotate("text", label = paste("Carcinoma"), x = 0.85, y = 1.03, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         panel.grid.major = element_blank(), 
@@ -101,9 +102,9 @@ combined_sample_n <- combined_data %>%
   geom_vline(xintercept = c(1.5, 2.5, 3.5, 4.5, 5.5, 6.5), color = "gray") + 
   labs(x = "Effect Size", y = expression(Log["2"]~Sample~Number)) + theme_bw() + ggtitle("C") + 
   scale_color_manual(name = "Study", 
-                     values = c('#FDE725FF', '#24878EFF', '#97D83FFF', '#1F998AFF', '#FDE725FF',  
-                                '#67CC5CFF', '#CBE11EFF', '#440154FF', '#2B748EFF', '#453581FF', 
-                                '#34618DFF', '#481D6FFF', '#40BC72FF')) + 
+                     values = c('#FDE725FF', '#8B4513', '#97D83FFF', '#8EE5EE', '#8B7500',  
+                                '#006400', '#EEDC82', '#ED9121', '#1874CD', '#453581FF', 
+                                '#34618DFF', '#8968CD', '#B0C4DE')) + 
   theme(plot.title = element_text(face="bold", hjust = -0.18, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 

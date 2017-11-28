@@ -37,20 +37,20 @@ crc_all_tissue <- crc_tissue_unmatched %>% bind_rows(crc_tissue_matched) %>%
 ### Study Colors by Viridis 
 ##  library(scales) 
 ## show_col(viridis_pal()(16))
-# flemer - #440154FF
-# lu - #FDE725FF
+# flemer - #ED9121
+# lu - #8B7500
 # burns - #453581FF
-# chen - #3D4D8AFF
-# sana - #1F998AFF
-# dejea - #2B748EFF
-# geng - #CBE11EFF
+# chen - #CD6889
+# sana - #8EE5EE
+# dejea - #1874CD
+# geng - #EEDC82
 # brim - #34618DFF
 # zeller - #FDE725FF
-# baxter - #481D6FFF
-# hale - #67CC5CFF
+# baxter - #8968CD
+# hale - #006400
 # wang - #97D83FFF
-# weir - #24878EFF
-# ahn - #40BC72FF
+# weir - #8B4513
+# ahn - #B0C4DE
 
 ##############################################################################################
 ############################## List of code to make figures ##################################
@@ -70,13 +70,16 @@ adn_tissue_graph <- adn_all_tissue %>%
   ggplot(aes(model_type, AUC, color = study, group = type)) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) +
-  geom_point(size = 3.5, show.legend = F) + facet_grid(. ~ type) + coord_cartesian(ylim = c(0, 1.05)) + 
+  geom_point(size = 3.5, show.legend = T) + facet_grid(. ~ type) + coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
-                     values = c('#440154FF', '#FDE725FF')) + 
+                     values = c('#ED9121', '#8B7500')) + 
   annotate("text", label = paste("Adenoma"), x = 0.6, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
-        legend.text = element_text(size = 6), 
+        legend.position = "bottom", 
+        legend.text = element_text(size = 6),
+        legend.title = element_blank(), 
+        legend.background = element_rect(color = "black"), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -90,18 +93,21 @@ adn_stool_graph <- adn_all_stool %>%
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
   ggplot(aes(model_type, AUC, color = study)) + 
-  geom_jitter(width = 0.2, size = 3.5, show.legend = F) + coord_cartesian(ylim = c(0, 1.05)) + 
+  geom_jitter(width = 0.2, size = 3.5, show.legend = T) + coord_cartesian(ylim = c(0, 1.05)) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
-                     values = c('#481D6FFF', '#1F998AFF', '#67CC5CFF', '#FDE725FF')) + 
+                     values = c('#8968CD', '#34618DFF', '#006400', '#FDE725FF')) + 
   annotate("text", label = paste("Adenoma (Stool)"), x = 0.80, y = 1.09, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+        legend.position = c(0.80, 0.22), 
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 8), 
+        legend.background = element_rect(color = "black"), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
-
 
 
 crc_tissue_graph <- crc_all_tissue %>% 
@@ -115,19 +121,23 @@ crc_tissue_graph <- crc_all_tissue %>%
                         levels = c("burns", "chen", "dejea", "flemer", "geng", "sana"), 
                         labels = c("Burns", "Chen", "Dejea", "Flemer", "Geng", "Sanapareddy"))) %>% 
   ggplot(aes(model_type, AUC, color = study, group = type)) + 
-  geom_jitter(width = 0.2, size = 3.5, show.legend = F) + 
+  geom_jitter(width = 0.2, size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ type) + coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
-                     values = c('#453581FF', '#3D4D8AFF', '#2B748EFF', '#440154FF', '#CBE11EFF', '#1F998AFF')) + 
+                     values = c('#453581FF', '#CD6889', '#1874CD', '#ED9121', '#EEDC82', '#8EE5EE')) + 
   annotate("text", label = paste("Carcinoma"), x = 0.6, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
-        legend.text = element_text(size = 6), 
+        legend.position = "bottom", 
+        legend.text = element_text(size = 6),
+        legend.title = element_blank(), 
+        legend.background = element_rect(color = "black"), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
+
 
 
 crc_stool_graph <- crc_all_stool %>% 
@@ -138,15 +148,19 @@ crc_stool_graph <- crc_all_stool %>%
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
   ggplot(aes(model_type, AUC, color = study)) + 
-  geom_jitter(width = 0.2, size = 3.5, show.legend = F) + 
+  geom_jitter(width = 0.2, size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
-                     values = c('#40BC72FF', '#481D6FFF', '#440154FF', '#67CC5CFF', '#97D83FFF', '#24878EFF', '#FDE725FF')) + 
+                     values = c('#B0C4DE', '#8968CD', '#ED9121', '#006400', '#97D83FFF', '#8B4513', '#FDE725FF')) + 
   annotate("text", label = paste("Carcinoma (Stool)"), x = 0.8, y = 1.09, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.25, size = 20), 
+        legend.position = c(0.80, 0.22), 
+        legend.text = element_text(size = 6),
+        legend.title = element_text(size = 8), 
+        legend.background = element_rect(color = "black"),
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -160,7 +174,7 @@ tissue_auc_graph <- grid.arrange(adn_tissue_graph, crc_tissue_graph)
 stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph, ncol = 2)
 
 ggsave("results/figures/FigureS3.pdf", 
-       tissue_auc_graph, width = 6, height = 6, dpi = 300)
+       tissue_auc_graph, width = 6, height = 8, dpi = 300)
 
 ggsave("results/figures/FigureS2.pdf", 
        stool_auc_graph, width = 6, height = 6, dpi = 300)
