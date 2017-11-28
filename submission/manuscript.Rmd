@@ -131,9 +131,12 @@ The genus based models showed an AUC decrease in model classification on the tra
 
 The OTU based models for both fecal and tissue (matched and unmatched) samples, showed an AUC decrease when only OTUs from the CRC-associated genera are used versus full community of OTUs [Figure 4 & 5]. This decrease is observed in both adenoma and carcinoma groups [Figure 4 & 5] with the largest difference in median AUC for stool being in carcinoma classification [Figure 4B] and for tissue being in adenoma [Figure 5A].  
 
+In stool the most common genera in the genus based models belonged mostly to resident genera [Figure 6A & B]. This included genera such as *Ruminococcus*, *Bacteroides*, and *Roseburia*. With respect to the CRC-associated genera *Fusobacterium* was the only genus present in adenoma while all four were present in carcinoma [Figure 6A & B]. However, none of these CRC-associated genera were present in the majority of studies. For the adenoma OTU models, OTUs that classified as  *Ruminococcaceae* or *Roseburia* were present in the top 10 OTUs for the vast majority of studies [Figure 6C]. Although for the carcinoma OTU models *Ruminococcaceae* was in the top 10 for many studies, *Bacteroides* was present in the overwhelming majority of the carcinoma OTU stool models [Figure 6D].
+
+Conversely to the stool models, both genera and OTU based models in tissue had the vast majority of their top 10 occur in a study specific manner [Figure S7]. *Fusobacterium* and *Fusobacteriaceae* show up more often in the top 10 for matched tissue samples but are not present in the top 10 or much lower for unmatched tissue [Figure S7B-C & S7E-F]. There appears to be very little overlap in the top 10 most important variables between stool and tissue for both adenoma and carcinoma [Figure 6 & S7].
 
 ***A Majority of Studies are Underpowered for Detecting Small Effect Size Differences:***
-Based on the previous observations we then assessed whether the studies that we included are realistically powered to identify small, medium, and large scale differences between case and control. When assessing the power of each study at different effect sizes the majority of studies for both adenoma and carcinoma have an 80% power to detect a 30% difference [Figure 6A & B]. No single study that was analyzed had the standard 80% power to detect an effect size difference that was equal to or below 10% [Figure 6A & B].  In order to achieve adequate power for small effect sizes, studies would need to recruit over 1000 individuals for each arm [Figure 6C]. 
+Based on the previous observations we then assessed whether the studies that we included are realistically powered to identify small, medium, and large scale differences between case and control. When assessing the power of each study at different effect sizes the majority of studies for both adenoma and carcinoma have an 80% power to detect a 30% difference [Figure 7A & B]. No single study that was analyzed had the standard 80% power to detect an effect size difference that was equal to or below 10% [Figure 7A & B].  In order to achieve adequate power for small effect sizes, studies would need to recruit over 1000 individuals for each arm [Figure 7C]. 
 
 
 
@@ -180,6 +183,9 @@ For the CRC-associated genera analysis of the RR, the total average counts were 
 
 ***Matched versus Unmatched Tissue Samples:***
 In general, tissue samples that had control and lesion samples that did not belong to the same indivdiual were classified as unmatched while samples that belonged to the same individual were classified as matched. Studies with matched data included Burns, Dejea, Geng, and Lu. Studies that had unmatched data were Burns, Flemer, Chen, and Sanapareddy. For some studies samples became unmatched due to one of the corresponding matched samples not making it through sequence processing. For the linear mixed-effect models samples from the same individual were taken into account. For all other analysis matched and unmatched samples were analyzed separately using the statistical approaches mentioned in the Statistical Analysis section. 
+
+***Assessing Important Random Forest Model Variables:***
+The genus based models collected the top 10 most important variables from each training set and assessed how many times that genera showed up in the top 10 across each study. The OTU based models recorded the medians for each OTU across 100 different 80/20 splits of the data for each study. The lowest classification for each OTU was obtained using the RDP database and the number of times the specific classification occured in the top 10 across studies was recorded. For the adenoma tissue genus and OTU models there was only one matched and unmatched study and these results were grouped together for the counting of the top 10.
 
 ***Reproducible Methods:***
 The code and analysis can be found here https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017. Unless mentioned otherwise, the accession number for the raw sequences for the studies used in this analysis can be found directly in the respective batch file in the GitHub repository or in the original manuscript.
@@ -298,7 +304,9 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure 5: OTU Random Forest Model of Tissue Across Studies.** A) Adenoma random forest model between the full community and CRC-associated genera OTUs only. B) Carcinoma random forest model between the full community and CRC-associated genera OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between. The solid red line represents the median AUC of all the studies for either the full community or CRC-associated genera OTUS only model.
 
-**Figure 6: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with adenoma individuals. B) Power based on effect size for studies with carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect an effect size of 1-30%. The dotted red lines in A) and B) represent a power of 0.8.  
+**Figure 6: Most Common Genera Across Full Community Stool Study Models.** A) Common genera in the top 10 for adenoma Random Forest genus models. B) Common genera in the top 10 for carcinoma Random Forest genus models. C) Common genera in the top 10 for adenoma Random Forest OTU models. D) Common genera in the top 10 for carcinoma Random Forest OTU models.
+
+**Figure 7: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with adenoma individuals. B) Power based on effect size for studies with carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect an effect size of 1-30%. The dotted red lines in A) and B) represent a power of 0.8.  
 
 
 \newpage
@@ -316,6 +324,6 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure S6: Random Forest Prediction Success of Adenoma Using Genera for each Tissue Study.** The red lines represent the median AUC using that specific study as the training set.
 
-
+**Figure S7: Most Common Genera Across Full Community Tissue Study Models.** A) Common genera in the top 10 for adenoma Random Forest genus models. B) Common genera in the top 10 for unmatched carcinoma Random Forest genus models. B) Common genera in the top 10 for matched carcinoma Random Forest genus models. D) Common genera in the top 10 for adenoma Random Forest OTU models. E) Common genera in the top 10 for unmatched carcinoma Random Forest OTU models. F) Common genera in the top 10 for matched carcinoma Random Forest OTU models.
 
 \newpage
