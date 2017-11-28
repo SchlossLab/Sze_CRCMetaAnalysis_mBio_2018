@@ -275,17 +275,27 @@ G_ADN_STOOL_SELECT = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_stool_
 # Set up files to be created for stool genera RF
 G_CRC_FULL_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_STOOL_FULL))
 G_CRC_FULL_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_STOOL_FULL))
+G_CRC_FULL_STOOL_IMP=$(addsuffix _imp_vars.csv,$(G_CRC_STOOL_FULL))
 G_CRC_SELECT_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_STOOL_SELECT))
 G_CRC_SELECT_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_STOOL_SELECT))
 
 G_ADN_FULL_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_STOOL_FULL))
 G_ADN_FULL_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_STOOL_FULL))
+G_ADN_FULL_STOOL_IMP=$(addsuffix _imp_vars.csv,$(G_ADN_STOOL_FULL))
 G_ADN_SELECT_STOOL_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_STOOL_SELECT))
 G_ADN_SELECT_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_STOOL_SELECT))
+
+# Set up files to be created for OTU RF
+O_CRC_STOOL_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/$(S))
+O_ADN_STOOL_FULL = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_$(S))
+
+O_CRC_FULL_STOOL_IMP=$(addsuffix _imp_otu_table.csv,$(G_CRC_STOOL_FULL))
+O_ADN_FULL_STOOL_IMP=$(addsuffix _imp_otu_table.csv,$(G_ADN_STOOL_FULL))
 
 # Run the Stool Genera Random Forest Models
 $(G_CRC_FULL_STOOL_PVALUE) $(G_CRC_FULL_STOOL_ROC)\
 $(G_CRC_SELECT_STOOL_PVALUE) $(G_CRC_SELECT_STOOL_ROC)\
+$(G_CRC_FULL_STOOL_IMP) $(G_ADN_FULL_STOOL_IMP)\
 $(G_ADN_FULL_STOOL_PVALUE) $(G_ADN_FULL_STOOL_ROC)\
 $(G_ADN_SELECT_STOOL_PVALUE) $(G_ADN_SELECT_STOOL_ROC)\
 $(TABLES)/genus_stool_RF_fullvsselect_pvalue_summary.csv\
@@ -315,8 +325,10 @@ G_ADN_TISSUE_SELECT = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_unmat
 # Set up files to be created for genera tissue RF
 G_CRC_FULL_MATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_MATCH_T_FULL))
 G_CRC_FULL_MATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_MATCH_T_FULL))
+G_CRC_FULL_MATCH_T_IMP=$(addsuffix _imp_vars.csv,$(G_CRC_MATCH_T_FULL))
 G_CRC_FULL_UNMATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_UNMATCH_T_FULL))
 G_CRC_FULL_UNMATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_UNMATCH_T_FULL))
+G_CRC_FULL_UNMATCH_T_IMP=$(addsuffix _imp_vars.csv,$(G_CRC_UNMATCH_T_FULL))
 
 G_CRC_SELECT_MATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_MATCH_T_SELECT))
 G_CRC_SELECT_MATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_MATCH_T_SELECT))
@@ -326,8 +338,18 @@ G_CRC_SELECT_UNMATCH_T_ROC=$(addsuffix _raw_roc_data.csv,$(G_CRC_UNMATCH_T_SELEC
 
 G_ADN_FULL_TISSUE_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_TISSUE_FULL))
 G_ADN_FULL_TISSUE_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_TISSUE_FULL))
+G_ADN_FULL_TISSUE_IMP=$(addsuffix _imp_vars.csv,$(G_ADN_TISSUE_FULL))
 G_ADN_SELECT_TISSUE_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_ADN_TISSUE_SELECT))
 G_ADN_SELECT_TISSUE_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_TISSUE_SELECT))
+
+# Set up files to be created for OTU RF
+O_CRC_MATCH_T_FULL = $(foreach S, $(CRC_MATCH_TISSUE_STUDY), $(TABLES)/$(S))
+O_CRC_UNMATCH_T_FULL = $(foreach S, $(CRC_UNMATCH_TISSUE_STUDY), $(TABLES)/$(S))
+O_ADN_TISSUE_FULL = $(foreach S, $(ADN_TISSUE_STUDY), $(TABLES)/adn_$(S))
+
+O_CRC_FULL_MATCH_T_IMP=$(addsuffix _matched_tissue_imp_otu_table.csv,$(O_CRC_MATCH_T_FULL))
+O_CRC_FULL_UNMATCH_T_IMP=$(addsuffix _unmatched_tissue_imp_otu_table.csv,$(O_CRC_UNMATCH_T_FULL))
+O_ADN_FULL_STOOL_IMP=$(addsuffix _tissue_imp_otu_table.csv,$(G_ADN_STOOL_FULL))
 
 # Run the Tissue Genera Random Forest Models
 $(G_CRC_FULL_MATCH_T_PVALUE) $(G_CRC_FULL_MATCH_T_ROC)\
@@ -336,6 +358,8 @@ $(G_CRC_SELECT_MATCH_T_PVALUE) $(G_CRC_SELECT_MATCH_T_ROC)\
 $(G_CRC_SELECT_UNMATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_ROC)\
 $(G_ADN_FULL_TISSUE_PVALUE) $(G_ADN_FULL_TISSUE_ROC)\
 $(G_ADN_SELECT_TISSUE_PVALUE) $(G_ADN_SELECT_TISSUE_ROC)\
+$(G_CRC_FULL_MATCH_T_IMP) $(G_CRC_FULL_UNMATCH_T_IMP)\
+$(G_ADN_FULL_TISSUE_IMP)\
 $(TABLES)/genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
@@ -349,14 +373,21 @@ code/run_random_forest_genus_tissue.R code/run_adn_random_forest_genus_tissue.R
 
 
 # Run the Stool OTU Random Forest Models
-$(TABLES)/stool_rf_select_tu_roc.csv\
+$(TABLES)/stool_rf_otu_roc.csv\
+$(TABLES)/stool_rf_otu_random_comparison_summary.csv\
+$(TABLES)/stool_rf_select_otu_roc.csv\
 $(TABLES)/stool_rf_select_otu_random_comparison_summary.csv\
 $(TABLES)/adn_stool_rf_otu_roc.csv\
+$(O_CRC_FULL_STOOL_IMP) $(O_ADN_FULL_STOOL_IMP)\
 $(TABLES)/adn_stool_rf_otu_random_comparison_summary.csv : $(SUBSHARED) $(METADATA)\
 code/run_random_forest_otu_stool.R\
 code/run_adn_random_forest_otu_stool.R\
+code/run_random_forest_select_otu_stool.R\
+code/run_adn_random_forest_select_otu_stool.R
 	R -e "source('code/run_random_forest_otu_stool.R')"
+	R -e "source('code/run_random_forest_select_otu_stool.R')"
 	R -e "source('code/run_adn_random_forest_otu_stool.R')"
+	R -e "source('code/run_adn_random_forest_select_otu_stool.R')"
 
 
 
@@ -365,12 +396,17 @@ $(TABLES)/unmatched_tissue_rf_otu_roc.csv\
 $(TABLES)/unmatched_tissue_rf_otu_random_comparison_summary.csv\
 $(TABLES)/matched_tissue_rf_otu_roc.csv\
 $(TABLES)/matched_tissue_rf_otu_random_comparison_summary.csv\
-$(TABLES)/adn_tissue_rf_otu_roc.csv
+$(TABLES)/adn_tissue_rf_otu_roc.csv\
+$(O_CRC_FULL_MATCH_T_IMP) $(O_CRC_FULL_UNMATCH_T_IMP)\
+$(O_ADN_FULL_STOOL_IMP)\
 $(TABLES)/adn_tissue_rf_otu_random_comparison_summary.csv : $(SUBSHARED) S(METADATA)\
 $(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
-code/run_random_forest_otu_tissue.R code/run_adn_random_forest_otu_tissue.R
+code/run_random_forest_otu_tissue.R code/run_adn_random_forest_otu_tissue.R\
+code/run_random_forest_select_otus_tissue.R code/run_adn_random_forest_select_otu_tissue 
 	R -e "source('code/run_random_forest_otu_tissue.R')"
+	R -e "source('code/run_random_forest_select_otus_tissue.R')"
 	R -e "source('code/run_adn_random_forest_otu_tissue.R')"
+	R -e "source('code/run_adn_random_forest_select_otu_tissue.R')"
 
 
 
@@ -450,7 +486,15 @@ code/make_rf_auc_full_versus_specific_OTU_graph.R
 
 
 # Run code to create Figure 6
-$(FIGS)/Figure6.pdf : $(TABLES)/adn_predicted_pwr_and_n.csv\
+$(FIGS)/Figure6.pdf : $(TABLES)/crc_RF_genera_stool_top10.csv\
+$(TABLES)/adn_RF_genera_stool_top10.csv\
+$(TABLES)/crc_RF_otu_stool_top10.csv\
+$(TABLES)/adn_RF_otu_stool_top10.csv code/make_stool_imp_otu_graph.R
+	R -e "source('code/make_stool_imp_otu_graph.R')"
+
+
+# Run code to create Figure 7
+$(FIGS)/Figure7.pdf : $(TABLES)/adn_predicted_pwr_and_n.csv\
 $(TABLES)/cancer_predicted_pwr_and_n.csv code/make_est_power_graph.R
 	R -e "source('code/make_est_power_graph.R')"
 
@@ -485,6 +529,15 @@ $(G_CRC_SELECT_MATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_PVALUE)\
 code/make_genus_rf_auc_against_study_graph.R
 	R -e "source('code/make_genus_rf_auc_against_study_graph.R')"
 
+
+# Run code to make supplemental Figure 7
+$(FIGS)/FigureS7.pdf : $(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
+$(TABLES)/adn_RF_genera_matched_tissue_top10.csv\
+$(TABLES)/adn_RF_genera_tissue_top10.csv\
+$(TABLES)/crc_RF_otu_unmatched_tissue_top10.csv\
+$(TABLES)/adn_RF_otu_matched_tissue_top10.csv\
+$(TABLES)/adn_RF_otu_tissue_top10.csv code/make_tissue_imp_otu_graph.R
+	R -e "source('code/make_tissue_imp_otu_graph.R')"
 
 
 ################################################################################
