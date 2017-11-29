@@ -19,9 +19,7 @@ by their presence for carcinoma (P-value < 0.05) but not adenoma (P-value > 0.05
 the exception of Porphyromonas (P-value < 0.05). Using the whole community versus
 only CRC associated genera to build a prediction model resulted in higher classification
 success based on Area Under the Curve (AUC) for both adenoma and carcinoma using
-fecal and tissue samples. For the included studies, most were adequately powered for
-large effect size differences. This may be more amenable for carcinoma than for adenoma
-microbiota research due to the smaller community level changes observed in our results.
+fecal and tissue samples. The most important OTUs for these models consistently belonged to genera such as *Ruminococcus*, *Bacteroides*, and *Roseburia* across studies. For the included studies, most were adequately powered for large effect size differences. This may be more amenable for carcinoma than for adenoma microbiota research due to the smaller community level changes observed in our results.
 
 **Conclusions.** This data provides support for the importance of the bacteral community to
 both adenoma and carcinoma genesis. The evidence collected within this study on the
