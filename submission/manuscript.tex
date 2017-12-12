@@ -532,24 +532,23 @@ were identified through the review articles written by Keku, \emph{et
 al.} and Vogtmann, \emph{et al.} {[}29,30{]}. Additional studies not
 mentioned in the reviews were obtained based on the authors' knowledge
 of the literature. Studies that used tissue or feces as their sample
-source for 16S rRNA gene sequencing analysis were included. Studies
-using either 454 or Illumina sequencing technology were included. Only
-data sets that had sequences available for analysis were included. Some
-studies did not have publically available sequences or did not have
-metadata in which the authors were able to share. After these filtering
-steps, the following studies remained: Ahn, \emph{et al.} {[}26{]},
-Baxter, \emph{et al.} {[}16{]}, Brim, \emph{et al.} {[}22{]}, Burns,
-\emph{et al.} {[}27{]}, Chen, \emph{et al.} {[}19{]}, Dejea, \emph{et
-al.} {[}24{]}, Flemer, \emph{et al.} {[}12{]}, Geng, \emph{et al.}
-{[}28{]}, Hale, \emph{et al.} {[}18{]}, Kostic, \emph{et al.} {[}15{]},
-Lu, \emph{et al.} {[}21{]}, Sanapareddy, \emph{et al.} {[}25{]}, Wang,
-\emph{et al.} {[}20{]}, Weir, \emph{et al.} {[}23{]}, and Zeller,
-\emph{et al.} {[}17{]}. The Zackular {[}31{]} study was not included
-becasue the 90 individuals analyzed within the study are contained
-within the larger Baxter study {[}16{]}. Additionally, after sequence
-processing all the case samples for the Kostic study only had 100
-sequences remaining and was not used. This left a total of 14 studies
-for which analysis could be completed.
+source for 454 or Illumina 16S rRNA gene sequencing analysis were
+included. Only data sets that had sequences available for analysis were
+included. Some studies did not have publically available sequences or
+did not have metadata in which the authors were able to share and were
+excluded. After these filtering steps, the following studies remained:
+Ahn, \emph{et al.} {[}26{]}, Baxter, \emph{et al.} {[}16{]}, Brim,
+\emph{et al.} {[}22{]}, Burns, \emph{et al.} {[}27{]}, Chen, \emph{et
+al.} {[}19{]}, Dejea, \emph{et al.} {[}24{]}, Flemer, \emph{et al.}
+{[}12{]}, Geng, \emph{et al.} {[}28{]}, Hale, \emph{et al.} {[}18{]},
+Kostic, \emph{et al.} {[}15{]}, Lu, \emph{et al.} {[}21{]}, Sanapareddy,
+\emph{et al.} {[}25{]}, Wang, \emph{et al.} {[}20{]}, Weir, \emph{et
+al.} {[}23{]}, and Zeller, \emph{et al.} {[}17{]}. The Zackular {[}31{]}
+study was not included becasue the 90 individuals analyzed within the
+study are contained within the larger Baxter study {[}16{]}.
+Additionally, after sequence processing all the case samples for the
+Kostic study only had 100 or less sequences remaining and was not used.
+This left a total of 14 studies for which analysis could be completed.
 
 \textbf{\emph{Data Set Breakdown:}} In total, there were seven studies
 with only fecal samples (Ahn, Baxter, Brim, Hale, Wang, Weir, and
@@ -563,8 +562,8 @@ sequence processing was 492 {[}Table 2{]}.
 \textbf{\emph{Sequence Processing:}} For the majority of studies, raw
 sequences were downloaded from the Sequence Read Archive (SRA)
 (\url{ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/})
-and metadata was obtained from the by searching the respective accession
-number of the study following website:
+and metadata was obtained by searching the respective accession number
+of the study at the following website:
 \url{http://www.ncbi.nlm.nih.gov/Traces/study/}. Of the studies that did
 not have sequences and metadata on the SRA, data was obtained from DBGap
 for one study {[}26{]} and for four studies was obtained directly from
@@ -574,7 +573,7 @@ utilized the default methods used in mothur for either 454 or Illumina
 based sequencing. If it was not possible to use these defaults, the
 stated quality cut-offs were used instead. Chimeras were identifed and
 removed using VSEARCH {[}33{]} before \emph{de novo} OTU clustering at
-97\% similarity using the OptiClust algorithm {[}34{]} was utilized.
+97\% similarity was completed using the OptiClust algorithm {[}34{]}.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
 sequence processing utilized the R (v3.4.2) software package {[}35{]}.
@@ -582,26 +581,24 @@ For the \(\alpha\)-diversity analysis, values were power transformed
 using the rcompanion (v1.10.1) package {[}36{]} and then Z-score
 normalized using the car (v2.1.5) package {[}37{]}. Testing for
 \(\alpha\)-diversity differences utilized linear mixed-effect models
-created using the lme4 (v1.1.14) package {[}38{]} to correct for study
-and variable region effects in feces and study, variable region, and
-individual effects in tissue. Relative risk was analyzed using both the
-epiR (v0.9.87) and metafor (v2.0.0) packages {[}39,40{]} by assessing
-how many with and without disease were above and below the overall
-median value within the specific study. Relative risk significance
-testing utilized the chi-squred test. \(\beta\)-diversity differences
-utilized a Bray-Curtis distance matrix and PERMANOVA executed with the
-vegan (v2.4.4) package {[}41{]}. Random Forest models were built using
-both the caret (v6.0.77) and randomForest (v4.6.12) packages
-{[}42,43{]}. Differences between the obtained AUC versus a random model
-AUC was assessed using T-tests. Power analysis and estimations were made
-using the pwr (v1.2.1) and statmod (v1.4.30) packages {[}44,45{]}. All
-figures were created using both ggplot2 (v2.2.1) and gridExtra (v2.3)
-packages {[}46,47{]}.
+created using the lme4 (v1.1.14) package {[}38{]} to correct for study,
+repeat sampling of individuals (tissue only), and variable region
+effects. Relative risk was analyzed using both the epiR (v0.9.87) and
+metafor (v2.0.0) packages {[}39,40{]} by assessing how many with and
+without disease were above and below the overall median value within the
+specific study. Relative risk significance testing utilized the
+chi-squred test. \(\beta\)-diversity differences utilized a Bray-Curtis
+distance matrix and PERMANOVA executed with the vegan (v2.4.4) package
+{[}41{]}. Random Forest models were built using both the caret (v6.0.77)
+and randomForest (v4.6.12) packages {[}42,43{]}. Power analysis and
+estimations were made using the pwr (v1.2.1) and statmod (v1.4.30)
+packages {[}44,45{]}. All figures were created using both ggplot2
+(v2.2.1) and gridExtra (v2.3) packages {[}46,47{]}.
 
 \textbf{\emph{Study Analysis Overview:}} \(\alpha\)-diversity was first
 assessed for differences between controls, adenoma, and carcinoma. We
 analyzed the data using linear mixed-effect models and relative risk.
-\(\beta\)-diversity was then assessed for each inidividual study. Next,
+\(\beta\)-diversity was then assessed for each individual study. Next,
 four specific CRC-associated genera (\emph{Fusobacterium},
 \emph{Parvimonas}, \emph{Peptostreptococcus}, and \emph{Porphyromonas})
 were assessed for differences in relative risk. We then built Random
@@ -610,21 +607,22 @@ The models were trained on one study then tested on the remaining
 studies for every study. The data was split between feces and tissue
 samples. Within the tissue groups the data was further divided between
 samples from the same individual (matched) and those from different
-individuals (unmatched) tissue samples. Where applicable for each study,
-predictions for adenoma and carcinoma were tested. This same approach
-was then applied at the OTU level with the exception that instead of
-testing on the other studies, a 10-fold cross validation was utilized
-and 100 different models were created based on random 80/20 splitting of
-the data to generate a range of expected AUCs. For OTU based models, the
-CRC associated genera included all OTUs that had a taxonomic
-classification to \emph{Fusobacterium}, \emph{Parvimonas},
-\emph{Peptostreptococcus}, or \emph{Porphyromonas}. The power of each
-study was assessed for an effect size ranging from 1\% to 30\%. An
-estimated sample n for these effect sizes was also generated based on
-80\% power. For comparisons in which normal versus adenoma were made the
-carcinoma samples were excluded from each respective study. Similarily,
-for comparisons in which normal versus carcinoma were made the adenoma
-samples were excluded from each respective study.
+individuals (unmatched). Where applicable for each study, predictions
+for adenoma and carcinoma were then tested for feces, matched tissue,
+and unmatched tissue. This same approach was then applied at the OTU
+level with the exception that instead of testing on the other studies, a
+10-fold cross validation was utilized and 100 different models were
+created based on random 80/20 splitting of the data to generate a range
+of expected AUCs. For OTU based models, the CRC associated genera
+included all OTUs that had a taxonomic classification to
+\emph{Fusobacterium}, \emph{Parvimonas}, \emph{Peptostreptococcus}, or
+\emph{Porphyromonas}. Finally, the power of each study was assessed for
+an effect size ranging from 1\% to 30\%. An estimated sample n for these
+effect sizes was also generated based on 80\% power. For comparisons in
+which normal versus adenoma were made the carcinoma samples were
+excluded from each respective study. Similarily, for comparisons in
+which normal versus carcinoma were made the adenoma samples were
+excluded from each respective study.
 
 \textbf{\emph{Obtaining CRC-Associated Genera:}} For the CRC-associated
 genera analysis of the RR, the total average counts were collected for
@@ -653,20 +651,21 @@ analyzed separately using the statistical approaches mentioned in the
 Statistical Analysis section.
 
 \textbf{\emph{Assessing Important Random Forest Model Variables:}} The
-genus based models collected the top 10 most important variables from
-each training set and assessed how many times that genera showed up in
-the top 10 across each study. The OTU based models recorded the medians
-for each OTU across 100 different 80/20 splits of the data for each
-study. The lowest classification for each OTU was obtained using the RDP
-database and the number of times the specific classification occured in
-the top 10 across studies was recorded. For the adenoma tissue genus and
-OTU models there was only one matched and unmatched study and these
-results were grouped together for the counting of the top 10.
+genus based models collected the top 10 most important variables,
+measured by Mean Decrease in Accuracy (MDA), from each training set and
+assessed how many times that genera showed up in the top 10 across each
+study. The OTU based models recorded the medians for each OTU across 100
+different 80/20 splits of the data for each study. The lowest
+classification for each OTU was obtained using the RDP database and the
+number of times the specific classification occured in the top 10 across
+studies was recorded. For the adenoma tissue genus and OTU models there
+was only one matched and unmatched study and these results were grouped
+together for the counting of the top 10.
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 here
 \url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017}.
-Unless mentioned otherwise, the accession number for the raw sequences
+Unless otherwise mentioned, the accession number for the raw sequences
 for the studies used in this analysis can be found directly in the
 respective batch file in the GitHub repository or in the original
 manuscript.
@@ -720,7 +719,7 @@ updated versions. All authors approved the final manuscript.
 The authors would like to thank all the study participants who were a
 part of each of the individual studies utilized. We would also like to
 thank each of the study authors for making their data available for use.
-Finally we would like to thank the members of the Schloss lab for
+Finally, we would like to thank the members of the Schloss lab for
 valuable feed back and proof reading during the formulation of this
 manuscript.
 
