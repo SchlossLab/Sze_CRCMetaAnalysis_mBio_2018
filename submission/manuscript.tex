@@ -305,76 +305,66 @@ same individual (matched) had no differences {[}Table S6 \& S7{]}.
 Adenoma:}} Based on the small increase in RR using \(\alpha\)-diversity
 metrics, we assessed if the presence of specific genera resulted in a
 higher RR for both stool and tissue. To investigate this we analyzed the
-classically associated CRC genera, \emph{Fusobacterium},
-\emph{Parvimonas}, \emph{Peptostreptococcus}, and \emph{Porphyromonas}
-for an increase in RR. The majority of CRC-associated genera for both
-feces and tissue had a significantly increased RR for carcinoma but not
-for adenoma {[}Figure 3{]}. The RR effect size was greater for stool (RR
-range = 1.62 - 2.37) than for tissue (RR range = 1.21 - 1.81). This
-decrease may be explained by the fact that the tissue analysis included
-matched samples from the same individual. In fecal samples, the RR for
-carcinoma due to the presence of CRC-associated genera was greater than
-either the RR associated with evenness or Shannon diversity {[}Figure 2
-\& 3{]}. Additionally, the RR of carcinoma continuously increased as
-individuals tested positive for more CRC-associated genera {[}Figure 3B
-\& 3D{]}.
+classically associated CRC genera, \emph{Bacteroides},
+\emph{Escherichia}, \emph{Fusobacterium}, \emph{Parvimonas},
+\emph{Peptostreptococcus}, \emph{Porphyromonas}, and
+\emph{Streptococcus} for an increase in RR. The majority of
+CRC-associated genera for both feces and tissue had a significantly
+increased RR for carcinoma but not for adenoma {[}Figure 3{]}. The RR
+effect size was greater for stool (RR range = 1.62 - 2.37) than for
+tissue (RR range = 1.21 - 1.81). This decrease may be explained by the
+fact that the tissue analysis included matched samples from the same
+individual. In fecal samples, the RR for carcinoma when having
+CRC-associated genera at a higher than overal study median relative
+abundance was greater than the RR associated with evenness or Shannon
+diversity {[}Figure 2 \& 3{]}. Additionally, the RR of carcinoma
+continuously increased as individuals tested positive for more
+CRC-associated genera {[}Figure 3B \& 3D{]}.
 
-There were two significant measures for increased RR of adenoma when
-investigating CRC-associated genera in stool: 1) Having a higher then
-median value of \emph{Porphyromonas} (P-value = 0.023) and 2) whether
-samples were positive for three CRC-associated genera (P-value = 0.022)
-{[}Figure 3A{]}. With tissue, there were three significant measures for
-an increased RR of adenoma: 1) being positive for one CRC-associated
-genera (P-value = 0.032), 2) being positive for two CRC-associated
-genera (P-value = 0.008), and 3) being positive for four CRC associated
-genera (P-value = 0.039) {[}Figure 3C{]}.
+In stool the significant measures that increased RR of adenoma for
+CRC-associated genera were having a higher than overall study median
+relative abundance of \emph{Porphyromonas} (P-value = 0.023) and being
+positive for three CRC-associated genera (P-value = 0.022) {[}Figure
+3A{]}. Within tissue the significant measures for an increased RR of
+adenoma were being positive for one CRC-associated genera (P-value =
+0.032), being positive for two CRC-associated genera (P-value = 0.008),
+and being positive for four CRC associated genera (P-value = 0.039)
+{[}Figure 3C{]}.
 
-\textbf{\emph{Whole Community Models Add Important Community Context:}}
-Since CRC-associated genera had increased RR for carcinoma over
-diversity metrics we wondered whether the overall bacterial community
-was at all important to classifying disease or if the CRC-associated
-genera were sufficient alone. To test this we used two approaches. The
-first approach used genus level data and tested whether there were any
-differences in AUC when training on one study and testing on all the
-others when using either all genera present or only the CRC-associated
-genera. The second approach used OTU level data and tested whether there
-was a generalized decrease in the 10-fold cross validation (CV) model
-across studies using either all OTUs or only OTUs that taxonomically
-classified to CRC-associated genera.
+\textbf{\emph{Whole Community Models Add Important Context:}} Since
+CRC-associated genera increased RR for carcinoma over diversity metrics
+we assessed whether the bacterial community was better at classifying
+disease versus only CRC-associated genera and tested this using two
+approaches. The first approach used genus level data and tested whether
+there were any differences in AUC between all genera and CRC-associated
+genera only during training on one study or testing on all other
+studies. The second approach used OTU level data and tested whether
+there was a generalized decrease in the 10-fold cross validation (CV)
+model AUC across studies when comparing all OTUs versus only OTUs that
+taxonomically classified to CRC-associated genera.
 
-Our first approach using genus based models showed an AUC decrease in
-model classification on the training set for both stool and tissue
-studies {[}Figure S2-S3{]}. With respect to the test sets, comprised of
-genera data from other studies, both the all genera model and
-CRC-associated models had a similar ability to detect adenomas or
-carcinomas {[}Figure S4-S6{]}. Two interesting but separate general
-observations from these models were that: 1) classification of adenomas
-was lower than carcinomas for both tissue and stool and 2) AUC for the
-classification of carcinoma was consistently lower for the tissue models
-than the stool models {[}Figure S4-S6{]}.
+For the genera-based models both tissue and stool studies had a median
+AUC decrease in model classification when only CRC-associated genera
+versus all genera were included {[}Figure S2-S3{]}. With respect to the
+test sets, comprised of genera data from other studies, both all and
+CRC-associated genera models had a similar ability to detect adenomas or
+carcinomas {[}Figure S4-S6{]}. The OTU-based models showed a similar
+trend to the genera models where a generalized decrease in median AUC
+was observed when only OTUs from the CRC-associated genera were used
+versus the full community of OTUs for both adenoma and carcinoma, with
+the largest median change for stool in carcinoma models and for tissue
+in adenoma models {[}Figure 4 \& 5{]}.
 
-A similar trend was observed for the OTU based models for both fecal and
-tissue (matched and unmatched) samples. There was a generalized decrease
-in AUC when only OTUs from the CRC-associated genera were used versus
-the full community of OTUs for both adenoma and carcinoma {[}Figure 4 \&
-5{]}. The largest difference in median AUC for stool, between the full
-community of OTUs and only CRC-associated OTUs, was in carcinoma
-classification {[}Figure 4B{]} and for tissue it was in adenoma
-classification {[}Figure 5A{]}.
-
-In stool the most common genera in the genus based models belonged
-mostly to resident genera such as \emph{Ruminococcus},
-\emph{Bacteroides}, and \emph{Roseburia} {[}Figure 6A \& B{]}. With
-respect to the CRC-associated genera, \emph{Fusobacterium} was the only
-genus present in adenoma while all four were present in carcinoma
-{[}Figure 6A \& B{]}. Conversely, none of these CRC-associated genera
-were present in the majority of studies. When we move on to the OTU
-based models, the adenoma OTU models had OTUs that classified as
-\emph{Ruminococcaceae} or \emph{Roseburia} present in the top 10 OTUs
-for the vast majority of studies {[}Figure 6C{]}. \emph{Ruminococcaceae}
-was also present in the top 10 in some studies for the carcinoma OTU
-models, but it was \emph{Bacteroides} that was present in the
-overwhelming majority of the carcinoma OTU stool models {[}Figure 6D{]}.
+In stool the most common genera in the genus based models belonged to
+genera such as \emph{Ruminococcus}, \emph{Bacteroides}, and
+\emph{Roseburia} {[}Figure 6A \& B{]}. Although all four CRC-associated
+genera were present in carcinoma, none were present in the majority of
+studies and \emph{Fusobacterium} was the only genus present in adenoma
+{[}Figure 6A \& B{]}. For the OTU based models, \emph{Ruminococcaceae}
+was present in the top 10 consistently for both adenoma and carcinoma
+models while \emph{Roseburia} was only present in many adenoma models
+and \emph{Bacteroides} was present in the overwhelming majority of the
+carcinoma models {[}Figure 6C \& 6D{]}.
 
 Unlike stool, tissue based Random Forest models showed no consistent
 representation of \emph{Ruminococcaceae}, \emph{Ruminococcus},
@@ -384,11 +374,11 @@ in a study specific manner for these tissue based Random Forest models.
 For both the genera and OTU Random Forest models of adenoma and
 carcinoma, there appears to be very little overlap in the top 10 most
 important variables between stool and tissue {[}Figure 6 \& S7{]}. This
-discordance between stool and tissue also applies to the
-mouth-associated genera with one noticeable skew being that
-\emph{Fusobacterium} and \emph{Fusobacteriaceae} occur more often in the
-top 10 of Random Forest models using matched versus unmatched tissue
-samples {[}Figure S7B-C \& S7E-F{]}.
+discordance between stool and tissue also applies to the CRC-associated
+genera with one noticeable skew being that \emph{Fusobacterium} and
+\emph{Fusobacteriaceae} occur more often in the top 10 of Random Forest
+models using matched versus unmatched tissue samples {[}Figure S7B-C \&
+S7E-F{]}.
 
 \textbf{\emph{CRC Studies are Underpowered for Detecting Small Effect
 Sizes:}} Based on our reported results we assessed whether the studies
@@ -412,28 +402,28 @@ community level and for individual genera, that are present in patients
 with and without CRC {[}Figure 1-3{]}. Although there was a step-wise
 decrease in diversity from control to adenoma to carcinoma, this did not
 translate into large effect sizes for the RR of lesion. Even though
-mouth-associated genera increased the RR of carcinoma, they did not
-consistently increase the RR of adenoma. These mouth-associated genera
-are clearly important to carcinoma classification but ourobservations
+CRC-associated genera increased the RR of carcinoma, they did not
+consistently increase the RR of adenoma. These CRC-associated genera are
+clearly important to carcinoma classification but ourobservations
 suggest that accounting for the community in which these microbes exist
 can increase the ability of models to make predictions.
 
-The data presented herein supports the importance of mouth-associated
+The data presented herein supports the importance of CRC-associated
 genera for carcinoma but not necessarily adenoma formation. A proposed
-mechanism by which these mouth-associated microbes cause CRC stems from
+mechanism by which these CRC-associated microbes cause CRC stems from
 the creation of a vicious cycle involving host inflammation and repair.
-Both the drastically increased carcinoma RR of mouth-associated genera
+Both the drastically increased carcinoma RR of CRC-associated genera
 versus \(\alpha\)-diversity metrics and increasing RR with more
-mouth-associated genera positivity {[}Figure 3C{]}, are highly
-supportive of their importance. However, our observations show that when
-adding the community context to our Random Forest models along with the
-mouth-associated genera, the model AUC increases {[}Figure 4 \& 5{]}.
-This suggests the resident community cannot be ignored completely and
-needs to be accounted for when investigating mouth-associated microbes
-and carcinoma. Conversely, using the present data, it is less likely
-that mouth-associated microbes are correlated with adenoma development.
-The step-wise decrease in diversity suggests that the adenoma community
-is not normal but has changed subtly {[}Figure 1{]}. Yet, this change in
+CRC-associated genera positivity {[}Figure 3C{]}, are highly supportive
+of their importance. However, our observations show that when adding the
+community context to our Random Forest models along with the
+CRC-associated genera, the model AUC increases {[}Figure 4 \& 5{]}. This
+suggests the resident community cannot be ignored completely and needs
+to be accounted for when investigating CRC-associated microbes and
+carcinoma. Conversely, using the present data, it is less likely that
+CRC-associated microbes are correlated with adenoma development. The
+step-wise decrease in diversity suggests that the adenoma community is
+not normal but has changed subtly {[}Figure 1{]}. Yet, this change in
 diversity, at this early stage of disease, could be focal to the adenoma
 itself. The poor performance of the Random Forest models for classifying
 adenoma, based only on the stool microbiota, would suggest that this is
@@ -452,7 +442,7 @@ data would suggest that whether the non-resident bacterium is
 how these bacteria interact with the changing resident community. Based
 on these observations, it is possible to hypothesize that tsmall changes
 in community structure lead to new niches in which any one of the
-mouth-associated genera can gain a foothold, exacerbating the initial
+CRC-associated genera can gain a foothold, exacerbating the initial
 changes in community and facilitating the transition from adenoma to
 carcinoma.
 
@@ -461,7 +451,7 @@ microbiota may be associated with lesion. Generally, the OTU models of
 unmatched and matched {[}Figure S7E \& F{]} tissue samples were
 concordant with stool showing that resident microbes were the most
 prevalent in the top 10 across study. Unlike in stool,
-\emph{Fusobacterium} was the only mouth-associated bacteria consistently
+\emph{Fusobacterium} was the only CRC-associated bacteria consistently
 present in the top 10 of the CRC models {[}Figure S7B-C \& E-F{]}. The
 majority of the tissue results seem to be study specific with many top
 10 taxa being present only in a single study. Additionally, the presence
@@ -491,10 +481,10 @@ differences between cases and controls {[}Figure 7{]}.
 By aggregating together a large collection of studies from both feces
 and tissue, we are able to provide evidence in support of the importance
 of the bacterial community in CRC. Further, the data presented here
-suggests that non-resident mouth-associated microbes can gain a foothold
+suggests that non-resident CRC-associated microbes can gain a foothold
 within the colon and the more of these microbes that are present the
 greater the RR of carcinoma. Conversely, no clear signal with these
-mouth-associated micobes could be detected for adenoma. Our observations
+CRC-associated micobes could be detected for adenoma. Our observations
 also highlight the importance of power and sample number considerations
 when undertaking investigations into the microbiota and adenoma due to
 the subtle changes in the community. Overall, the microbiota
@@ -580,16 +570,16 @@ assessed for differences between controls, adenoma, and carcinoma using
 both linear mixed-effect models and RR. \(\beta\)-diversity was then
 assessed for each individual study for differences between
 control-adenoma and control-carcinoma. Next, four specific
-mouth-associated genera (\emph{Fusobacterium}, \emph{Parvimonas},
+CRC-associated genera (\emph{Fusobacterium}, \emph{Parvimonas},
 \emph{Peptostreptococcus}, and \emph{Porphyromonas}) were assessed for
 differences in RR for adenoma and carcinoma. We then built Random Forest
-models based on all or mouth-associated genera and these models were
+models based on all or CRC-associated genera and these models were
 trained on one study then tested on the remaining studies, for every
 study. A similar approach was then applied at the OTU level with the
 exception that a 10-fold CV over 100 different models, based on random
 80/20 splitting of the data, was used to generate a range of expected
-AUCs. For these OTU based models, the mouth-associated genera included
-all OTUs that had a taxonomic classification to \emph{Fusobacterium},
+AUCs. For these OTU based models, the CRC-associated genera included all
+OTUs that had a taxonomic classification to \emph{Fusobacterium},
 \emph{Parvimonas}, \emph{Peptostreptococcus}, or \emph{Porphyromonas}.
 Finally, the power of each study was assessed for an effect size ranging
 from 1\% to 30\% and an estimated sample size, for these effect sizes,
@@ -604,18 +594,18 @@ from the same individual (matched) and those from different individuals
 and carcinoma were then tested for feces, matched tissue, and unmatched
 tissue.
 
-\textbf{\emph{Obtaining Mouth-Associated Genera:}} For the
-mouth-associated genera analysis of the RR, the total average counts,
-for 100 different subsamplings, were collected for each respective OTU
-that had a genus level taxonomic classification to \emph{Fusobacterium},
+\textbf{\emph{Obtaining CRC-associated Genera:}} For the CRC-associated
+genera analysis of the RR, the total average counts, for 100 different
+subsamplings, were collected for each respective OTU that had a genus
+level taxonomic classification to \emph{Fusobacterium},
 \emph{Parvimonas}, \emph{Peptostreptococcus}, and \emph{Porphyromonas}.
-The OTU based Random Forest Models using mouth-associated genera
-utilized a similar approach except that the OTUs were not aggregated
-together by genus but kept as separate OTUs. OTU Random Forest models
-using the full community included all OTUs while those using
-mouth-associated genera included only those OTUs that had a genus level
-taxonomic classification to \emph{Fusobacterium}, \emph{Parvimonas},
-\emph{Peptostreptococcus}, and \emph{Porphyromonas}.
+The OTU based Random Forest Models using CRC-associated genera utilized
+a similar approach except that the OTUs were not aggregated together by
+genus but kept as separate OTUs. OTU Random Forest models using the full
+community included all OTUs while those using CRC-associated genera
+included only those OTUs that had a genus level taxonomic classification
+to \emph{Fusobacterium}, \emph{Parvimonas}, \emph{Peptostreptococcus},
+and \emph{Porphyromonas}.
 
 \textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
 tissue samples that had control and lesion samples, that did not belong
