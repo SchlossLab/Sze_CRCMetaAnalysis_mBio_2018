@@ -397,12 +397,18 @@ all_roc_values <- sapply(names(stool_final_data),
 ############### Run the actual programs to get the data (CRC Specific Genera) ################
 ##############################################################################################
 
+rr_data <- read_csv("data/process/tables/adn_select_genus_RR_stool_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+combined_genera <- c(top5_pos_RR, top5_neg_RR)
+
 # reduce the data sets down to only the CRC associated genera
-select_matched_genera_list <- lapply(matched_genera_list, 
+select_matched_genera_list <- sapply(names(stool_study_data), 
                                      function(x) 
-                                       x %>% select(c("disease", "Fusobacterium", 
-                                                      "Peptostreptococcus", 
-                                                      "Porphyromonas", "Parvimonas")))
+                                       stool_study_data[[x]]$sub_genera_data %>% 
+                                       select(c("disease", combined_genera)), simplify = F)
+
 
 # Run the models
 selected_stool_final_data <- sapply(
