@@ -508,12 +508,18 @@ matched_tissue_all_roc_values <- sapply(
 ########################## Code used to run the analysis (unmatched + select) ################
 ##############################################################################################
 
+rr_data <- read_csv("data/process/tables/select_genus_RR_unmatched_tissue_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+combined_genera <- c(top5_pos_RR, top5_neg_RR)
+
 # reduce the data sets down to only the CRC associated genera
-select_unmatched_matched_genera_list <- lapply(unmatched_matched_genera_list, 
+select_unmatched_matched_genera_list <- sapply(names(unmatched_stool_study_data), 
                                      function(x) 
-                                       x %>% select(c("sample_ID", "Fusobacterium", 
-                                                      "Peptostreptococcus", 
-                                                      "Porphyromonas", "Parvimonas")))
+                                       unmatched_stool_study_data[[x]]$sub_genera_data %>% 
+                                       select(c("sample_ID", combined_genera)), simplify = F)
+
 
 # Generate data sets to be used in random forest
 unmatched_selected_rf_datasets <- sapply(
@@ -551,12 +557,18 @@ unmatched_tissue_test_red_select_models <- t(sapply(
 ########################## Code used to run the analysis (unmatched + select) ################
 ##############################################################################################
 
+rr_data <- read_csv("data/process/tables/select_genus_RR_matched_tissue_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+combined_genera <- c(top5_pos_RR, top5_neg_RR)
+
 # reduce the data sets down to only the CRC associated genera
-select_matched_matched_genera_list <- lapply(matched_matched_genera_list, 
+select_matched_matched_genera_list <- sapply(names(matched_stool_study_data), 
                                                function(x) 
-                                                 x %>% select(c("sample_ID", "Fusobacterium", 
-                                                                "Peptostreptococcus", 
-                                                                "Porphyromonas", "Parvimonas")))
+                                                 matched_stool_study_data[[x]]$sub_genera_data %>% 
+                                                 select(c("sample_ID", combined_genera)), simplify = F)
+
 
 # Generate data sets to be used in random forest
 matched_selected_rf_datasets <- sapply(
