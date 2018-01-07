@@ -20,8 +20,6 @@ tissue_sets <- c("lu")
 # Flemer, Chen
 both_sets <- c("flemer")
 
-# Specific Genera OTUs should belong to
-crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
 
 ##############################################################################################
 ############### List of function to allow for the analysis to work ###########################
@@ -321,6 +319,11 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
 ############### Run the actual programs to get the data (ALL Data) ###########################
 ##############################################################################################
 
+rr_data <- read_csv("data/process/tables/adn_select_genus_RR_tissue_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+crc_genera <- c(top5_pos_RR, top5_neg_RR)
 
 select_OTUs <- sapply(c(tissue_sets, both_sets), function(x) generate_select_OTUS(
   x, crc_genera, "data/process/", ".taxonomy"), simplify = F)

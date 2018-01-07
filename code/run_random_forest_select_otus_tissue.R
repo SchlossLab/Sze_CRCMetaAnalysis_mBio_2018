@@ -41,9 +41,6 @@ matched_studies <- unique(
 unmatched_studies <- unique(
   tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu"))]) 
 
-# Specific Genera OTUs should belong to
-crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
-
 # Tissue Studies
 studies <- unique(c(matched_studies, unmatched_studies))
 
@@ -297,8 +294,14 @@ make_summary_data <- function(i, model_info, dataList, a_summary, r_summary,
 
 
 ##############################################################################################
-########################## Generate the OTUS to keep ############### #########################
+########################## Generate the OTUS to keep unmatched ##### #########################
 ##############################################################################################
+
+rr_data <- read_csv("data/process/tables/select_genus_RR_unmatched_tissue_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+crc_genera <- c(top5_pos_RR, top5_neg_RR)
 
 select_OTUs <- sapply(studies, function(x) generate_select_OTUS(
   x, crc_genera, "data/process/", ".taxonomy"), simplify = F)
@@ -360,6 +363,20 @@ for(i in unmatched_studies){
 write_csv(unmatched_all_roc_data, "data/process/tables/unmatched_tissue_rf_select_otu_roc.csv")
 write_csv(unmatched_all_comparisons, 
           "data/process/tables/unmatched_tissue_rf_select_otu_random_comparison_summary.csv")
+
+
+##############################################################################################
+########################## Generate the OTUS to keep matched #################################
+##############################################################################################
+
+rr_data <- read_csv("data/process/tables/select_genus_RR_matched_tissue_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+crc_genera <- c(top5_pos_RR, top5_neg_RR)
+
+select_OTUs <- sapply(studies, function(x) generate_select_OTUS(
+  x, crc_genera, "data/process/", ".taxonomy"), simplify = F)
 
 
 ##############################################################################################
