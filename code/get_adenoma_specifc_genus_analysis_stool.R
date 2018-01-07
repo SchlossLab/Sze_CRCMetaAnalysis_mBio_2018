@@ -13,8 +13,11 @@ loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
 stool_sets <- c("brim", "zeller", "baxter", "hale")
 
+
 # CRC genera of interest
-crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
+crc_genera <- c("Bacteroides", "Escherichia.Shigella", "Fusobacterium", 
+                "Peptostreptococcus", "Porphyromonas", "Parvimonas", "Streptococcus")
+
 
 
 ##############################################################################################
@@ -133,7 +136,7 @@ analyze_study <- function(i, group_column, vec_of_int, dataset){
 
 # Function that creates the needed high/low columns
 create_high_low <- function(i, threshold, var_of_interest, grouping, 
-                            dataset = mod_specific_genera_list){
+                            dataset = specific_genera_list){
   # i is the study
   # threshold is the vector of median values for alpha measures of interest
   # var_of_interest is the genera being used
@@ -163,12 +166,12 @@ run_rr <- function(high_low_vector, disease_vector){
   check_values <- as.vector(contingency)
   
   # runs the RR test based on the obtained 2x2 table
-  test <- epi.2by2(contingency, method="cohort.count")
+  test <- try(epi.2by2(contingency, method="cohort.count"))
   # Pull only specific information from the stored list in "test"
-  test_values <- cbind(test$massoc$RR.strata.score, 
-                       pvalue = test$massoc$chisq.strata$p.value)
+  test_values <- try(cbind(test$massoc$RR.strata.score, 
+                       pvalue = test$massoc$chisq.strata$p.value))
   # store both the obtained raw counts and the resulting RR with pvalue
-  combined_data <- list(data_tbl = contingency, test_values = test_values)
+  combined_data <- try(list(data_tbl = contingency, test_values = test_values))
   
   # Returns a list with all information needed for downstream analysis
   return(combined_data)
@@ -176,17 +179,34 @@ run_rr <- function(high_low_vector, disease_vector){
 
 
 # Function to seperate out the table data from the individual analysis data
-pull_data <- function(var_of_int, i, result, datalist = test_ind_RR){
+pull_data <- function(var_of_int, i, result, datalist){
   # var_of_int is the alpha measures used e.g. "sobs"
   # i is the study
   # result is the type of data we want either "test_values" or "data_tbl"
   # datalist is defaulted to test_ind_RR to make it easier to work with mapply
   
   # Pull the needed data and add identifiers
-  tempData <- datalist[[i]][[var_of_int]][[result]] %>% as.data.frame() %>% 
-    mutate(measure = var_of_int, study = i)
-  # return the pulled data
-  return(tempData)
+  if(result != "data_tbl"){
+    
+    tempData <- try(unclass(datalist[[i]][[var_of_int]][[result]]) %>% as.data.frame() %>% 
+                      mutate(measure = var_of_int, study = i))
+    
+  } else{
+    
+    tempData <- datalist[[i]][[var_of_int]][[result]] %>% as.data.frame() %>% 
+      mutate(measure = var_of_int, study = i)
+    
+  }
+  
+  if(length(tempData) == 6 | result == "data_tbl"){
+    
+    return(tempData)
+  } else{
+    
+    tempData <- data_frame(est = NA, lower = NA, upper = NA, 
+                           pvalue = NA, measure = var_of_int, study = i)
+    return(tempData)
+  }
   
 }
 
@@ -199,12 +219,17 @@ make_list <- function(i, vec_of_interest, result, datalist){
   # datalist is defaulted to ind_study_data to make it easier to work with mapply
   
   # runs the function iteratively to collect the specific data
-  pulled_data <- mapply(pull_data, vec_of_interest, 
-                        i, result, SIMPLIFY = F) %>% bind_rows()
+  pulled_data <- sapply(vec_of_interest, 
+                        function(x) pull_data(x, i = i, result = result, 
+                                              datalist = datalist), simplify = F) %>% bind_rows()
+  
+  #pulled_data <- lapply(pulled_data, function(x) 
+  #lapply(x, function(y) y[!is.na(y)]))
+  #%>% bind_rows()
+  
   # returns a nice data table
   return(pulled_data)
 }
-
 
 # Function to run test for selected alpha measure
 run_pooled <- function(alpha_d, dataset = ind_counts_data){
@@ -228,6 +253,57 @@ run_pooled <- function(alpha_d, dataset = ind_counts_data){
 }
 
 
+
+# Function to get the exact same genera for each study
+get_same_genera <- function(study, dataList){
+  # study is a vector of all the studies to be analyzed
+  # dataList is the read in list that has both genera and metadata
+  
+  # Gather only the column names of the genera
+  temp_genera_all <- lapply(dataList, function(x) colnames(x$sub_genera_data))
+  # get the total number of genera for each study
+  total_lengths <- sapply(study, function(x) length(temp_genera_all[[x]]))
+  # ID the study with the lowest total genera
+  study_w_lowest_genera <- names(total_lengths[total_lengths == min(total_lengths)])
+  # ID the study with the highest total genera
+  study_w_highest_genera <- names(total_lengths[total_lengths == max(total_lengths)])
+  # place holder count 
+  x = 1
+  # Continue looping until the lowest study genera total equals the highest
+  while(total_lengths[[study_w_lowest_genera]] != total_lengths[[study_w_highest_genera]]){
+    # First pass
+    if(x == 1){
+      # match the genera across study
+      match_list <- lapply(temp_genera_all, 
+                           function(x) 
+                             x[!is.na(x[match(x, temp_genera_all[[study_w_lowest_genera]])])])
+      # increase the place holder
+      x = x + 1
+      # Subsequent passes through the data
+    } else{
+      # match the genera across study
+      match_list <- lapply(match_list, 
+                           function(x) 
+                             x[!is.na(x[match(x, match_list[[study_w_lowest_genera]])])])
+    }
+    # get the new total number of genera for each study
+    total_lengths <- sapply(study, function(x) length(match_list[[x]]))
+    # ID the study with the lowest genera
+    study_w_lowest_genera <- names(total_lengths[total_lengths == min(total_lengths)])[1]
+    # ID the study witht the highest genera
+    study_w_highest_genera <- names(total_lengths[total_lengths == max(total_lengths)])[1]
+    #Print progress to std output
+    print(paste("lowest total genera =", total_lengths[[study_w_lowest_genera]], 
+                "highest total genera =", total_lengths[[study_w_highest_genera]]))
+  }
+  # Create final matched data tables
+  matchedData <- sapply(study, 
+                        function(x) dataList[[x]]$sub_genera_data %>% 
+                          select(one_of(match_list[[x]])), simplify = F)
+  # return the finalized data
+  return(matchedData)
+}
+
 ##############################################################################################
 ############### Run the actual programs to get the data ######################################
 ##############################################################################################
@@ -235,37 +311,42 @@ run_pooled <- function(alpha_d, dataset = ind_counts_data){
 # reads in all the stool data into one list
 stool_study_data <- mapply(get_data, stool_sets, SIMPLIFY = F)
 
+same_genera_stool_data <- get_same_genera(stool_sets, stool_study_data)
+
 # pull the specific genera of interest and merge with the meta data
 specific_genera_list <- sapply(stool_sets, 
-                               function(x) get_specific_genera(x, crc_genera, 
+                               function(x) get_specific_genera(x, colnames(same_genera_stool_data$brim), 
                                                                "sub_genera_data", "study_meta"))
 
 # Get specific grouping with all the big 4 considered
-mod_specific_genera_list <- sapply(stool_sets, 
-                function(x) get_select_group_totals(x, crc_genera, specific_genera_list), simplify = F)
+#mod_specific_genera_list <- sapply(stool_sets, 
+#                function(x) get_select_group_totals(x, crc_genera, specific_genera_list), simplify = F)
+
+all_genera <- colnames(same_genera_stool_data$brim)[
+  colnames(same_genera_stool_data$brim) != "sample_ID"]
 
 # Generate the RR for each respective study for each genus of interest
 # Return both counts and results
 test_ind_RR <- sapply(stool_sets, 
                       function(x) 
-                        analyze_study(x, "disease", c(crc_genera, "all_four", "total_four"), 
-                                      mod_specific_genera_list), simplify = F)
+                        analyze_study(x, "disease", all_genera, 
+                                      specific_genera_list), simplify = F)
 
 # Store the results from the individual testing here
 ind_RR_data <- sapply(stool_sets, 
-                      function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                      function(x) make_list(x, all_genera, 
                                             "test_values", test_ind_RR), 
                       simplify = F) %>% bind_rows()
 
 # Store the counts and rearrange the table to be used in the pooled analysis
 ind_counts_data <- sapply(stool_sets, 
-                          function(x) make_list(x, c(crc_genera, "all_four", "total_four"), 
+                          function(x) make_list(x, all_genera, 
                                                 "data_tbl", test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
   spread(group, Freq)
 
 # Run the pooled analysis for each respective genera of interest
-pooled_results <- t(mapply(run_pooled, c(crc_genera, "all_four", "total_four"), USE.NAMES = F)) %>% 
+pooled_results <- t(mapply(run_pooled, all_genera, USE.NAMES = F)) %>% 
   as.data.frame(stringsAsFactors = FALSE) %>% 
   mutate_at(c("rr", "ci_lb", "ci_ub", "pvalue"), as.numeric)
 
