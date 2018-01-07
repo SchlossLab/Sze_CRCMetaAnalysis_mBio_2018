@@ -462,12 +462,17 @@ matched_model_importance_table <- matched_stool_model$importance %>% as.data.fra
 ############### Run the actual programs to get the data (CRC Specific Genera - unmatched) ####
 ##############################################################################################
 
+rr_data <- read_csv("data/process/tables/adn_select_genus_RR_tissue_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+combined_genera <- c(top5_pos_RR, top5_neg_RR)
+
 # reduce the data sets down to only the CRC associated genera
-select_unmatched_matched_genera_list <- lapply(unmatched_matched_genera_list, 
-                                     function(x) 
-                                       x %>% select(c("disease", "Fusobacterium", 
-                                                      "Peptostreptococcus", 
-                                                      "Porphyromonas", "Parvimonas")))
+select_unmatched_matched_genera_list <- sapply(names(unmatched_stool_study_data), 
+                                             function(x) 
+                                               unmatched_stool_study_data[[x]]$sub_genera_data %>% 
+                                               select(c("disease", combined_genera)), simplify = F)
 
 # Run the models
 selected_unmatched_stool_final_data <- 
@@ -498,33 +503,24 @@ unmatched_test_red_select_models <- t(
 ############### Run the actual programs to get the data (CRC Specific Genera - matched) ####
 ##############################################################################################
 
-# reduce the data sets down to only the CRC associated genera
-select_matched_matched_genera_list <- lapply(
-  matched_matched_genera_list, 
-  function(x) 
-    x %>% 
-    select(c("disease", "Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")) %>% 
-    mutate(disease = as.factor(disease)))
-
-
 # Generate data for each test (study) set
 # Definitely overfit since the classification is 100%
-select_matched_stool_model <- randomForest(disease ~ ., data = select_matched_matched_genera_list[["lu"]], 
-                                    mtry = round(sqrt(ncol(select_matched_matched_genera_list[["lu"]]))), 
-                                    importance = TRUE)
+#select_matched_stool_model <- randomForest(disease ~ ., data = select_matched_matched_genera_list[["lu"]], 
+#                                    mtry = round(sqrt(ncol(select_matched_matched_genera_list[["lu"]]))), 
+#                                    importance = TRUE)
 
 
-select_matched_model_rocs <- roc(matched_matched_genera_list$lu$disease ~ 
-                                   select_matched_stool_model$votes[, "polyp"])
+#select_matched_model_rocs <- roc(matched_matched_genera_list$lu$disease ~ 
+#                                   select_matched_stool_model$votes[, "polyp"])
 
 # Compare the full data roc to the selected data roc and create a nice table
-matched_test_red_select_models <- t(
-  sapply(c(tissue_sets), 
-         function(x) 
-           select_full_comparison(matched_model_rocs, 
-                                  select_matched_model_rocs))) %>% 
-  as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
-  select(study, full_model, select_model, pvalue, BH)
+#matched_test_red_select_models <- t(
+#  sapply(c(tissue_sets), 
+#         function(x) 
+#           select_full_comparison(matched_model_rocs, 
+#                                  select_matched_model_rocs))) %>% 
+#  as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
+#  select(study, full_model, select_model, pvalue, BH)
 
 
 ##############################################################################################
@@ -564,9 +560,9 @@ write.csv(
   unmatched_test_red_select_models, 
   "data/process/tables/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
-write.csv(
-  matched_test_red_select_models, 
-  "data/process/tables/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+#write.csv(
+#  matched_test_red_select_models, 
+#  "data/process/tables/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
 
