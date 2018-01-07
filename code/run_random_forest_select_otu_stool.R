@@ -27,7 +27,11 @@ stool_sets <- c("wang", "ahn", "zeller", "baxter", "hale")
 both_sets <- c("chen", "flemer")
 
 # Specific Genera OTUs should belong to
-crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
+rr_data <- read_csv("data/process/tables/select_genus_RR_stool_composite.csv") %>% arrange(pvalue, rr)
+
+top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
+crc_genera <- c(top5_pos_RR, top5_neg_RR)
 
 # Function to read in taxonomies and pull specific OTUs within specific Taxa
 generate_select_OTUS <- function(study, specific_genera, file_path, ending){
