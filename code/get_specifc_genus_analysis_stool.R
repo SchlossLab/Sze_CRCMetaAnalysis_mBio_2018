@@ -136,11 +136,13 @@ analyze_study <- function(i, group_column, vec_of_int, dataset){
   # vec_of_int is a vector with genera of interest
   # dataset is the list of combined genera of interest and meta data
   
+  tempData <- dataset[[i]] %>% filter_(group_column != "polyp")
+  
   # Vector of whether sample was cancer or not
-  is_cancer <- factor(ifelse(dataset[[i]][, group_column] == "cancer", 
+  is_cancer <- factor(ifelse(tempData[, group_column] == "cancer", 
                              invisible("Y"), invisible("N")), levels = c("Y", "N"))
   # Vector of median values 
-  thresholds <- apply(select(dataset[[i]], one_of(vec_of_int)), 2, 
+  thresholds <- apply(select(tempData, one_of(vec_of_int)), 2, 
                       function(x) median(x))
   # Set up testing by amount of CRC associated genera
   #if("one_or_more" %in% vec_of_int){
