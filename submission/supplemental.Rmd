@@ -30,7 +30,7 @@ Supplemental
 
 source('../code/functions.R')
 
-loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown"))
+loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown", "stringr"))
 
 ```
 
@@ -190,10 +190,100 @@ kable(table_s7, format = "markdown", align = 'c', padding = 2)
 ```
 
 
+\newpage
+
+**Table S8: RR of Adenoma in Stool for each Individual Genera with Initial P-Value under 0.05**
+
+```{r supplemental_table8, echo=FALSE, message=FALSE, warning=FALSE}
+
+temp_8 <- read_csv("../data/process/tables/adn_select_genus_RR_stool_composite.csv") %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
+  arrange(bh, pvalue, rr) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 4), 
+         bh = round(bh, digits = 3), 
+         measure = str_replace_all(measure, "_", " ")) %>% 
+  select(rr, ci_lb, ci_ub, pvalue, bh, measure)
+  
+colnames(temp_8) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+
+kable(temp_8, format = "markdown", align = 'c', padding = 2)
+
+```
 
 
+\newpage
+
+**Table S9: RR of Carcinoma in Stool for each Individual Genera with Initial P-Value under 0.05**
+
+```{r supplemental_table9, echo=FALSE, message=FALSE, warning=FALSE}
+
+temp_9 <- read_csv("../data/process/tables/select_genus_RR_stool_composite.csv") %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
+  arrange(bh, pvalue, rr) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = format(pvalue, scientific = T, digits = 3), 
+         bh = format(bh, scientific = T, digits = 3), 
+         measure = str_replace_all(measure, "_", " ")) %>% 
+  select(rr, ci_lb, ci_ub, pvalue, bh, measure)
+  
+colnames(temp_9) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+
+kable(temp_9, format = "markdown", align = 'c', padding = 2)
+
+```
 
 
+\newpage
+
+**Table S10: RR of Adenoma in Tissue for each Individual Genera with Initial P-Value under 0.05**
+
+```{r supplemental_table10, echo=FALSE, message=FALSE, warning=FALSE}
+
+temp_10 <- read_csv("../data/process/tables/adn_select_genus_RR_tissue_composite.csv") %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
+  arrange(bh, pvalue, rr) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 4), 
+         bh = round(bh, digits = 3), 
+         measure = str_replace_all(measure, "_", " ")) %>% 
+  select(rr, ci_lb, ci_ub, pvalue, bh, measure)
+  
+colnames(temp_10) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+
+kable(temp_10, format = "markdown", align = 'c', padding = 2)
+
+```
+
+
+\newpage
+
+**Table S11: RR of Carcinoma in Tissue for each Individual Genera with Initial P-Value under 0.05**
+
+```{r supplemental_table11, echo=FALSE, message=FALSE, warning=FALSE}
+
+temp_11 <- read_csv("../data/process/tables/select_genus_RR_tissue_composite.csv") %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
+  arrange(bh, pvalue, rr) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = format(pvalue, scientific = T, digits = 3), 
+         bh = format(bh, scientific = T, digits = 3), 
+         measure = str_replace_all(measure, "_", " ")) %>% 
+  select(rr, ci_lb, ci_ub, pvalue, bh, measure)
+  
+colnames(temp_11) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+
+kable(temp_11, format = "markdown", align = 'c', padding = 2)
+
+```
 
 
 
