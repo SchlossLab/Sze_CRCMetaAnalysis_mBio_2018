@@ -617,43 +617,39 @@ created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages
 assessed for differences between controls, adenoma, and carcinoma using
 both linear mixed-effect models and RR. \(\beta\)-diversity was then
 assessed for each individual study for differences between
-control-adenoma and control-carcinoma. Next, four specific
-CRC-associated genera (\emph{Fusobacterium}, \emph{Parvimonas},
-\emph{Peptostreptococcus}, and \emph{Porphyromonas}) were assessed for
-differences in RR for adenoma and carcinoma. We then built Random Forest
-models based on all or CRC-associated genera and these models were
-trained on one study then tested on the remaining studies, for every
-study. A similar approach was then applied at the OTU level with the
-exception that a 10-fold CV over 100 different models, based on random
-80/20 splitting of the data, was used to generate a range of expected
-AUCs. For these OTU based models, the CRC-associated genera included all
-OTUs that had a taxonomic classification to \emph{Fusobacterium},
-\emph{Parvimonas}, \emph{Peptostreptococcus}, or \emph{Porphyromonas}.
-Finally, the power of each study was assessed for an effect size ranging
-from 1\% to 30\% and an estimated sample size, for these effect sizes,
-was generated based on 80\% power. For comparisons in which normal
-versus adenoma were made the carcinoma samples were excluded from each
-respective study. Similarly, for comparisons in which normal versus
-carcinoma were made the adenoma samples were excluded from each
-respective study. The data was split between feces and tissue samples.
-Within the tissue groups the data was further divided between samples
-from the same individual (matched) and those from different individuals
-(unmatched). Where applicable for each study, predictions for adenoma
-and carcinoma were then tested for feces, matched tissue, and unmatched
-tissue.
+control-adenoma and control-carcinoma. Next, all common genera were
+assessed for differences in RR for adenoma and carcinoma. We then built
+Random Forest models based on all or a selected model, based on the top
+5 increased and top 5 decreased RR based on P-value, and these models
+were trained on one study then tested on the remaining studies, for
+every study. A similar approach was then applied at the OTU level with
+the exception that a 10-fold CV over 100 different models, based on
+random 80/20 splitting of the data, was used to generate a range of
+expected AUCs. For these OTU-based models, the selected model included
+all OTUs that had a taxonomic classification to a variable in the top 5
+increased and top 5 decreased RR based on P-value. Finally, the power of
+each study was assessed for an effect size ranging from 1\% to 30\% and
+an estimated sample size, for these effect sizes, was generated based on
+80\% power. For comparisons in which normal versus adenoma were made the
+carcinoma samples were excluded from each respective study. Similarly,
+for comparisons in which normal versus carcinoma were made the adenoma
+samples were excluded from each respective study. The data was split
+between feces and tissue samples. Within the tissue groups the data was
+further divided between samples from the same individual (matched) and
+those from different individuals (unmatched). Where applicable for each
+study, predictions for adenoma and carcinoma were then tested for feces,
+matched tissue, and unmatched tissue.
 
-\textbf{\emph{Obtaining CRC-associated Genera:}} For the CRC-associated
-genera analysis of the RR, the total average counts, for 100 different
-subsamplings, were collected for each respective OTU that had a genus
-level taxonomic classification to \emph{Fusobacterium},
-\emph{Parvimonas}, \emph{Peptostreptococcus}, and \emph{Porphyromonas}.
-The OTU based Random Forest Models using CRC-associated genera utilized
-a similar approach except that the OTUs were not aggregated together by
-genus but kept as separate OTUs. OTU Random Forest models using the full
-community included all OTUs while those using CRC-associated genera
-included only those OTUs that had a genus level taxonomic classification
-to \emph{Fusobacterium}, \emph{Parvimonas}, \emph{Peptostreptococcus},
-and \emph{Porphyromonas}.
+\textbf{\emph{Obtaining Genera Relative Abundance and Selected Models:}}
+For the genera analysis of the RR, OTUs were added together based on the
+genus or lowest available taxonomic classification level and the total
+average counts, for 100 different subsamplings, were collected. The OTU
+based Random Forest Models using selected OTUS utilized a similar
+approach except that the OTUs were not aggregated together by taxonomic
+identity but kept as separate OTUs. OTU Random Forest models using the
+full community included all OTUs while those for the selected model
+included only those OTUs that had a taxonomic classification to a
+variable in the top 5 increased of top 5 decreased RR based on P-value.
 
 \textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
 tissue samples that had control and lesion samples, that did not belong
