@@ -497,6 +497,19 @@ tissue samples coupled with potential contaminationcould ultimately
 explain why the these results seem to be more sporadic than the stool
 results.
 
+One important caveat to this study is that even though specific genera
+associated with species such as \emph{Bacteroides fragilis} and
+\emph{Streptococcus gallolyticus} subsp. \emph{gallolyticus} were not
+identified, it does not necessarily mean these specific species are not
+important in human CRC {[}21,30{]}. Since we are limited in our
+aggregation of the data, across study, to the genus level, it is not
+possible to clearly delineate what specific species are contributing to
+overall disease progression. However, \emph{Streptococcus gallolyticus}
+subsp. \emph{gallolyticus} is a mouth-associated micobe and our study
+clearly shows that regardless of whether the sample is tissue or stool,
+mouth-associated genera are commonly associated with an increased RR of
+both adenoma and carcinoma.
+
 The associations between the microbiota and adenoma are inconclusive, in
 part, because many studies may not be powered effectively to observe
 small effect sizes. None of the studies analyzed were properly powered
@@ -533,7 +546,7 @@ adenoma.
 
 \textbf{\emph{Obtaining Data Sets:}} The studies used for this
 meta-analysis were identified through the review articles written by
-Keku, \emph{et al.} and Vogtmann, \emph{et al.} {[}30,31{]} and
+Keku, \emph{et al.} and Vogtmann, \emph{et al.} {[}31,32{]} and
 additional studies not mentioned in the reviews were obtained based on
 the authors' knowledge of the literature. Studies that used tissue or
 feces as their sample source for 454 or Illumina 16S rRNA gene
@@ -546,9 +559,9 @@ filtering steps, the following studies remained: Ahn, \emph{et al.}
 Burns, \emph{et al.} {[}16{]}, Chen, \emph{et al.} {[}14{]}, Dejea,
 \emph{et al.} {[}23{]}, Flemer, \emph{et al.} {[}18{]}, Geng, \emph{et
 al.} {[}22{]}, Hale, \emph{et al.} {[}26{]}, Kostic, \emph{et al.}
-{[}32{]}, Lu, \emph{et al.} {[}25{]}, Sanapareddy, \emph{et al.}
+{[}33{]}, Lu, \emph{et al.} {[}25{]}, Sanapareddy, \emph{et al.}
 {[}24{]}, Wang, \emph{et al.} {[}15{]}, Weir, \emph{et al.} {[}20{]},
-and Zeller, \emph{et al.} {[}17{]}. The Zackular {[}33{]} study was not
+and Zeller, \emph{et al.} {[}17{]}. The Zackular {[}34{]} study was not
 included because the 90 individuals analyzed within the study are
 contained within the larger Baxter study {[}13{]}. After sequence
 processing all the case samples for the Kostic study had 100 or less
@@ -573,33 +586,33 @@ of the study at the following website:
 not have sequences and metadata on the SRA, data was obtained from DBGap
 (n = 1, {[}12{]}) and directly from the authors (n = 4,
 {[}18,20,24,26{]}). Each study was processed using the mothur (v1.39.3)
-software program {[}34{]} and quality filtering utilized the default
+software program {[}35{]} and quality filtering utilized the default
 methods, used in mothur, for either 454 or Illumina based sequencing. If
 it was not possible to use the defaults, the stated quality cut-offs,
 from the study itself, were used instead. Chimeras were identified and
-removed using VSEARCH {[}35{]} before \emph{de novo} OTU clustering at
-97\% similarity was completed using the OptiClust algorithm {[}36{]}.
+removed using VSEARCH {[}36{]} before \emph{de novo} OTU clustering at
+97\% similarity was completed using the OptiClust algorithm {[}37{]}.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
-sequence processing utilized the R (v3.4.3) software package {[}37{]}.
+sequence processing utilized the R (v3.4.3) software package {[}38{]}.
 For the \(\alpha\)-diversity analysis, values were power transformed
-using the rcompanion (v1.10.1) package {[}38{]} and then Z-score
-normalized using the car (v2.1.5) package {[}39{]}. Testing for
+using the rcompanion (v1.10.1) package {[}39{]} and then Z-score
+normalized using the car (v2.1.5) package {[}40{]}. Testing for
 \(\alpha\)-diversity differences utilized linear mixed-effect models
-created using the lme4 (v1.1.14) package {[}40{]} to correct for study,
+created using the lme4 (v1.1.14) package {[}41{]} to correct for study,
 repeat sampling of individuals (tissue only), and 16S hypervariable
 region used. Relative risk was analyzed using both the epiR (v0.9.87)
-and metafor (v2.0.0) packages {[}41,42{]} by assessing how many
+and metafor (v2.0.0) packages {[}42,43{]} by assessing how many
 individuals with and without disease were above and below the overall
 median value within each specific study. Relative risk significance
 testing utilized the chi-squared test. \(\beta\)-diversity differences
 utilized a Bray-Curtis distance matrix and PERMANOVA executed with the
-vegan (v2.4.4) package {[}43{]}. Random Forest models were built using
+vegan (v2.4.4) package {[}44{]}. Random Forest models were built using
 both the caret (v6.0.77) and randomForest (v4.6.12) packages
-{[}44,45{]}. Power analysis and estimations were made using the pwr
-(v1.2.1) and statmod (v1.4.30) packages {[}46,47{]}. All figures were
+{[}45,46{]}. Power analysis and estimations were made using the pwr
+(v1.2.1) and statmod (v1.4.30) packages {[}47,48{]}. All figures were
 created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages
-{[}48,49{]}.
+{[}49,50{]}.
 
 \textbf{\emph{Study Analysis Overview:}} \(\alpha\)-diversity was first
 assessed for differences between controls, adenoma, and carcinoma using
@@ -893,31 +906,39 @@ Nature; 2014;12. Available from:
 al. Microbiome analysis of stool samples from African Americans with
 colon polyps. PloS One. 2013;8:e81352.
 
+\hypertarget{ref-strep_Aymeric_2017}{}
+30. Aymeric L, Donnadieu F, Mulet C, Merle L du, Nigro G, Saffarian A,
+et al. Colorectal cancer specific conditions promoteStreptococcus
+gallolyticusgut colonization. Proceedings of the National Academy of
+Sciences {[}Internet{]}. Proceedings of the National Academy of
+Sciences; 2017;115:E283--91. Available from:
+\url{https://doi.org/10.1073/pnas.1715112115}
+
 \hypertarget{ref-keku_gastrointestinal_2015}{}
-30. Keku TO, Dulal S, Deveaux A, Jovov B, Han X. The gastrointestinal
+31. Keku TO, Dulal S, Deveaux A, Jovov B, Han X. The gastrointestinal
 microbiota and colorectal cancer. American Journal of Physiology -
 Gastrointestinal and Liver Physiology {[}Internet{]}. 2015 {[}cited 2017
 Oct 30{]};308:G351--63. Available from:
 \url{http://ajpgi.physiology.org/lookup/doi/10.1152/ajpgi.00360.2012}
 
 \hypertarget{ref-vogtmann_epidemiologic_2016}{}
-31. Vogtmann E, Goedert JJ. Epidemiologic studies of the human
+32. Vogtmann E, Goedert JJ. Epidemiologic studies of the human
 microbiome and cancer. British Journal of Cancer {[}Internet{]}. 2016
 {[}cited 2017 Oct 30{]};114:237--42. Available from:
 \url{http://www.nature.com/doifinder/10.1038/bjc.2015.465}
 
 \hypertarget{ref-kostic_genomic_2012}{}
-32. Kostic AD, Gevers D, Pedamallu CS, Michaud M, Duke F, Earl AM, et
+33. Kostic AD, Gevers D, Pedamallu CS, Michaud M, Duke F, Earl AM, et
 al. Genomic analysis identifies association of Fusobacterium with
 colorectal carcinoma. Genome Research. 2012;22:292--8.
 
 \hypertarget{ref-zackular_human_2014}{}
-33. Zackular JP, Rogers MAM, Ruffin MT, Schloss PD. The human gut
+34. Zackular JP, Rogers MAM, Ruffin MT, Schloss PD. The human gut
 microbiome as a screening tool for colorectal cancer. Cancer Prevention
 Research (Philadelphia, Pa.). 2014;7:1112--21.
 
 \hypertarget{ref-schloss_introducing_2009}{}
-34. Schloss PD, Westcott SL, Ryabin T, Hall JR, Hartmann M, Hollister
+35. Schloss PD, Westcott SL, Ryabin T, Hall JR, Hartmann M, Hollister
 EB, et al. Introducing mothur: Open-Source, Platform-Independent,
 Community-Supported Software for Describing and Comparing Microbial
 Communities. Appl.Environ.Microbiol. {[}Internet{]}. 2009 {[}cited 12AD
@@ -925,75 +946,75 @@ Jan 1{]};75:7537--41. Available from:
 \url{http://aem.asm.org/cgi/content/abstract/75/23/7537}
 
 \hypertarget{ref-rognes_vsearch_2016}{}
-35. Rognes T, Flouri T, Nichols B, Quince C, Mahé F. VSEARCH: A
+36. Rognes T, Flouri T, Nichols B, Quince C, Mahé F. VSEARCH: A
 versatile open source tool for metagenomics. PeerJ. 2016;4:e2584.
 
 \hypertarget{ref-westcott_opticlust_2017}{}
-36. Westcott SL, Schloss PD. OptiClust, an Improved Method for Assigning
+37. Westcott SL, Schloss PD. OptiClust, an Improved Method for Assigning
 Amplicon-Based Sequence Data to Operational Taxonomic Units. mSphere.
 2017;2.
 
 \hypertarget{ref-r_citation_2017}{}
-37. R Core Team. R: A language and environment for statistical computing
+38. R Core Team. R: A language and environment for statistical computing
 {[}Internet{]}. Vienna, Austria: R Foundation for Statistical Computing;
 2017. Available from: \url{https://www.R-project.org/}
 
 \hypertarget{ref-rcompanion_citation_2017}{}
-38. Mangiafico S. Rcompanion: Functions to support extension education
+39. Mangiafico S. Rcompanion: Functions to support extension education
 program evaluation {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=rcompanion}
 
 \hypertarget{ref-car_citation_2011}{}
-39. Fox J, Weisberg S. An R companion to applied regression
+40. Fox J, Weisberg S. An R companion to applied regression
 {[}Internet{]}. Second. Thousand Oaks CA: Sage; 2011. Available from:
 \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 
 \hypertarget{ref-lme4_citation_2015}{}
-40. Bates D, Mächler M, Bolker B, Walker S. Fitting linear mixed-effects
+41. Bates D, Mächler M, Bolker B, Walker S. Fitting linear mixed-effects
 models using lme4. Journal of Statistical Software. 2015;67:1--48.
 
 \hypertarget{ref-epir_citation_2017}{}
-41. Telmo Nunes MS with contributions from, Heuer C, Marshall J, Sanchez
+42. Telmo Nunes MS with contributions from, Heuer C, Marshall J, Sanchez
 J, Thornton R, Reiczigel J, et al. EpiR: Tools for the analysis of
 epidemiological data {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=epiR}
 
 \hypertarget{ref-metafor_citation_2010}{}
-42. Viechtbauer W. Conducting meta-analyses in R with the metafor
+43. Viechtbauer W. Conducting meta-analyses in R with the metafor
 package. Journal of Statistical Software {[}Internet{]}. 2010;36:1--48.
 Available from: \url{http://www.jstatsoft.org/v36/i03/}
 
 \hypertarget{ref-vegan_citation_2017}{}
-43. Oksanen J, Blanchet FG, Friendly M, Kindt R, Legendre P, McGlinn D,
+44. Oksanen J, Blanchet FG, Friendly M, Kindt R, Legendre P, McGlinn D,
 et al. Vegan: Community ecology package {[}Internet{]}. 2017. Available
 from: \url{https://CRAN.R-project.org/package=vegan}
 
 \hypertarget{ref-caret_citation_2017}{}
-44. Jed Wing MKC from, Weston S, Williams A, Keefer C, Engelhardt A,
+45. Jed Wing MKC from, Weston S, Williams A, Keefer C, Engelhardt A,
 Cooper T, et al. Caret: Classification and regression training
 {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=caret}
 
 \hypertarget{ref-randomforest_citation_2002}{}
-45. Liaw A, Wiener M. Classification and regression by randomForest. R
+46. Liaw A, Wiener M. Classification and regression by randomForest. R
 News {[}Internet{]}. 2002;2:18--22. Available from:
 \url{http://CRAN.R-project.org/doc/Rnews/}
 
 \hypertarget{ref-pwr_citation_2017}{}
-46. Champely S. Pwr: Basic functions for power analysis {[}Internet{]}.
+47. Champely S. Pwr: Basic functions for power analysis {[}Internet{]}.
 2017. Available from: \url{https://CRAN.R-project.org/package=pwr}
 
 \hypertarget{ref-statmod_citation_2016}{}
-47. Giner G, Smyth GK. Statmod: Probability calculations for the inverse
+48. Giner G, Smyth GK. Statmod: Probability calculations for the inverse
 gaussian distribution. R Journal. 2016;8:339--51.
 
 \hypertarget{ref-ggplot2_citation_2009}{}
-48. Wickham H. Ggplot2: Elegant graphics for data analysis
+49. Wickham H. Ggplot2: Elegant graphics for data analysis
 {[}Internet{]}. Springer-Verlag New York; 2009. Available from:
 \url{http://ggplot2.org}
 
 \hypertarget{ref-gridextra_citation_2017}{}
-49. Auguie B. GridExtra: Miscellaneous functions for ``grid'' graphics
+50. Auguie B. GridExtra: Miscellaneous functions for ``grid'' graphics
 {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=gridExtra}
 
