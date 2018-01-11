@@ -369,16 +369,16 @@ genera for tissue was \emph{Camplyobacter} while in stool it was
 \emph{Peptostreptococcus} {[}Table S10 \& S11{]}.
 
 \textbf{\emph{Whole Community Models Add Important Context:}} Since
-CRC-associated genera increased RR for carcinoma over diversity metrics
-we assessed whether the bacterial community was better at classifying
-disease versus only CRC-associated genera and tested this using two
-approaches. The first approach used genus level data and tested whether
-there were any differences in AUC between all genera and CRC-associated
-genera only during training on one study or testing on all other
-studies. The second approach used OTU level data and tested whether
-there was a generalized decrease in the 10-fold cross validation (CV)
-model AUC across studies when comparing all OTUs versus only OTUs that
-taxonomically classified to CRC-associated genera.
+specific genera increased RR for carcinoma over diversity metrics we
+assessed whether the bacterial community was better at classifying
+disease versus only a select group of genera based on RR and P-value
+significance and tested this using two approaches. The first approach
+used genus level data and tested whether there were any differences in
+AUC between all genera and selected genera during training on one study
+or testing on all other studies. The second approach used OTU level data
+and tested whether there was a generalized decrease in the 10-fold cross
+validation (CV) model AUC across studies when comparing all OTUs versus
+only OTUs that taxonomically classified to selected genera.
 
 For the genera-based models both tissue and stool studies had a median
 AUC decrease in model classification when only CRC-associated genera
@@ -392,30 +392,30 @@ versus the full community of OTUs for both adenoma and carcinoma, with
 the largest median change for stool in carcinoma models and for tissue
 in adenoma models {[}Figure 4 \& 5{]}.
 
-In stool the most common genera in the genus based models belonged to
-genera such as \emph{Ruminococcus}, \emph{Bacteroides}, and
+In stool the most common genera in the full genera-based models belonged
+to genera such as \emph{Ruminococcus}, \emph{Bacteroides}, and
 \emph{Roseburia} {[}Figure 6A \& B{]}. Although all four CRC-associated
 genera were present in carcinoma, none were present in the majority of
 studies and \emph{Fusobacterium} was the only genus present in adenoma
-{[}Figure 6A \& B{]}. For the OTU based models, \emph{Ruminococcaceae}
-was present in the top 10 consistently for both adenoma and carcinoma
-models while \emph{Roseburia} was only present in many adenoma models
-and \emph{Bacteroides} was present in the overwhelming majority of the
-carcinoma models {[}Figure 6C \& 6D{]}.
+{[}Figure 6A \& B{]}. For the full OTU-based models,
+\emph{Ruminococcaceae} was present in the top 10 consistently for both
+adenoma and carcinoma models while \emph{Roseburia} was only present in
+many adenoma models and \emph{Bacteroides} was present in the
+overwhelming majority of the carcinoma models {[}Figure 6C \& 6D{]}.
 
-Unlike stool, tissue based Random Forest models showed no consistent
-representation of \emph{Ruminococcaceae}, \emph{Ruminococcus},
-\emph{Bacteroides}, and \emph{Roseburia} in the top 10 across study
-{[}Figure S7{]}. The vast majority of the top 10 genera and OTUs occured
-in a study specific manner for these tissue based Random Forest models.
-For both the genera and OTU Random Forest models of adenoma and
-carcinoma, there appears to be very little overlap in the top 10 most
-important variables between stool and tissue {[}Figure 6 \& S7{]}. This
-discordance between stool and tissue also applies to the CRC-associated
-genera with one noticeable skew being that \emph{Fusobacterium} and
-\emph{Fusobacteriaceae} occur more often in the top 10 of Random Forest
-models using matched versus unmatched tissue samples {[}Figure S7B-C \&
-S7E-F{]}.
+Unlike stool, the tissue full genera-based Random Forest models showed
+no consistent representation of \emph{Ruminococcaceae},
+\emph{Ruminococcus}, \emph{Bacteroides}, and \emph{Roseburia} in the top
+10 across study {[}Figure S7{]}. The vast majority of the top 10 genera
+and OTUs occured in a study specific manner for these tissue based
+Random Forest models. For both the full genera and OTU Random Forest
+models of adenoma and carcinoma, there appears to be very little overlap
+in the top 10 most important variables between stool and tissue
+{[}Figure 6 \& S7{]}. This discordance between stool and tissue also
+applies to the mouth-associated genera with one noticeable skew being
+that \emph{Fusobacterium} and \emph{Fusobacteriaceae} occur more often
+in the top 10 of Random Forest models using matched versus unmatched
+tissue samples {[}Figure S7B-C \& S7E-F{]}.
 
 \textbf{\emph{CRC Studies are Underpowered for Detecting Small Effect
 Sizes:}} Based on our reported results we assessed whether the studies
