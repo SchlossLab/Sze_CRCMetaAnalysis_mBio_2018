@@ -305,15 +305,20 @@ CRC_MATCH_TISSUE_STUDY = burns dejea geng
 CRC_UNMATCH_TISSUE_STUDY = burns chen flemer sana
 ADN_TISSUE_STUDY = lu flemer
 
+# Set up taxonomy call for important variable counting
+CRC_MATCH_T_TAX = $(foreach S, $(CRC_MATCH_TISSUE_STUDY), $(PROC)/$(S).taxonomy)
+CRC_UNMATCH_T_TAX = $(foreach S, $(CRC_UNMATCH_TISSUE_STUDY), $(PROC)/$(S).taxonomy)
+ADN_T_TAX = $(foreach S, $(ADN_TISSUE_STUDY), $(PROC)/$(S).taxonomy)
+
 # Set up directory for genera tissue RF
-G_CRC_MATCH_T_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_matched_tissue_RF_$(S))
-G_CRC_MATCH_T_SELECT = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_matched_tissue_RF_select_$(S))
+G_CRC_MATCH_T_FULL = $(foreach S, $(CRC_MATCH_TISSUE_STUDY), $(TABLES)/genus_matched_tissue_RF_$(S))
+G_CRC_MATCH_T_SELECT = $(foreach S, $(CRC_MATCH_TISSUE_STUDY), $(TABLES)/genus_matched_tissue_RF_select_$(S))
 
-G_CRC_UNMATCH_T_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_unmatched_tissue_RF_$(S))
-G_CRC_UNMATCH_T_SELECT = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_unmatched_tissue_RF_select_$(S))
+G_CRC_UNMATCH_T_FULL = $(foreach S, $(CRC_UNMATCH_TISSUE_STUDY), $(TABLES)/genus_unmatched_tissue_RF_$(S))
+G_CRC_UNMATCH_T_SELECT = $(foreach S, $(CRC_UNMATCH_TISSUE_STUDY), $(TABLES)/genus_unmatched_tissue_RF_select_$(S))
 
-G_ADN_TISSUE_FULL = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_unmatched_tissue_RF_full_$(S))
-G_ADN_TISSUE_SELECT = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_genus_unmatched_tissue_RF_select_$(S))
+G_ADN_TISSUE_FULL = $(foreach S, $(ADN_TISSUE_STUDY), $(TABLES)/adn_genus_unmatched_tissue_RF_full_$(S))
+G_ADN_TISSUE_SELECT = $(foreach S, $(ADN_TISSUE_STUDY), $(TABLES)/adn_genus_unmatched_tissue_RF_select_$(S))
 
 # Set up files to be created for genera tissue RF
 G_CRC_FULL_MATCH_T_PVALUE=$(addsuffix _pvalue_summary.csv,$(G_CRC_MATCH_T_FULL))
@@ -400,6 +405,21 @@ code/run_random_forest_select_otus_tissue.R code/run_adn_random_forest_select_ot
 	R -e "source('code/run_random_forest_select_otus_tissue.R')"
 	R -e "source('code/run_adn_random_forest_otu_tissue.R')"
 	R -e "source('code/run_adn_random_forest_select_otu_tissue.R')"
+
+
+
+# Generate the most important variables with the RF across study
+$(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
+$(TABLES)/adn_RF_genera_matched_tissue_top10.csv\
+$(TABLES)/adn_RF_genera_tissue_top10.csv\
+$(TABLES)/crc_RF_otu_unmatched_tissue_top10.csv\
+$(TABLES)/adn_RF_otu_matched_tissue_top10.csv\
+$(TABLES)/adn_RF_otu_tissue_top10.csv : $(TABLES)/alpha_tissue_matched_data.csv\
+$(TABLES)/alpha_tissue_unmatched_data.csv $(CRC_MATCH_T_TAX) $(CRC_UNMATCH_T_TAX)\
+$(ADN_T_TAX) $(G_CRC_FULL_MATCH_T_IMP) $(G_CRC_FULL_UNMATCH_T_IMP) $(G_ADN_FULL_TISSUE_IMP)\
+$(O_CRC_FULL_MATCH_T_IMP) $(O_CRC_FULL_UNMATCH_T_IMP) $(O_ADN_FULL_STOOL_IMP)
+	R -e "source('code/run_comparison_RF_imp_otus_tissue.R')"
+
 
 
 
