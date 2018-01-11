@@ -221,19 +221,16 @@ $(SUB_GENERA_FILE) : $(GENERA_FILE) code/get_genera_randomization.R
 $(TABLES)/select_genus_group_counts_summary.csv\
 $(TABLES)/select_genus_RR_stool_ind_results.csv\
 $(TABLES)/select_genus_RR_stool_composite.csv\
-$(TABLES)/select_genus_inc_4_stool.csv\
 $(TABLES)/adn_select_genus_group_counts_summary.csv\
 $(TABLES)/adn_select_genus_RR_stool_ind_results.csv\
-$(TABLES)/adn_select_genus_RR_stool_composite.csv\
-$(TABLES)/adn_select_genus_inc_4_stool.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
+$(TABLES)/adn_select_genus_RR_stool_composite.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
 $(METADATA) code/get_specifc_genus_analysis_stool.R\
 code/get_select_inc_genera_positivity_RR_stool.R\
 code/get_adenoma_specifc_genus_analysis_stool.R\
 code/get_adneoma_select_inc_genera_positivity_RR_stool.R
 	R -e "source('code/get_specifc_genus_analysis_stool.R')"
-	R -e "source('code/get_select_inc_genera_positivity_RR_stool.R')"
 	R -e "source('code/get_adenoma_specifc_genus_analysis_stool.R')"
-	R -e "source('code/get_adneoma_select_inc_genera_positivity_RR_stool.R')"
+
 
 
 # Analyze Tissue Genera Relative Risk
@@ -246,20 +243,16 @@ $(TABLES)/select_genus_RR_unmatched_tissue_composite.csv\
 $(TABLES)/select_genus_tissue_group_counts_summary.csv\
 $(TABLES)/select_genus_RR_tissue_ind_results.csv\
 $(TABLES)/select_genus_RR_tissue_composite.csv\
-$(TABLES)/select_genus_inc_4_tissue.csv\
 $(TABLES)/adn_select_genus_tissue_group_counts_summary.csv\
 $(TABLES)/adn_select_genus_RR_tissue_ind_results.csv\
-$(TABLES)/adn_select_genus_RR_tissue_composite\
-$(TABLES)/adn_select_genus_inc_4_tissue.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
+$(TABLES)/adn_select_genus_RR_tissue_composite : $(GENERA_FILE) $(SUB_GENERA_FILE)\
 $(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
 code/get_specifc_genus_analysis_tissue.R\
 code/get_select_inc_genera_positivity_RR_tissue.R\
 code/get_adenoma_specific_genus_analysis_tissue.R\
 code/get_adneoma_select_inc_genera_positivity_RR_tissue.R
 	R -e "source('code/get_specifc_genus_analysis_tissue.R')"
-	R -e "source('code/get_select_inc_genera_positivity_RR_tissue.R')"
 	R -e "source('code/get_adenoma_specific_genus_analysis_tissue.R')"
-	R -e "source('code/get_adneoma_select_inc_genera_positivity_RR_tissue.R')"
 
 
 # Create Variables for the stool dependencies
