@@ -259,6 +259,10 @@ code/get_adneoma_select_inc_genera_positivity_RR_tissue.R
 CRC_STOOL_STUDY = wang weir ahn zeller baxter hale flemer
 ADN_STOOL_STUDY = brim zeller baxter hale
 
+# Set up taxonomy call for important variable counting
+CRC_STOOL_TAX = $(foreach S, $(CRC_STOOL_STUDY), $(PROC)/$(S).taxonomy)
+ADN_STOOL_TAX = $(foreach S, $(ADN_STOOL_STUDY), $(PROC)/$(S).taxonomy)
+
 # Set up directory for stool genera RF
 G_CRC_STOOL_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_stool_RF_full_$(S))
 G_CRC_STOOL_SELECT = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/genus_stool_RF_select_$(S))
@@ -408,7 +412,17 @@ code/run_random_forest_select_otus_tissue.R code/run_adn_random_forest_select_ot
 
 
 
-# Generate the most important variables with the RF across study
+# Generate the most important variables with the RF across study for stool
+$(TABLES)/crc_RF_genera_stool_top10.csv\
+$(TABLES)/adn_RF_genera_stool_top10.csv\
+$(TABLES)/crc_RF_otu_stool_top10.csv\
+$(TABLES)/adn_RF_otu_stool_top10.csv : $(CRC_STOOL_TAX) $(ADN_STOOL_TAX)\
+$(G_CRC_FULL_STOOL_IMP) $(G_ADN_FULL_STOOL_IMP) $(O_CRC_FULL_STOOL_IMP)\
+$(O_ADN_FULL_STOOL_IMP) code/run_comparison_RF_imp_otus_stool.R
+	R -e "source('code/run_comparison_RF_imp_otus_stool.R')"
+
+
+# Generate the most important variables with the RF across study for tissue
 $(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_matched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_tissue_top10.csv\
@@ -417,9 +431,9 @@ $(TABLES)/adn_RF_otu_matched_tissue_top10.csv\
 $(TABLES)/adn_RF_otu_tissue_top10.csv : $(TABLES)/alpha_tissue_matched_data.csv\
 $(TABLES)/alpha_tissue_unmatched_data.csv $(CRC_MATCH_T_TAX) $(CRC_UNMATCH_T_TAX)\
 $(ADN_T_TAX) $(G_CRC_FULL_MATCH_T_IMP) $(G_CRC_FULL_UNMATCH_T_IMP) $(G_ADN_FULL_TISSUE_IMP)\
-$(O_CRC_FULL_MATCH_T_IMP) $(O_CRC_FULL_UNMATCH_T_IMP) $(O_ADN_FULL_STOOL_IMP)
+$(O_CRC_FULL_MATCH_T_IMP) $(O_CRC_FULL_UNMATCH_T_IMP) $(O_ADN_FULL_STOOL_IMP)\
+code/run_comparison_RF_imp_otus_tissue.R
 	R -e "source('code/run_comparison_RF_imp_otus_tissue.R')"
-
 
 
 
