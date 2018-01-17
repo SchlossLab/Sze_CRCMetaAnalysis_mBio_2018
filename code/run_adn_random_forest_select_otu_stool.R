@@ -83,7 +83,7 @@ assign_disease <- function(metadata_table_name,
   
   # create a random group label
   vars_to_sample <-  ifelse(tempMetadata$disease != "polyp", invisible(0), invisible(1))
-  set.seed(12345)
+  set.seed(123451)
   random_sample <- sample(vars_to_sample)
   
   
