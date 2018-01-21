@@ -83,7 +83,7 @@ assign_disease <- function(metadata_table_name,
   
   # create a random group label
   vars_to_sample <-  ifelse(tempMetadata$disease != "polyp", invisible(0), invisible(1))
-  set.seed(123451)
+  set.seed(12345)
   random_sample <- sample(vars_to_sample)
   
   
@@ -311,7 +311,7 @@ all_comparisons <- NULL
 
 # Set up direction variables to set number of models to run
 actual_runs <- paste("act_model_", seq(1:100), sep = "")
-random_runs <- paste("rand_model_", seq(1:100), sep = "")
+random_runs <- paste("rand_model_", seq(1:90), sep = "")
 
 select_OTUs <- sapply(stool_sets, function(x) generate_select_OTUS(
   x, crc_genera, "data/process/", ".taxonomy"), simplify = F)
