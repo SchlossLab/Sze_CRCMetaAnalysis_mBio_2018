@@ -63,7 +63,7 @@ adn_tissue_graph <- adn_all_tissue %>%
                        labels = c("Unmatched Tissue", "Matched Tissue")), 
          model_type = factor(model_type, 
                              levels = c("full_model", "select_model"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu"))) %>% 
@@ -88,7 +88,7 @@ adn_tissue_graph <- adn_all_tissue %>%
 adn_stool_graph <- adn_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full_model", "select_model"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
@@ -116,7 +116,7 @@ crc_tissue_graph <- crc_all_tissue %>%
                        labels = c("Unmatched Tissue", "Matched Tissue")), 
          model_type = factor(model_type, 
                              levels = c("full_model", "select_model"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("burns", "chen", "dejea", "flemer", "geng", "sana"), 
                         labels = c("Burns", "Chen", "Dejea", "Flemer", "Geng", "Sanapareddy"))) %>% 
@@ -143,7 +143,7 @@ crc_tissue_graph <- crc_all_tissue %>%
 crc_stool_graph <- crc_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full_model", "select_model"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera")), 
          study = factor(study, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
