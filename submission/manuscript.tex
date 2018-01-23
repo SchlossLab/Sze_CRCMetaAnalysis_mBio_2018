@@ -380,17 +380,16 @@ and tested whether there was a generalized decrease in the 10-fold cross
 validation (CV) model AUC across studies when comparing all OTUs versus
 only OTUs that taxonomically classified to selected genera.
 
-For the genera-based models both tissue and stool studies had a median
-AUC decrease in model classification when only CRC-associated genera
-versus all genera were included {[}Figure S2-S3{]}. With respect to the
+For the genera-based models the training set median AUC for model
+classification was similar for select genera and full genera models, for
+both tissue and stool studies {[}Figure S2-S3{]}. With respect to the
 test sets, comprised of genera data from other studies, both all and
-CRC-associated genera models had a similar ability to detect adenomas or
-carcinomas {[}Figure S4-S6{]}. The OTU-based models showed a similar
-trend to the genera models where a generalized decrease in median AUC
-was observed when only OTUs from the CRC-associated genera were used
-versus the full community of OTUs for both adenoma and carcinoma, with
-the largest median change for stool in carcinoma models and for tissue
-in adenoma models {[}Figure 4 \& 5{]}.
+select genera models had a similar ability to detect adenomas or
+carcinomas, with the select genera models performing better in some
+instances {[}Figure S4-S6{]}. Conversely, the OTU-based models showed a
+slight decrease in median AUC between the full and select models, with
+one exception being carcinoma models for matched tissue {[}Figure 4 \&
+5{]}.
 
 In stool the most common genera in the full genera-based models belonged
 to genera such as \emph{Ruminococcus}, \emph{Bacteroides}, and
@@ -445,29 +444,26 @@ are clearly important to carcinoma classification but our observations
 suggest that accounting for the community in which these microbes exist
 can increase the ability of models to make predictions.
 
-The data presented herein supports the importance of mouth-associated
-genera for carcinoma but not necessarily adenoma formation. A proposed
-mechanism by which these mouth-associated microbes cause CRC stems from
-the creation of a vicious cycle involving host inflammation and repair.
-Both the drastically increased carcinoma RR of mouth-associated genera
-versus \(\alpha\)-diversity metrics and increasing RR with more
-mouth-associated genera positivity {[}Figure 3C{]}, are highly
-supportive of their importance. However, our observations show that when
-adding the community context to our Random Forest models along with the
-mouth-associated genera, the model AUC increases {[}Figure 4 \& 5{]}.
-This suggests the resident community cannot be ignored completely and
-needs to be accounted for when investigating mouth-associated microbes
-and carcinoma. Conversely, using the present data, it is less likely
-that mouth-associated microbes are correlated with adenoma development.
-The step-wise decrease in diversity suggests that the adenoma community
-is not normal but has changed subtly {[}Figure 1{]}. Yet, this change in
-diversity, at this early stage of disease, could be focal to the adenoma
-itself. The poor performance of the Random Forest models for classifying
-adenoma, based only on the stool microbiota, would suggest that this is
-the case. One potential hypothesis from these observations is that at
-early stages of the disease, how the host interacts with these subtle
-changes is what ultimately leads to a thoroughly dysfunctional community
-that is supportive of CRC genesis.
+The data presented herein supports the importance of select genera for
+carcinoma but not necessarily adenoma formation. Our observations show
+that when only using the select genera to create models for carcinoma
+the AUC are similar to using all genera or OTUs {[}Figure 4 \& 5{]}.
+This suggests that an interplay between a select number of potentially
+protective and exacerbating microbes, within the GI community, are
+crucial for carcinoma formation. Importantly, it suggests that there may
+be key members of the community that might be studied further to
+potentially reduce the risk of carcinoma. Conversely, using the present
+data, it is clear that new approaches may need to be used to identify
+members of the community that are associated with adenoma. Regardless of
+sample type and whether a full or select model was used our Random
+Forest models consistently performed poorly. Yet, the step-wise decrease
+in diversity suggests that the adenoma community is not normal but has
+changed subtly {[}Figure 1{]}. This change in diversity, at this early
+stage of disease, could be focal to the adenoma itself. One potential
+hypothesis from these observations is that at early stages of the
+disease, how the host interacts with these subtle changes is what
+ultimately leads to a thoroughly dysfunctional community that is
+supportive of CRC genesis.
 
 Within stool, common GI microbes were most consistently present in the
 top 10 genera or OTUs across study {[}Figure 6{]}. Changes in
