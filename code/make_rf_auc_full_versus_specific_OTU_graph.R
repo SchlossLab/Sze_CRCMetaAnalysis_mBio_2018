@@ -96,7 +96,7 @@ adn_tissue_medians <- adn_tissue %>%
   summarise(auc_median = median(AUC)) %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
+                             labels = c("Full Community", "Select Genera Only")))
 
 # Creates the adenoma tissue graph
 adn_tissue_graph <- adn_tissue %>% 
@@ -105,7 +105,7 @@ adn_tissue_graph <- adn_tissue %>%
                        labels = c("Unmatched Tissue", "Matched Tissue")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
+                             labels = c("Full Community", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(matched)"))) %>% 
@@ -133,13 +133,13 @@ adn_stool_medians <- adn_all_stool %>%
   summarise(auc_median = median(AUC)) %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
+                             labels = c("Full Community", "Select Genera Only")))
 
 # Creates the adenoma stool graph
 adn_stool_graph <- adn_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
+                             labels = c("Full Community", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
@@ -168,13 +168,13 @@ crc_tissue_medians <- crc_all_tissue %>%
   summarise(auc_median = median(AUC)) %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
+                             labels = c("Full Community", "Select Genera Only")))
 
 # Creates the crc tissue graph
 crc_tissue_graph <- crc_all_tissue %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
+                             labels = c("Full Community", "Select Genera Only")), 
          combined_study = factor(combined_study, 
                         levels = c("sana_unmatched", "geng_matched", "flemer_unmatched", 
                                    "dejea_matched", "chen_unmatched", "burns_unmatched",
@@ -207,13 +207,13 @@ crc_stool_medians <- crc_all_stool %>%
   summarise(auc_median = median(AUC)) %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")))
+                             labels = c("Full Community", "Select Genera Only")))
 
 # Creates the crc stool graph
 crc_stool_graph <- crc_all_stool %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("Full Community", "CRC Associated\nGenera Community Only")), 
+                             labels = c("Full Community", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("zeller", "weir", "wang", "hale", "flemer", "baxter", "ahn"), 
                         labels = c("Zeller", "Weir", "Wang", "Hale", "Flemer", "Baxter", "Ahn"))) %>% 
