@@ -106,7 +106,7 @@ adn_tissue_graph <- adn_all_tissue %>%
                         labels = c("Flemer", "Lu\n(Matched)")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(Matched)"))) %>% 
@@ -136,7 +136,7 @@ adn_stool_graph <- adn_all_stool %>%
                         labels = c("Baxter", "Brim", "Hale", "Zeller")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
@@ -167,7 +167,7 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("burns", "chen", "flemer", "sana"), 
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
@@ -198,7 +198,7 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
                         labels = c("Burns", "Dejea", "Geng")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("burns", "dejea", "geng"), 
                         labels = c("Burns", "Dejea", "Geng"))) %>% 
@@ -229,7 +229,7 @@ crc_stool_graph <- crc_all_stool %>%
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "CRC Associated\nGenera Only")), 
+                             labels = c("All Genera", "Select Genera Only")), 
          study = factor(study, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
