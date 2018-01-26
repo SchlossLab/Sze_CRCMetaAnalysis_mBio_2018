@@ -575,48 +575,50 @@ Keku, \emph{et al.} and Vogtmann, \emph{et al.} {[}31,32{]} and
 additional studies not mentioned in the reviews were obtained based on
 the authors' knowledge of the literature. Studies that used tissue or
 feces as their sample source for 454 or Illumina 16S rRNA gene
-sequencing analysis were included and only data sets that had sequences
-available for analysis were included. Some studies were excluded because
-they did not have publicly available sequences or did not have metadata
-in which the authors were able to share and were excluded. After these
-filtering steps, the following studies remained: Ahn, \emph{et al.}
-{[}12{]}, Baxter, \emph{et al.} {[}13{]}, Brim, \emph{et al.} {[}30{]},
-Burns, \emph{et al.} {[}16{]}, Chen, \emph{et al.} {[}14{]}, Dejea,
-\emph{et al.} {[}24{]}, Flemer, \emph{et al.} {[}18{]}, Geng, \emph{et
-al.} {[}23{]}, Hale, \emph{et al.} {[}27{]}, Kostic, \emph{et al.}
-{[}33{]}, Lu, \emph{et al.} {[}26{]}, Sanapareddy, \emph{et al.}
-{[}25{]}, Wang, \emph{et al.} {[}15{]}, Weir, \emph{et al.} {[}21{]},
-and Zeller, \emph{et al.} {[}17{]}. The Zackular {[}34{]} study was not
-included because the 90 individuals analyzed within the study are
-contained within the larger Baxter study {[}13{]}. After sequence
-processing all the case samples for the Kostic study had 100 or less
-sequences remaining and was not used which left a total of 14 studies
-that analysis could be completed on.
+sequencing analysis and had data sets with sequences available for
+analysis were included. Some studies were excluded because they did not
+have publicly available sequences or did not have metadata in which the
+authors were able to share. After these filtering steps, the following
+studies remained: Ahn, \emph{et al.} {[}12{]}, Baxter, \emph{et al.}
+{[}13{]}, Brim, \emph{et al.} {[}30{]}, Burns, \emph{et al.} {[}16{]},
+Chen, \emph{et al.} {[}14{]}, Dejea, \emph{et al.} {[}24{]}, Flemer,
+\emph{et al.} {[}18{]}, Geng, \emph{et al.} {[}23{]}, Hale, \emph{et
+al.} {[}27{]}, Kostic, \emph{et al.} {[}33{]}, Lu, \emph{et al.}
+{[}26{]}, Sanapareddy, \emph{et al.} {[}25{]}, Wang, \emph{et al.}
+{[}15{]}, Weir, \emph{et al.} {[}21{]}, and Zeller, \emph{et al.}
+{[}17{]}. The Zackular {[}34{]} study was not included because the 90
+individuals analyzed within the study are contained within the larger
+Baxter study {[}13{]}. After sequence processing, all the case samples
+for the Kostic study had 100 or less sequences remaining and was
+excluded, leaving a total of 14 studies that analysis could be completed
+on.
 
 \textbf{\emph{Data Set Breakdown:}} In total, there were seven studies
 with only fecal samples (Ahn, Baxter, Brim, Hale, Wang, Weir, and
 Zeller), five studies with only tissue samples (Burns, Dejea, Geng, Lu,
 Sanapareddy), and two studies with both fecal and tissue samples (Chen
-and Flemer). The total number of individuals that were analyzed after
-sequence processing for feces was 1737 {[}Table 1{]}. The total number
-of matched and unmatched tissue samples that were analyzed after
-sequence processing was 492 {[}Table 2{]}.
+and Flemer). The total number of individuals analyzed after sequence
+processing for feces was 1737 {[}Table 1{]}. The total number of matched
+and unmatched tissue samples that were analyzed after sequence
+processing was 492 {[}Table 2{]}.
 
 \textbf{\emph{Sequence Processing:}} For the majority of studies, raw
 sequences were downloaded from the Sequence Read Archive (SRA)
 (\url{ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/})
-and metadata was obtained by searching the respective accession number
+and metadata were obtained by searching the respective accession number
 of the study at the following website:
 \url{http://www.ncbi.nlm.nih.gov/Traces/study/}. Of the studies that did
 not have sequences and metadata on the SRA, data was obtained from DBGap
 (n = 1, {[}12{]}) and directly from the authors (n = 4,
 {[}18,21,25,27{]}). Each study was processed using the mothur (v1.39.3)
 software program {[}35{]} and quality filtering utilized the default
-methods, used in mothur, for either 454 or Illumina based sequencing. If
-it was not possible to use the defaults, the stated quality cut-offs,
-from the study itself, were used instead. Chimeras were identified and
-removed using VSEARCH {[}36{]} before \emph{de novo} OTU clustering at
-97\% similarity was completed using the OptiClust algorithm {[}37{]}.
+methods for both 454 and Illumina based sequencing. If it was not
+possible to use the defaults, the stated quality cut-offs, from the
+study itself, were used instead. Sequences that were made up of an
+artificial combination of two or more different sequences and commonly
+known as chimeras were identified and removed using VSEARCH {[}36{]}
+before \emph{de novo} OTU clustering at 97\% similarity was completed
+using the OptiClust algorithm {[}37{]}.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
 sequence processing utilized the R (v3.4.3) software package {[}38{]}.
@@ -639,39 +641,41 @@ both the caret (v6.0.78) and randomForest (v4.6.12) packages
 created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages
 {[}49,50{]}.
 
-\textbf{\emph{Study Analysis Overview:}} \(\alpha\)-diversity was first
-assessed for differences between controls, adenoma, and carcinoma using
-both linear mixed-effect models and RR. \(\beta\)-diversity was then
-assessed for each individual study for differences between
-control-adenoma and control-carcinoma. Next, all common genera were
-assessed for differences in RR for adenoma and carcinoma and ranked
-based on P-value. We then built Random Forest models based on all or a
-selected model, based on the top 5 increased and top 5 decreased RR
-based on P-value, and these models were trained on one study then tested
-on the remaining studies, for every study. A similar approach was then
-applied at the OTU level with the exception that a 10-fold CV over 100
-different models, based on random 80/20 splitting of the data, was used
-to generate a range of expected AUCs. For these OTU-based models, the
-selected model included all OTUs that had a taxonomic classification to
-a variable in the top 5 increased and top 5 decreased RR based on
-P-value. Finally, the power of each study was assessed for an effect
-size ranging from 1\% to 30\% and an estimated sample size, for these
-effect sizes, was generated based on 80\% power. For comparisons in
-which normal versus adenoma were made the carcinoma samples were
-excluded from each respective study. Similarly, for comparisons in which
-normal versus carcinoma were made the adenoma samples were excluded from
-each respective study. The data was split between feces and tissue
-samples. Within the tissue groups the data was further divided between
-samples from the same individual (matched) and those from different
-individuals (unmatched). Where applicable for each study, predictions
-for adenoma and carcinoma were then tested for feces, matched tissue,
-and unmatched tissue.
+\textbf{\emph{Study Analysis Overview:}} OTU richness, evenness, and
+Shannon diversity was first assessed for differences between controls,
+adenoma stage, and carcinoma stage using both linear mixed-effect models
+and RR. The Bray-Curtis index was used to assess, for each individual
+study, differences between control-adenoma and control-carcinoma. Next,
+all common genera were assessed for differences in RR for having an
+adenoma or carcinoma and ranked based on P-value. We then built Random
+Forest models based on full or selected community, based on the top 5
+increased and top 5 decreased RR based on P-value, and these models were
+trained on one study then tested on the remaining studies. This process
+was repeated for every study in the meta-analysis. A similar approach
+was then applied at the OTU level with the exception that a 10-fold CV
+over 100 different models, based on random 80/20 splitting of the data,
+was used to generate a range of expected AUCs. For these OTU-based
+models, the selected model included all OTUs that had a taxonomic
+classification to a taxa in the top 5 increased and top 5 decreased RR
+based on P-value. Finally, the power of each study was assessed for an
+effect size ranging from 1\% to 30\% and an estimated sample size, for
+these effect sizes, was generated based on 80\% power. For comparisons
+in which only control versus adenoma stage were made, the carcinoma
+samples were excluded from each respective study. Similarly, for
+comparisons in which control versus carcinoma stage were made the
+adenoma samples were excluded from each respective study. The data were
+split between feces and tissue samples. Within the tissue groups the
+data were further divided between samples from the same individual
+(matched) and those from different individuals (unmatched). Where
+applicable for each study, predictions for adenoma and carcinoma stage
+of disease were then tested for feces, matched tissue, and unmatched
+tissue.
 
 \textbf{\emph{Obtaining Genera Relative Abundance and Selected Models:}}
 For the genera analysis of the RR, OTUs were added together based on the
 genus or lowest available taxonomic classification level and the total
 average counts, for 100 different subsamplings, were collected. The OTU
-based Random Forest Models using selected OTUS utilized a similar
+based Random Forest Models using selected OTUs utilized a similar
 approach except that the OTUs were not aggregated together by taxonomic
 identity but kept as separate OTUs. OTU Random Forest models using the
 full community included all OTUs while those for the selected model
@@ -679,39 +683,40 @@ included only those OTUs that had a taxonomic classification to a
 variable in the top 5 increased of top 5 decreased RR based on P-value.
 
 \textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
-tissue samples that had control and lesion samples, that did not belong
-to the same individual, were classified as unmatched while samples, that
-belonged to the same individual, were classified as matched. Studies
-with matched data included Burns, Dejea, Geng, and Lu while those with
-unmatched data were from Burns, Flemer, Chen, and Sanapareddy. For some
-studies samples became unmatched due to one of the corresponding matched
-samples not making it through sequence processing. All samples, from
-both tissue sample types, were analyzed together for the linear
-mixed-effect models with samples from the same individual corrected for.
-For all other analysis, not mentioned herein, matched and unmatched
-samples were analyzed separately using the statistical approaches
-mentioned in the Statistical Analysis section.
+tissue samples with control and CRC samples from different indivdiuals
+were classified as unmatched while samples that belonged to the same
+individual were classified as matched. Studies with matched data
+included Burns, Dejea, Geng, and Lu while those with unmatched data were
+from Burns, Flemer, Chen, and Sanapareddy. For some studies samples
+became unmatched when a corresponding matched sample did not make it
+through sequence processing. All samples, from both tissue sample types,
+were analyzed together for the linear mixed-effect models with samples
+from the same individual corrected for. For all other analysis, not
+mentioned herein, matched and unmatched samples were analyzed separately
+using the statistical approaches mentioned in the Statistical Analysis
+section.
 
 \textbf{\emph{Assessing Important Random Forest Model Variables:}} Using
-Mean Decrease in Accuracy (MDA) the top 10 most important variables were
-obtained in two different ways depending on whether the model used
-genera or OTU data. For the genus based models, the number of times that
-a genus showed up in the top 10 of the training set across each study
-was counted while, for the OTU based models, the medians for each OTU
-across 100 different 80/20 splits of the data was generated and the top
-10 OTUs then counted for each study. Common taxa, for the OTU based
-models, were identified by using the lowest classification within the
-RDP database for each of the specific OTUs obtained from the previous
-counts and the number of times this classification occurred in the top
-10, in each study, was recorded. The two studies that had adenoma tissue
-were equally divided between matched and unmatched groups and were
-grouped together for the counting of the top 10 genera and OTUs.
+Mean Decrease in Accuracy (MDA) the top 10 most important variables to
+the Random Forest model were obtained in two different ways depending on
+whether the model used genera or OTU data. For the genus based models,
+the number of times that a genus showed up in the top 10 of the training
+set across each study was counted while, for the OTU based models, the
+medians for each OTU across 100 different 80/20 splits of the data was
+generated and the top 10 OTUs then counted for each study. Common taxa,
+for the OTU based models, were identified by using the lowest
+classification within the RDP database for each of the specific OTUs
+obtained from the previous counts and the number of times this
+classification occurred in the top 10, in each study, was recorded. The
+two studies that had adenoma tissue were equally divided between matched
+and unmatched groups and were grouped together for the counting of the
+top 10 genera and OTUs.
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
-here at
+at
 \url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017}.
-Unless otherwise mentioned, the accession number for the raw sequences
-for the studies used in this analysis can be found directly in the
+Unless otherwise mentioned, the accession number of raw sequences from
+the studies used in this analysis can be found directly in the
 respective batch file in the GitHub repository or in the original
 manuscript.
 
