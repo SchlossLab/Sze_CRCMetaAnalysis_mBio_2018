@@ -306,9 +306,9 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 
 
-**Figure 1: $\alpha$-Diversity Differences between Control, Adenoma, and Carcinoma Across Sampling Site.** A) $\alpha$-diversity metric differences by group in stool samples. B) $\alpha$-diversity metric differences by group in unmatched tissue samples. C) $\alpha$-diversity metric differences by group in matched tissue samples. The dashed line represents a Z-score of 0 or no difference from the median.
+**Figure 1: Community Differences between Control, Adenoma, and Carcinoma Across Sampling Site.** A) Stool sample community differences by disease group. B) Unmatched tissue samples differences by disease group. C) Matched tissue sample differences by group disease group. The dashed line represents a Z-score of 0 or no difference from the median.
 
-**Figure 2: Relative Risk for Adenoma or Carcinoma based on $\alpha$-Diversity Metrics in Stool.** A) $\alpha$-metric relative risk for adenoma. B) $\alpha$-metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study. 
+**Figure 2: Relative Risk for Adenoma or Carcinoma based on Bacterial Community Metrics in Stool.** A) Community-based relative risk for adenoma. B) Community-based relative risk for carcinoma. Colors represent the different variable regions used within the respective study. 
 
 **Figure 3: Top 5 Genera that Decrease and Increase Relative Risk for Lesion.** A) Adenoma relative risk in stool. B) Carcinoma relative risk in stool. C) Adenoma relative risk in tissue. D) Carcinoma relative risk in tissue. For all panels the relative risk was also compared to whether one, two, three, or four of the CRC-associated genera were present.  
 
@@ -324,7 +324,7 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Figure S1: Relative Risk for Adenoma or Carcinoma based on $\alpha$-Diversity Metrics in Tissue.** A) $\alpha$-metric relative risk for adenoma. B) $\alpha$-metric relative risk for carcinoma. Colors represent the different variable regions used within the respective study.
+**Figure S1: Relative Risk for Adenoma or Carcinoma based on Bacterial Community Metrics in Tissue.** A) Community-based relative risk for adenoma. B) Community-based relative risk for carcinoma. Colors represent the different variable regions used within the respective study.
 
 **Figure S2: Stool Random Forest Genus Model AUC for each Study.** A) AUC of adenoma models using all genera or select genera only. B) AUC of carcinoma models using all genera or select genera only. The black line represents the median within each group.  
 
