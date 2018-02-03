@@ -54,7 +54,7 @@ adn_select_RR_tissue <- as.data.frame(read_csv("../data/process/tables/adn_selec
 
 
 
-# Making Sense of the Noise: Leveraging Existing 16S rRNA Gene Surveys to Identify Key Community Members in Colorectal Cancer
+# Making Sense of the Noise: Leveraging Existing 16S rRNA Gene Surveys to Identify Key Community Members in Colorectal Tumors
 
 \begin{center}
 \vspace{25mm}
