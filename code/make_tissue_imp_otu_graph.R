@@ -35,7 +35,7 @@ adn_genera <- adn_genera_occurances %>% arrange(occurance) %>%
   ggplot(aes(otu, occurance)) + 
   geom_bar(stat = "identity", fill = '#8B8B83') + 
   theme_bw() + 
-  labs(x = "", y = "Occurance Across Studies") + 
+  labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, 1)) + 
   ggtitle("A") + 
   scale_y_continuous(labels = scales::percent, expand = c(0,0.03)) + 
@@ -56,7 +56,7 @@ crc_unmatched_genera <- crc_unmatched_genera_occurances %>% arrange(occurance) %
   ggplot(aes(otu, occurance)) + 
   geom_bar(stat = "identity", fill = "black") + 
   theme_bw() + 
-  labs(x = "", y = "Occurance Across Studies") + 
+  labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, 1)) + 
   ggtitle("B") + 
   scale_y_continuous(labels = scales::percent, expand = c(0,0.03)) + 
@@ -75,7 +75,7 @@ crc_matched_genera <- crc_matched_genera_occurances %>% arrange(occurance) %>%
   ggplot(aes(otu, occurance)) + 
   geom_bar(stat = "identity", fill = "black") + 
   theme_bw() + 
-  labs(x = "", y = "Occurance Across Studies") + 
+  labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, 1)) + 
   ggtitle("C") + 
   scale_y_continuous(labels = scales::percent, expand = c(0,0.03)) + 
@@ -97,7 +97,7 @@ adn_otu <- adn_otu_occurances %>% arrange(occurance) %>%
   ggplot(aes(genus, occurance)) + 
   geom_bar(stat = "identity", fill = '#8B8B83') + 
   theme_bw() + 
-  labs(x = "", y = "Occurance Across Studies") + 
+  labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, 1)) + 
   ggtitle("D") + 
   scale_y_continuous(labels = scales::percent, expand = c(0,0.03)) + 
@@ -118,7 +118,7 @@ crc_unmatched_otu <- crc_unmatched_otu_occurances %>% arrange(occurance) %>%
   ggplot(aes(genus, occurance)) + 
   geom_bar(stat = "identity", fill = "black") + 
   theme_bw() + 
-  labs(x = "", y = "Occurance Across Studies") + 
+  labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, 1)) + 
   ggtitle("E") + 
   scale_y_continuous(labels = scales::percent, expand = c(0,0.03)) + 
@@ -137,7 +137,7 @@ crc_matched_otu <- crc_matched_otu_occurances %>% arrange(occurance) %>%
   ggplot(aes(genus, occurance)) + 
   geom_bar(stat = "identity", fill = "black") + 
   theme_bw() + 
-  labs(x = "", y = "Occurance Across Studies") + 
+  labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, 1)) + 
   ggtitle("F") + 
   scale_y_continuous(labels = scales::percent, expand = c(0,0.03)) + 
