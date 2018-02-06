@@ -45,7 +45,6 @@ get_data <- function(i){
   
 }
 
-
 # Function that aligns the genera from all data sets
 align_genera <- function(studies, length_column_name, 
                          genera_data_name, dataList){
