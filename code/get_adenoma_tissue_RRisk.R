@@ -101,7 +101,7 @@ run_rr <- function(high_low_vector, disease_vector){
   # runs the RR test based on the obtained 2x2 table
   test <- epi.2by2(contingency, method="cohort.count")
   # Pull only specific information from the stored list in "test"
-  test_values <- cbind(test$massoc$RR.strata.score, 
+  test_values <- cbind(test$massoc$OR.strata.score, 
                        pvalue = test$massoc$chisq.strata$p.value)
   # store both the obtained raw counts and the resulting RR with pvalue
   combined_data <- list(data_tbl = contingency, test_values = test_values)
@@ -149,7 +149,7 @@ run_pooled <- function(alpha_d, dataset = ind_counts_data){
   # Run the actual pooled test
   rr_pooled_test <- rma(ai = low_Y, bi = low_N, 
                         ci = high_Y, di = high_N, data = test_data, 
-                        measure = "RR", method = "REML")
+                        measure = "OR", method = "REML")
   # Store a vector of the important results of interest
   results <- c(exp(c(rr = rr_pooled_test$b[[1, 1]], ci_lb = rr_pooled_test$ci.lb, 
                      ci_ub=rr_pooled_test$ci.ub)), pvalue = rr_pooled_test$pval, 
@@ -188,8 +188,8 @@ pooled_results <- t(mapply(run_pooled, c("sobs", "shannon", "shannoneven"), USE.
 
 # Write out the important tables
 write.csv(ind_counts_data, "data/process/tables/alpha_adn_group_counts_tissue_summary.csv", row.names = F)
-write.csv(ind_RR_data, "data/process/tables/alpha_adn_RR_ind_tissue_results.csv", row.names = F)
-write.csv(pooled_results, "data/process/tables/alpha_adn_RR_tissue_composite.csv", row.names = F)
+write.csv(ind_RR_data, "data/process/tables/alpha_adn_OR_ind_tissue_results.csv", row.names = F)
+write.csv(pooled_results, "data/process/tables/alpha_adn_OR_tissue_composite.csv", row.names = F)
 
 
 
