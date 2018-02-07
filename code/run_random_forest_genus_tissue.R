@@ -508,7 +508,7 @@ matched_tissue_all_roc_values <- sapply(
 ########################## Code used to run the analysis (unmatched + select) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/select_genus_RR_unmatched_tissue_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_unmatched_tissue_composite.csv") %>% arrange(pvalue, rr)
 
 top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
 top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
@@ -554,10 +554,10 @@ unmatched_tissue_test_red_select_models <- t(sapply(
 
 
 ##############################################################################################
-########################## Code used to run the analysis (unmatched + select) ################
+########################## Code used to run the analysis (matched + select) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/select_genus_RR_matched_tissue_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_matched_tissue_composite.csv") %>% arrange(pvalue, rr)
 
 top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
 top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
