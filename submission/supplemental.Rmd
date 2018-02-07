@@ -81,18 +81,18 @@ kable(table_s2, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S3: Alpha Diversity Metrics RR in Tissue for Adenoma**
+**Table S3: Alpha Diversity Metrics OR in Tissue for Adenoma**
 
 ```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
 
-alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_RR_tissue_composite.csv")) %>% 
+alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_OR_tissue_composite.csv")) %>% 
   mutate(rr = round(rr, digits = 2), 
          ci_lb = round(ci_lb, digits = 2), 
          ci_ub = round(ci_ub, digits = 2), 
          pvalue = round(pvalue, digits = 2), 
          measure = c("OTU Richness", "Shannon Diversity", "Evenness"))
 
-colnames(alpha_RR_adn_tissue) <- c("Relative Risk", "Lower Bound", "Upper Bound", "P-value", "Measure")
+colnames(alpha_RR_adn_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure")
 
 kable(alpha_RR_adn_tissue, format = "markdown", align = 'c', padding = 2)
 ```
@@ -101,17 +101,17 @@ kable(alpha_RR_adn_tissue, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S4: Alpha Diversity Metrics RR in Tissue for Unmatched Carcinoma Non-Carcinoma Samples**
+**Table S4: Alpha Diversity Metrics OR in Tissue for Unmatched Carcinoma Non-Carcinoma Samples**
 
 ```{r supplemental_table4, echo=FALSE, message=FALSE, warning=FALSE}
 
-alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_RR_unmatched_tissue_composite.csv")) %>%   mutate(rr = round(rr, digits = 2), 
+alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_unmatched_tissue_composite.csv")) %>%   mutate(rr = round(rr, digits = 2), 
          ci_lb = round(ci_lb, digits = 2), 
          ci_ub = round(ci_ub, digits = 2), 
          pvalue = round(pvalue, digits = 2), 
          measure = c("OTU Richness", "Shannon Diversity", "Evenness"))
 
-colnames(alpha_RR_crc_unmatch_tissue) <- c("Relative Risk", "Lower Bound", "Upper Bound", "P-value", "Measure")
+colnames(alpha_RR_crc_unmatch_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure")
 
 kable(alpha_RR_crc_unmatch_tissue, format = "markdown", align = 'c', padding = 2)
 ```
@@ -120,18 +120,18 @@ kable(alpha_RR_crc_unmatch_tissue, format = "markdown", align = 'c', padding = 2
 \newpage
 
 
-**Table S5: Alpha Diversity Metrics RR in Tissue for Matched Carcinoma Non-Carcinoma Samples**
+**Table S5: Alpha Diversity Metrics OR in Tissue for Matched Carcinoma Non-Carcinoma Samples**
 
 ```{r supplemental_table5, echo=FALSE, message=FALSE, warning=FALSE}
 
-alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_RR_matched_tissue_composite.csv")) %>% 
+alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_matched_tissue_composite.csv")) %>% 
   mutate(rr = round(rr, digits = 2), 
          ci_lb = round(ci_lb, digits = 2), 
          ci_ub = round(ci_ub, digits = 2), 
          pvalue = round(pvalue, digits = 2), 
          measure = c("OTU Richness", "Shannon Diversity", "Evenness"))
 
-colnames(alpha_RR_crc_match_tissue) <- c("Relative Risk", "Lower Bound", "Upper Bound", "P-value", "Measure")
+colnames(alpha_RR_crc_match_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure")
 
 kable(alpha_RR_crc_match_tissue, format = "markdown", align = 'c', padding = 2)
 ```
@@ -191,11 +191,11 @@ kable(table_s7, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
-**Table S8: RR of Adenoma in Stool for each Individual Genera with Initial P-Value under 0.05**
+**Table S8: OR of Adenoma in Stool for each Individual Genera with Initial P-Value under 0.05**
 
 ```{r supplemental_table8, echo=FALSE, message=FALSE, warning=FALSE}
 
-temp_8 <- read_csv("../data/process/tables/adn_select_genus_RR_stool_composite.csv") %>% 
+temp_8 <- read_csv("../data/process/tables/adn_select_genus_OR_stool_composite.csv") %>% 
   mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
   arrange(bh, pvalue, rr) %>% 
   mutate(rr = round(rr, digits = 2), 
@@ -206,7 +206,7 @@ temp_8 <- read_csv("../data/process/tables/adn_select_genus_RR_stool_composite.c
          measure = str_replace_all(measure, "_", " ")) %>% 
   select(rr, ci_lb, ci_ub, pvalue, bh, measure)
   
-colnames(temp_8) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+colnames(temp_8) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
 
 kable(temp_8, format = "markdown", align = 'c', padding = 2)
 
@@ -215,11 +215,11 @@ kable(temp_8, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
-**Table S9: RR of Adenoma in Tissue for each Individual Genera with Initial P-Value under 0.05**
+**Table S9: OR of Adenoma in Tissue for each Individual Genera with Initial P-Value under 0.05**
 
 ```{r supplemental_table9, echo=FALSE, message=FALSE, warning=FALSE}
 
-temp_9 <- read_csv("../data/process/tables/adn_select_genus_RR_tissue_composite.csv") %>% 
+temp_9 <- read_csv("../data/process/tables/adn_select_genus_OR_tissue_composite.csv") %>% 
   mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
   arrange(bh, pvalue, rr) %>% 
   mutate(rr = round(rr, digits = 2), 
@@ -230,7 +230,7 @@ temp_9 <- read_csv("../data/process/tables/adn_select_genus_RR_tissue_composite.
          measure = str_replace_all(measure, "_", " ")) %>% 
   select(rr, ci_lb, ci_ub, pvalue, bh, measure)
   
-colnames(temp_9) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+colnames(temp_9) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
 
 kable(temp_9, format = "markdown", align = 'c', padding = 2)
 
@@ -239,11 +239,11 @@ kable(temp_9, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
-**Table S10: RR of Carcinoma in Stool for each Individual Genera with Initial P-Value under 0.05**
+**Table S10: OR of Carcinoma in Stool for each Individual Genera with Initial P-Value under 0.05**
 
 ```{r supplemental_table10, echo=FALSE, message=FALSE, warning=FALSE}
 
-temp_10 <- read_csv("../data/process/tables/select_genus_RR_stool_composite.csv") %>% 
+temp_10 <- read_csv("../data/process/tables/select_genus_OR_stool_composite.csv") %>% 
   mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
   arrange(bh, pvalue, rr) %>% 
   mutate(rr = round(rr, digits = 2), 
@@ -254,7 +254,7 @@ temp_10 <- read_csv("../data/process/tables/select_genus_RR_stool_composite.csv"
          measure = str_replace_all(measure, "_", " ")) %>% 
   select(rr, ci_lb, ci_ub, pvalue, bh, measure)
   
-colnames(temp_10) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+colnames(temp_10) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
 
 kable(temp_10, format = "markdown", align = 'c', padding = 2)
 
@@ -264,11 +264,11 @@ kable(temp_10, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S11: RR of Carcinoma in Tissue for each Individual Genera with Initial P-Value under 0.05**
+**Table S11: OR of Carcinoma in Tissue for each Individual Genera with Initial P-Value under 0.05**
 
 ```{r supplemental_table11, echo=FALSE, message=FALSE, warning=FALSE}
 
-temp_11 <- read_csv("../data/process/tables/select_genus_RR_tissue_composite.csv") %>% 
+temp_11 <- read_csv("../data/process/tables/select_genus_OR_tissue_composite.csv") %>% 
   mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
   arrange(bh, pvalue, rr) %>% 
   mutate(rr = round(rr, digits = 2), 
@@ -279,7 +279,7 @@ temp_11 <- read_csv("../data/process/tables/select_genus_RR_tissue_composite.csv
          measure = str_replace_all(measure, "_", " ")) %>% 
   select(rr, ci_lb, ci_ub, pvalue, bh, measure)
   
-colnames(temp_11) <- c("RR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
+colnames(temp_11) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Genera ID")
 
 kable(temp_11, format = "markdown", align = 'c', padding = 2)
 
