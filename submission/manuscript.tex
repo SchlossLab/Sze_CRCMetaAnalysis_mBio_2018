@@ -148,11 +148,11 @@ published 16S rRNA gene sequencing studies on CRC and the microbiota.
 \textbf{Results.} Fecal samples had a significant decrease for both
 Shannon diversity and evenness, after correcting for study effect and
 variable region sequenced, with more severe disease (P-value \textless{}
-0.05). This reduction in evenness translated into small increases in
-relative risk for adenoma (P-value = 0.032) and carcinoma stages of CRC
-(P-value = 0.00034) while the reduction in Shannon diversity only
-translated into an increased relative risk for developing carcinomas
-(P-value = 0.0047). Increases in mouth-associated microbes were commonly
+0.05). This reduction in evenness translated into small increases in the
+odds ratio for adenoma (P-value = 0.035) and carcinoma stages of CRC
+(P-value = 0.0021) while the reduction in Shannon diversity only
+translated into an increased odds ratio for developing carcinomas
+(P-value = 0.0069). Increases in mouth-associated microbes were commonly
 in the top 5 most significantly increased relative risk of adenoma and
 carcinoma for both stool and tissue samples. A prediction model for
 adenoma and carcinoma was built using either the whole community or
@@ -274,25 +274,25 @@ and scope of the previous meta-analysis to investigate whether the
 bacterial community or specific members are more important risk factors
 for both adenoma and carcinoma stages of disease. To accomplish this we
 first assessed whether bacterial diversity changes throughout disease
-(control to adenoma to carcinoma) and if it results in an increased
-relative risk (RR) for adenoma or carcinoma stages of disease We then
-assessed what genera, if any, increase or decrease the RR of adenoma or
-carcinoma stages of disease Next, using Random Forest models, we
-analyzed whether the full community or only the combined top 5 increased
-and top 5 decreased RR genera resulted in better model classification,
-based on the area under the curve (AUC). Finally, we also examined at
-what effect and sample size the studies used were powered for and the
-sample size needed to get to the traditionally accepted 80\% power. Our
-results from these analyses suggests that the bacterial community
-changes as disease severity worsens, that specific members are important
-for disease classification, and that many of the studies are
-underpowered for assessing small effect sizes.
+(control to adenoma to carcinoma) and if it results in an increased odds
+ratio (OR) for adenoma or carcinoma stages of disease We then assessed
+what genera, if any, increase or decrease the OR of adenoma or carcinoma
+stages of disease Next, using Random Forest models, we analyzed whether
+the full community or only the combined top 5 increased and top 5
+decreased OR genera resulted in better model classification, based on
+the area under the curve (AUC). Finally, we also examined at what effect
+and sample size the studies used were powered for and the sample size
+needed to get to the traditionally accepted 80\% power. Our results from
+these analyses suggests that the bacterial community changes as disease
+severity worsens, that specific members are important for disease
+classification, and that many of the studies are underpowered for
+assessing small effect sizes.
 
 \newpage
 
 \subsection{Results}\label{results}
 
-\textbf{\emph{Lower Bacterial Diversity is Associated with Increased RR
+\textbf{\emph{Lower Bacterial Diversity is Associated with Increased OR
 of Tumors:}} To assess differences in broad scale community metrics as
 disease severity worsens Operational Taxonomic Unit (OTU) richness,
 evenness, and Shannon diversity measurements were power transformed and
@@ -305,16 +305,16 @@ In stool, there was a significant decrease in both evenness and Shannon
 diversity as disease severity moved from control to adenoma to carcinoma
 (P-value = 0.025 and 0.043, respectively) {[}Figure 1A{]}. We next
 tested whether the detectable differences in community significantly
-increased in RR of having an adenoma or carcinoma. For fecal samples, a
+increased in OR of having an adenoma or carcinoma. For fecal samples, a
 decrease versus the overall median in evenness resulted in a
-significantly increased RR for carcinoma (RR = 1.36 (1.15 - 1.61),
-P-value = 0.00034) and adenoma (RR = 1.16 (1.01 - 1.34), P-value =
-0.032) while a decrease versus the overall median in Shannon diversity
-only increased the RR for carcinoma (RR = 1.33 (1.09 - 1.62), P-value =
-0.0047) {[}Figure 2{]}. Using the Bray-Curtis distance metric and
-PERMANOVA, it was also possible to identify significant bacterial
-community changes, in specific studies, for both carcinoma-associated
-and adenoma-associated microbiota versus control {[}Table S1 \& S2{]}.
+significantly increased RR for carcinoma (OR = 1.66 (1.2 - 2.3), P-value
+= 0.0021) and adenoma (OR = 1.3 (1.02 - 1.65), P-value = 0.035) while a
+decrease versus the overall median in Shannon diversity only increased
+the OR for carcinoma (OR = 1.61 (1.14 - 2.28), P-value = 0.0069)
+{[}Figure 2{]}. Using the Bray-Curtis distance metric and PERMANOVA, it
+was also possible to identify significant bacterial community changes,
+in specific studies, for both carcinoma-associated and
+adenoma-associated microbiota versus control {[}Table S1 \& S2{]}.
 
 Using similar transformations for tissue samples, linear mixed-effect
 models were used on the transformed combined data to control for study,
@@ -339,45 +339,45 @@ tissue results suggest that the microbiota within an individual are
 similar to each other regardless of disease status.
 
 \textbf{\emph{Mouth-Associated Genera are Associated with an Increased
-RR of Tumor:}} Next, we asked if being higher than the median relative
-abundance, for any specific genera, resulted in an altered RR for
+OR of Tumor:}} Next, we asked if being higher than the median relative
+abundance, for any specific genera, resulted in an altered OR for
 adenoma or carcinoma, in stool and colon tissue, due to our previous
-observations of small increases in RR using OTU richness and Shannon
+observations of small increases in OR using OTU richness and Shannon
 diversity. To investigate this we analyzed all common genera across each
 study, in colon tissue or stool, and assessed whether a relative
 abundance higher than the median results in an increase or decrease in
 RR. Mouth-associated genera were commonly found in the top 5 genera
-associated with an increased RR of having an adenoma
+associated with an increased OR of having an adenoma
 (\emph{Pyramidobacter} {[}Figure 3A{]} and \emph{Rothia} {[}Figure
 3C{]}) and carcinoma (\emph{Fusobacterium}, \emph{Parvimonas},
 \emph{Porphyromonas}, and \emph{Peptostreptococcus} {[}Figure 3B{]} and
 \emph{Fusobacterium} {[}Figure 3D{]}) for both stool and colon tissue
 samples. Conversely, genera commonly associated with a normal
-gastrointestinal tract were correlated with a decreased RR for both
+gastrointestinal tract were correlated with a decreased OR for both
 adenoma and carcinoma for both stool and colon tissue samples {[}Figure
 3{]}. Even though mouth-associated genera were identified across disease
 stage, there was little direct overlap of the top 5 increased or
-decreased RR genera between both stages and sample site.
+decreased OR genera between both stages and sample site.
 
-When observing RRs with a P-value less than 0.05 there was almost no
+When observing ORs with a P-value less than 0.05 there was almost no
 overlap between genera from stool or colon tissue and when they were
 similar the RR was in opposite directions (e.g. \emph{Lactococcus})
-{[}Table S8 \& S9{]}. Many of the genera that had RRs with a P-value
+{[}Table S8 \& S9{]}. Many of the genera that had ORs with a P-value
 under 0.05 for colon tissue are also highly prevalent in contamination,
 specifically, \emph{Novosphingobium}, \emph{Selemonas}, and
 \emph{Achromobacter} {[}Figure 3 \& Table S8-S9{]}. For carcinoma stage
 of disease, certain mouth-associated genera (\emph{Fusobacterium},
-\emph{Parvimonas}, \emph{Peptostreptococcus}) had a high RR for both
+\emph{Parvimonas}, \emph{Peptostreptococcus}) had a high OR for both
 colon tissue and stool samples {[}Table S10 \& S11{]}. Finally, these
 data suggest that the most significantly increased RR genera for tissue
 was \emph{Camplyobacter} while in stool it was \emph{Peptostreptococcus}
 {[}Table S10 \& S11{]}.
 
 \textbf{\emph{Select Community Models can Recapitulate Whole Community
-Models:}} Since specific genera increased RR for carcinoma over
+Models:}} Since specific genera increased OR for carcinoma over
 diversity metrics we assessed whether the bacterial community was better
 at classifying disease versus only a select group of genera. We selected
-these genera based on their RR and P-value significance and used two
+these genera based on their OR and P-value significance and used two
 approaches to test this question. The first approach used genus level
 data and tested for differences in AUC between all genera and selected
 genera. A single study was used for training the model prior to testing
@@ -455,8 +455,8 @@ Our study identifies clear differences in diversity, both at the
 community level and for individual genera, present in patients with and
 without CRC {[}Figure 1-3{]}. Although there was a step-wise decrease in
 diversity as disease progressed from control to adenoma to carcinoma,
-this did not translate into large effect sizes for the RR of tumors.
-Even though mouth-associated genera increased the RR of having a
+this did not translate into large effect sizes for the OR of tumors.
+Even though mouth-associated genera increased the OR of having a
 carcinoma, they did not consistently increase the RR of having an
 adenoma. Additionally, our observations suggest that by combining
 mouth-associated and CRC protective microbes we can classify either
@@ -559,7 +559,7 @@ fecal and colon tissue samples, we are able to provide evidence
 supporting the importance of the bacterial community in CRC. Further,
 the data presented here suggests that mouth-associated microbes can gain
 a foothold within the colon and are are commonly associated with the
-greatest RR of having a carcinoma. No conclusive signal with these
+greatest OR of having a carcinoma. No conclusive signal with these
 mouth-associated microbes could be detected for adenoma stage of
 disease. Overall, associations between the microbiota and carcinoma
 stage of disease were much stronger than with the adenoma stage. Our
@@ -682,7 +682,7 @@ approach except that the OTUs were not aggregated together by taxonomic
 identity but kept as separate OTUs. OTU Random Forest models using the
 full community included all OTUs while those for the selected model
 included only those OTUs that had a taxonomic classification to a
-variable in the top 5 increased of top 5 decreased RR based on P-value.
+variable in the top 5 increased of top 5 decreased OR based on P-value.
 
 \textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
 tissue samples with control and tumor samples from different individuals
