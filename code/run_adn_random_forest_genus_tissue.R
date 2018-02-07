@@ -445,24 +445,24 @@ matched_rf_datasets <- sapply(c(tissue_sets),
 
 # Generate data for each test (study) set
 # Definitely overfit since the classification is 100%
-matched_stool_model <- randomForest(disease ~ ., data = matched_rf_datasets[["lu"]], 
-                                    mtry = round(sqrt(ncol(matched_rf_datasets[["lu"]]))), 
-                                    importance = TRUE)
+#matched_stool_model <- randomForest(disease ~ ., data = matched_rf_datasets[["lu"]], 
+#                                    mtry = round(sqrt(ncol(matched_rf_datasets[["lu"]]))), 
+#                                    importance = TRUE)
 
-matched_model_rocs <- roc(matched_matched_genera_list$lu$disease ~ 
-                            matched_stool_model$votes[, "polyp"])
+#matched_model_rocs <- roc(matched_matched_genera_list$lu$disease ~ 
+#                            matched_stool_model$votes[, "polyp"])
 
 # Get important OTUs to the model, are they relevant 
-matched_model_importance_table <- matched_stool_model$importance %>% as.data.frame() %>% 
-  mutate(genera = rownames(.)) %>% 
-  arrange(desc(abs(MeanDecreaseAccuracy)))
+#matched_model_importance_table <- matched_stool_model$importance %>% as.data.frame() %>% 
+#  mutate(genera = rownames(.)) %>% 
+#  arrange(desc(abs(MeanDecreaseAccuracy)))
 
 
 ##############################################################################################
 ############### Run the actual programs to get the data (CRC Specific Genera - unmatched) ####
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/adn_select_genus_RR_tissue_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/adn_select_genus_OR_tissue_composite.csv") %>% arrange(pvalue, rr)
 
 top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
 top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
