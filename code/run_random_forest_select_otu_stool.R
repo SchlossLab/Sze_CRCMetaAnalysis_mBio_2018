@@ -27,7 +27,7 @@ stool_sets <- c("wang", "ahn", "zeller", "baxter", "hale")
 both_sets <- c("chen", "flemer")
 
 # Specific Genera OTUs should belong to
-rr_data <- read_csv("data/process/tables/select_genus_RR_stool_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_stool_composite.csv") %>% arrange(pvalue, rr)
 
 top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
 top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
