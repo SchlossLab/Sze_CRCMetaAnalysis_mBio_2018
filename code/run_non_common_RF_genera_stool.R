@@ -1,4 +1,4 @@
-### Run Random Forest Analysis -- Adenoma
+### Run Random Forest Analysis -- Carcinoma
 ### Generate model and then test on remaining studies
 ### This code manually inserts data sets after the nzv step
 ### Marc Sze
@@ -7,12 +7,24 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "caret", "pROC"))
+loadLibs(c("tidyverse", "caret", "pROC"))
 
+# Tissue Only sets
+# Lu, Dejea, Sana, Burns, Geng
+# Remove Lu since it only has polyps and no cancer cases
+tissue_sets <- c("dejea", "sana", "burns", "geng")
 
-# Stool Only polyp sets
+# Stool Only sets
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
-stool_sets <- c("brim", "zeller", "baxter", "hale")
+# Ignore brim since it only has polyps
+stool_sets <- c("wang", "weir", "ahn", "zeller", "baxter", "hale")
+
+# Both Tissue and Stool
+# flemer sampletype = biopsy or stool
+# chen sample_type = tissue or stool
+# Flemer, Chen
+# Ignore chen for stool since there is only one case
+both_sets <- c("chen", "flemer")
 
 
 ####################################################################################################
@@ -32,18 +44,34 @@ get_data <- function(i){
   sub_genera_data <- get_file(i, "data/process/", "_subsample_genera.csv", rows_present = F, 
                               vec_of_rownames = sample_names) %>% 
     as.data.frame() %>% mutate(sample_ID = rownames(.)) %>% 
-    select(sample_ID, everything()) %>% mutate(sample_ID = as.character(sample_ID))
+    select(sample_ID, everything())
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- get_file(i, "data/process/", ".metadata", rows_present = F,  
-                         "stool", metadata = T) %>% 
-    filter(disease != "cancer", !is.na(disease)) %>% 
-    mutate(sampleID = as.character(sampleID)) %>% 
-    select(sampleID, disease)
+                         "stool", metadata = T) %>% filter(disease != "polyp")
   
-  sub_genera_data <- study_meta %>% 
-    inner_join(sub_genera_data, by = c("sampleID" = "sample_ID")) %>% 
-    select(-sampleID)
+  # Looks for Na in the meta data of interest and removes respective samples
+  study_meta <- study_meta %>% filter(!is.na(disease))
   
+  # conditional that checks for whether length of rows of meta data is smaller
+  if(length(rownames(study_meta)) < length(rownames(sub_genera_data))){
+    # grab only the samples in the meta data file for down stream analysis
+    sub_genera_data <- sub_genera_data %>% slice(match(study_meta$sampleID, sample_ID))
+    
+    if(i == "hale"){
+      
+      study_meta <- study_meta %>% slice(match(sub_genera_data$sample_ID, sampleID))
+    }
+    
+  } else{
+    # grab only files in the data file for analysis
+    study_meta <- study_meta %>% slice(match(sub_genera_data$sample_ID, sampleID))
+  }
+  # Prints out the total number of genera for that specific study
+  print(paste("Total number of columns in", i, "is", 
+              length(colnames(sub_genera_data))))
+  # re assigns the rown names while removing the extra column used for sorting
+  sample_names <- sub_genera_data$sample_ID
+  # creates a list file with both data sets
   dataList <- list(sub_genera_data = sub_genera_data, 
                    study_meta = study_meta, 
                    column_length = length(colnames(sub_genera_data)))
@@ -54,22 +82,24 @@ get_data <- function(i){
 
 
 # Function that grabs the meta data and replaces sampleID with disease call
-assign_disease <- function(studies, generaData, dataList){
+assign_disease <- function(studies, generaData, metaData, dataList){
   # studies is the variable with the names of the studies 
   # matched_genera is the data list with only genera in every study
   
   # Get the respective metadata file of interest
-  tempData <- dataList[[studies]][[generaData]]
+  tempData <- dataList[[studies]][[generaData]] %>% mutate(sample_ID = as.character(sample_ID))
+  tempMeta <- dataList[[studies]][[metaData]] %>% mutate(sampleID = as.character(sampleID))
   # Gets transforms sample_ID column into a disease column with control v cancer calls
-  corr_tempData <- tempData %>% 
+  corr_tempData <- tempData %>% left_join(select(tempMeta, sampleID, disease), by = c("sample_ID" = "sampleID")) %>% 
     mutate(disease = factor(ifelse(disease == "normal", 
                                    invisible("control"), invisible(disease)), 
-                            levels = c("control", "polyp")))
+                            levels = c("control", "cancer"))) %>% 
+    select(-sample_ID) %>% 
+    select(disease, everything())
   # Returns the modified data frame that can be used for RF analysis
   return(corr_tempData)
   
 }
-
 
 
 
@@ -134,12 +164,12 @@ match_test_train_sets <- function(match_study, total_studies, dataList){
       }
       
       fake_data <- as.data.frame(sapply(unmatched_genera, 
-                                            function(x) rep(0, length(rownames(dataList[[i]]))), 
-                     simplify = F) %>% bind_rows())
+                                        function(x) rep(0, length(rownames(dataList[[i]]))), 
+                                        simplify = F) %>% bind_rows())
       
       tempList[[i]] <-  select(dataList[[i]], one_of(matched_genera)) %>% bind_cols(fake_data)
       
-     
+      
       
     }
   }
@@ -205,20 +235,21 @@ get_test_data <- function(train_study, i,
     if(x != train_study) {
       predict(training_model[[train_study]], testdataList[[train_study]][[x]], 
               type = 'prob')}, simplify = F)
-    
+  
   # Generate roc curve infor (sens and spec) to be able to graph roc curves in the future
   overall_rocs <- sapply(i, function(x) 
     if(x != train_study){
-      roc(testdataList[[train_study]][[x]]$disease ~ test_predictions[[x]][, "polyp"])}, 
+      roc(testdataList[[train_study]][[x]]$disease ~ test_predictions[[x]][, "cancer"])}, 
     simplify = F)
   
   # add the training data roc information to this list
-  overall_rocs[[train_study]] <- roc(training_data[[train_study]]$disease ~ train_prediction[, "polyp"])
+  overall_rocs[[train_study]] <- roc(training_data[[train_study]]$disease ~ train_prediction[, "cancer"])
   
   # Write out all the roc information from every data set
   return(overall_rocs)
   
 }
+
 
 # Function that will test all existing test sets (i.e. other studies)
 get_select_test_data <- function(train_study, i, 
@@ -240,11 +271,11 @@ get_select_test_data <- function(train_study, i,
   # Generate roc curve infor (sens and spec) to be able to graph roc curves in the future
   overall_rocs <- sapply(i, function(x) 
     if(x != train_study){
-      roc(testdataList[[x]]$disease ~ test_predictions[[x]][, "polyp"])}, 
+      roc(testdataList[[x]]$disease ~ test_predictions[[x]][, "cancer"])}, 
     simplify = F)
   
   # add the training data roc information to this list
-  overall_rocs[[train_study]] <- roc(testdataList[[train_study]]$disease ~ train_prediction[, "polyp"])
+  overall_rocs[[train_study]] <- roc(testdataList[[train_study]]$disease ~ train_prediction[, "cancer"])
   
   # Write out all the roc information from every data set
   return(overall_rocs)
@@ -280,7 +311,6 @@ make_model_comparisons <- function(train_study, i, rocList, comp_method = "boots
   return(aggregate_pvalues)
   
 }
-
 
 # Function to make comparisons between selected and full models
 select_full_comparison <- function(full_model, select_model, 
@@ -320,39 +350,39 @@ get_imp_otu_data <- function(i, a_modelList){
 }
 
 
+
 ####################################################################################################
 ########################## Functions to run the analysis ###########################################
 ####################################################################################################
 
 # reads in all the stool data into one list
-stool_study_data <- mapply(get_data, stool_sets, SIMPLIFY = F)
+stool_study_data <- mapply(get_data, c(stool_sets, "flemer"), SIMPLIFY = F)
 
 # Generate data sets to be used in random forest
-rf_datasets <- sapply(stool_sets, 
-                      function(x) assign_disease(x, "sub_genera_data", stool_study_data), simplify = F)
-
+rf_datasets <- sapply(c(stool_sets, "flemer"), 
+                      function(x) assign_disease(x, "sub_genera_data", "study_meta", stool_study_data), simplify = F)
 
 # Generate training data
-rf_training_data <- sapply(stool_sets, 
+rf_training_data <- sapply(c(stool_sets, "flemer"), 
                            function(x) create_training_data(x, rf_datasets), simplify = F)
 
 # Generate test data
-rf_test_data <- sapply(stool_sets, 
+rf_test_data <- sapply(c(stool_sets, "flemer"), 
                        function(x) match_test_train_sets(x, stool_sets, rf_training_data), simplify = F)
 
 
 # Generate train models from training data
-rf_training_models <- sapply(stool_sets, 
+rf_training_models <- sapply(c(stool_sets, "flemer"), 
                              function(x) make_rf_model(rf_training_data[[x]]), simplify = F)
 
 
 # Generate the data from testing on other studies
-rf_study_test <- sapply(stool_sets, 
+rf_study_test <- sapply(c(stool_sets, "flemer"), 
                         function(x) get_test_data(x, stool_sets, 
-                      rf_training_models, rf_training_data, rf_test_data), simplify = F)
+                                                  rf_training_models, rf_training_data, rf_test_data), simplify = F)
 
 # Generate pvalue comparisons between train and test sets
-train_test_pvalues <- sapply(stool_sets, 
+train_test_pvalues <- sapply(c(stool_sets, "flemer"), 
                              function(x) make_model_comparisons(x, stool_sets, rf_study_test), simplify = F)
 
 
@@ -361,7 +391,7 @@ train_test_pvalues <- sapply(stool_sets,
 ############### Run the actual programs to get the data (CRC Specific Genera) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/adn_select_genus_OR_stool_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_stool_composite.csv") %>% arrange(pvalue, rr)
 
 top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
 top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
@@ -370,39 +400,52 @@ combined_genera <- c(top5_pos_RR, top5_neg_RR)
 # reduce the data sets down to only the CRC associated genera
 select_matched_genera_list <- sapply(names(stool_study_data), 
                                      function(x) 
-                                       stool_study_data[[x]]$sub_genera_data %>% 
+                                       rf_datasets[[x]] %>% 
                                        select(c("disease", combined_genera)), simplify = F)
-
 
 # Run the models
 selected_rf_training_models <- sapply(
-  stool_sets, 
+  c(stool_sets, "flemer"), 
   function(x) make_rf_model(select_matched_genera_list[[x]]), simplify = F)
 
 
-
 # Generate the data from testing on other studies
-selected_rf_study_test <- sapply(stool_sets, 
-                        function(x) get_select_test_data(x, stool_sets, 
-                                                  selected_rf_training_models, 
-                                                  select_matched_genera_list), simplify = F)
+selected_rf_study_test <- sapply(c(stool_sets, "flemer"), 
+                                 function(x) get_select_test_data(x, stool_sets, 
+                                                                  selected_rf_training_models, 
+                                                                  select_matched_genera_list), simplify = F)
 
 
 # Generate pvalue comparisons between train and test sets
-selected_train_test_pvalues <- sapply(stool_sets, 
-                             function(x) make_model_comparisons(x, stool_sets, selected_rf_study_test), simplify = F)
+selected_train_test_pvalues <- sapply(c(stool_sets, "flemer"), 
+                                      function(x) make_model_comparisons(x, stool_sets, selected_rf_study_test), simplify = F)
 
 
 # Compare the full data roc to the selected data roc and create a nice table
 test_red_select_models <- sapply(stool_sets, 
-                                   function(x) 
-                                     as.data.frame(t(sapply(stool_sets, 
-                                            function(y) select_full_comparison(rf_study_test[[x]][[y]], 
-                                                                               selected_rf_study_test[[x]][[y]])))) %>% 
+                                 function(x) 
+                                   as.data.frame(t(sapply(stool_sets, 
+                                                          function(y) select_full_comparison(rf_study_test[[x]][[y]], 
+                                                                                             selected_rf_study_test[[x]][[y]])))) %>% 
                                    mutate(study = rownames(.), train_model = x), 
                                  simplify = F) %>% bind_rows() %>% 
   mutate(BH = p.adjust(pvalue, method = "BH")) %>% 
   select(full_model, select_model, pvalue, BH, study, train_model)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
