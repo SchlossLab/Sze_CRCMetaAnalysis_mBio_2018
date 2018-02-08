@@ -79,8 +79,8 @@ crc_all_tissue <- read_csv("data/process/tables/select_genus_OR_tissue_composite
 
 crc_ind_all_tissue <- read_csv("data/process/tables/select_genus_OR_tissue_ind_results.csv") %>% 
   filter(measure %in% as.data.frame(crc_all_tissue)[, "measure"]) %>% 
-  mutate(high_low = ifelse(measure %in% c("Clostridium_sensu_stricto", "Campylobacter", 
-                                          "Leptotrichia", "Fusobacterium", 
+  mutate(high_low = ifelse(measure %in% c("Campylobacter", "Leptotrichia", 
+                                          "Clostridium_sensu_stricto", "Fusobacterium", 
                                           "Parvimonas"), 
                            invisible("high"), invisible("low")))
 
@@ -223,33 +223,33 @@ adn_tissue_graph <- adn_all_tissue %>%
 
 crc_tissue_graph <- crc_all_tissue %>% 
   mutate(measure = factor(measure, 
-                          levels = c("Clostridium_sensu_stricto", "Campylobacter", "Leptotrichia", 
-                                     "Fusobacterium", "Parvimonas", "Blautia", "Corynebacterium", 
-                                     "Bacteroides", "Clostridium_XlVb", "Ruminococcus2"), 
-                          labels = c("Clostridium sensu stricto", "Campylobacter", "Leptotrichia", 
-                                     "Fusobacterium", "Parvimonas", "Blautia", "Corynebacterium", 
-                                     "Bacteroides", "Clostridium XlVb", "Ruminococcus"))) %>% 
+                          levels = c("Campylobacter", "Leptotrichia", "Clostridium_sensu_stricto", 
+                                     "Fusobacterium", "Parvimonas", "Corynebacterium", "Bacteroides", 
+                                     "Blautia", "Dorea", "Clostridium_XlVb"), 
+                          labels = c("Campylobacter", "Leptotrichia", "Clostridium sensu stricto", 
+                                     "Fusobacterium", "Parvimonas", "Corynebacterium", "Bacteroides", 
+                                     "Blautia", "Dorea", "Clostridium XlVb"))) %>% 
   ggplot(aes(log2(est), measure, xmax=log2(upper), xmin=log2(lower), colour=high_low)) + 
-  coord_cartesian(xlim=c(-2.5, 2.5)) + 
+  coord_cartesian(xlim=c(-5.2, 5.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = F) + 
   geom_point(aes(group = high_low), size = 2.5, show.legend = F) + 
   geom_point(data = crc_ind_all_tissue, aes(log2(est), 
                 factor(measure, 
-                       levels = c("Clostridium_sensu_stricto", "Campylobacter", "Leptotrichia", 
-                                  "Fusobacterium", "Parvimonas", "Blautia", "Corynebacterium", 
-                                  "Bacteroides", "Clostridium_XlVb", "Ruminococcus2"), 
-                       labels = c("Clostridium sensu stricto", "Campylobacter", "Leptotrichia", 
-                                  "Fusobacterium", "Parvimonas", "Blautia", "Corynebacterium", 
-                                  "Bacteroides", "Clostridium XlVb", "Ruminococcus")), 
+                       levels = c("Campylobacter", "Leptotrichia", "Clostridium_sensu_stricto", 
+                                  "Fusobacterium", "Parvimonas", "Corynebacterium", "Bacteroides", 
+                                  "Blautia", "Dorea", "Clostridium_XlVb"), 
+                       labels = c("Campylobacter", "Leptotrichia", "Clostridium sensu stricto", 
+                                  "Fusobacterium", "Parvimonas", "Corynebacterium", "Bacteroides", 
+                                  "Blautia", "Dorea", "Clostridium XlVb")), 
                                             group = high_low, color = high_low), 
              show.legend = F, alpha = 0.5, size = 1.25) +  
   labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("D") + 
   scale_color_manual(values = c('#B0171F', '#0000EE')) + 
   scale_y_discrete(labels=expression(
-    italic(Clostridium~sensu~stricto), italic(Campylobacter), italic(Leptotrichia), italic(Fusobacterium), 
-    italic(Parvimonas), italic(Blautia), italic(Corynebacterium), italic(Bacteroides), 
-    italic(Clostridium~XlVb), italic(Ruminococcus))) + 
+    italic(Campylobacter), italic(Leptotrichia), italic(Clostridium~sensu~stricto), italic(Fusobacterium), 
+    italic(Parvimonas), italic(Corynebacterium), italic(Bacteroides), italic(Blautia), 
+    italic(Dorea), italic(Clostridium~XlVb))) + 
   annotate("text", label = paste("Carcinoma\n(Tissue)"), x = 2, y = 9.8, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.5, size = 20), 
         panel.grid.major = element_blank(), 
