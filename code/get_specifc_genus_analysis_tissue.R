@@ -253,13 +253,24 @@ run_pooled <- function(alpha_d, dataset = ind_counts_data){
   test_data <- dataset %>% filter(measure == alpha_d)
   
   # Run the actual pooled test
-  rr_pooled_test <- rma(ai = high_Y, bi = high_N, 
+  rr_pooled_test <- try(rma(ai = high_Y, bi = high_N, 
                         ci = low_Y, di = low_N, data = test_data, 
-                        measure = "OR", method = "EB")
+                        measure = "OR", method = "REML"))
   # Store a vector of the important results of interest
-  results <- c(exp(c(rr = rr_pooled_test$b[[1, 1]], ci_lb = rr_pooled_test$ci.lb, 
-                     ci_ub=rr_pooled_test$ci.ub)), pvalue = rr_pooled_test$pval, 
+  if(length(rr_pooled_test) < 72){
+    
+    results <- c(exp(c(rr = NA, ci_lb = NA, 
+                       ci_ub=NA)), pvalue = NA, 
+                 measure = alpha_d)
+    
+  } else{
+    
+    results <- c(exp(c(rr = rr_pooled_test$b[[1, 1]], ci_lb = rr_pooled_test$ci.lb, 
+                      ci_ub=rr_pooled_test$ci.ub)), pvalue = rr_pooled_test$pval, 
                measure = alpha_d)
+    
+  }
+  
   # returns the vector of results
   return(results)
   
