@@ -530,7 +530,7 @@ $(TABLES)/cancer_predicted_pwr_and_n.csv code/make_est_power_graph.R
 $(FIGS)/FigureS1.pdf : $(TABLES)/alpha_adn_OR_tissue_composite.csv\
 $(TABLES)/alpha_adn_OR_ind_tissue_results.csv $(TABLES)/alpha_OR_tissue_composite.csv\
 $(TABLES)/alpha_OR_ind_tissue_results.csv code/make_tissue_alpha_OR_graph.R
-	R -e "source('code/make_tissue_alpha_RR_graph.R')"
+	R -e "source('code/make_tissue_alpha_OR_graph.R')"
 
 
 # Run code to make supplemental Figure 2 and Figure 3
