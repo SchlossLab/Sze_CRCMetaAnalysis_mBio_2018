@@ -180,8 +180,8 @@ $(TABLES)/alpha_adn_group_counts_summary.csv\
 $(TABLES)/alpha_adn_OR_ind_results.csv\
 $(TABLES)/alpha_adn_OR_composite.csv : $(ALPHA_STOOL_RAW)\
 code/get_stool_RRisk.R code/get_adenoma_stool_RRisk.R
-	R -e "source('code/get_stool_RRisk.R')"
-	R -e "source('code/get_adenoma_stool_RRisk.R')"
+	R -e "source('code/get_stool_OR.R')"
+	R -e "source('code/get_adenoma_stool_OR.R')"
 
 
 # Generate Relative Risk for tissue alpha diversity
@@ -199,8 +199,8 @@ $(TABLES)/alpha_adn_OR_ind_tissue_results.csv\
 $(TABLES)/alpha_adn_OR_tissue_composite.csv : $(TABLES)/alpha_tissue_matched_data.csv\
 $(TABLES)/alpha_tissue_unmatched_data.csv code/get_tissue_RRisk.R\
 code/get_adenoma_tissue_RRisk.R
-	R -e "source('code/get_tissue_RRisk.R')"
-	R -e "source('code/get_adenoma_tissue_RRisk.R')"
+	R -e "source('code/get_tissue_OR.R')"
+	R -e "source('code/get_adenoma_tissue_OR.R')"
 
 
 # Set up the genera share file variable
@@ -225,9 +225,9 @@ $(TABLES)/adn_select_genus_group_counts_summary.csv\
 $(TABLES)/adn_select_genus_OR_stool_ind_results.csv\
 $(TABLES)/adn_select_genus_OR_stool_composite.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
 $(METADATA) code/get_specifc_genus_analysis_stool.R\
-code/get_select_inc_genera_positivity_RR_stool.R\
+code/get_select_inc_genera_positivity_OR_stool.R\
 code/get_adenoma_specifc_genus_analysis_stool.R\
-code/get_adneoma_select_inc_genera_positivity_RR_stool.R
+code/get_adneoma_select_inc_genera_positivity_OR_stool.R
 	R -e "source('code/get_specifc_genus_analysis_stool.R')"
 	R -e "source('code/get_adenoma_specifc_genus_analysis_stool.R')"
 
@@ -248,9 +248,9 @@ $(TABLES)/adn_select_genus_OR_tissue_ind_results.csv\
 $(TABLES)/adn_select_genus_OR_tissue_composite : $(GENERA_FILE) $(SUB_GENERA_FILE)\
 $(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
 code/get_specifc_genus_analysis_tissue.R\
-code/get_select_inc_genera_positivity_RR_tissue.R\
+code/get_select_inc_genera_positivity_OR_tissue.R\
 code/get_adenoma_specific_genus_analysis_tissue.R\
-code/get_adneoma_select_inc_genera_positivity_RR_tissue.R
+code/get_adneoma_select_inc_genera_positivity_OR_tissue.R
 	R -e "source('code/get_specifc_genus_analysis_tissue.R')"
 	R -e "source('code/get_adenoma_specific_genus_analysis_tissue.R')"
 
@@ -481,18 +481,18 @@ $(TABLES)/alpha_RR_ind_results.csv code/make_stool_alpha_RR_graph.R
 
 # Run code to create Figure 3
 $(FIGS)/Figure3.pdf : $(TABLES)/adn_select_genus_RR_stool_composite.csv\
-$(TABLES)/adn_select_genus_RR_stool_ind_results.csv\
+$(TABLES)/adn_select_genus_OR_stool_ind_results.csv\
 $(TABLES)/adn_select_genus_inc_4_stool.csv\
-$(TABLES)/adn_select_genus_RR_tissue_composite.csv\
-$(TABLES)/adn_select_genus_RR_tissue_ind_results.csv\
+$(TABLES)/adn_select_genus_OR_tissue_composite.csv\
+$(TABLES)/adn_select_genus_OR_tissue_ind_results.csv\
 $(TABLES)/adn_select_genus_inc_4_tissue.csv\
-$(TABLES)/select_genus_RR_stool_composite.csv\
-$(TABLES)/select_genus_RR_stool_ind_results.csv\
+$(TABLES)/select_genus_OR_stool_composite.csv\
+$(TABLES)/select_genus_OR_stool_ind_results.csv\
 $(TABLES)/select_genus_inc_4_stool.csv\
-$(TABLES)/select_genus_RR_tissue_composite.csv\
-$(TABLES)/select_genus_RR_tissue_ind_results.csv\
+$(TABLES)/select_genus_OR_tissue_composite.csv\
+$(TABLES)/select_genus_OR_tissue_ind_results.csv\
 $(TABLES)/select_genus_inc_4_tissue.csv\
-code/make_select_genus_RR_graph.R
+code/make_select_genus_OR_graph.R
 	R -e "source('code/make_select_genus_RR_graph.R')"
 
 
@@ -527,9 +527,9 @@ $(TABLES)/cancer_predicted_pwr_and_n.csv code/make_est_power_graph.R
 
 
 # Run code to make supplemental Figure 1
-$(FIGS)/FigureS1.pdf : $(TABLES)/alpha_adn_RR_tissue_composite.csv\
-$(TABLES)/alpha_adn_RR_ind_tissue_results.csv $(TABLES)/alpha_RR_tissue_composite.csv\
-$(TABLES)/alpha_RR_ind_tissue_results.csv code/make_tissue_alpha_RR_graph.R
+$(FIGS)/FigureS1.pdf : $(TABLES)/alpha_adn_OR_tissue_composite.csv\
+$(TABLES)/alpha_adn_OR_ind_tissue_results.csv $(TABLES)/alpha_OR_tissue_composite.csv\
+$(TABLES)/alpha_OR_ind_tissue_results.csv code/make_tissue_alpha_OR_graph.R
 	R -e "source('code/make_tissue_alpha_RR_graph.R')"
 
 
