@@ -671,15 +671,18 @@ divided between samples from the same individual (matched) and those
 from different individuals (unmatched).
 
 \textbf{\emph{Obtaining Genera Relative Abundance and Selected Models:}}
-For the genera analysis of the RR, OTUs were added together based on the
+For the genera analysis of the OR, OTUs were added together based on the
 genus or lowest available taxonomic classification level and the total
-average counts, for 100 different subsamplings, were collected. The OTU
-based Random Forest Models using selected OTUs utilized a similar
-approach except that the OTUs were not aggregated together by taxonomic
-identity but kept as separate OTUs. OTU Random Forest models using the
-full community included all OTUs while those for the selected model
-included only those OTUs that had a taxonomic classification to a
-variable in the top 5 increased of top 5 decreased OR based on P-value.
+average counts, for 100 different subsamplings. The select models for
+the first approach utilized the top 5 most significantly increased and
+decreased ORs. For this approach, the full community models ufor each
+study were built by utilizing all genera and lowest taxnomic groups
+identified within that particular study. The select models for the
+second approach, that used OTU-based Random Forest models, utilized a
+similar method as the first approach. The main difference was that any
+OTU that taxonomically classified to one of the genera in the top 5
+increased or decreased OR were included in the select model. OTU Random
+Forest models using the full community included all OTUs.
 
 \textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
 tissue samples with control and tumor samples from different individuals
@@ -697,19 +700,20 @@ section.
 
 \textbf{\emph{Assessing Important Random Forest Model Variables:}} Using
 Mean Decrease in Accuracy (MDA) the top 10 most important variables to
-the Random Forest model were obtained in two different ways depending on
-whether the model used genera or OTU data. For the genus based models,
-the number of times that a genus showed up in the top 10 of the training
-set across each study was counted while, for the OTU based models, the
-medians for each OTU across 100 different 80/20 splits of the data was
-generated and the top 10 OTUs then counted for each study. Common taxa,
-for the OTU based models, were identified by using the lowest
-classification within the RDP database for each of the specific OTUs
-obtained from the previous counts and the number of times this
-classification occurred in the top 10, in each study, was recorded. The
-two studies that had adenoma tissue were equally divided between matched
-and unmatched groups and were grouped together for the counting of the
-top 10 genera and OTUs.
+the Random Forest model were obtained for the full models of the two
+different approaches used. For the first approach utilizing genus-based
+models, the number of times that a genus showed up in the top 10 of the
+training set across each study was counted. For the second approach,
+that utilized the OTU-based models, the medians for each OTU across 100
+different 80/20 splits of the data was generated and the top 10 OTUs
+then counted for each study. Common taxa, for the OTU based models, were
+identified by using the lowest classification within the RDP database
+for each of the specific OTUs obtained from the previous counts and the
+number of times this classification occurred in the top 10, in each
+study, was recorded. Finally, for the two studies that had adenoma
+tissue (Lu and Flemer) were equally divided between matched and
+unmatched studies and were grouped together for the counting of the top
+10 genera and OTUs.
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 at
