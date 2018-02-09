@@ -362,6 +362,9 @@ stool_study_data <- mapply(get_data, c(stool_sets, "flemer"), SIMPLIFY = F)
 rf_datasets <- sapply(c(stool_sets, "flemer"), 
                       function(x) assign_disease(x, "sub_genera_data", "study_meta", stool_study_data), simplify = F)
 
+training_imp_model_vars <- sapply(c(stool_sets, "flemer"), 
+                                  function(x) get_imp_otu_data(x, rf_datasets), simplify = F)
+
 # Generate training data
 rf_training_data <- sapply(c(stool_sets, "flemer"), 
                            function(x) create_training_data(x, rf_datasets), simplify = F)
@@ -432,9 +435,27 @@ test_red_select_models <- sapply(stool_sets,
   mutate(BH = p.adjust(pvalue, method = "BH")) %>% 
   select(full_model, select_model, pvalue, BH, study, train_model)
 
+##############################################################################################
+############################## Write out the data ############################################
+##############################################################################################
 
+sapply(c(stool_sets, "flemer"), 
+       function(x) write.csv(train_test_pvalues[[x]], 
+                             paste("data/process/tables/ALL_genus_stool_RF_full_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
+sapply(c(stool_sets, "flemer"), 
+       function(x) write.csv(training_imp_model_vars[[x]], 
+                             paste("data/process/tables/ALL_genus_stool_RF_full_", 
+                                   x, "_imp_vars.csv", sep = ""), row.names = F))
 
+sapply(c(stool_sets, "flemer"), 
+       function(x) write.csv(selected_train_test_pvalues[[x]], 
+                             paste("data/process/tables/ALL_genus_stool_RF_select_", 
+                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+
+write.csv(test_red_select_models, 
+          "data/process/tables/ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
 
