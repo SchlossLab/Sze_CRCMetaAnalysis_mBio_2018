@@ -174,11 +174,11 @@ code/get_beta_tissue.R code/get_adenoma_beta_tissue.R
 
 # Generate Relative Risk for stool alpha diversity
 $(TABLES)/alpha_group_counts_summary.csv\
-$(TABLES)/alpha_RR_ind_results.csv\
-$(TABLES)/alpha_RR_composite.csv\
+$(TABLES)/alpha_OR_ind_results.csv\
+$(TABLES)/alpha_OR_composite.csv\
 $(TABLES)/alpha_adn_group_counts_summary.csv\
-$(TABLES)/alpha_adn_RR_ind_results.csv\
-$(TABLES)/alpha_adn_RR_composite.csv : $(ALPHA_STOOL_RAW)\
+$(TABLES)/alpha_adn_OR_ind_results.csv\
+$(TABLES)/alpha_adn_OR_composite.csv : $(ALPHA_STOOL_RAW)\
 code/get_stool_RRisk.R code/get_adenoma_stool_RRisk.R
 	R -e "source('code/get_stool_RRisk.R')"
 	R -e "source('code/get_adenoma_stool_RRisk.R')"
@@ -186,17 +186,17 @@ code/get_stool_RRisk.R code/get_adenoma_stool_RRisk.R
 
 # Generate Relative Risk for tissue alpha diversity
 $(TABLES)/alpha_group_counts_unmatched_tissue_summary.csv\
-$(TABLES)/alpha_RR_ind_unmatched_tissue_results.csv\
-$(TABLES)/alpha_RR_unmatched_tissue_composite.csv\
+$(TABLES)/alpha_OR_ind_unmatched_tissue_results.csv\
+$(TABLES)/alpha_OR_unmatched_tissue_composite.csv\
 $(TABLES)/alpha_group_counts_tissue_summary.csv\
-$(TABLES)/alpha_RR_ind_tissue_results.csv\
-$(TABLES)/alpha_RR_tissue_composite.csv\
+$(TABLES)/alpha_OR_ind_tissue_results.csv\
+$(TABLES)/alpha_OR_tissue_composite.csv\
 $(TABLES)/alpha_group_counts_matched_tissue_summary.csv\
-$(TABLES)/alpha_RR_ind_matched_tissue_results.csv\
-$(TABLES)/alpha_RR_matched_tissue_composite.csv\
+$(TABLES)/alpha_OR_ind_matched_tissue_results.csv\
+$(TABLES)/alpha_OR_matched_tissue_composite.csv\
 $(TABLES)/alpha_adn_group_counts_tissue_summary.csv\
-$(TABLES)/alpha_adn_RR_ind_tissue_results.csv\
-$(TABLES)/alpha_adn_RR_tissue_composite.csv : $(TABLES)/alpha_tissue_matched_data.csv\
+$(TABLES)/alpha_adn_OR_ind_tissue_results.csv\
+$(TABLES)/alpha_adn_OR_tissue_composite.csv : $(TABLES)/alpha_tissue_matched_data.csv\
 $(TABLES)/alpha_tissue_unmatched_data.csv code/get_tissue_RRisk.R\
 code/get_adenoma_tissue_RRisk.R
 	R -e "source('code/get_tissue_RRisk.R')"
@@ -219,11 +219,11 @@ $(SUB_GENERA_FILE) : $(GENERA_FILE) code/get_genera_randomization.R
 
 # Analyze Stool Genera Relative Risk
 $(TABLES)/select_genus_group_counts_summary.csv\
-$(TABLES)/select_genus_RR_stool_ind_results.csv\
-$(TABLES)/select_genus_RR_stool_composite.csv\
+$(TABLES)/select_genus_OR_stool_ind_results.csv\
+$(TABLES)/select_genus_OR_stool_composite.csv\
 $(TABLES)/adn_select_genus_group_counts_summary.csv\
-$(TABLES)/adn_select_genus_RR_stool_ind_results.csv\
-$(TABLES)/adn_select_genus_RR_stool_composite.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
+$(TABLES)/adn_select_genus_OR_stool_ind_results.csv\
+$(TABLES)/adn_select_genus_OR_stool_composite.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
 $(METADATA) code/get_specifc_genus_analysis_stool.R\
 code/get_select_inc_genera_positivity_RR_stool.R\
 code/get_adenoma_specifc_genus_analysis_stool.R\
@@ -235,17 +235,17 @@ code/get_adneoma_select_inc_genera_positivity_RR_stool.R
 
 # Analyze Tissue Genera Relative Risk
 $(TABLES)/select_genus_matched_tissue_group_counts_summary.csv\
-$(TABLES)/select_genus_RR_matched_tissue_ind_results.csv\
-$(TABLES)/select_genus_RR_matched_tissue_composite.csv\
+$(TABLES)/select_genus_OR_matched_tissue_ind_results.csv\
+$(TABLES)/select_genus_OR_matched_tissue_composite.csv\
 $(TABLES)/select_genus_unmatched_tissue_group_counts_summary.csv\
-$(TABLES)/select_genus_RR_unmatched_tissue_ind_results.csv\
-$(TABLES)/select_genus_RR_unmatched_tissue_composite.csv\
+$(TABLES)/select_genus_OR_unmatched_tissue_ind_results.csv\
+$(TABLES)/select_genus_OR_unmatched_tissue_composite.csv\
 $(TABLES)/select_genus_tissue_group_counts_summary.csv\
-$(TABLES)/select_genus_RR_tissue_ind_results.csv\
-$(TABLES)/select_genus_RR_tissue_composite.csv\
+$(TABLES)/select_genus_OR_tissue_ind_results.csv\
+$(TABLES)/select_genus_OR_tissue_composite.csv\
 $(TABLES)/adn_select_genus_tissue_group_counts_summary.csv\
-$(TABLES)/adn_select_genus_RR_tissue_ind_results.csv\
-$(TABLES)/adn_select_genus_RR_tissue_composite : $(GENERA_FILE) $(SUB_GENERA_FILE)\
+$(TABLES)/adn_select_genus_OR_tissue_ind_results.csv\
+$(TABLES)/adn_select_genus_OR_tissue_composite : $(GENERA_FILE) $(SUB_GENERA_FILE)\
 $(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
 code/get_specifc_genus_analysis_tissue.R\
 code/get_select_inc_genera_positivity_RR_tissue.R\
