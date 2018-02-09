@@ -332,13 +332,12 @@ rf_datasets <- sapply(stool_sets,
                       function(x) assign_disease(x, "sub_genera_data", stool_study_data), simplify = F)
 
 
-training_imp_model_vars <- sapply(stool_sets, 
-                                  function(x) get_imp_otu_data(x, rf_datasets), simplify = F)
-
-
 # Generate training data
 rf_training_data <- sapply(stool_sets, 
                            function(x) create_training_data(x, rf_datasets), simplify = F)
+
+training_imp_model_vars <- sapply(stool_sets, 
+                                  function(x) get_imp_otu_data(x, rf_training_data), simplify = F)
 
 # Generate test data
 rf_test_data <- sapply(stool_sets, 
