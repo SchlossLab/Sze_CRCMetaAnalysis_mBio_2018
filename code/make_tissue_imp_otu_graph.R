@@ -9,12 +9,24 @@ loadLibs(c("tidyverse", "gridExtra", "viridis", "stringr"))
 
 
 # Read in Needed data
-crc_unmatched_genera_occurances <- read_csv("data/process/tables/crc_RF_genera_unmatched_tissue_top10.csv")
-crc_matched_genera_occurances <- read_csv("data/process/tables/adn_RF_genera_matched_tissue_top10.csv")
-adn_genera_occurances <- read_csv("data/process/tables/adn_RF_genera_tissue_top10.csv")
-crc_unmatched_otu_occurances <- read_csv("data/process/tables/crc_RF_otu_unmatched_tissue_top10.csv")
-crc_matched_otu_occurances <- read_csv("data/process/tables/adn_RF_otu_matched_tissue_top10.csv")
-adn_otu_occurances <- read_csv("data/process/tables/adn_RF_otu_tissue_top10.csv")
+crc_unmatched_genera_occurances <- read_csv("data/process/tables/crc_RF_genera_unmatched_tissue_top10.csv") %>% 
+  mutate(otu = str_replace_all(otu, "_unclassified", ""), 
+         otu = str_replace_all(otu, "\\.", "/"))
+crc_matched_genera_occurances <- read_csv("data/process/tables/adn_RF_genera_matched_tissue_top10.csv") %>% 
+  mutate(otu = str_replace_all(otu, "_unclassified", ""), 
+         otu = str_replace_all(otu, "\\.", "/"))
+adn_genera_occurances <- read_csv("data/process/tables/adn_RF_genera_tissue_top10.csv") %>% 
+  mutate(otu = str_replace_all(otu, "_unclassified", ""), 
+         otu = str_replace_all(otu, "\\.", "/"))
+crc_unmatched_otu_occurances <- read_csv("data/process/tables/crc_RF_otu_unmatched_tissue_top10.csv") %>% 
+  mutate(genus = str_replace_all(genus, "_unclassified", ""), 
+         genus = str_replace_all(genus, "\\.", "/"))
+crc_matched_otu_occurances <- read_csv("data/process/tables/adn_RF_otu_matched_tissue_top10.csv") %>% 
+  mutate(genus = str_replace_all(genus, "_unclassified", ""), 
+         genus = str_replace_all(genus, "\\.", "/"))
+adn_otu_occurances <- read_csv("data/process/tables/adn_RF_otu_tissue_top10.csv") %>% 
+  mutate(genus = str_replace_all(genus, "_unclassified", ""), 
+         genus = str_replace_all(genus, "\\.", "/"))
 
 
 adn_tissue_sets <- 2
