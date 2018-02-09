@@ -40,15 +40,15 @@ make_table <- function(studies, path_to_file, first_data_part_name,
 adn_stool_studies <- c("baxter", "brim", "hale", "zeller")
 
 adn_all_stool <- make_table(adn_stool_studies, "data/process/tables/", 
-                            "adn_genus_stool_RF_full_", "adn_genus_stool_RF_select_", 
+                            "adn_ALL_genus_stool_RF_full_", "adn_genus_stool_RF_select_", 
                             "_pvalue_summary.csv")
 
 # Load needed data (adenoma -- tissue)
 adn_tissue_studies <- c("flemer", "lu")
 
 adn_all_tissue <- make_table(adn_tissue_studies, "data/process/tables/", 
-                            "adn_genus_unmatched_tissue_RF_full_", 
-                            "adn_genus_unmatched_tissue_RF_select_", 
+                            "adn_ALL_genus_unmatched_tissue_RF_full_", 
+                            "adn_ALL_genus_unmatched_tissue_RF_select_", 
                             "_pvalue_summary.csv")
 
 
@@ -56,24 +56,24 @@ adn_all_tissue <- make_table(adn_tissue_studies, "data/process/tables/",
 crc_stool_studies <- c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller")
 
 crc_all_stool <- make_table(crc_stool_studies, "data/process/tables/", 
-                             "genus_stool_RF_full_", 
-                             "genus_stool_RF_select_", 
+                             "ALL_genus_stool_RF_full_", 
+                             "ALL_genus_stool_RF_select_", 
                              "_pvalue_summary.csv")
 
 # Load needed data (carcinoma -- tissue)
 crc_matched_tissue_studies <- c("burns", "dejea", "geng")
 
 crc_all_matched_tissue <- make_table(crc_matched_tissue_studies, "data/process/tables/", 
-                            "genus_matched_tissue_RF_", 
-                            "genus_matched_tissue_RF_select_", 
+                            "ALL_genus_matched_tissue_RF_", 
+                            "ALL_genus_matched_tissue_RF_select_", 
                             "_pvalue_summary.csv")
 
 
 crc_unmatched_tissue_studies <- c("burns", "chen", "flemer", "sana")
 
 crc_all_unmatched_tissue <- make_table(crc_unmatched_tissue_studies, "data/process/tables/", 
-                                     "genus_unmatched_tissue_RF_", 
-                                     "genus_unmatched_tissue_RF_select_", 
+                                     "ALL_genus_unmatched_tissue_RF_", 
+                                     "ALL_genus_unmatched_tissue_RF_select_", 
                                      "_pvalue_summary.csv")
 
 
@@ -101,12 +101,13 @@ crc_all_unmatched_tissue <- make_table(crc_unmatched_tissue_studies, "data/proce
 # ahn - #B0C4DE
 
 adn_tissue_graph <- adn_all_tissue %>% 
+  filter(study != model) %>% 
   mutate(model = factor(model, 
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(Matched)")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera Only")), 
+                             labels = c("All Genera", "Select Genera")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(Matched)"))) %>% 
@@ -131,12 +132,13 @@ adn_tissue_graph <- adn_all_tissue %>%
 
 
 adn_stool_graph <- adn_all_stool %>% 
+  filter(study != model) %>% 
   mutate(model = factor(model, 
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera Only")), 
+                             labels = c("All Genera", "Select Genera")), 
          study = factor(study, 
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
@@ -162,12 +164,13 @@ adn_stool_graph <- adn_all_stool %>%
 
 
 crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>% 
+  filter(study != model) %>% 
   mutate(model = factor(model, 
                         levels = c("burns", "chen", "flemer", "sana"), 
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera Only")), 
+                             labels = c("All Genera", "Select Genera")), 
          study = factor(study, 
                         levels = c("burns", "chen", "flemer", "sana"), 
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
@@ -193,12 +196,13 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
 
 
 crc_matched_tissue_graph <- crc_all_matched_tissue %>% 
+  filter(study != model) %>% 
   mutate(model = factor(model, 
                         levels = c("burns", "dejea", "geng"), 
                         labels = c("Burns", "Dejea", "Geng")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera Only")), 
+                             labels = c("All Genera", "Select Genera")), 
          study = factor(study, 
                         levels = c("burns", "dejea", "geng"), 
                         labels = c("Burns", "Dejea", "Geng"))) %>% 
@@ -224,12 +228,13 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
 
 
 crc_stool_graph <- crc_all_stool %>% 
+  filter(study != model) %>% 
   mutate(model = factor(model, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera Only")), 
+                             labels = c("All Genera", "Select Genera")), 
          study = factor(study, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
