@@ -8,10 +8,18 @@ source("code/functions.R")
 loadLibs(c("tidyverse", "gridExtra", "viridis", "stringr"))
 
 # Read in Needed data
-crc_genera_occurances <- read_csv("data/process/tables/crc_RF_genera_stool_top10.csv")
-adn_genera_occurances <- read_csv("data/process/tables/adn_RF_genera_stool_top10.csv")
-crc_otu_occurances <- read_csv("data/process/tables/crc_RF_otu_stool_top10.csv")
-adn_otu_occurances <- read_csv("data/process/tables/adn_RF_otu_stool_top10.csv")
+crc_genera_occurances <- read_csv("data/process/tables/crc_RF_genera_stool_top10.csv") %>% 
+  mutate(otu = str_replace_all(otu, "_unclassified", ""), 
+         otu = str_replace_all(otu, "\\.", "/"))
+adn_genera_occurances <- read_csv("data/process/tables/adn_RF_genera_stool_top10.csv") %>% 
+  mutate(otu = str_replace_all(otu, "_unclassified", ""), 
+         otu = str_replace_all(otu, "\\.", "/"))
+crc_otu_occurances <- read_csv("data/process/tables/crc_RF_otu_stool_top10.csv") %>% 
+  mutate(genus = str_replace_all(genus, "_unclassified", ""), 
+         genus = str_replace_all(genus, "\\.", "/"))
+adn_otu_occurances <- read_csv("data/process/tables/adn_RF_otu_stool_top10.csv") %>% 
+  mutate(genus = str_replace_all(genus, "_unclassified", ""), 
+         genus = str_replace_all(genus, "\\.", "/"))
 
 adn_stool_sets <- 4
 crc_stool_sets <- 6
