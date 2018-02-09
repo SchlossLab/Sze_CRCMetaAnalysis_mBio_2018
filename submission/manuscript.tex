@@ -146,28 +146,27 @@ tissue (492 total samples from 350 individuals) across 14 previously
 published 16S rRNA gene sequencing studies on CRC and the microbiota.
 
 \textbf{Results.} Fecal samples had a significant decrease for both
-Shannon diversity and evenness as tumor severity increased, after
+Shannon diversity and evenness as tumor severity increased after
 correcting for study effect and variable region sequenced (P-value
 \textless{} 0.05). This reduction in evenness translated into small
 increases in the odds ratio for individuals to have both adenoma
 (P-value = 0.035) and carcinoma tumors (P-value = 0.0021) while the
 reduction in Shannon diversity only translated into an increased odds
 ratio for individuals to have carcinomas (P-value = 0.0069). Increases
-in mouth-associated microbes were commonly in the top 5 most
-significantly increased odds ratios for individuals to have either
-adenoma or carcinoma tumors regardless of sample type. Prediction models
-built to classify either individuals with adenoma or carcinoma were
-trained on the whole community or selected genera (top 5 highest and
-lowest odds ratios) from either fecal or tissue samples. Both the full
-and select models for either adenoma or carcinoma resulted in similar
-classification success according to Area Under the Curve (AUC).
-Importantly, all models had a generalized decrease in AUC between train
-and test data sets. The most important groups within the full community
-models consistently belonged to genera such as \emph{Ruminococcus},
-\emph{Bacteroides}, and \emph{Roseburia} across studies. Although a
-number of associations between the microbiota and tumor were identified,
-the majority of studies that we used in this meta-analysis were only
-individually adequately powered for large effect sizes.
+in mouth-associated microbes were commonly in the top 5 most increased
+odds ratios for individuals to have either adenoma or carcinoma tumors
+regardless of sample type. Prediction models built to classify either
+individuals with adenoma or carcinoma were trained on the whole
+community or selected genera (top 5 highest and lowest odds ratios) from
+either fecal or tissue samples. Both the full and select models for
+either adenoma or carcinoma resulted in similar classification success
+according to Area Under the Curve (AUC). The most important groups
+within the full community models consistently belonged to genera such as
+\emph{Ruminococcus}, \emph{Bacteroides}, and \emph{Roseburia} across
+studies. Although a number of associations between the microbiota and
+tumor were identified, the majority of studies that we used in this
+meta-analysis were only individually adequately powered for large effect
+sizes.
 
 \textbf{Conclusions.} These data provide support for the importance of
 the bacterial community to both adenoma and carcinoma genesis. The
@@ -645,32 +644,31 @@ created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages
 \textbf{\emph{Study Analysis Overview:}} OTU richness, evenness, and
 Shannon diversity was first assessed for differences between controls,
 adenoma stage, and carcinoma stage using both linear mixed-effect models
-and RR. The Bray-Curtis index was used to assess, for each individual
-study, differences between control-adenoma and control-carcinoma. Next,
-all common genera were assessed for differences in RR for having an
+and OR. For each individual study the Bray-Curtis index was used to
+assess differences between control-adenoma and control-carcinoma. Next,
+all common genera were assessed for differences in OR for having an
 adenoma or carcinoma and ranked based on P-value. We then built Random
-Forest models based on full or selected community, based on the top 5
-increased and top 5 decreased RR based on P-value, and these models were
-trained on one study then tested on the remaining studies. This process
-was repeated for every study in the meta-analysis. A similar approach
-was then applied at the OTU level with the exception that a 10-fold CV
-over 100 different models, based on random 80/20 splitting of the data,
-was used to generate a range of expected AUCs. For these OTU-based
-models, the selected model included all OTUs that had a taxonomic
-classification to a taxa in the top 5 increased and top 5 decreased RR
-based on P-value. Finally, the power of each study was assessed for an
-effect size ranging from 1\% to 30\% and an estimated sample size, for
-these effect sizes, was generated based on 80\% power. For comparisons
-in which only control versus adenoma stage were made, the carcinoma
-samples were excluded from each respective study. Similarly, for
-comparisons in which control versus carcinoma stage were made the
-adenoma samples were excluded from each respective study. The data were
-split between feces and tissue samples. Within the tissue groups the
-data were further divided between samples from the same individual
-(matched) and those from different individuals (unmatched). Where
-applicable for each study, predictions for adenoma and carcinoma stage
-of disease were then tested for feces, matched tissue, and unmatched
-tissue.
+Forest models based on the full or selected community (the top 5
+increased and top 5 decreased OR based on P-value). Comparison between
+the full and selected models took two different approaches. In the first
+approach, models were trained on one study then tested on the remaining
+studies. This process was repeated for every study in the meta-analysis.
+In the second approach models were built using OTU level data and a
+10-fold CV over 100 different iterations, based on random 80/20
+splitting of the data, was used to generate a range of expected AUCs.
+For these OTU-based models, the selected model included all OTUs that
+had a taxonomic classification to a taxa in the top 5 increased and top
+5 decreased OR based on P-value. Finally, the power of each study was
+assessed for an effect size ranging from 1\% to 30\% and an estimated
+sample size, for these effect sizes, was generated based on 80\% power.
+For comparisons in which only control versus adenoma indivdiuals were
+made, the carcinoma individuals were excluded from each respective
+study. Similarly, for comparisons in which control versus carcinoma
+individuals were made the adenoma individuals were excluded from each
+respective study. For all analysis completed feces and tissue samples
+were kept seperate. Within the tissue groups the data were further
+divided between samples from the same individual (matched) and those
+from different individuals (unmatched).
 
 \textbf{\emph{Obtaining Genera Relative Abundance and Selected Models:}}
 For the genera analysis of the RR, OTUs were added together based on the
