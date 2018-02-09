@@ -93,11 +93,11 @@ get_occurances <- function(study_vector, dataList, lowest_var, var_of_int){
 
 # Read in the summary important Genera tables
 crc_imp_genera <- sapply(c(stool_sets, "flemer"), 
-                         function(x) get_data(x, "data/process/tables/genus_stool_RF_full_", 
+                         function(x) get_data(x, "data/process/tables/ALL_genus_stool_RF_full_", 
                                               "_imp_vars.csv", genera = T), simplify = F)
 
 adn_imp_genera <- sapply(adn_stool_sets, 
-                         function(x) get_data(x, "data/process/tables/adn_genus_stool_RF_full_", 
+                         function(x) get_data(x, "data/process/tables/adn_ALL_genus_stool_RF_full_", 
                                               "_imp_vars.csv", genera = T), simplify = F)
 
 
