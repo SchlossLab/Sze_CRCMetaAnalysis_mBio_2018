@@ -9,27 +9,27 @@ loadLibs(c("tidyverse", "gridExtra", "viridis"))
 
 
 # Load needed data tables (adenoma)
-adn_tissue_matched <- 
-  read_csv("data/process/tables/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
-  mutate(type = "matched")
+#adn_tissue_matched <- 
+#  read_csv("data/process/tables/adn_ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
+#  mutate(type = "matched")
 adn_tissue_unmatched <- 
-  read_csv("data/process/tables/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
+  read_csv("data/process/tables/adn_ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
   mutate(type = "unmatched")
 
-adn_all_stool <- read_csv("data/process/tables/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv") %>% 
+adn_all_stool <- read_csv("data/process/tables/adn_ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv") %>% 
   gather(key = model_type, value = AUC, full_model, select_model)
-adn_all_tissue <- adn_tissue_unmatched %>% bind_rows(adn_tissue_matched) %>% 
+adn_all_tissue <- adn_tissue_unmatched %>% 
   gather(key = model_type, value = AUC, full_model, select_model)
 
 # Load in needed data tables (carcinoma)
 crc_tissue_matched <- 
-  read_csv("data/process/tables/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
+  read_csv("data/process/tables/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
   mutate(type = "matched")
 crc_tissue_unmatched <- 
-  read_csv("data/process/tables/genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
+  read_csv("data/process/tables/ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
   mutate(type = "unmatched")
 
-crc_all_stool <- read_csv("data/process/tables/genus_stool_RF_fullvsselect_pvalue_summary.csv") %>% 
+crc_all_stool <- read_csv("data/process/tables/ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv") %>% 
   gather(key = model_type, value = AUC, full_model, select_model)
 crc_all_tissue <- crc_tissue_unmatched %>% bind_rows(crc_tissue_matched) %>% 
   gather(key = model_type, value = AUC, full_model, select_model)
@@ -58,6 +58,7 @@ crc_all_tissue <- crc_tissue_unmatched %>% bind_rows(crc_tissue_matched) %>%
 
 
 adn_tissue_graph <- adn_all_tissue %>% 
+  filter(study == train_model) %>% 
   mutate(type = factor(type, 
                        levels = c("unmatched", "matched"), 
                        labels = c("Unmatched Tissue", "Matched Tissue")), 
@@ -86,6 +87,7 @@ adn_tissue_graph <- adn_all_tissue %>%
 
 
 adn_stool_graph <- adn_all_stool %>% 
+  filter(study == train_model) %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full_model", "select_model"), 
                              labels = c("All Genera", "Select Genera Only")), 
@@ -111,6 +113,7 @@ adn_stool_graph <- adn_all_stool %>%
 
 
 crc_tissue_graph <- crc_all_tissue %>% 
+  filter(study == train_model) %>% 
   mutate(type = factor(type, 
                        levels = c("unmatched", "matched"), 
                        labels = c("Unmatched Tissue", "Matched Tissue")), 
@@ -141,6 +144,7 @@ crc_tissue_graph <- crc_all_tissue %>%
 
 
 crc_stool_graph <- crc_all_stool %>% 
+  filter(study == train_model) %>% 
   mutate(model_type = factor(model_type, 
                              levels = c("full_model", "select_model"), 
                              labels = c("All Genera", "Select Genera")), 
