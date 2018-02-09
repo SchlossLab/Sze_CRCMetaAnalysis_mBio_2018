@@ -362,12 +362,12 @@ stool_study_data <- mapply(get_data, c(stool_sets, "flemer"), SIMPLIFY = F)
 rf_datasets <- sapply(c(stool_sets, "flemer"), 
                       function(x) assign_disease(x, "sub_genera_data", "study_meta", stool_study_data), simplify = F)
 
-training_imp_model_vars <- sapply(c(stool_sets, "flemer"), 
-                                  function(x) get_imp_otu_data(x, rf_datasets), simplify = F)
-
 # Generate training data
 rf_training_data <- sapply(c(stool_sets, "flemer"), 
                            function(x) create_training_data(x, rf_datasets), simplify = F)
+
+training_imp_model_vars <- sapply(c(stool_sets, "flemer"), 
+                                  function(x) get_imp_otu_data(x, rf_training_data), simplify = F)
 
 # Generate test data
 rf_test_data <- sapply(c(stool_sets, "flemer"), 
