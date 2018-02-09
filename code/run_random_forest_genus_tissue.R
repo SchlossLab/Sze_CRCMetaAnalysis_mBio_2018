@@ -461,7 +461,7 @@ unmatched_tissue_all_roc_values <- sapply(names(unmatched_tissue_final_data),
 
 
 ##############################################################################################
-########################## Code used to run the analysis (unmatched) #########################
+########################## Code used to run the analysis (matched) #########################
 ##############################################################################################
 
 # reads in all the stool data into one list
