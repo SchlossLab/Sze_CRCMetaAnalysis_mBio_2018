@@ -62,7 +62,7 @@ adn_tissue_graph <- adn_all_tissue %>%
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = T) + 
   geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
-  labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("A") + 
+  labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Variable Region", values = c('#000000', '#35B779FF')) + 
   annotate("text", label = paste("Adenoma\n(Tissue)"), x = -4.70, y = 3.3, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
@@ -87,7 +87,7 @@ crc_tissue_graph <- crc_all_tissue %>%
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = T) + 
   geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
-  labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("B") + 
+  labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Variable Region", values = c('#000000', '#8FD744FF', '#31688EFF', 
                                 '#35B779FF', '#443A83FF', '#FDE725FF')) + 
   annotate("text", label = paste("Carcinoma\n(Tissue)"), x = -4.4, y = 7, size = 2.5) + 
