@@ -108,16 +108,16 @@ get_occurances <- function(study_vector, dataList, lowest_var, var_of_int){
 
 # Read in the summary important Genera tables
 crc_unmatched_imp_genera <- sapply(unmatched_studies, 
-                         function(x) get_data(x, "data/process/tables/genus_unmatched_tissue_RF_", 
+                         function(x) get_data(x, "data/process/tables/ALL_genus_unmatched_tissue_RF_", 
                                               "_imp_vars.csv", genera = T), simplify = F)
 
 crc_matched_imp_genera <- sapply(matched_studies, 
-                         function(x) get_data(x, "data/process/tables/genus_matched_tissue_RF_", 
+                         function(x) get_data(x, "data/process/tables/ALL_genus_matched_tissue_RF_", 
                                               "_imp_vars.csv", genera = T), simplify = F)
 
 
 adn_imp_genera <- sapply(adn_tissue, 
-                                 function(x) get_data(x, "data/process/tables/adn_genus_unmatched_tissue_RF_full_", 
+                                 function(x) get_data(x, "data/process/tables/adn_ALL_genus_unmatched_tissue_RF_full_", 
                                                       "_imp_vars.csv", genera = T), simplify = F)
 
 # Read in the summary important OTU tables
