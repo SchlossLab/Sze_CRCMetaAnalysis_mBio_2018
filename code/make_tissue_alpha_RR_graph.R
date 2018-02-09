@@ -9,17 +9,17 @@ source("code/functions.R")
 loadLibs(c("tidyverse", "gridExtra", "viridis"))
 
 # Load in needed data tables
-adn_all_tissue <- read_csv("data/process/tables/alpha_adn_RR_tissue_composite.csv") %>% 
+adn_all_tissue <- read_csv("data/process/tables/alpha_adn_OR_tissue_composite.csv") %>% 
   rename(est = rr, lower = ci_lb, upper = ci_ub) %>% 
   mutate(study = "composite") %>% 
-  bind_rows(read_csv("data/process/tables/alpha_adn_RR_ind_tissue_results.csv")) %>% 
+  bind_rows(read_csv("data/process/tables/alpha_adn_OR_ind_tissue_results.csv")) %>% 
   mutate(region = c(rep("combined", 3), rep("V3-V4", 6)))
 
 
-crc_all_tissue <- read_csv("data/process/tables/alpha_RR_tissue_composite.csv") %>% 
+crc_all_tissue <- read_csv("data/process/tables/alpha_OR_tissue_composite.csv") %>% 
   rename(est = rr, lower = ci_lb, upper = ci_ub) %>% 
   mutate(study = "composite") %>% 
-  bind_rows(read_csv("data/process/tables/alpha_RR_ind_tissue_results.csv")) %>% 
+  bind_rows(read_csv("data/process/tables/alpha_OR_ind_tissue_results.csv")) %>% 
   mutate(region = c(rep("combined", 3), rep("V3-V5", 3), rep("V1-V2", 6), rep("V5-V6", 3), 
                     rep("V3-V4", 3), rep("V1-V3", 3)))
 
@@ -57,14 +57,14 @@ adn_tissue_graph <- adn_all_tissue %>%
                           levels = c("sobs", "shannoneven", "shannon"), 
                           labels = c("Observed OTUs", "Evenness", "Shannon Diversity")))  %>% 
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
-  coord_cartesian(xlim=c(-4.2, 4.2)) + 
+  coord_cartesian(xlim=c(-6.2, 6.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = T) + 
   geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Variable Region", values = c('#000000', '#35B779FF')) + 
-  annotate("text", label = paste("Adenoma (Tissue)"), x = -2.70, y = 3.5, size = 2.5) + 
+  annotate("text", label = paste("Adenoma\n(Tissue)"), x = -4.70, y = 3.3, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
@@ -82,7 +82,7 @@ crc_tissue_graph <- crc_all_tissue %>%
                           levels = c("sobs", "shannoneven", "shannon"), 
                           labels = c("Observed OTUs", "Evenness", "Shannon Diversity"))) %>%  
   ggplot(aes(log2(est), study, xmax=log2(upper), xmin=log2(lower), colour=region)) + 
-  coord_cartesian(xlim=c(-4.2, 4.2)) + 
+  coord_cartesian(xlim=c(-6.2, 6.2)) + 
   geom_vline(xintercept = 0.0, linetype=2, alpha=0.75) + 
   geom_errorbarh(alpha=0.5, size = 1, height=0, show.legend = T) + 
   geom_point(size = 3, show.legend = T) + 
@@ -90,7 +90,7 @@ crc_tissue_graph <- crc_all_tissue %>%
   labs(x = expression(Log["2"]~Relative~Risk), y = "") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Variable Region", values = c('#000000', '#8FD744FF', '#31688EFF', 
                                 '#35B779FF', '#443A83FF', '#FDE725FF')) + 
-  annotate("text", label = paste("Carcinoma (Tissue)"), x = -2.4, y = 7.4, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma\n(Tissue)"), x = -4.4, y = 7, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.14, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
