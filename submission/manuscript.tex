@@ -629,64 +629,67 @@ sequence processing utilized the R (v3.4.3) software package {[}38{]}.
 For OTU richness, evenness, and Shannon diversity analysis, values were
 power transformed using the rcompanion (v1.11.1) package {[}39{]} and
 then Z-score normalized using the car (v2.1.6) package {[}40{]}. Testing
-for \(\alpha\)-diversity differences utilized linear mixed-effect models
-created using the lme4 (v1.1.15) package {[}41{]} to correct for study,
-repeat sampling of individuals (tissue only), and 16S hyper-variable
-region used. Relative risk was analyzed using both the epiR (v0.9.93)
-and metafor (v2.0.0) packages {[}42,43{]} by assessing how many
-individuals with and without disease were above and below the overall
-median value within each specific study. Relative risk significance
-testing utilized the chi-squared test. \(\beta\)-diversity differences
-utilized a Bray-Curtis distance matrix and PERMANOVA executed with the
-vegan (v2.4.5) package {[}44{]}. Random Forest models were built using
-both the caret (v6.0.78) and randomForest (v4.6.12) packages
-{[}45,46{]}. Power analysis and estimations were made using the pwr
-(v1.2.1) and statmod (v1.4.30) packages {[}47,48{]}. All figures were
-created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages
-{[}49,50{]}.
+for OTU richness, evenness, and Shannon diversity differences utilized
+linear mixed-effect models created using the lme4 (v1.1.15) package
+{[}41{]} to correct for study, repeat sampling of individuals (tissue
+only), and 16S hyper-variable region used. Odds ratios (OR) were
+analyzed using both the epiR (v0.9.93) and metafor (v2.0.0) packages
+{[}42,43{]} by assessing how many individuals with and without disease
+were above and below the overall median value within each specific
+study. OR significance testing utilized the chi-squared test. Diversity
+differences measured by the Bray-Curtis index utilized the creation of
+distance matrix and testing with PERMANOVA executed with the vegan
+(v2.4.5) package {[}44{]}. Random Forest models were built using both
+the caret (v6.0.78) and randomForest (v4.6.12) packages {[}45,46{]}.
+Power analysis and estimations were made using the pwr (v1.2.1) and
+statmod (v1.4.30) packages {[}47,48{]}. All figures were created using
+both ggplot2 (v2.2.1) and gridExtra (v2.3) packages {[}49,50{]}.
 
 \textbf{\emph{Study Analysis Overview:}} OTU richness, evenness, and
-Shannon diversity was first assessed for differences between controls,
-adenoma stage, and carcinoma stage using both linear mixed-effect models
-and OR. For each individual study the Bray-Curtis index was used to
-assess differences between control-adenoma and control-carcinoma. Next,
-all common genera were assessed for differences in OR for having an
-adenoma or carcinoma and ranked based on P-value. We then built Random
-Forest models based on the full or selected community (the top 5
-increased and top 5 decreased OR based on P-value). Comparison between
-the full and selected models took two different approaches. In the first
-approach, models were trained on one study then tested on the remaining
-studies. This process was repeated for every study in the meta-analysis.
-In the second approach models were built using OTU level data and a
-10-fold CV over 100 different iterations, based on random 80/20
-splitting of the data, was used to generate a range of expected AUCs.
-For these OTU-based models, the selected model included all OTUs that
-had a taxonomic classification to a taxa in the top 5 increased and top
-5 decreased OR based on P-value. Finally, the power of each study was
-assessed for an effect size ranging from 1\% to 30\% and an estimated
-sample size, for these effect sizes, was generated based on 80\% power.
-For comparisons in which only control versus adenoma individuals were
-made, the carcinoma individuals were excluded from each respective
-study. Similarly, for comparisons in which control versus carcinoma
-individuals were made the adenoma individuals were excluded from each
-respective study. For all analysis completed feces and tissue samples
-were kept separate. Within the tissue groups the data were further
-divided between samples from the same individual (matched) and those
-from different individuals (unmatched).
+Shannon diversity were first assessed for differences between controls,
+adenoma tumors, and carcinoma turmors using both linear mixed-effect
+models and ORs. For each individual study the Bray-Curtis index was used
+to assess differences between control-adenoma and control-carcinoma
+individuals. Next, all common genera were assessed for differences in
+ORs for individuals having an adenoma or carcinoma and ranked based on
+P-value. We then built Random Forest models based on the full or
+selected community (the top 5 increased and top 5 decreased ORs based on
+P-value). Comparison between the full and selected models took two
+different approaches. In the first approach, models were trained on one
+study then tested on the remaining studies using genera-based relative
+abundances. This process was repeated for every study in the
+meta-analysis. In the second approach, models were built using OTU level
+data and a 10-fold CV over 100 different iterations, based on random
+80/20 splitting of the data, was used to generate a range of expected
+AUCs. For these OTU-based models, the selected model included all OTUs
+that had a taxonomic classification to a taxa in the top 5 increased and
+top 5 decreased OR analysis based on P-value. Finally, the power of each
+study was assessed for an effect size ranging from 1\% to 30\% and an
+estimated sample size, for these effect sizes, was generated based on
+80\% power. For comparisons in which only control versus adenoma
+individuals were made, the carcinoma individuals were excluded from each
+respective study. Similarly, for comparisons in which control versus
+carcinoma individuals were made the adenoma individuals were excluded
+from each respective study. For all analysis completed fecal and tissue
+samples were kept separate. Within the tissue groups the data were
+further divided between samples from the same individual (matched) and
+those from different individuals (unmatched).
 
 \textbf{\emph{Obtaining Genera Relative Abundance and Selected Models:}}
-For the genera analysis of the OR, OTUs were added together based on the
-genus or lowest available taxonomic classification level and the total
-average counts, for 100 different subsamplings. The select models for
-the first approach utilized the top 5 most significantly increased and
-decreased ORs. For this approach, the full community models for each
-study were built by utilizing all genera and lowest taxonomic groups
-identified within that particular study. The select models for the
-second approach, that used OTU-based Random Forest models, utilized a
-similar method as the first approach. The main difference was that any
-OTU that taxonomically classified to one of the genera in the top 5
-increased or decreased OR were included in the select model. OTU Random
-Forest models using the full community included all OTUs.
+For the genera analysis of the ORs, OTUs were added together based on
+the genus or lowest available taxonomic classification level and the
+total average counts, for 100 different subsamplings was obtained. The
+select models for the first Random Forest model approach utilized the
+top 5 most significantly increased and decreased ORs. For this approach,
+the full community models for each study were built by utilizing all
+genera and lowest taxonomic groups identified within that particular
+study. The select models for the second approach, that used OTU-based
+Random Forest models, utilized a similar method as the first approach.
+The main difference was that any OTU that taxonomically classified to
+one of the taxa in the top 5 increased or decreased OR analysis were
+included in the select model. OTU Random Forest models, using the full
+community, included all OTUs that did not have near zero variance within
+that specific study.
 
 \textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
 tissue samples with control and tumor samples from different individuals
@@ -695,29 +698,29 @@ individual were classified as matched. Studies with matched data
 included Burns, Dejea, Geng, and Lu while those with unmatched data were
 from Burns, Flemer, Chen, and Sanapareddy. For some studies samples
 became unmatched when a corresponding matched sample did not make it
-through sequence processing. All samples, from both tissue sample types,
-were analyzed together for the linear mixed-effect models with samples
-from the same individual corrected for. For all other analysis, not
-mentioned herein, matched and unmatched samples were analyzed separately
-using the statistical approaches mentioned in the Statistical Analysis
-section.
+through sequence processing. All samples, from both matched and
+unmatched tissue samples, were analyzed together for the linear
+mixed-effect models with samples from the same individual being
+corrected for. All other analysis, where it is not specified explicitly,
+matched and unmatched samples were analyzed separately using the
+statistical approaches mentioned in the Statistical Analysis section.
 
 \textbf{\emph{Assessing Important Random Forest Model Variables:}} Using
 Mean Decrease in Accuracy (MDA) the top 10 most important variables to
 the Random Forest model were obtained for the full models of the two
 different approaches used. For the first approach utilizing genus-based
-models, the number of times that a genus showed up in the top 10 of the
-training set across each study was counted. For the second approach,
-that utilized the OTU-based models, the medians for each OTU across 100
-different 80/20 splits of the data was generated and the top 10 OTUs
-then counted for each study. Common taxa, for the OTU based models, were
-identified by using the lowest classification within the RDP database
-for each of the specific OTUs obtained from the previous counts and the
-number of times this classification occurred in the top 10, in each
-study, was recorded. Finally, for the two studies that had adenoma
-tissue (Lu and Flemer) were equally divided between matched and
-unmatched studies and were grouped together for the counting of the top
-10 genera and OTUs.
+models, the number of times that a specific taxa showed up in the top 10
+of the training set across each study was counted. For the second
+approach, that utilized the OTU-based models, the medians for each OTU
+across 100 different 80/20 splits of the data was generated and the top
+10 OTUs then counted for each study. Common taxa were then identified by
+using the lowest classification for each of the specific OTUs obtained
+from these counts and the number of times this classification occurred
+across the top 10 of each study was recorded. Finally, the two studies
+that had adenoma tumor tissue (Lu and Flemer) were equally divided
+between matched and unmatched studies and were grouped together for the
+counting of the top 10 genera and OTUs for both Random Forest
+approaches.
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 at
