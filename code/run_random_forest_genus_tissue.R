@@ -508,11 +508,13 @@ matched_tissue_all_roc_values <- sapply(
 ########################## Code used to run the analysis (unmatched + select) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/select_genus_OR_unmatched_tissue_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_tissue_composite.csv") %>% 
+  arrange(pvalue, rr) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% 
+  filter(bh < 0.05) %>% 
+  select(measure)
 
-top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-combined_genera <- c(top5_pos_RR, top5_neg_RR)
+combined_genera <- rr_data$measure
 
 # reduce the data sets down to only the CRC associated genera
 select_unmatched_matched_genera_list <- sapply(names(unmatched_stool_study_data), 
@@ -557,11 +559,13 @@ unmatched_tissue_test_red_select_models <- t(sapply(
 ########################## Code used to run the analysis (matched + select) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/select_genus_OR_matched_tissue_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_tissue_composite.csv") %>% 
+  arrange(pvalue, rr) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% 
+  filter(bh < 0.05) %>% 
+  select(measure)
 
-top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-combined_genera <- c(top5_pos_RR, top5_neg_RR)
+combined_genera <- rr_data$measure
 
 # reduce the data sets down to only the CRC associated genera
 select_matched_matched_genera_list <- sapply(names(matched_stool_study_data), 
@@ -578,7 +582,7 @@ matched_selected_rf_datasets <- sapply(
 
 # Run the models
 selected_matched_tissue_final_data <- sapply(
-  matched_studies, 
+  c("dejea", "geng"), 
   function(x) run_rf_tests(x, matched_selected_rf_datasets, specific_vars = T), simplify = F)
 
 
@@ -594,7 +598,7 @@ matched_tissue_selected_all_roc_values <- sapply(
 
 # Compare the full data roc to the selected data roc and create a nice table
 matched_tissue_test_red_select_models <- t(sapply(
-  matched_studies, function(x) 
+  c("dejea", "geng"), function(x) 
     select_full_comparison(matched_tissue_final_data[[x]][[x]], 
                            selected_matched_tissue_final_data[[x]][[x]]))) %>% 
   as.data.frame() %>% mutate(study = rownames(.), BH = p.adjust(pvalue, method = "BH")) %>% 
