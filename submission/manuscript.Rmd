@@ -3,11 +3,11 @@ title: ''
 csl: microbiome.csl
 fontsize: 12pt
 output:
+  word_document: default
   pdf_document:
     includes:
       in_header: header.tex
     keep_tex: yes
-  word_document: default
 geometry: margin=1.0in
 bibliography: references.bib
 ---
