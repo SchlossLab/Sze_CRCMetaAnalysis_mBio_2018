@@ -453,11 +453,13 @@ matched_train_test_pvalues <- sapply(
 ########################## Code used to run the analysis (unmatched + select) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/select_genus_OR_unmatched_tissue_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_unmatched_tissue_composite.csv") %>% 
+  arrange(pvalue, rr) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% 
+  filter(bh < 0.05) %>% 
+  select(measure)
 
-top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-combined_genera <- c(top5_pos_RR, top5_neg_RR)
+combined_genera <- rr_data$measure
 
 # reduce the data sets down to only the CRC associated genera
 select_unmatched_matched_genera_list <- sapply(names(unmatched_stool_study_data), 
@@ -508,55 +510,7 @@ select_unmatched_test_red_select_models <- sapply(
 ########################## Code used to run the analysis (matched + select) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/select_genus_OR_matched_tissue_composite.csv") %>% arrange(pvalue, rr)
-
-top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-combined_genera <- c(top5_pos_RR, top5_neg_RR)
-
-# reduce the data sets down to only the CRC associated genera
-select_matched_matched_genera_list <- sapply(names(matched_stool_study_data), 
-                                               function(x) 
-                                                 matched_rf_datasets[[x]] %>% 
-                                                 select(c("disease", combined_genera)), simplify = F)
-
-# Generate training data
-select_matched_rf_training_data <- sapply(
-  matched_studies, function(x) create_training_data(x, select_matched_matched_genera_list), simplify = F)
-
-# Generate test data
-select_matched_rf_test_data <- sapply(
-  matched_studies, 
-  function(x) match_test_train_sets(x, matched_studies, select_matched_rf_training_data), simplify = F)
-
-# Generate train models from training data
-select_matched_rf_training_models <- sapply(
-  matched_studies, function(x) make_rf_model(select_matched_rf_training_data[[x]]), simplify = F)
-
-
-# Generate the data from testing on other studies
-select_matched_rf_study_test <- sapply(
-  matched_studies, 
-  function(x) 
-    get_test_data(x, matched_studies, select_matched_rf_training_models, 
-                  select_matched_rf_training_data, select_matched_rf_test_data), simplify = F)
-
-# Generate pvalue comparisons between train and test sets
-select_matched_train_test_pvalues <- sapply(
-  matched_studies, 
-  function(x) make_model_comparisons(x, matched_studies, select_matched_rf_study_test), simplify = F)
-
-
-# Compare the full data roc to the selected data roc and create a nice table
-select_matched_test_red_select_models <- sapply(
-  matched_studies, 
-  function(x) as.data.frame(t(sapply(matched_studies, 
-    function(y) select_full_comparison(matched_rf_study_test[[x]][[y]], 
-                                       select_matched_rf_study_test[[x]][[y]])))) %>% 
-    mutate(study = rownames(.), train_model = x), 
-  simplify = F) %>% bind_rows() %>% 
-  mutate(BH = p.adjust(pvalue, method = "BH")) %>% 
-  select(full_model, select_model, pvalue, BH, study, train_model)
+# Cannot do since there are no significant genera
 
 ##############################################################################################
 ############################## Write out the data ############################################
@@ -583,23 +537,23 @@ sapply(matched_studies,
                              paste("data/process/tables/ALL_genus_matched_tissue_RF_", 
                                    x, "_imp_vars.csv", sep = ""), row.names = F))
 
-sapply(unmatched_studies, 
-       function(x) write.csv(select_unmatched_train_test_pvalues[[x]], 
-                             paste("data/process/tables/ALL_genus_unmatched_tissue_RF_select_", 
-                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+#sapply(unmatched_studies, 
+#       function(x) write.csv(select_unmatched_train_test_pvalues[[x]], 
+#                             paste("data/process/tables/ALL_genus_unmatched_tissue_RF_select_", 
+#                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
-sapply(matched_studies, 
-       function(x) write.csv(select_matched_train_test_pvalues[[x]], 
-                             paste("data/process/tables/ALL_genus_matched_tissue_RF_select_", 
-                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+#sapply(matched_studies, 
+#       function(x) write.csv(select_matched_train_test_pvalues[[x]], 
+#                             paste("data/process/tables/ALL_genus_matched_tissue_RF_select_", 
+#                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
 # Write out comparisons between full and selected for matched and unmatched samples
 write.csv(select_unmatched_test_red_select_models, 
           "data/process/tables/ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
-write.csv(select_matched_test_red_select_models, 
-          "data/process/tables/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+#write.csv(select_matched_test_red_select_models, 
+#          "data/process/tables/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
 
