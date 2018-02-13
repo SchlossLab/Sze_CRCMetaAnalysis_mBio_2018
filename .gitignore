@@ -11,7 +11,6 @@ data/*/*
 *.qsub*
 mothur*logfile
 *temp*
-*.docx
 *.fastq
 *.fasta
 *.pbs
