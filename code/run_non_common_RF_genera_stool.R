@@ -371,7 +371,7 @@ training_imp_model_vars <- sapply(c(stool_sets, "flemer"),
 
 # Generate test data
 rf_test_data <- sapply(c(stool_sets, "flemer"), 
-                       function(x) match_test_train_sets(x, stool_sets, rf_training_data), simplify = F)
+                       function(x) match_test_train_sets(x, c(stool_sets, "flemer"), rf_training_data), simplify = F)
 
 
 # Generate train models from training data
@@ -381,12 +381,12 @@ rf_training_models <- sapply(c(stool_sets, "flemer"),
 
 # Generate the data from testing on other studies
 rf_study_test <- sapply(c(stool_sets, "flemer"), 
-                        function(x) get_test_data(x, stool_sets, 
+                        function(x) get_test_data(x, c(stool_sets, "flemer"), 
                                                   rf_training_models, rf_training_data, rf_test_data), simplify = F)
 
 # Generate pvalue comparisons between train and test sets
 train_test_pvalues <- sapply(c(stool_sets, "flemer"), 
-                             function(x) make_model_comparisons(x, stool_sets, rf_study_test), simplify = F)
+                             function(x) make_model_comparisons(x, c(stool_sets, "flemer"), rf_study_test), simplify = F)
 
 
 
@@ -394,11 +394,13 @@ train_test_pvalues <- sapply(c(stool_sets, "flemer"),
 ############### Run the actual programs to get the data (CRC Specific Genera) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/select_genus_OR_stool_composite.csv") %>% arrange(pvalue, rr)
+rr_data <- read_csv("data/process/tables/select_genus_OR_stool_composite.csv") %>% 
+  arrange(pvalue, rr) %>% 
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% 
+  filter(bh < 0.05) %>% 
+  select(measure)
 
-top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-combined_genera <- c(top5_pos_RR, top5_neg_RR)
+combined_genera <- rr_data$measure
 
 # reduce the data sets down to only the CRC associated genera
 select_matched_genera_list <- sapply(names(stool_study_data), 
@@ -414,20 +416,21 @@ selected_rf_training_models <- sapply(
 
 # Generate the data from testing on other studies
 selected_rf_study_test <- sapply(c(stool_sets, "flemer"), 
-                                 function(x) get_select_test_data(x, stool_sets, 
+                                 function(x) get_select_test_data(x, c(stool_sets, "flemer"), 
                                                                   selected_rf_training_models, 
                                                                   select_matched_genera_list), simplify = F)
 
 
 # Generate pvalue comparisons between train and test sets
 selected_train_test_pvalues <- sapply(c(stool_sets, "flemer"), 
-                                      function(x) make_model_comparisons(x, stool_sets, selected_rf_study_test), simplify = F)
+                                      function(x) make_model_comparisons(x, c(stool_sets, "flemer"), 
+                                                                         selected_rf_study_test), simplify = F)
 
 
 # Compare the full data roc to the selected data roc and create a nice table
-test_red_select_models <- sapply(stool_sets, 
+test_red_select_models <- sapply(c(stool_sets, "flemer"), 
                                  function(x) 
-                                   as.data.frame(t(sapply(stool_sets, 
+                                   as.data.frame(t(sapply(c(stool_sets, "flemer"), 
                                                           function(y) select_full_comparison(rf_study_test[[x]][[y]], 
                                                                                              selected_rf_study_test[[x]][[y]])))) %>% 
                                    mutate(study = rownames(.), train_model = x), 
