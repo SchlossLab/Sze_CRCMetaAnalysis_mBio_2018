@@ -3,11 +3,11 @@ title: ''
 csl: microbiome.csl
 fontsize: 12pt
 output:
-  word_document: default
   pdf_document:
     includes:
       in_header: header.tex
     keep_tex: yes
+  word_document: default
 geometry: margin=1.0in
 bibliography: references.bib
 ---
@@ -306,19 +306,15 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 
 
-**Figure 1: Community Differences between Control, Adenoma, and Carcinoma Across Sampling Site.** A) Stool sample community differences by disease group. B) Unmatched tissue samples differences by disease group. C) Matched tissue sample differences by group disease group. The dashed line represents a Z-score of 0 or no difference from the median.
+**Figure 1: Odds Ratio for Adenoma or Carcinoma based on Bacterial Community Metrics in Stool.** A) Community-based odds ratio for adenoma. B) Community-based odds ratio for carcinoma. Colors represent the different variable regions used within the respective study. 
 
-**Figure 2: Odds Ratio for Adenoma or Carcinoma based on Bacterial Community Metrics in Stool.** A) Community-based odds ratio for adenoma. B) Community-based odds ratio for carcinoma. Colors represent the different variable regions used within the respective study. 
+**Figure 2: Stool Random Forest Model Train AUCs.** A) Adenoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa. B) Carcinoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa. The black line represents the median AUC for the respective group. If no values are present in the singificant OR taxa group then there were no significant taxa identified and no model was tested.
 
-**Figure 3: Top 5 Genera that Decrease and Increase Odds Ratio for Lesion.** A) Adenoma odds ratio in stool. B) Carcinoma odds ratio in stool. C) Adenoma odds ratio in tissue. D) Carcinoma odds ratio in tissue. For all panels the odds ratio was also compared to whether one, two, three, or four of the CRC-associated genera were present. Points represented as only half on the graph have an OR of infinity in the positive or negative direction.  
+**Figure 3: Stool Random Forest Genus-Based Model Test AUCs.** A) Test AUCs of adenoma models using all genera across study. B) Test AUCs of carcinoma models using all genera or significant OR taxa only. The black line represents the AUC at 0.5. The red lines represent the median AUC of all test AUCs for a specific study.  
 
-**Figure 4: Stool OTU Random Forest Model Across Studies.** A) Adenoma random forest model between the full and select community OTUs only. B) Carcinoma random forest model between the full and select community OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between. The solid red line represents the median AUC of all the studies for either the full or select community OTUS only model.
+**Figure 4: Most Common Taxa Across Full Community Stool Study Models.** A) Common taxa in the top 10 for adenoma Random Forest all genera-based models. B) Common taxa in the top 10 for carcinoma Random Forest all genera-based models. C) Common taxa in the top 10 for adenoma Random Forest all OTU-based models. D) Common genera in the top 10 for carcinoma Random Forest all OTU-based models.
 
-**Figure 5: Tissue OTU Random Forest Model Across Studies.** A) Adenoma random forest model between the full and select community OTUs only. B) Carcinoma random forest model between the full and select community OTUs only. The dotted line represents an AUC of 0.5 and the lines represent the range in which the AUC for the 100 different 80/20 runs fell between. The solid red line represents the median AUC of all the studies for either the full community or select genera OTUS only model.
-
-**Figure 6: Most Common Genera Across Full Community Stool Study Models.** A) Common genera in the top 10 for adenoma Random Forest genus models. B) Common genera in the top 10 for carcinoma Random Forest genus models. C) Common genera in the top 10 for adenoma Random Forest OTU models. D) Common genera in the top 10 for carcinoma Random Forest OTU models.
-
-**Figure 7: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with adenoma individuals. B) Power based on effect size for studies with carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect an effect size of 1-30%. The dotted red lines in A) and B) represent a power of 0.8.  
+**Figure 5: Power and Effect Size Analysis of Studies Included.** A) Power based on effect size for studies with adenoma individuals. B) Power based on effect size for studies with carcinoma individuals. C) The estimated sample number needed for each arm of each study to detect an effect size of 1-30%. The dotted red lines in A) and B) represent a power of 0.8.  
 
 
 \newpage
@@ -326,16 +322,10 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure S1: Odds Ratio for Adenoma or Carcinoma based on Bacterial Community Metrics in Tissue.** A) Community-based odds ratio for adenoma. B) Community-based odds ratio for carcinoma. Colors represent the different variable regions used within the respective study.
 
-**Figure S2: Stool Random Forest Genus Model AUC for each Study.** A) AUC of adenoma models using all genera or select genera only. B) AUC of carcinoma models using all genera or select genera only. The black line represents the median within each group.  
+**Figure S2: Tissue Random Forest Model Train AUCs.** A) Adenoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa in unmatched and matched tissue. B) Carcinoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa in unmatched and matched tissue. The black line represents the median AUC for the respective group. If no values are present in the singificant OR taxa group then there were no significant taxa identified and no model was tested.
 
-**Figure S3: Tissue Random Forest Genus Model AUC for each Study.** A) AUC of adenoma models using all genera or only select genera divided between matched and unmatched tissue. B) AUC of carcinoma models using all genera or select genera only. The black line represents the median within each group divided between matched and unmatched tissue. 
+**Figure S3: Tissue Random Forest Genus-Based Model Test AUCs.** A) Test AUCs of adenoma models using all genera across study. B) Test AUCs of carcinoma models using all genera for matched tissue studies. C) Test AUCs of carcinoma models using all genera or significant OR taxa only for unmatched tissue studies The black line represents the AUC at 0.5. The red lines represent the median AUC of all test AUCs for a specific study.
 
-**Figure S4: Stool Random Forest Prediction Success Using Genera Across Studies.** A) AUC for prediction in adenoma using all genera or select genera only. B) AUC for prediction in carcinoma using all genera or select genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on. The red lines represent the median AUC using that specific study as the training set.
-
-**Figure S5: Tissue Random Forest Prediction Success of Carcinoma Using Genera Across Studies.** A) AUC for prediction in unmatched tissue for all genera or select genera only. B) AUC for prediction in matched tissue using all genera or select genera only. The dotted line represents an AUC of 0.5. The x-axis is the data set in which the model was initially trained on. The red lines represent the median AUC using that specific study as the training set.
-
-**Figure S6: Tissue Random Forest Prediction Success of Adenoma Using Genera Across Studies.** The red lines represent the median AUC using that specific study as the training set.
-
-**Figure S7: Most Common Genera Across Full Community Tissue Study Models.** A) Common genera in the top 10 for adenoma Random Forest genus models. B) Common genera in the top 10 for unmatched carcinoma Random Forest genus models. B) Common genera in the top 10 for matched carcinoma Random Forest genus models. D) Common genera in the top 10 for adenoma Random Forest OTU models. E) Common genera in the top 10 for unmatched carcinoma Random Forest OTU models. F) Common genera in the top 10 for matched carcinoma Random Forest OTU models.
+**Figure S4: Most Common Genera Across Full Community Tissue Study Models.** A) Common genera in the top 10 for adenoma Random Forest for all genera-based models. B) Common genera in the top 10 for unmatched carcinoma Random Forest for all genera-based models. B) Common genera in the top 10 for matched carcinoma Random Forest for all genera-based models. D) Common genera in the top 10 for adenoma Random Forest for all OTU-based models. E) Common genera in the top 10 for unmatched carcinoma Random Forest for all OTU-based models. F) Common genera in the top 10 for matched carcinoma Random Forest for all OTU-based models.
 
 \newpage
