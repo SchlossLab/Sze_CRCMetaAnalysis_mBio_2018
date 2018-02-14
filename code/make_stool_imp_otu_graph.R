@@ -115,7 +115,7 @@ crc_otu <- crc_otu_occurances %>% arrange(occurance) %>%
 stool_graph <- grid.arrange(adn_genera, crc_genera, adn_otu, crc_otu)
 
 
-ggsave("results/figures/Figure6.pdf", 
+ggsave("results/figures/Figure4.pdf", 
        stool_graph, width = 11, height = 8, dpi = 300)
 
 

@@ -170,5 +170,5 @@ tissue_graph <- grid.arrange(adn_genera, crc_unmatched_genera, crc_matched_gener
                             layout_matrix = rbind(c(1, 2, 3), c(4, 5, 6)))
 
 
-ggsave("results/figures/FigureS7.pdf", 
+ggsave("results/figures/FigureS5.pdf", 
        tissue_graph, width = 13, height = 8, dpi = 300)
