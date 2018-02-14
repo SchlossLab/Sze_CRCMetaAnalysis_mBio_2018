@@ -534,8 +534,7 @@ $(TABLES)/adn_RF_otu_tissue_top10.csv code/make_tissue_imp_otu_graph.R
 write.paper : $(FINAL)/manuscript.Rmd $(FINAL)/supplement.Rmd\
 $(FIGS)/Figure1.pdf $(FIGS)/Figure2.pdf\
 $(FIGS)/Figure3.pdf $(FIGS)/Figure4.pdf\
-$(FIGS)/Figure5.pdf $(FIGS)/Figure6.pdf\
-$(FIGS)/FigureS1.pdf $(FIGS)/FigureS2.pdf\ 
-$(FIGS)/FigureS3.pdf $(FIGS)/FigureS4.pdf\
-$(FIGS)/FigureS5.pdf code/Run_render_paper.R
+$(FIGS)/Figure5.pdf $(FIGS)/FigureS1.pdf\
+$(FIGS)/FigureS2.pdf $(FIGS)/FigureS3.pdf\
+$(FIGS)/FigureS4.pdf code/Run_render_paper.R
 	R -e "source('code/Run_render_paper.R')"
