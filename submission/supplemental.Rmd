@@ -35,7 +35,7 @@ loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown", "stringr"))
 ```
 
 
-**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stooland Tissue**
+**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool and Tissue**
 
 ```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -175,7 +175,7 @@ kable(combined_table_S3, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S3: OR of Tumor in Stool by Individual Genera with Initial P-Value under 0.05**
+**Table S3: OR in Stool of Tumor by Individual Genera with Initial P-Value under 0.05**
 
 \footnotesize
 
@@ -220,7 +220,7 @@ kable(combined_table_S4, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-**Table S4: OR of Tumor in Tissue by Individual Genera with Initial P-Value under 0.05**
+**Table S4: OR in Tissue of Tumor by Individual Genera with Initial P-Value under 0.05**
 
 \footnotesize
 
