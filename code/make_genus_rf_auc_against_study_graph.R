@@ -13,19 +13,30 @@ loadLibs(c("tidyverse", "gridExtra", "viridis"))
 
 # Function to generate the tables to be used
 make_table <- function(studies, path_to_file, first_data_part_name, 
-                       second_data_part_name, ending){
+                       second_data_part_name, ending, select_included = T){
+  
   
   tempFull <- sapply(studies, 
                      function(x) read_csv(paste(path_to_file, first_data_part_name, x, 
                                                 ending, sep = "")) %>% 
                        mutate(model = x, model_type = "full"), simplify = F) %>% bind_rows()
   
-  tempSelect <- sapply(studies, 
-                       function(x) read_csv(paste(path_to_file, second_data_part_name, x, 
-                                                  ending, sep = "")) %>% 
-                         mutate(model = x, model_type = "select"), simplify = F) %>% bind_rows()
+  if(select_included == T){
+    
+    tempSelect <- sapply(studies, 
+                         function(x) read_csv(paste(path_to_file, second_data_part_name, x, 
+                                                    ending, sep = "")) %>% 
+                           mutate(model = x, model_type = "select"), simplify = F) %>% bind_rows()
+    
+    tempALL <- tempFull %>% bind_rows(tempSelect)
+  } else{
+    
+    tempALL <- tempFull
+  }
   
-  tempALL <- tempFull %>% bind_rows(tempSelect)
+  
+  
+  
   
   return(tempALL)
   
@@ -40,16 +51,16 @@ make_table <- function(studies, path_to_file, first_data_part_name,
 adn_stool_studies <- c("baxter", "brim", "hale", "zeller")
 
 adn_all_stool <- make_table(adn_stool_studies, "data/process/tables/", 
-                            "adn_ALL_genus_stool_RF_full_", "adn_genus_stool_RF_select_", 
-                            "_pvalue_summary.csv")
+                            "adn_ALL_genus_stool_RF_full_", "adn_ALL_genus_stool_RF_full_", 
+                            "_pvalue_summary.csv",select_included = F)
 
 # Load needed data (adenoma -- tissue)
 adn_tissue_studies <- c("flemer", "lu")
 
 adn_all_tissue <- make_table(adn_tissue_studies, "data/process/tables/", 
                             "adn_ALL_genus_unmatched_tissue_RF_full_", 
-                            "adn_ALL_genus_unmatched_tissue_RF_select_", 
-                            "_pvalue_summary.csv")
+                            "adn_ALL_genus_unmatched_tissue_RF_full_", 
+                            "_pvalue_summary.csv", select_included = F)
 
 
 # Load needed data (carcinoma -- stool)
@@ -65,8 +76,8 @@ crc_matched_tissue_studies <- c("burns", "dejea", "geng")
 
 crc_all_matched_tissue <- make_table(crc_matched_tissue_studies, "data/process/tables/", 
                             "ALL_genus_matched_tissue_RF_", 
-                            "ALL_genus_matched_tissue_RF_select_", 
-                            "_pvalue_summary.csv")
+                            "ALL_genus_matched_tissue_RF_", 
+                            "_pvalue_summary.csv", select_included = F)
 
 
 crc_unmatched_tissue_studies <- c("burns", "chen", "flemer", "sana")
@@ -107,7 +118,7 @@ adn_tissue_graph <- adn_all_tissue %>%
                         labels = c("Flemer", "Lu\n(Matched)")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera")), 
+                             labels = c("All Genera", "Significant\nOR Taxa")), 
          study = factor(study, 
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(Matched)"))) %>% 
@@ -118,11 +129,12 @@ adn_tissue_graph <- adn_all_tissue %>%
   facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
-  labs(x = "", y = "AUC") + theme_bw() + 
+  labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
                      values = c('#ED9121', '#8B7500')) + 
+  annotate("text", label = paste("Adenoma Tissue"), x = 0.8, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
-        legend.position = c(0.80, 0.20), 
+        legend.position = "bottom", 
         legend.text = element_text(size = 6),
         legend.title = element_blank(), 
         legend.background = element_rect(color = "black"), 
@@ -138,7 +150,7 @@ adn_stool_graph <- adn_all_stool %>%
                         labels = c("Baxter", "Brim", "Hale", "Zeller")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera")), 
+                             labels = c("All Genera", "Significant\nOR Taxa")), 
          study = factor(study, 
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
@@ -170,7 +182,7 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera")), 
+                             labels = c("All Genera", "Significant\nOR Taxa")), 
          study = factor(study, 
                         levels = c("burns", "chen", "flemer", "sana"), 
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
@@ -181,7 +193,7 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
   facet_grid(. ~ model_type) + 
   geom_hline(yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
-  labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
+  labs(x = "", y = "AUC") + theme_bw() + ggtitle("C") + 
   scale_color_manual(name = "Study", 
                      values = c('#453581FF', '#CD6889', '#ED9121', '#8EE5EE')) + 
   annotate("text", label = paste("Carcinoma (Unmatched Tissue)"), x = 1.6, y = 1.07, size = 2.5) + 
@@ -202,7 +214,7 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
                         labels = c("Burns", "Dejea", "Geng")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera")), 
+                             labels = c("All Genera", "Significant\nOR Taxa")), 
          study = factor(study, 
                         levels = c("burns", "dejea", "geng"), 
                         labels = c("Burns", "Dejea", "Geng"))) %>% 
@@ -234,7 +246,7 @@ crc_stool_graph <- crc_all_stool %>%
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")), 
          model_type = factor(model_type, 
                              levels = c("full", "select"), 
-                             labels = c("All Genera", "Select Genera")), 
+                             labels = c("All Genera", "Significant\nOR Taxa")), 
          study = factor(study, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
@@ -264,7 +276,8 @@ crc_stool_graph <- crc_all_stool %>%
 ############### Run the actual programs to make the figure ###################################
 ##############################################################################################
 
-crc_tissue_auc_graph <- grid.arrange(crc_unmatched_tissue_graph, crc_matched_tissue_graph)
+crc_tissue_auc_graph <- grid.arrange(adn_tissue_graph, crc_matched_tissue_graph, crc_unmatched_tissue_graph, 
+                                     layout_matrix = rbind(c(1, 2), c(3, 3)))
 stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph)
 
 ggsave("results/figures/FigureS3.pdf", 
@@ -273,6 +286,4 @@ ggsave("results/figures/FigureS3.pdf",
 ggsave("results/figures/Figure3.pdf", 
        stool_auc_graph, width = 7, height = 8, dpi = 300)
 
-ggsave("results/figures/FigureS4.pdf", 
-       adn_tissue_graph, width = 3, height = 3, dpi = 300)
 
