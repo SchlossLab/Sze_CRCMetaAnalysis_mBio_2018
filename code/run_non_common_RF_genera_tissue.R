@@ -321,21 +321,31 @@ make_model_comparisons <- function(train_study, i, rocList, comp_method = "boots
 
 # Function to make comparisons between selected and full models
 select_full_comparison <- function(full_model, select_model, 
-                                   comp_method = "bootstrap"){
+                                   comp_method = "bootstrap", compare = T){
   # full_model is the model with all genera variables
   # select_model is the model with only crc specific variables
   # comp_method is default set to bootstrap to hedge against ROCs with different directions
   
   # Generates the pvalue from the test between the two respective models
-  pvalue <- pROC::roc.test(full_model, select_model, 
-                           method = comp_method)$p.value
-  # creates a vector with auc or the two models and the pvalue
-  all_data <- c(full_model = full_model$auc, select_model = select_model$auc, 
-                pvalue = pvalue)
+  if(compare == T){
+    
+    pvalue <- pROC::roc.test(full_model, select_model, 
+                             method = comp_method)$p.value
+    # creates a vector with auc or the two models and the pvalue
+    all_data <- c(full_model = full_model$auc, select_model = select_model$auc, 
+                  pvalue = pvalue)
+  } else{
+    
+    all_data <- c(full_model = full_model$auc, select_model = NA, 
+                  pvalue = NA)
+  }
+  
   # writes out the summary data
   return(all_data)
   
 }
+
+
 
 # Function that gathers the important OTUs and takes the median with quartiles
 get_imp_otu_data <- function(i, a_modelList){
@@ -510,7 +520,17 @@ select_unmatched_test_red_select_models <- sapply(
 ########################## Code used to run the analysis (matched + select) ################
 ##############################################################################################
 
-# Cannot do since there are no significant genera
+select_matched_test_red_select_models <- sapply(
+  matched_studies, 
+  function(x) as.data.frame(t(sapply(matched_studies, 
+    function(y) select_full_comparison(matched_rf_study_test[[x]][[y]], 
+                                       matched_rf_study_test[[x]][[y]], compare = F)))) %>% 
+    mutate(study = rownames(.), train_model = x), simplify = F) %>% 
+  bind_rows()
+
+
+
+
 
 ##############################################################################################
 ############################## Write out the data ############################################
@@ -552,8 +572,8 @@ write.csv(select_unmatched_test_red_select_models,
           "data/process/tables/ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
-#write.csv(select_matched_test_red_select_models, 
-#          "data/process/tables/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
+write.csv(select_matched_test_red_select_models, 
+          "data/process/tables/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv", row.names = F)
 
 
 
