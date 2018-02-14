@@ -284,17 +284,25 @@ make_model_comparisons <- function(train_study, i, rocList, comp_method = "boots
 
 # Function to make comparisons between selected and full models
 select_full_comparison <- function(full_model, select_model, 
-                                   comp_method = "bootstrap"){
+                                   comp_method = "bootstrap", compare = T){
   # full_model is the model with all genera variables
   # select_model is the model with only crc specific variables
   # comp_method is default set to bootstrap to hedge against ROCs with different directions
   
   # Generates the pvalue from the test between the two respective models
-  pvalue <- pROC::roc.test(full_model, select_model, 
-                           method = comp_method)$p.value
-  # creates a vector with auc or the two models and the pvalue
-  all_data <- c(full_model = full_model$auc, select_model = select_model$auc, 
-                pvalue = pvalue)
+  if(compare == T){
+    
+    pvalue <- pROC::roc.test(full_model, select_model, 
+                             method = comp_method)$p.value
+    # creates a vector with auc or the two models and the pvalue
+    all_data <- c(full_model = full_model$auc, select_model = select_model$auc, 
+                  pvalue = pvalue)
+  } else{
+    
+    all_data <- c(full_model = full_model$auc, select_model = NA, 
+                  pvalue = NA)
+  }
+  
   # writes out the summary data
   return(all_data)
   
@@ -364,49 +372,14 @@ train_test_pvalues <- sapply(stool_sets,
 ############### Run the actual programs to get the data (CRC Specific Genera) ################
 ##############################################################################################
 
-rr_data <- read_csv("data/process/tables/adn_select_genus_OR_stool_composite.csv") %>% arrange(pvalue, rr)
-
-top5_pos_RR <- as.data.frame(rr_data %>% filter(rr > 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-top5_neg_RR <- as.data.frame(rr_data %>% filter(rr < 1) %>% slice(1:5) %>% select(measure))[, "measure"]
-combined_genera <- c(top5_pos_RR, top5_neg_RR)
-
-# reduce the data sets down to only the CRC associated genera
-select_matched_genera_list <- sapply(names(stool_study_data), 
-                                     function(x) 
-                                       stool_study_data[[x]]$sub_genera_data %>% 
-                                       select(c("disease", combined_genera)), simplify = F)
-
-
-# Run the models
-selected_rf_training_models <- sapply(
-  stool_sets, 
-  function(x) make_rf_model(select_matched_genera_list[[x]]), simplify = F)
-
-
-
-# Generate the data from testing on other studies
-selected_rf_study_test <- sapply(stool_sets, 
-                        function(x) get_select_test_data(x, stool_sets, 
-                                                  selected_rf_training_models, 
-                                                  select_matched_genera_list), simplify = F)
-
-
-# Generate pvalue comparisons between train and test sets
-selected_train_test_pvalues <- sapply(stool_sets, 
-                             function(x) make_model_comparisons(x, stool_sets, selected_rf_study_test), simplify = F)
-
 
 # Compare the full data roc to the selected data roc and create a nice table
-test_red_select_models <- sapply(stool_sets, 
-                                   function(x) 
-                                     as.data.frame(t(sapply(stool_sets, 
-                                            function(y) select_full_comparison(rf_study_test[[x]][[y]], 
-                                                                               selected_rf_study_test[[x]][[y]])))) %>% 
+test_red_select_models <- sapply(
+  stool_sets, function(x) as.data.frame(t(
+    sapply(stool_sets, function(y) select_full_comparison(rf_study_test[[x]][[y]], 
+                                                          rf_study_test[[x]][[y]], compare = F)))) %>% 
                                    mutate(study = rownames(.), train_model = x), 
-                                 simplify = F) %>% bind_rows() %>% 
-  mutate(BH = p.adjust(pvalue, method = "BH")) %>% 
-  select(full_model, select_model, pvalue, BH, study, train_model)
-
+                                 simplify = F) %>% bind_rows()
 
 
 ##############################################################################################
@@ -424,10 +397,10 @@ sapply(stool_sets,
                                    x, "_imp_vars.csv", sep = ""), row.names = F))
 
 
-sapply(stool_sets, 
-       function(x) write.csv(selected_train_test_pvalues[[x]], 
-                             paste("data/process/tables/adn_ALL_genus_stool_RF_select_", 
-                                   x, "_pvalue_summary.csv", sep = ""), row.names = F))
+#sapply(stool_sets, 
+ #      function(x) write.csv(selected_train_test_pvalues[[x]], 
+  #                           paste("data/process/tables/adn_ALL_genus_stool_RF_select_", 
+   #                                x, "_pvalue_summary.csv", sep = ""), row.names = F))
 
 write.csv(test_red_select_models, 
           "data/process/tables/adn_ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv", row.names = F)
