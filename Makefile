@@ -505,18 +505,16 @@ $(TABLES)/alpha_OR_ind_tissue_results.csv code/make_tissue_alpha_OR_graph.R
 
 # Run code to make Figure 3, S3, and S4
 $(FIGS)/Figure3.pdf\
-$(FIGS)/FigureS3.pdf\
-$(FIGS)/FigureS4.pdf : $(G_ADN_FULL_STOOL_PVALUE) $(G_ADN_STOOL_SELECT)\
-$(G_ADN_FULL_TISSUE_PVALUE) $(G_ADN_SELECT_TISSUE_PVALUE)\
-$(G_CRC_FULL_STOOL_PVALUE) $(G_CRC_SELECT_STOOL_PVALUE)\
-$(G_CRC_FULL_MATCH_T_PVALUE) $(G_CRC_FULL_UNMATCH_T_PVALUE)\
-$(G_CRC_SELECT_MATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_PVALUE)\
+$(FIGS)/FigureS3.pdf : $(G_ADN_FULL_STOOL_PVALUE)\
+$(G_ADN_FULL_TISSUE_PVALUE) $(G_CRC_FULL_STOOL_PVALUE)\
+$(G_CRC_SELECT_STOOL_PVALUE) $(G_CRC_FULL_MATCH_T_PVALUE)\
+$(G_CRC_FULL_UNMATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_PVALUE)\
 code/make_genus_rf_auc_against_study_graph.R
 	R -e "source('code/make_genus_rf_auc_against_study_graph.R')"
 
 
 # Run code to make supplemental Figure 5
-$(FIGS)/FigureS5.pdf : $(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
+$(FIGS)/FigureS4.pdf : $(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_matched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_tissue_top10.csv\
 $(TABLES)/crc_RF_otu_unmatched_tissue_top10.csv\
