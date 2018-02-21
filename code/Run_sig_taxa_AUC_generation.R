@@ -89,6 +89,21 @@ assign_disease <- function(studies, generaData, metaData, dataList){
 }
 
 
+# Function to generate step-wise increase in thresholds
+get_thresholds <- function(study, col_of_int, dataList){
+  
+  tempData <- dataList[[study]] %>% 
+    select(one_of(col_of_int))
+  
+  tempMax <- apply(tempData, 2, function(x) max(x))
+  
+  
+  return(tempMax)
+  
+}
+
+
+test <- get_thresholds("baxter", combined_genera, select_good_data)
 
 ##############################################################################################
 ############### Run the actual programs to get the data (CRC Specific Genera) ################
@@ -115,9 +130,5 @@ combined_genera <- rr_data$measure
 select_good_data <- sapply(c(stool_sets, "flemer"), 
                            function(x) select(good_datasets[[x]], 
                                               disease, one_of(combined_genera)), simplify = F)
-
-
-
-
 
 
