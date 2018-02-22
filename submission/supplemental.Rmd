@@ -35,7 +35,63 @@ loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown", "stringr"))
 ```
 
 
-**Table S1: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool and Tissue**
+**Table S1: Alpha Diversity Metrics OR in Tissue**
+
+\footnotesize
+
+```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
+
+alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_OR_tissue_composite.csv")) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 2), 
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
+         comparison = "Adenoma", 
+         tissue_type = "Combined")
+
+colnames(alpha_RR_adn_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
+                                   "Tumor", "Tissue Group")
+
+
+
+alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_unmatched_tissue_composite.csv")) %>%   mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 2), 
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
+         comparison = "Carcinoma", 
+         tissue_type = "Unmatched")
+
+colnames(alpha_RR_crc_unmatch_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
+                                           "Tumor", "Tissue Group")
+
+
+alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_matched_tissue_composite.csv")) %>% 
+  mutate(rr = round(rr, digits = 2), 
+         ci_lb = round(ci_lb, digits = 2), 
+         ci_ub = round(ci_ub, digits = 2), 
+         pvalue = round(pvalue, digits = 2), 
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
+         comparison = "Carcinoma", 
+         tissue_type = "Matched")
+
+colnames(alpha_RR_crc_match_tissue) <-  c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
+                                          "Tumor", "Tissue Group")
+
+combined_table_S3 <- alpha_RR_adn_tissue %>% bind_rows(alpha_RR_crc_unmatch_tissue, alpha_RR_crc_match_tissue)
+
+
+
+kable(combined_table_S3, format = "markdown", align = 'c', padding = 2)
+```
+
+
+\normalsize
+
+\newpage
+
+**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool and Tissue**
 
 ```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -117,62 +173,6 @@ kable(combined_table_s1, format = "markdown", align = 'c', padding = 2)
 \newpage
 
 
-
-**Table S2: Alpha Diversity Metrics OR in Tissue**
-
-\footnotesize
-
-```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
-
-alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_OR_tissue_composite.csv")) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = round(pvalue, digits = 2), 
-         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
-         comparison = "Adenoma", 
-         tissue_type = "Combined")
-
-colnames(alpha_RR_adn_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
-                                   "Tumor", "Tissue Group")
-
-
-
-alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_unmatched_tissue_composite.csv")) %>%   mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = round(pvalue, digits = 2), 
-         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
-         comparison = "Carcinoma", 
-         tissue_type = "Unmatched")
-
-colnames(alpha_RR_crc_unmatch_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
-                                           "Tumor", "Tissue Group")
-
-
-alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_matched_tissue_composite.csv")) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = round(pvalue, digits = 2), 
-         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
-         comparison = "Carcinoma", 
-         tissue_type = "Matched")
-
-colnames(alpha_RR_crc_match_tissue) <-  c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
-                                          "Tumor", "Tissue Group")
-
-combined_table_S3 <- alpha_RR_adn_tissue %>% bind_rows(alpha_RR_crc_unmatch_tissue, alpha_RR_crc_match_tissue)
-
-
-
-kable(combined_table_S3, format = "markdown", align = 'c', padding = 2)
-```
-
-
-\normalsize
-
-\newpage
 
 
 **Table S3: OR in Stool of Tumor by Individual Genera with Initial P-Value under 0.05**
