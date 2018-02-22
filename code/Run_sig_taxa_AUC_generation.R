@@ -310,5 +310,5 @@ count_tissue_data_list <- sapply(unmatched_studies,
 
 
 # Read out final data
-write_csv(count_data_list, "data/process/tables/ind_genera_auc_unmatched_tissue.csv")
+write_csv(count_tissue_data_list, "data/process/tables/ind_genera_auc_unmatched_tissue.csv")
 
