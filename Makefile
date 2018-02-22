@@ -463,16 +463,30 @@ code/make_study_count_table.R
 #
 ################################################################################
 
-# Run code to create Figure 1
-$(FIGS)/Figure1.pdf : $(TABLES)/alpha_adn_RR_composite.csv\
+
+# Run Alpha raw graph Figure 1
+$(FIGS)/Figure1.pdf : $(ALPHA_STOOL_RAW) $(ALPHA_TISS_RAW)\
+code/make_stool_alpha_raw_graph.R
+	R -e "source('code/make_stool_alpha_raw_graph.R')"
+
+
+# Run code to create Figure 2
+$(FIGS)/Figure2.pdf : $(TABLES)/alpha_adn_RR_composite.csv\
 $(TABLES)/alpha_adn_RR_ind_results.csv $(TABLES)/alpha_RR_composite.csv\
 $(TABLES)/alpha_RR_ind_results.csv code/make_stool_alpha_RR_graph.R
 	R -e "source('code/make_stool_alpha_OR_graph.R')"
 
 
-# Run code to create Figure 2 and S2
+# Run code to create Figure 3
+$(FIGS)/Figure3.pdf : $(TABLES)/ind_genera_auc_stool.csv\
+$(TABLES)/ind_genera_auc_unmatched_tissue.csv\
+code/make_ind_genera_auc_graph.R
+	R -e "source('code/make_ind_genera_auc_graph.R')"
+
+
+# Run code to create Figure 4 and S2
 $(FIGS)/FigureS2.pdf\
-$(FIGS)/Figure2.pdf : $(TABLES)/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(FIGS)/Figure4.pdf : $(TABLES)/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
@@ -482,18 +496,13 @@ code/make_rf_auc_full_versus_specific_graph.R
 	R -e "source('code/make_rf_auc_full_versus_specific_graph.R')"
 
 
-# Run code to create Figure 4
-$(FIGS)/Figure4.pdf : $(TABLES)/crc_RF_genera_stool_top10.csv\
+# Run code to create Figure 6
+$(FIGS)/Figure6.pdf : $(TABLES)/crc_RF_genera_stool_top10.csv\
 $(TABLES)/adn_RF_genera_stool_top10.csv\
 $(TABLES)/crc_RF_otu_stool_top10.csv\
 $(TABLES)/adn_RF_otu_stool_top10.csv code/make_stool_imp_otu_graph.R
 	R -e "source('code/make_stool_imp_otu_graph.R')"
 
-
-# Run code to create Figure 5
-$(FIGS)/Figure5.pdf : $(TABLES)/adn_predicted_pwr_and_n.csv\
-$(TABLES)/cancer_predicted_pwr_and_n.csv code/make_est_power_graph.R
-	R -e "source('code/make_est_power_graph.R')"
 
 
 # Run code to make supplemental Figure 1
@@ -504,7 +513,7 @@ $(TABLES)/alpha_OR_ind_tissue_results.csv code/make_tissue_alpha_OR_graph.R
 
 
 # Run code to make Figure 3, S3, and S4
-$(FIGS)/Figure3.pdf\
+$(FIGS)/Figure5.pdf\
 $(FIGS)/FigureS3.pdf : $(G_ADN_FULL_STOOL_PVALUE)\
 $(G_ADN_FULL_TISSUE_PVALUE) $(G_CRC_FULL_STOOL_PVALUE)\
 $(G_CRC_SELECT_STOOL_PVALUE) $(G_CRC_FULL_MATCH_T_PVALUE)\
