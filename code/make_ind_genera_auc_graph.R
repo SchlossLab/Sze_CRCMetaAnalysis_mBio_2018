@@ -92,7 +92,7 @@ tissue_graph <- unmatched_tissue_data %>%
 
 combined_graph <- grid.arrange(stool_graph, tissue_graph, ncol = 2, nrow = 1)
 
-ggsave("results/figures/ind_taxa_auc.pdf", combined_graph, width = 8.5, height = 4, dpi = 300)
+ggsave("results/figures/Figure3.pdf", combined_graph, width = 8.5, height = 4, dpi = 300)
 
 
 

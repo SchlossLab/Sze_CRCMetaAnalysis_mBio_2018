@@ -223,7 +223,7 @@ shannon_d <- stool_data %>%
 
 combined_graph <- grid.arrange(adn_even, even, shannon_d, ncol = 3, nrow = 1)
 
-ggsave("results/figures/sig_alpha_taxa_auc.pdf", combined_graph, width = 10.5, height = 4, dpi = 300)
+ggsave("results/figures/Figure1.pdf", combined_graph, width = 10.5, height = 4, dpi = 300)
 
 
 

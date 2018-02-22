@@ -107,5 +107,5 @@ crc_stool_graph <- crc_all_stool %>%
 
 stool_alpha_RR <- grid.arrange(adn_stool_graph, crc_stool_graph)
 
-ggsave("results/figures/Figure1.pdf", stool_alpha_RR, width = 8.5, height = 7, dpi = 300)
+ggsave("results/figures/Figure2.pdf", stool_alpha_RR, width = 8.5, height = 7, dpi = 300)
 

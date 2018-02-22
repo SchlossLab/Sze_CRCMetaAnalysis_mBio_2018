@@ -231,6 +231,6 @@ stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph)
 ggsave("results/figures/FigureS2.pdf", 
        tissue_auc_graph, width = 6, height = 8, dpi = 300)
 
-ggsave("results/figures/Figure2.pdf", 
+ggsave("results/figures/Figure4.pdf", 
        stool_auc_graph, width = 6, height = 8, dpi = 300)
 
