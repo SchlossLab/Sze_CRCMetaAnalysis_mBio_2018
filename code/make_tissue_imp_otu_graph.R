@@ -42,7 +42,7 @@ crc_unmatched_genera <- crc_unmatched_genera_occurances %>% arrange(occurance) %
   theme_bw() + 
   labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, crc_unmatched_sets)) + 
-  ggtitle("A") + 
+  ggtitle("B") + 
   scale_y_continuous(expand = c(0,0.03)) + 
   theme(axis.text.y = element_text(face = "italic"), 
         plot.title = element_text(face="bold", hjust = -0.35, size = 20), 
@@ -61,7 +61,7 @@ crc_matched_genera <- crc_matched_genera_occurances %>% arrange(occurance) %>%
   theme_bw() + 
   labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, crc_matched_sets)) + 
-  ggtitle("B") + 
+  ggtitle("A") + 
   scale_y_continuous(expand = c(0,0.03)) + 
   theme(axis.text.y = element_text(face = "italic"), 
         plot.title = element_text(face="bold", hjust = -0.20, size = 20), 
@@ -80,7 +80,7 @@ crc_unmatched_otu <- crc_unmatched_otu_occurances %>% arrange(occurance) %>%
   theme_bw() + 
   labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, crc_unmatched_sets)) + 
-  ggtitle("C") + 
+  ggtitle("D") + 
   scale_y_continuous(expand = c(0,0.03)) + 
   theme(axis.text.y = element_text(face = "italic"), 
         plot.title = element_text(face="bold", hjust = -0.35, size = 20), 
@@ -99,7 +99,7 @@ crc_matched_otu <- crc_matched_otu_occurances %>% arrange(occurance) %>%
   theme_bw() + 
   labs(x = "", y = "Occurrence Across Studies") + 
   coord_flip(ylim = c(0, crc_matched_sets)) + 
-  ggtitle("D") + 
+  ggtitle("C") + 
   scale_y_continuous(expand = c(0,0.03)) + 
   theme(axis.text.y = element_text(face = "italic"), 
         plot.title = element_text(face="bold", hjust = -0.35, size = 20), 
@@ -113,8 +113,8 @@ crc_matched_otu <- crc_matched_otu_occurances %>% arrange(occurance) %>%
 ##############################################################################################
 
 
-tissue_graph <- grid.arrange(crc_unmatched_genera, crc_matched_genera, 
-                            crc_unmatched_otu, crc_matched_otu, 
+tissue_graph <- grid.arrange(crc_matched_genera, crc_unmatched_genera, 
+                             crc_matched_otu, crc_unmatched_otu,  
                             layout_matrix = rbind(c(1, 2), c(3, 4)))
 
 
