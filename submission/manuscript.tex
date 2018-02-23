@@ -604,27 +604,6 @@ known as chimeras were identified and removed using VSEARCH {[}37{]}
 before \emph{de novo} OTU clustering at 97\% similarity was completed
 using the OptiClust algorithm {[}38{]}.
 
-\textbf{\emph{Statistical Analysis:}} All statistical analysis after
-sequence processing utilized the R (v3.4.3) software package {[}39{]}.
-For OTU richness, evenness, and Shannon diversity analysis, values were
-power transformed using the rcompanion (v1.11.1) package {[}40{]} and
-then Z-score normalized using the car (v2.1.6) package {[}41{]}. Testing
-for OTU richness, evenness, and Shannon diversity differences utilized
-linear mixed-effect models created using the lme4 (v1.1.15) package
-{[}42{]} to correct for study, repeat sampling of individuals (tissue
-only), and 16S hyper-variable region used. Odds ratios (OR) were
-analyzed using both the epiR (v0.9.93) and metafor (v2.0.0) packages
-{[}43,44{]} by assessing how many individuals with and without disease
-were above and below the overall median value within each specific
-study. OR significance testing utilized the chi-squared test. Diversity
-differences measured by the Bray-Curtis index utilized the creation of
-distance matrix and testing with PERMANOVA executed with the vegan
-(v2.4.5) package {[}45{]}. Random Forest models were built using both
-the caret (v6.0.78) and randomForest (v4.6.12) packages {[}46,47{]}.
-Power analysis and estimations were made using the pwr (v1.2.1) and
-statmod (v1.4.30) packages {[}48,49{]}. All figures were created using
-both ggplot2 (v2.2.1) and gridExtra (v2.3) packages {[}50,51{]}.
-
 \textbf{\emph{Study Analysis Overview:}} OTU richness, evenness, and
 Shannon diversity were first assessed for differences between controls,
 adenoma tumors, and carcinoma turmors using both linear mixed-effect
@@ -632,28 +611,26 @@ models and ORs. For each individual study the Bray-Curtis index was used
 to assess differences between control-adenoma and control-carcinoma
 individuals. Next, all common genera were assessed for differences in
 ORs for individuals having an adenoma or carcinoma and corrected for
-multiple comparisons using the Benjamini-Hochberg method {[}52{]}. We
+multiple comparisons using the Benjamini-Hochberg method {[}39{]}. We
 then built Random Forest models based on all genera, all OTUs, or
-significant OR taxa (if any were present after multiple comparison
-correction). For both the full genera and significant OR taxa, models
-were trained on one study then tested on the remaining studies using
-genera-based relative abundances. The OTU-based models were built using
-OTU level data and a 10-fold CV over 100 different iterations, based on
-random 80/20 splitting of the data, was used to generate a range of
-expected AUCs. This process was repeated for every study in the
-meta-analysis. Comparisons of the initial trained model AUCs for the
-full genera and significant OR taxa were made to the mean AUC generated
-from the 100 different 10-fold CV runs of the respective OTU-based
-model. Finally, the power of each study was assessed for an effect size
-ranging from 1\% to 30\% and an estimated sample size, for these effect
-sizes, was generated based on 80\% power. For comparisons in which only
-control versus adenoma individuals were made, the carcinoma individuals
-were excluded from each respective study. Similarly, for comparisons in
-which control versus carcinoma individuals were made the adenoma
-individuals were excluded from each respective study. For all analysis
-completed fecal and tissue samples were kept separate. Within the tissue
-groups the data were further divided between samples from the same
-individual (matched) and those from different individuals (unmatched).
+significant OR taxa (only using taxa still significant after multiple
+comparison correction). For both the full genera and significant OR
+taxa, models were trained on one study then tested on the remaining
+studies using genera-based relative abundances. The OTU-based models
+were built using OTU level data and a 10-fold CV over 100 different
+iterations, based on random 80/20 splitting of the data, was used to
+generate a range of expected AUCs. This process was repeated for every
+study in the meta-analysis. Comparisons of the initial trained model
+AUCs for the full genera and significant OR taxa were made to the mean
+AUC generated from the 100 different 10-fold CV runs of the respective
+OTU-based model. For comparisons in which only control versus adenoma
+individuals were made, the carcinoma individuals were excluded from each
+respective study. Similarly, for comparisons in which control versus
+carcinoma individuals were made the adenoma individuals were excluded
+from each respective study. For all analysis completed fecal and tissue
+samples were kept separate. Within the tissue groups the data were
+further divided between samples from the same individual (matched) and
+those from different individuals (unmatched).
 
 \textbf{\emph{Obtaining Genera Relative Abundance and Significant OR
 Taxa Models:}} For the genera analysis of the ORs, OTUs were added
@@ -695,6 +672,26 @@ that had adenoma tumor tissue (Lu and Flemer) were equally divided
 between matched and unmatched studies and were grouped together for the
 counting of the top 10 genera and OTUs for both Random Forest
 approaches.
+
+\textbf{\emph{Statistical Analysis:}} All statistical analysis after
+sequence processing utilized the R (v3.4.3) software package {[}40{]}.
+For OTU richness, evenness, and Shannon diversity analysis, values were
+power transformed using the rcompanion (v1.11.1) package {[}41{]} and
+then Z-score normalized using the car (v2.1.6) package {[}42{]}. Testing
+for OTU richness, evenness, and Shannon diversity differences utilized
+linear mixed-effect models created using the lme4 (v1.1.15) package
+{[}43{]} to correct for study, repeat sampling of individuals (tissue
+only), and 16S hyper-variable region used. Odds ratios (OR) were
+analyzed using both the epiR (v0.9.93) and metafor (v2.0.0) packages
+{[}44,45{]} by assessing how many individuals with and without disease
+were above and below the overall median value within each specific
+study. OR significance testing utilized the chi-squared test. Diversity
+differences measured by the Bray-Curtis index utilized the creation of
+distance matrix and testing with PERMANOVA executed with the vegan
+(v2.4.5) package {[}46{]}. Random Forest models were built using both
+the caret (v6.0.78) and randomForest (v4.6.12) packages {[}47,48{]}. All
+figures were created using both ggplot2 (v2.2.1) and gridExtra (v2.3)
+packages {[}49,50{]}.
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 at
@@ -971,74 +968,66 @@ versatile open source tool for metagenomics. PeerJ. 2016;4:e2584.
 Amplicon-Based Sequence Data to Operational Taxonomic Units. mSphere.
 2017;2.
 
+\hypertarget{ref-benjamini_controlling_1995}{}
+39. Benjamini Y, Hochberg Y. Controlling the false discovery rate: A
+practical and powerful approach to multiple testing. Journal of the
+Royal Statistical Society Series B (Methodological). 1995;57:289--300.
+
 \hypertarget{ref-r_citation_2017}{}
-39. R Core Team. R: A language and environment for statistical computing
+40. R Core Team. R: A language and environment for statistical computing
 {[}Internet{]}. Vienna, Austria: R Foundation for Statistical Computing;
 2017. Available from: \url{https://www.R-project.org/}
 
 \hypertarget{ref-rcompanion_citation_2017}{}
-40. Mangiafico S. Rcompanion: Functions to support extension education
+41. Mangiafico S. Rcompanion: Functions to support extension education
 program evaluation {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=rcompanion}
 
 \hypertarget{ref-car_citation_2011}{}
-41. Fox J, Weisberg S. An R companion to applied regression
+42. Fox J, Weisberg S. An R companion to applied regression
 {[}Internet{]}. Second. Thousand Oaks CA: Sage; 2011. Available from:
 \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 
 \hypertarget{ref-lme4_citation_2015}{}
-42. Bates D, Mächler M, Bolker B, Walker S. Fitting linear mixed-effects
+43. Bates D, Mächler M, Bolker B, Walker S. Fitting linear mixed-effects
 models using lme4. Journal of Statistical Software. 2015;67:1--48.
 
 \hypertarget{ref-epir_citation_2017}{}
-43. Telmo Nunes MS with contributions from, Heuer C, Marshall J, Sanchez
+44. Telmo Nunes MS with contributions from, Heuer C, Marshall J, Sanchez
 J, Thornton R, Reiczigel J, et al. EpiR: Tools for the analysis of
 epidemiological data {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=epiR}
 
 \hypertarget{ref-metafor_citation_2010}{}
-44. Viechtbauer W. Conducting meta-analyses in R with the metafor
+45. Viechtbauer W. Conducting meta-analyses in R with the metafor
 package. Journal of Statistical Software {[}Internet{]}. 2010;36:1--48.
 Available from: \url{http://www.jstatsoft.org/v36/i03/}
 
 \hypertarget{ref-vegan_citation_2017}{}
-45. Oksanen J, Blanchet FG, Friendly M, Kindt R, Legendre P, McGlinn D,
+46. Oksanen J, Blanchet FG, Friendly M, Kindt R, Legendre P, McGlinn D,
 et al. Vegan: Community ecology package {[}Internet{]}. 2017. Available
 from: \url{https://CRAN.R-project.org/package=vegan}
 
 \hypertarget{ref-caret_citation_2017}{}
-46. Jed Wing MKC from, Weston S, Williams A, Keefer C, Engelhardt A,
+47. Jed Wing MKC from, Weston S, Williams A, Keefer C, Engelhardt A,
 Cooper T, et al. Caret: Classification and regression training
 {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=caret}
 
 \hypertarget{ref-randomforest_citation_2002}{}
-47. Liaw A, Wiener M. Classification and regression by randomForest. R
+48. Liaw A, Wiener M. Classification and regression by randomForest. R
 News {[}Internet{]}. 2002;2:18--22. Available from:
 \url{http://CRAN.R-project.org/doc/Rnews/}
 
-\hypertarget{ref-pwr_citation_2017}{}
-48. Champely S. Pwr: Basic functions for power analysis {[}Internet{]}.
-2017. Available from: \url{https://CRAN.R-project.org/package=pwr}
-
-\hypertarget{ref-statmod_citation_2016}{}
-49. Giner G, Smyth GK. Statmod: Probability calculations for the inverse
-gaussian distribution. R Journal. 2016;8:339--51.
-
 \hypertarget{ref-ggplot2_citation_2009}{}
-50. Wickham H. Ggplot2: Elegant graphics for data analysis
+49. Wickham H. Ggplot2: Elegant graphics for data analysis
 {[}Internet{]}. Springer-Verlag New York; 2009. Available from:
 \url{http://ggplot2.org}
 
 \hypertarget{ref-gridextra_citation_2017}{}
-51. Auguie B. GridExtra: Miscellaneous functions for ``grid'' graphics
+50. Auguie B. GridExtra: Miscellaneous functions for ``grid'' graphics
 {[}Internet{]}. 2017. Available from:
 \url{https://CRAN.R-project.org/package=gridExtra}
-
-\hypertarget{ref-benjamini_controlling_1995}{}
-52. Benjamini Y, Hochberg Y. Controlling the false discovery rate: A
-practical and powerful approach to multiple testing. Journal of the
-Royal Statistical Society Series B (Methodological). 1995;57:289--300.
 
 \newpage
 
