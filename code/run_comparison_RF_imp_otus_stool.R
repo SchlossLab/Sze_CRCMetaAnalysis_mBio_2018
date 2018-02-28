@@ -17,7 +17,7 @@ tissue_sets <- c("dejea", "sana", "burns", "geng")
 # Hale, Wang, Brim, Weir, Ahn, Zeller, Baxter
 # Ignore brim since it only has polyps
 # Ignore weir since none have nzv
-stool_sets <- c("wang", "ahn", "zeller", "baxter", "hale")
+stool_sets <- c("wang", "ahn", "zeller", "baxter", "hale", "weir")
 adn_stool_sets <- c("brim", "zeller", "baxter", "hale")
 
 # Both Tissue and Stool
@@ -86,6 +86,20 @@ get_occurances <- function(study_vector, dataList, lowest_var, var_of_int){
 }
 
 
+# Function to generate the top 10% of variables
+get_top10_percent <- function(study, dataList){
+  
+  tempData <- dataList[[study]]
+  
+  total_vars_to_select <- round(length(rownames(tempData)), digits = 0)
+  
+  selected_tempData <- tempData %>% 
+    slice(1:total_vars_to_select) %>% 
+    mutate(study = study)
+  
+  return(selected_tempData)
+}
+
 
 ##############################################################################################
 ########################## Code used to run the analysis  ####################################
@@ -117,11 +131,30 @@ adn_genera_occurances <- get_occurances(adn_stool_sets, adn_imp_genera, lowest_v
 crc_otu_occurances <- get_occurances(c(stool_sets, "flemer"), crc_imp_otu_data, lowest_var = 10, "genus")
 adn_otu_occurances <- get_occurances(adn_stool_sets, adn_imp_otu_data, lowest_var = 10, "genus")
 
-# Read out data tables
+# Generate the combined top 10% tables
+top10_crc_genera <- sapply(c(stool_sets, "flemer"), 
+                           function(x) get_top10_percent(x, crc_imp_genera), simplify = F) %>% bind_rows()
+
+top10_adn_genera <- sapply(adn_stool_sets, 
+                           function(x) get_top10_percent(x, adn_imp_genera), simplify = F) %>% bind_rows()
+
+top10_crc_otu <- sapply(c(stool_sets, "flemer"), 
+                           function(x) get_top10_percent(x, crc_imp_otu_data), simplify = F) %>% bind_rows()
+
+top10_adn_otu <- sapply(adn_stool_sets, 
+                           function(x) get_top10_percent(x, adn_imp_otu_data), simplify = F) %>% bind_rows()
+
+# Read out data tables for occurences
 write_csv(crc_genera_occurances, "data/process/tables/crc_RF_genera_stool_top10.csv")
 write_csv(adn_genera_occurances, "data/process/tables/adn_RF_genera_stool_top10.csv")
 write_csv(crc_otu_occurances, "data/process/tables/crc_RF_otu_stool_top10.csv")
 write_csv(adn_otu_occurances, "data/process/tables/adn_RF_otu_stool_top10.csv")
+
+# Read out tables for heat maps
+write_csv(top10_crc_genera, "data/process/tables/crc_RF_genera_stool_top10_mda.csv")
+write_csv(top10_adn_genera, "data/process/tables/adn_RF_genera_stool_top10_mda.csv")
+write_csv(top10_crc_otu, "data/process/tables/crc_RF_otu_stool_top10_mda.csv")
+write_csv(top10_adn_otu, "data/process/tables/adn_RF_otu_stool_top10_mda.csv")
 
 
 
