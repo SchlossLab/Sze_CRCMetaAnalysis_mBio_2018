@@ -344,7 +344,8 @@ get_imp_otu_data <- function(i, a_modelList){
     summarise(mda_median = median(Overall), 
               iqr25 = quantile(Overall)["25%"], 
               iqr75 = quantile(Overall)["75%"]) %>% 
-    arrange(desc(mda_median))
+    arrange(desc(mda_median)) %>% 
+    mutate(study = i)
   
   return(tempData)
 }
@@ -408,6 +409,12 @@ select_matched_genera_list <- sapply(names(stool_study_data),
                                        rf_datasets[[x]] %>% 
                                        select(c("disease", combined_genera)), simplify = F)
 
+
+selected_training_imp_model_vars <- sapply(c(stool_sets, "flemer"), 
+                                  function(x) get_imp_otu_data(x, select_matched_genera_list), simplify = F) %>% 
+  bind_rows()
+
+
 # Run the models
 selected_rf_training_models <- sapply(
   c(stool_sets, "flemer"), 
@@ -456,6 +463,8 @@ sapply(c(stool_sets, "flemer"),
        function(x) write.csv(selected_train_test_pvalues[[x]], 
                              paste("data/process/tables/ALL_genus_stool_RF_select_", 
                                    x, "_pvalue_summary.csv", sep = ""), row.names = F))
+write_csv(selected_training_imp_model_vars, 
+          "data/process/tables/ALL_genus_stool_RF_select_imp_vars.csv")
 
 write.csv(test_red_select_models, 
           "data/process/tables/ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv", row.names = F)
