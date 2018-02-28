@@ -180,7 +180,7 @@ top10_crc_matched_otu <- sapply(matched_studies,
 top10_adn_otu <- sapply(adn_tissue, 
                            function(x) get_top10_percent(x, adn_imp_otu_data), simplify = F) %>% bind_rows()
 
-# Read out data tables
+# Read out data tables for occurences
 write_csv(crc_unmatched_genera_occurances, "data/process/tables/crc_RF_genera_unmatched_tissue_top10.csv")
 write_csv(crc_matched_genera_occurances, "data/process/tables/adn_RF_genera_matched_tissue_top10.csv")
 write_csv(adn_genera_occurances, "data/process/tables/adn_RF_genera_tissue_top10.csv")
@@ -189,7 +189,12 @@ write_csv(crc_matched_otu_occurances, "data/process/tables/adn_RF_otu_matched_ti
 write_csv(adn_otu_occurances, "data/process/tables/adn_RF_otu_tissue_top10.csv")
 
 # Read out tables for heat maps
-
+write_csv(top10_crc_unmatched_genera, "data/process/tables/crc_RF_genera_unmatched_tissue_top10_mda.csv")
+write_csv(top10_crc_matched_genera, "data/process/tables/adn_RF_genera_matched_tissue_top10_mda.csv")
+write_csv(top10_adn_genera, "data/process/tables/adn_RF_genera_tissue_top10_mda.csv")
+write_csv(top10_crc_unmatched_otu, "data/process/tables/crc_RF_otu_unmatched_tissue_top10_mda.csv")
+write_csv(top10_crc_matched_otu, "data/process/tables/adn_RF_otu_matched_tissue_top10_mda.csv")
+write_csv(top10_adn_otu, "data/process/tables/adn_RF_otu_tissue_top10_mda.csv")
 
 
 
