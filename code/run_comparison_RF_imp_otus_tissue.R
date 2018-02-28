@@ -101,6 +101,20 @@ get_occurances <- function(study_vector, dataList, lowest_var, var_of_int){
 }
 
 
+# Function to generate the top 10% of variables
+get_top10_percent <- function(study, dataList){
+  
+  tempData <- dataList[[study]]
+  
+  total_vars_to_select <- round(length(rownames(tempData)), digits = 0)
+  
+  selected_tempData <- tempData %>% 
+    slice(1:total_vars_to_select) %>% 
+    mutate(study = study)
+  
+  return(selected_tempData)
+}
+
 
 ##############################################################################################
 ########################## Code used to run the analysis  ####################################
@@ -143,6 +157,29 @@ crc_unmatched_otu_occurances <- get_occurances(unmatched_studies, crc_unmatched_
 crc_matched_otu_occurances <- get_occurances(matched_studies, crc_matched_imp_otu_data, lowest_var = 10, "genus")
 adn_otu_occurances <- get_occurances(adn_tissue, adn_imp_otu_data, lowest_var = 10, "genus")
 
+
+# Generate the combined top 10% tables
+top10_crc_unmatched_genera <- sapply(unmatched_studies, 
+                           function(x) get_top10_percent(x, crc_unmatched_imp_genera), simplify = F) %>% bind_rows()
+
+top10_crc_matched_genera <- sapply(matched_studies, 
+                                     function(x) get_top10_percent(x, crc_matched_imp_genera), simplify = F) %>% bind_rows()
+
+top10_adn_genera <- sapply(adn_tissue, 
+                           function(x) get_top10_percent(x, adn_imp_genera), simplify = F) %>% bind_rows()
+
+
+top10_crc_unmatched_otu <- sapply(unmatched_studies, 
+                                     function(x) get_top10_percent(x, crc_unmatched_imp_otu_data), 
+                                  simplify = F) %>% bind_rows()
+
+top10_crc_matched_otu <- sapply(matched_studies, 
+                                   function(x) get_top10_percent(x, crc_matched_imp_otu_data), 
+                                simplify = F) %>% bind_rows()
+
+top10_adn_otu <- sapply(adn_tissue, 
+                           function(x) get_top10_percent(x, adn_imp_otu_data), simplify = F) %>% bind_rows()
+
 # Read out data tables
 write_csv(crc_unmatched_genera_occurances, "data/process/tables/crc_RF_genera_unmatched_tissue_top10.csv")
 write_csv(crc_matched_genera_occurances, "data/process/tables/adn_RF_genera_matched_tissue_top10.csv")
@@ -150,3 +187,9 @@ write_csv(adn_genera_occurances, "data/process/tables/adn_RF_genera_tissue_top10
 write_csv(crc_unmatched_otu_occurances, "data/process/tables/crc_RF_otu_unmatched_tissue_top10.csv")
 write_csv(crc_matched_otu_occurances, "data/process/tables/adn_RF_otu_matched_tissue_top10.csv")
 write_csv(adn_otu_occurances, "data/process/tables/adn_RF_otu_tissue_top10.csv")
+
+# Read out tables for heat maps
+
+
+
+
