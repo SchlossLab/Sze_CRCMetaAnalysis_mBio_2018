@@ -361,7 +361,8 @@ get_imp_otu_data <- function(i, a_modelList){
     summarise(mda_median = median(Overall), 
               iqr25 = quantile(Overall)["25%"], 
               iqr75 = quantile(Overall)["75%"]) %>% 
-    arrange(desc(mda_median))
+    arrange(desc(mda_median)) %>% 
+    mutate(study = i)
   
   return(tempData)
 }
@@ -477,6 +478,12 @@ select_unmatched_matched_genera_list <- sapply(names(unmatched_stool_study_data)
                                                  unmatched_rf_datasets[[x]] %>% 
                                                  select(c("disease", combined_genera)), simplify = F)
 
+# Generate important vars in select model
+selected_training_imp_model_vars <- sapply(unmatched_studies, 
+                                           function(x) get_imp_otu_data(x, select_unmatched_matched_genera_list), 
+                                           simplify = F) %>% bind_rows()
+
+
 # Generate training data
 select_unmatched_rf_training_data <- sapply(
   unmatched_studies, function(x) create_training_data(x, select_unmatched_matched_genera_list), simplify = F)
@@ -556,6 +563,9 @@ sapply(matched_studies,
        function(x) write.csv(matched_training_imp_model_vars[[x]], 
                              paste("data/process/tables/ALL_genus_matched_tissue_RF_", 
                                    x, "_imp_vars.csv", sep = ""), row.names = F))
+
+write_csv(selected_training_imp_model_vars, 
+          "data/process/tables/ALL_genus_unmatched_tissue_RF_select_imp_vars.csv")
 
 #sapply(unmatched_studies, 
 #       function(x) write.csv(select_unmatched_train_test_pvalues[[x]], 
