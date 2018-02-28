@@ -161,7 +161,7 @@ adn_even <- adn_stool_data %>%
                size = 0.5, width = 0.4) +
   labs(x = "", y = "Evenness") + 
   scale_color_manual(name = "", 
-                     values = c('#4169E1', '#DC143C')) + 
+                     values = c('#4169E1', '#CDAD00')) + 
   theme_bw() + coord_flip(ylim = c(0, 1)) + ggtitle("A") + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.position = "bottom", 
