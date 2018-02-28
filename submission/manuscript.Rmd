@@ -282,7 +282,7 @@ crc_n <- gsub("NA", 0, str_replace_na(stool_n$cancer))
 
 table1 <- cbind(studies, data_obtained, variable_region, con_n, adn_n, crc_n)
 
-colnames(table1) <- c("Study", "Data Stored", "16S Region", "Control (n)", "Adenoma (n)", "Carcinoma (n)")
+colnames(table1) <- c("Study", "Data Stored", "Region", "Control (n)", "Adenoma (n)", "Carcinoma (n)")
 
 
 kable(table1, format = "markdown", align = 'c', padding = 2)
@@ -303,7 +303,7 @@ studies <- c("Burns", "Chen", "Dejea", "Flemer", "Geng", "Lu", "Sanapareddy")
 
 data_obtained <- c("SRA", "SRA", "SRA", "Author", "SRA", "SRA", "Author")
 
-variable_region <- c("V5-6", "V1-V3", "V3-5", "V3-4", "V1-2", "V3-4", "V1-2")
+variable_region <- c("V5-6", "V1-3", "V3-5", "V3-4", "V1-2", "V3-4", "V1-2")
 
 con_n <- tissue_n$control
 adn_n <- gsub("NA", 0, str_replace_na(tissue_n$adenoma))
@@ -311,7 +311,7 @@ crc_n <- gsub("NA", 0, str_replace_na(tissue_n$cancer))
 
 table2 <- cbind(studies, data_obtained, variable_region, con_n, adn_n, crc_n)
 
-colnames(table2) <- c("Study", "Data Stored", "16S Region", "Control (n)", "Adenoma (n)", "Carcinoma (n)")
+colnames(table2) <- c("Study", "Data Stored", "Region", "Control (n)", "Adenoma (n)", "Carcinoma (n)")
 
 
 kable(table2, format = "markdown", align = 'c', padding = 2)
