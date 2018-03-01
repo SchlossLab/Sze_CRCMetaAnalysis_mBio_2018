@@ -8,14 +8,28 @@ source("code/functions.R")
 loadLibs(c("tidyverse", "gridExtra", "viridis", "stringr"))
 
 # Read in Needed data
-crc_genera_occurances <- read_csv("data/process/tables/crc_RF_genera_stool_top10.csv") %>% 
+stool_mda <- read_csv("data/process/tables/crc_RF_genera_stool_top10_mda.csv") %>% 
   mutate(otu = str_replace_all(otu, "_unclassified", ""), 
-         otu = str_replace_all(otu, "\\.Shigella", ""))
-crc_otu_occurances <- read_csv("data/process/tables/crc_RF_otu_stool_top10.csv") %>% 
-  mutate(genus = str_replace_all(genus, "_unclassified", ""), 
-         genus = str_replace_all(genus, "\\/Shigella", ""))
+         otu = str_replace_all(otu, "\\.Shigella", ""), 
+         otu = str_replace_all(otu, "_", " ")) %>% 
+  group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
+  ungroup() %>% 
+  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore)))
 
-crc_stool_sets <- 6
+stool_otu_mda <- read_csv("data/process/tables/crc_RF_otu_stool_top10_mda.csv") %>% 
+  mutate(genus = str_replace_all(genus, "_unclassified", ""), 
+         genus = str_replace_all(genus, "\\.Shigella", ""), 
+         genus = str_replace_all(genus, "_", " ")) %>% 
+  group_by(study, genus) %>% filter(mda_median == max(mda_median)) %>% 
+  ungroup() %>% 
+  group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
+  ungroup() %>% 
+  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore)))
+
+
+unmatched_tissue_mda <- read.csv("data/process/tables/crc_RF_genera_unmatched_tissue_top10_mda.csv")
+
+crc_stool_sets <- 7
 
 
 ##############################################################################################
@@ -23,42 +37,36 @@ crc_stool_sets <- 6
 ##############################################################################################
 
 
-crc_genera <- crc_genera_occurances %>% arrange(occurance) %>% 
-  mutate(otu = str_replace(otu, "_", " "), 
-         otu = factor(otu, 
-                      levels = otu,
-                      labels = otu), 
-         occurance = occurance) %>% 
-  ggplot(aes(otu, occurance)) + 
-  geom_bar(stat = "identity", fill = '#DB7093') + 
-  theme_bw() + 
-  labs(x = "", y = "Occurrence Across Studies") + 
-  coord_flip(ylim = c(0, 6)) + 
-  ggtitle("A") + 
-  scale_y_continuous(expand = c(0,0.03)) + 
-  theme(axis.text.y = element_text(face = "italic"), 
-        plot.title = element_text(face="bold", hjust = -0.3, size = 20), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+crc_genera <- stool_mda %>% 
+  mutate(study = factor(study, 
+                        levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
+                        labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")))) %>% 
+  ggplot(aes(study, otu, fill = zscore)) + 
+  geom_tile(color = "white") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  theme_bw() + ggtitle("A") + 
+  labs(x = "", y = "") + 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = "bottom", 
+        axis.text.y = element_text(face = "italic", size = 3.5), 
+        plot.title = element_text(face="bold", hjust = -0.3, size = 20))
 
 
-crc_otu <- crc_otu_occurances %>% arrange(occurance) %>% 
-  mutate(genus = str_replace(genus, "_", " "), 
-         genus = factor(genus, 
-                        levels = genus,
-                        labels = genus), 
-         occurance = occurance) %>% 
-  ggplot(aes(genus, occurance)) + 
-  geom_bar(stat = "identity", fill = '#B0171F') + 
-  theme_bw() + 
-  labs(x = "", y = "Occurrence Across Studies") + 
-  coord_flip(ylim = c(0, 6)) + 
-  ggtitle("B") + 
-  scale_y_continuous(expand = c(0,0.03)) + 
-  theme(axis.text.y = element_text(face = "italic"), 
-        plot.title = element_text(face="bold", hjust = -0.3, size = 20), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+crc_otu <- stool_otu_mda %>% 
+  mutate(study = factor(study, 
+                        levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
+                        labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")))) %>% 
+  ggplot(aes(study, genus, fill = zscore)) + 
+  geom_tile(color = "white") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  theme_bw() + ggtitle("B") + 
+  labs(x = "", y = "") + 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = "bottom", 
+        axis.text.y = element_text(face = "italic", size = 4.5), 
+        plot.title = element_text(face="bold", hjust = -0.3, size = 20))
 
 
 ##############################################################################################
@@ -70,7 +78,7 @@ stool_graph <- grid.arrange(crc_genera, crc_otu, nrow = 1, ncol = 2)
 
 
 ggsave("results/figures/Figure6.pdf", 
-       stool_graph, width = 8, height = 6, dpi = 300)
+       stool_graph, width = 10, height = 11, dpi = 300)
 
 
 

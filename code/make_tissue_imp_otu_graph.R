@@ -9,18 +9,48 @@ loadLibs(c("tidyverse", "gridExtra", "viridis", "stringr"))
 
 
 # Read in Needed data
-crc_unmatched_genera_occurances <- read_csv("data/process/tables/crc_RF_genera_unmatched_tissue_top10.csv") %>% 
+crc_unmatched_genera <- read_csv("data/process/tables/crc_RF_genera_unmatched_tissue_top10_mda.csv") %>% 
   mutate(otu = str_replace_all(otu, "_unclassified", ""), 
-         otu = str_replace_all(otu, "\\.", "/"))
-crc_matched_genera_occurances <- read_csv("data/process/tables/adn_RF_genera_matched_tissue_top10.csv") %>% 
+         otu = str_replace_all(otu, "\\.", "/"), 
+         otu = str_replace_all(otu, "_", " "), 
+         otu = str_replace_all(otu, "Gp", "Acidobacteria Gp"), 
+         otu = str_replace_all(otu, "Acidobacteria Acidobacteria Gp", "Acidobacteria Gp")) %>% 
+  group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
+  ungroup() %>% 
+  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore)))
+
+crc_matched_genera <- read_csv("data/process/tables/adn_RF_genera_matched_tissue_top10_mda.csv") %>% 
   mutate(otu = str_replace_all(otu, "_unclassified", ""), 
-         otu = str_replace_all(otu, "\\.", "/"))
-crc_unmatched_otu_occurances <- read_csv("data/process/tables/crc_RF_otu_unmatched_tissue_top10.csv") %>% 
+         otu = str_replace_all(otu, "\\.", "/"), 
+         otu = str_replace_all(otu, "_", " "), 
+         otu = str_replace_all(otu, "Gp", "Acidobacteria Gp"), 
+         otu = str_replace_all(otu, "Acidobacteria Acidobacteria Gp", "Acidobacteria Gp")) %>% 
+  group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
+  ungroup() %>% 
+  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore))) %>% 
+  filter(otu != "NA/")
+
+test <- crc_matched_otu %>% filter(grepl("Gp", genus) == TRUE)
+
+crc_unmatched_otu <- read_csv("data/process/tables/crc_RF_otu_unmatched_tissue_top10_mda.csv") %>% 
   mutate(genus = str_replace_all(genus, "_unclassified", ""), 
-         genus = str_replace_all(genus, "\\.", "/"))
-crc_matched_otu_occurances <- read_csv("data/process/tables/adn_RF_otu_matched_tissue_top10.csv") %>% 
+         genus = str_replace_all(genus, "\\.", "/"), 
+         genus = str_replace_all(genus, "_", " ")) %>% 
+  group_by(study, genus) %>% filter(mda_median == max(mda_median)) %>% 
+  ungroup() %>% 
+  group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
+  ungroup() %>% 
+  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore)))
+
+crc_matched_otu <- read_csv("data/process/tables/adn_RF_otu_matched_tissue_top10_mda.csv") %>% 
   mutate(genus = str_replace_all(genus, "_unclassified", ""), 
-         genus = str_replace_all(genus, "\\.", "/"))
+         genus = str_replace_all(genus, "\\.", "/"), 
+         genus = str_replace_all(genus, "_", " ")) %>% 
+  group_by(study, genus) %>% filter(mda_median == max(mda_median)) %>% 
+  ungroup() %>% 
+  group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
+  ungroup() %>% 
+  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore)))
 
 
 crc_unmatched_sets <- 4
@@ -30,81 +60,68 @@ crc_matched_sets <- 3
 ############################## List of code to make figures ##################################
 ##############################################################################################
 
-
-crc_unmatched_genera <- crc_unmatched_genera_occurances %>% arrange(occurance) %>% 
-  mutate(otu = str_replace(otu, "_", " "), 
-         otu = factor(otu, 
-                      levels = otu,
-                      labels = otu), 
-         occurance = occurance) %>% 
-  ggplot(aes(otu, occurance)) + 
-  geom_bar(stat = "identity", fill = '#DB7093') + 
-  theme_bw() + 
-  labs(x = "", y = "Occurrence Across Studies") + 
-  coord_flip(ylim = c(0, crc_unmatched_sets)) + 
-  ggtitle("B") + 
-  scale_y_continuous(expand = c(0,0.03)) + 
-  theme(axis.text.y = element_text(face = "italic"), 
-        plot.title = element_text(face="bold", hjust = -0.35, size = 20), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+crc_matched_genera_graph <- crc_matched_genera %>% 
+  mutate(study = factor(study, 
+                        levels = c("burns", "dejea", "geng"), 
+                        labels= c("Burns", "Dejea", "Geng"))) %>% 
+  ggplot(aes(study, otu, fill = zscore)) + 
+  geom_tile(color = "white") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  theme_bw() + ggtitle("A") + 
+  labs(x = "", y = "") + 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = "bottom", 
+        axis.text.y = element_text(face = "italic", size = 1.5), 
+        plot.title = element_text(face="bold", hjust = -0.1, size = 20))
 
 
-crc_matched_genera <- crc_matched_genera_occurances %>% arrange(occurance) %>% 
-  mutate(otu = str_replace(otu, "_", " "), 
-         otu = factor(otu, 
-                      levels = otu,
-                      labels = otu), 
-         occurance = occurance) %>% 
-  ggplot(aes(otu, occurance)) + 
-  geom_bar(stat = "identity", fill = '#DB7093') + 
-  theme_bw() + 
-  labs(x = "", y = "Occurrence Across Studies") + 
-  coord_flip(ylim = c(0, crc_matched_sets)) + 
-  ggtitle("A") + 
-  scale_y_continuous(expand = c(0,0.03)) + 
-  theme(axis.text.y = element_text(face = "italic"), 
-        plot.title = element_text(face="bold", hjust = -0.20, size = 20), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+crc_unmatched_genera_graph <- crc_unmatched_genera %>% 
+  mutate(study = factor(study, 
+                        levels = c("burns", "chen", "flemer", "sana"), 
+                        labels= c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
+  ggplot(aes(study, otu, fill = zscore)) + 
+  geom_tile(color = "white") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  theme_bw() + ggtitle("B") + 
+  labs(x = "", y = "") + 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = "bottom", 
+        axis.text.y = element_text(face = "italic", size = 1), 
+        plot.title = element_text(face="bold", hjust = -0.1, size = 20))
 
 
-crc_unmatched_otu <- crc_unmatched_otu_occurances %>% arrange(occurance) %>% 
-  mutate(genus = str_replace_all(genus, "_", " "), 
-         genus = factor(genus, 
-                      levels = genus,
-                      labels = genus), 
-         occurance = occurance) %>% 
-  ggplot(aes(genus, occurance)) + 
-  geom_bar(stat = "identity", fill = '#B0171F') + 
-  theme_bw() + 
-  labs(x = "", y = "Occurrence Across Studies") + 
-  coord_flip(ylim = c(0, crc_unmatched_sets)) + 
-  ggtitle("D") + 
-  scale_y_continuous(expand = c(0,0.03)) + 
-  theme(axis.text.y = element_text(face = "italic"), 
-        plot.title = element_text(face="bold", hjust = -0.35, size = 20), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+crc_matched_otu_graph <- crc_matched_otu %>% 
+  mutate(study = factor(study, 
+                        levels = c("burns", "dejea", "geng"), 
+                        labels= c("Burns", "Dejea", "Geng"))) %>% 
+  ggplot(aes(study, genus, fill = zscore)) + 
+  geom_tile(color = "white") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  theme_bw() + ggtitle("C") + 
+  labs(x = "", y = "") + 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = "bottom", 
+        axis.text.y = element_text(face = "italic", size = 3.5), 
+        plot.title = element_text(face="bold", hjust = -0.25, size = 20))
 
 
-crc_matched_otu <- crc_matched_otu_occurances %>% arrange(occurance) %>% 
-  mutate(genus = str_replace_all(genus, "_", " "), 
-         genus = factor(genus, 
-                      levels = genus,
-                      labels = genus), 
-         occurance = occurance) %>% 
-  ggplot(aes(genus, occurance)) + 
-  geom_bar(stat = "identity", fill = '#B0171F') + 
-  theme_bw() + 
-  labs(x = "", y = "Occurrence Across Studies") + 
-  coord_flip(ylim = c(0, crc_matched_sets)) + 
-  ggtitle("C") + 
-  scale_y_continuous(expand = c(0,0.03)) + 
-  theme(axis.text.y = element_text(face = "italic"), 
-        plot.title = element_text(face="bold", hjust = -0.35, size = 20), 
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank())
+crc_unmatched_otu_graph <- crc_unmatched_otu %>% 
+  mutate(study = factor(study, 
+                        levels = c("burns", "chen", "flemer", "sana"), 
+                        labels= c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
+  ggplot(aes(study, genus, fill = zscore)) + 
+  geom_tile(color = "white") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  theme_bw() + ggtitle("D") + 
+  labs(x = "", y = "") + 
+  theme(panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(), 
+        legend.position = "bottom", 
+        axis.text.y = element_text(face = "italic", size = 3.5), 
+        plot.title = element_text(face="bold", hjust = -0.25, size = 20))
 
 
 
@@ -113,10 +130,10 @@ crc_matched_otu <- crc_matched_otu_occurances %>% arrange(occurance) %>%
 ##############################################################################################
 
 
-tissue_graph <- grid.arrange(crc_matched_genera, crc_unmatched_genera, 
-                             crc_matched_otu, crc_unmatched_otu,  
+tissue_graph <- grid.arrange(crc_matched_genera_graph, crc_unmatched_genera_graph, 
+                             crc_matched_otu_graph, crc_unmatched_otu_graph,  
                             layout_matrix = rbind(c(1, 2), c(3, 4)))
 
 
 ggsave("results/figures/FigureS4.pdf", 
-       tissue_graph, width = 13, height = 8, dpi = 300)
+       tissue_graph, width = 10, height = 13, dpi = 300)
