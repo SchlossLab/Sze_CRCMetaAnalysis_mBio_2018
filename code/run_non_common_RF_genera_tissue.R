@@ -362,7 +362,8 @@ get_imp_otu_data <- function(i, a_modelList){
               iqr25 = quantile(Overall)["25%"], 
               iqr75 = quantile(Overall)["75%"]) %>% 
     arrange(desc(mda_median)) %>% 
-    mutate(study = i)
+    mutate(study = i, 
+           rank = rownames(.))
   
   return(tempData)
 }
