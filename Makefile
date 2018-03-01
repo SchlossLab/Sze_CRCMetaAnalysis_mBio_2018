@@ -437,12 +437,18 @@ code/run_comparison_RF_imp_otus_tissue.R
 
 
 
-# Run the power analysis for each study
-$(TABLES)/cancer_predicted_pwr_and_n.csv\
-$(TABLES)/adn_predicted_pwr_and_n.csv : $(GENERA_FILE) $(SUB_GENERA_FILE) $(METADATA)\
-$(TABLES)/alpha_tissue_unmatched_data.csv code/run_power_analysis.R
-	R -e "source('code/run_power_analysis.R')"	
-
+# Run the pvalue AUC analysis between ind taxa and full taxa RF models
+$(TABLES)/stool_ind_vs_full_taxa_pvalue_summary.csv\
+$(TABLES)/unmatched_tissue_ind_vs_full_taxa_pvalue_summary.csv : $(TABLES)/ind_genera_auc_stool.csv\
+$(TABLES)/ind_genera_auc_unmatched_tissue.csv\
+$(TABLES)/ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/matched_tissue_rf_otu_random_comparison_summary.csv\
+$(TABLES)/unmatched_tissue_rf_otu_random_comparison_summary.csv\
+$(TABLES)/ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/stool_rf_otu_random_comparison_summary.csv\
+code/run_pvalue_auc_ind_vs_full_taxa.R
+	R -e "source('code/run_pvalue_auc_ind_vs_full_taxa.R')"	
 
 
 # Generate total n used in study for stool and tissue
@@ -485,7 +491,7 @@ code/make_ind_genera_auc_graph.R
 
 
 # Run code to create Figure 4 and S2
-$(FIGS)/FigureS2.pdf\
+$(FIGS)/FigureS4.pdf\
 $(FIGS)/Figure4.pdf : $(TABLES)/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv\
@@ -496,13 +502,10 @@ code/make_rf_auc_full_versus_specific_graph.R
 	R -e "source('code/make_rf_auc_full_versus_specific_graph.R')"
 
 
-# Run code to create Figure 6
-$(FIGS)/Figure6.pdf : $(TABLES)/crc_RF_genera_stool_top10.csv\
-$(TABLES)/adn_RF_genera_stool_top10.csv\
-$(TABLES)/crc_RF_otu_stool_top10.csv\
-$(TABLES)/adn_RF_otu_stool_top10.csv code/make_stool_imp_otu_graph.R
+# Run code to create Figure 5
+$(FIGS)/Figure5.pdf : $(TABLES)/crc_RF_genera_stool_top10_mda.csv\
+$(TABLES)/crc_RF_otu_stool_top10_mda.csv code/make_stool_imp_otu_graph.R
 	R -e "source('code/make_stool_imp_otu_graph.R')"
-
 
 
 # Run code to make supplemental Figure 1
@@ -512,24 +515,33 @@ $(TABLES)/alpha_OR_ind_tissue_results.csv code/make_tissue_alpha_OR_graph.R
 	R -e "source('code/make_tissue_alpha_OR_graph.R')"
 
 
-# Run code to make Figure 3, S3, and S4
-$(FIGS)/Figure5.pdf\
-$(FIGS)/FigureS3.pdf : $(G_ADN_FULL_STOOL_PVALUE)\
-$(G_ADN_FULL_TISSUE_PVALUE) $(G_CRC_FULL_STOOL_PVALUE)\
-$(G_CRC_SELECT_STOOL_PVALUE) $(G_CRC_FULL_MATCH_T_PVALUE)\
-$(G_CRC_FULL_UNMATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_PVALUE)\
-code/make_genus_rf_auc_against_study_graph.R
-	R -e "source('code/make_genus_rf_auc_against_study_graph.R')"
 
+# Run code to create Figure S4
+$(FIGS)/FigureS2.pdf : $(TABLES)/crc_RF_genera_stool_top10.csv\
+$(TABLES)/adn_RF_genera_stool_top10.csv\
+$(TABLES)/crc_RF_otu_stool_top10.csv\
+$(TABLES)/adn_RF_otu_stool_top10.csv code/make_stool_imp_otu_graph.R
+	R -e "source('code/make_stool_imp_otu_graph.R')"
 
-# Run code to make supplemental Figure 5
-$(FIGS)/FigureS4.pdf : $(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
+# Run code to make supplemental Figure S5
+$(FIGS)/FigureS3.pdf : $(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_matched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_tissue_top10.csv\
 $(TABLES)/crc_RF_otu_unmatched_tissue_top10.csv\
 $(TABLES)/adn_RF_otu_matched_tissue_top10.csv\
 $(TABLES)/adn_RF_otu_tissue_top10.csv code/make_tissue_imp_otu_graph.R
 	R -e "source('code/make_tissue_imp_otu_graph.R')"
+
+
+# Run code to make Figure 6, S5
+$(FIGS)/Figure6.pdf\
+$(FIGS)/FigureS5.pdf : $(G_ADN_FULL_STOOL_PVALUE)\
+$(G_ADN_FULL_TISSUE_PVALUE) $(G_CRC_FULL_STOOL_PVALUE)\
+$(G_CRC_SELECT_STOOL_PVALUE) $(G_CRC_FULL_MATCH_T_PVALUE)\
+$(G_CRC_FULL_UNMATCH_T_PVALUE) $(G_CRC_SELECT_UNMATCH_T_PVALUE)\
+code/make_genus_rf_auc_against_study_graph.R
+	R -e "source('code/make_genus_rf_auc_against_study_graph.R')"
+
 
 
 ################################################################################
