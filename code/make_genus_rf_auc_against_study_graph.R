@@ -280,10 +280,10 @@ crc_tissue_auc_graph <- grid.arrange(adn_tissue_graph, crc_matched_tissue_graph,
                                      layout_matrix = rbind(c(1, 2), c(3, 3)))
 stool_auc_graph <- grid.arrange(adn_stool_graph, crc_stool_graph)
 
-ggsave("results/figures/FigureS3.pdf", 
+ggsave("results/figures/FigureS5.pdf", 
        crc_tissue_auc_graph, width = 6, height = 8, dpi = 300)
 
-ggsave("results/figures/Figure5.pdf", 
+ggsave("results/figures/Figure6.pdf", 
        stool_auc_graph, width = 7, height = 8, dpi = 300)
 
 

@@ -13,8 +13,7 @@ stool_mda <- read_csv("data/process/tables/crc_RF_genera_stool_top10_mda.csv") %
          otu = str_replace_all(otu, "\\.Shigella", ""), 
          otu = str_replace_all(otu, "_", " ")) %>% 
   group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
-  ungroup() %>% 
-  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore)))
+  ungroup()
 
 stool_otu_mda <- read_csv("data/process/tables/crc_RF_otu_stool_top10_mda.csv") %>% 
   mutate(genus = str_replace_all(genus, "_unclassified", ""), 
@@ -23,11 +22,8 @@ stool_otu_mda <- read_csv("data/process/tables/crc_RF_otu_stool_top10_mda.csv") 
   group_by(study, genus) %>% filter(mda_median == max(mda_median)) %>% 
   ungroup() %>% 
   group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
-  ungroup() %>% 
-  mutate(zscore = ifelse(zscore < 0, invisible(-zscore), invisible(zscore)))
+  ungroup()
 
-
-unmatched_tissue_mda <- read.csv("data/process/tables/crc_RF_genera_unmatched_tissue_top10_mda.csv")
 
 crc_stool_sets <- 7
 
@@ -43,7 +39,7 @@ crc_genera <- stool_mda %>%
                         labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")))) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("A") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 
@@ -59,7 +55,7 @@ crc_otu <- stool_otu_mda %>%
                         labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")))) %>% 
   ggplot(aes(study, genus, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "white", high = "blue") + 
+  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("B") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 
@@ -77,7 +73,7 @@ crc_otu <- stool_otu_mda %>%
 stool_graph <- grid.arrange(crc_genera, crc_otu, nrow = 1, ncol = 2)
 
 
-ggsave("results/figures/Figure6.pdf", 
+ggsave("results/figures/FigureS2.pdf", 
        stool_graph, width = 10, height = 11, dpi = 300)
 
 
