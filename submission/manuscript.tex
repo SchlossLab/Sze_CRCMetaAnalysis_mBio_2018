@@ -369,45 +369,49 @@ AUC of 0.75, which was significantly higher than any of the AUC values
 for the individual taxa (P-value \textless{} 0.033). For the full taxa
 models using stool, \emph{Bacteroides} and \emph{Lachnospiraceae} were
 the most common taxa in the top 10\% mean decrease in accuracy (MDA)
-across studies. Similarly, using data from the unmatched tissue samples,
-the combined model had an AUC of 0.77, which was significantly higher
-than the AUC values for Blautia and Weissella (P-value \textless{}
-0.037). For the full taxa models using unmatched tissue,
-\emph{Lachnospiraceae}, \emph{Bacteroidaceae}, and
+across studies {[}Figure S2{]}. Similarly, using data from the unmatched
+tissue samples, the combined model had an AUC of 0.77, which was
+significantly higher than the AUC values for Blautia and Weissella
+(P-value \textless{} 0.037). For the full taxa models using unmatched
+tissue, \emph{Lachnospiraceae}, \emph{Bacteroidaceae}, and
 \emph{Ruminococcaceae} were the most common taxa in the top 10\% mean
-decrease in accuracy across studies. Clearly, pooling the information
-from the taxa with significant ORs results in a model that outperforms
-classifications made using individual taxa.
+decrease in accuracy across studies {[}Figure S3{]}. Clearly, pooling
+the information from the taxa with significant ORs results in a model
+that outperforms classifications made using individual taxa.
 
 \textbf{\emph{Performance of models based on taxa relative abundance in
-full community are not significantly better than those based on taxa
-with significant ORs:}} Next, we asked whether a Random Forest
-classification model built using all of the taxa found in the
-communities would outperform the models generated using those taxa with
-a significant OR. Similar to our inability to identify taxa associated
-with a significant OR for the presence of adenomas, the median AUCs to
-classify subjects as having normal colons or having adenomas using data
-from stool or tissue samples were marginally better than 0.5 for any
-study{[}Figure 4A \& S3A{]}. In contrast, the models for classifying
-subjects as having normal colons or having carcinomas using data from
-stool or tissue samples yielded AUC values meaningfully higher than 0.5
-{[}Figure 4B \& S3B-C{]}. When we compared the models based on all of
-the taxa in a community to models based on the taxa with significant
-ORs, the results were mixed. Using the data from stool samples we found
-that although the AUC for 6 of 7 studies increased (mean decrease =
-9.53\%), the more expansive models performed worse for 1 of the studies
-(decrease = 0.38\%). The overall improvement in performance was
-statistically significant (one-tailed paired T-test; P-value = 0.005).
-Of the 8 taxa with significant ORs, all 8 were among the top 10\% most
-important taxa as measured by mean decrease in accuracy, in at least one
-study . Similarly, using the data from unmatched tissue samples we found
-that the AUC for 4 out of 4 studies decreased between full versus select
-OR models (mean decrease = 19.11\%, one-tailed paired T-test; P-value =
-0.03). Of the 3 taxa with significant ORs, all 3 were among the top 10\%
-most important taxa as measured by mean decrease in accuracy, in at
-least one study. These results were surprising because it demonstrated
-that the ability to classify subjects could be done based on a limited
-characterization of the communities.
+full community are better than those based on taxa with significant
+ORs:}} Next, we asked whether a Random Forest classification model built
+using all of the taxa found in the communities would outperform the
+models generated using those taxa with a significant OR. Similar to our
+inability to identify taxa associated with a significant OR for the
+presence of adenomas, the median AUCs to classify subjects as having
+normal colons or having adenomas using data from stool or tissue samples
+were marginally better than 0.5 for any study{[}Figure 4A \& S4A{]}. In
+contrast, the models for classifying subjects as having normal colons or
+having carcinomas using data from stool or tissue samples yielded AUC
+values meaningfully higher than 0.5 {[}Figure 4B \& S4B-C{]}. When we
+compared the models based on all of the taxa in a community to models
+based on the taxa with significant ORs, the results were mixed. Using
+the data from stool samples we found that although the AUC for 6 of 7
+studies increased (mean decrease = 9.53\%), the more expansive models
+performed worse for 1 of the studies (decrease = 0.38\%). The overall
+improvement in performance was statistically significant (one-tailed
+paired T-test; P-value = 0.005). Of the 8 taxa with significant ORs, all
+8 were among the top 10\% most important taxa as measured by mean
+decrease in accuracy, in at least one study . Similarly, using the data
+from unmatched tissue samples we found that the AUC for 4 out of 4
+studies decreased between full versus select OR models (mean decrease =
+19.11\%, one-tailed paired T-test; P-value = 0.03). Of the 3 taxa with
+significant ORs, all 3 were among the top 10\% most important taxa as
+measured by mean decrease in accuracy, in at least one study. The most
+important taxa across study within the significant OR taxa only models
+for stool were \emph{Ruminococcus} and \emph{Clostridium XI} {[}Figure
+5A{]}. For the singificant OR taxa unmatched tissue models both
+\emph{Dorea} and \emph{Blautia} were the important based on mean
+decrease in accuracy {[}Figure 5B{]}. These results were surprising
+because it demonstrated that the ability to classify subjects could be
+done based on a limited characterization of the communities.
 
 \textbf{\emph{Performance of models based on OTU relative abundance in
 full community are not significantly better than those based on taxa
@@ -442,12 +446,12 @@ trained using data from the Ahn study, we wanted to know how well it
 would perform using the data from the Baxter study. We found the models
 trained using the taxa with a significant OR all had a higher median AUC
 than the models trained using all of the taxa when tested on the other
-datasets {[}Figure 5{]}. As might be expected, the difference between
-the performance of the modelling approaches appeared to vary with the
-size of the training cohort. These data suggest that given a sufficient
-number of subjects with normal colons and carcinomas, Random Forest
-models trained using a small number of taxa can accurately classify
-individuals from a different cohort.
+datasets {[}Figure 6 \& S5{]}. As might be expected, the difference
+between the performance of the modelling approaches appeared to vary
+with the size of the training cohort {[}Figure 6{]}. These data suggest
+that given a sufficient number of subjects with normal colons and
+carcinomas, Random Forest models trained using a small number of taxa
+can accurately classify individuals from a different cohort.
 
 \newpage
 
@@ -1187,16 +1191,19 @@ taxa. The black line represents the median AUC for the respective group.
 If no values are present in the singificant OR taxa group then there
 were no significant taxa identified and no model was tested.
 
-\textbf{Figure 5: Stool Random Forest Genus-Based Model Test AUCs.} A)
+\textbf{Figure 5: Most Important Members in Significant OR Taxa
+Carcinoma Models.} A) Common taxa in the top 10 percent for carcinoma
+Random Forest stool-based models. B) Common taxa in the top 10 percent
+for carcinoma Random Forest unmatched tissue-based models. Blue
+represents less important and red represents more important to the
+Random Forest Model. White means that particular taxa was not in the top
+10\%.
+
+\textbf{Figure 6: Stool Random Forest Genus-Based Model Test AUCs.} A)
 Test AUCs of adenoma models using all genera across study. B) Test AUCs
 of carcinoma models using all genera or significant OR taxa only. The
 black line represents the AUC at 0.5. The red lines represent the median
 AUC of all test AUCs for a specific study.
-
-\textbf{Figure 6: Most Common Taxa Across Carcinoma Full Community Stool
-Study Models.} A) Common taxa in the top 10 percent for carcinoma Random
-Forest all taxa-based models. B) Common taxa in the top 10 percent for
-carcinoma Random Forest all OTU-based models.
 
 \newpage
 
@@ -1206,7 +1213,25 @@ for adenoma. B) Community-based odds ratio for carcinoma. Colors
 represent the different variable regions used within the respective
 study.
 
-\textbf{Figure S2: Tissue Random Forest Model Train AUCs.} A) Adenoma
+\textbf{Figure S2: Most Common Taxa Across Carcinoma Full Community
+Stool Study Models.} A) Common taxa in the top 10 percent for carcinoma
+Random Forest all taxa-based models. B) Common taxa in the top 10
+percent for carcinoma Random Forest all OTU-based models. Blue
+represents less important and red represents more important to the
+Random Forest Model. White means that particular taxa was not in the top
+10\%.
+
+\textbf{Figure S3: Most Common Genera Across Full Community Tissue Study
+Models.} A) Common genera in the top 10 percent for matched carcinoma
+Random Forest all genera-based models. B) Common genera in the top 10
+percent for unmatched carcinoma Random Forest all genera-based models.
+C) Common genera in the top 10 percent for matched carcinoma Random
+Forest all OTU-based models. D) Common genera in the top 10 percent for
+unmatched carcinoma Random Forest all OTU-based models. Blue represents
+less important and red represents more important to the Random Forest
+Model. White means that particular taxa was not in the top 10\%.
+
+\textbf{Figure S4: Tissue Random Forest Model Train AUCs.} A) Adenoma
 random forest model AUCs between all genera, all OTU, and select model
 based on significant OR taxa in unmatched and matched tissue. B)
 Carcinoma random forest model AUCs between all genera, all OTU, and
@@ -1215,21 +1240,13 @@ tissue. The black line represents the median AUC for the respective
 group. If no values are present in the singificant OR taxa group then
 there were no significant taxa identified and no model was tested.
 
-\textbf{Figure S3: Tissue Random Forest Genus-Based Model Test AUCs.} A)
+\textbf{Figure S5: Tissue Random Forest Genus-Based Model Test AUCs.} A)
 Test AUCs of adenoma models using all genera across study. B) Test AUCs
 of carcinoma models using all genera for matched tissue studies. C) Test
 AUCs of carcinoma models using all genera or significant OR taxa only
 for unmatched tissue studies The black line represents the AUC at 0.5.
 The red lines represent the median AUC of all test AUCs for a specific
 study.
-
-\textbf{Figure S4: Most Common Genera Across Full Community Tissue Study
-Models.} A) Common genera in the top 10 percent for matched carcinoma
-Random Forest all genera-based models. B) Common genera in the top 10
-percent for unmatched carcinoma Random Forest all genera-based models.
-C) Common genera in the top 10 percent for matched carcinoma Random
-Forest all OTU-based models. D) Common genera in the top 10 percent for
-unmatched carcinoma Random Forest all OTU-based models.
 
 \newpage
 
