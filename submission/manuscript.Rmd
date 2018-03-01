@@ -59,7 +59,79 @@ crc_unmatched_OR_tissue <- as.data.frame(read_csv("../data/process/tables/select
 
 crc_matched_OR_tissue <- as.data.frame(read_csv("../data/process/tables/select_genus_OR_matched_tissue_composite.csv") %>% mutate(bh = p.adjust(pvalue, method = "BH")))
 
+#Load in AUC data for individual genera
+ind_crc_stool_auc <- read_csv("../data/process/tables/ind_genera_auc_stool.csv") %>%  mutate(auc = ifelse(taxa == "Ruminococcus" | taxa == "Clostridium_XI", invisible(1-auc), invisible(auc)))
+ind_crc_combined_stool_auc <- ind_crc_stool_auc %>% group_by(taxa) %>% summarise(auc = median(auc)) %>% mutate(study = "median") %>% ungroup()
 
+ind_unmatched_tissue_crc_auc <- read_csv("../data/process/tables/ind_genera_auc_unmatched_tissue.csv") %>% mutate(auc = ifelse(taxa == "Dorea" | taxa == "Blautia", invisible(1-auc), invisible(auc)))
+ind_crc_combined_unmatched_auc <- ind_unmatched_tissue_crc_auc %>% group_by(taxa) %>% summarise(auc = median(auc)) %>% 
+  mutate(study = "median") %>% ungroup()
+
+#Load in AUC data between select and full taxa models
+adn_tissue_model_aucs <- 
+  as.data.frame(read_csv("../data/process/tables/adn_ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
+  mutate(type = rep(c("unmatched", "matched"), 2), 
+         pvalue = as.numeric(pvalue)) %>% 
+  gather(key = model_type, value = AUC, full_model, select_model) %>% 
+  mutate(AUC = as.numeric(AUC)) %>% 
+  bind_rows(
+    read_csv("../data/process/tables/adn_tissue_rf_otu_random_comparison_summary.csv") %>% 
+      mutate(type = c("matched", "unmatched"), 
+             model_type = "full_otu", 
+             train_model = study, 
+             act_mean_auc = as.numeric(act_mean_auc)) %>% 
+      rename(AUC = act_mean_auc) %>% 
+      select(pvalue, study, train_model, type, model_type, AUC)))
+
+
+adn_stool_model_aucs <- as.data.frame(read_csv("../data/process/tables/adn_ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv") %>% gather(key = model_type, value = AUC, full_model, select_model) %>% 
+  mutate(AUC = as.numeric(AUC), 
+         pvalue = as.numeric(pvalue)) %>% 
+  bind_rows(read_csv("../data/process/tables/adn_stool_rf_otu_random_comparison_summary.csv") %>% 
+              mutate(model_type = "full_otu", 
+                     train_model = study, 
+                     act_mean_auc = as.numeric(act_mean_auc)) %>% 
+              rename(AUC = act_mean_auc) %>% 
+              select(pvalue, study, train_model, model_type, AUC)))
+
+
+crc_tissue_model_aucs <- as.data.frame(read_csv("../data/process/tables/ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% mutate(type = "unmatched") %>% 
+  bind_rows(read_csv("../data/process/tables/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
+  mutate(type = "matched")) %>% 
+  gather(key = model_type, value = AUC, full_model, select_model) %>% 
+  mutate(AUC = as.numeric(AUC)) %>% 
+  bind_rows(
+    read_csv("../data/process/tables/matched_tissue_rf_otu_random_comparison_summary.csv") %>% 
+      mutate(type = "matched", 
+             model_type = "full_otu", 
+             train_model = study, 
+             act_mean_auc = as.numeric(act_mean_auc)) %>% 
+      rename(AUC = act_mean_auc) %>% 
+      select(pvalue, study, train_model, type, model_type, AUC) %>% 
+      bind_rows(
+        read_csv("../data/process/tables/unmatched_tissue_rf_otu_random_comparison_summary.csv") %>% 
+          mutate(type = "unmatched", 
+                 model_type = "full_otu", 
+                 train_model = study, 
+                 act_mean_auc = as.numeric(act_mean_auc)) %>% 
+          rename(AUC = act_mean_auc) %>% 
+          select(pvalue, study, train_model, type, model_type, AUC))))
+
+
+crc_stool_model_aucs <- as.data.frame(read_csv("../data/process/tables/ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv") %>% gather(key = model_type, value = AUC, full_model, select_model) %>% 
+  mutate(AUC = as.numeric(AUC), 
+         pvalue = as.numeric(pvalue)) %>% 
+  bind_rows(read_csv("../data/process/tables/stool_rf_otu_random_comparison_summary.csv") %>% 
+              mutate(model_type = "full_otu", 
+                     train_model = study, 
+                     act_mean_auc = as.numeric(act_mean_auc)) %>% 
+              rename(AUC = act_mean_auc) %>% 
+              select(pvalue, study, train_model, model_type, AUC)))
+
+# Pvalue comparisons tables of the different individual taxa and full taxa models
+stool_ind_vs_full_taxa <- read_csv("../data/process/tables/stool_ind_vs_full_taxa_pvalue_summary.csv")
+
+unmatched_tissue_ind_vs_full_taxa <- read_csv("../data/process/tables/unmatched_tissue_ind_vs_full_taxa_pvalue_summary.csv")
 
 
 ```
@@ -142,23 +214,66 @@ Similar to our analysis of sequences obtained from stool samples, we repeated th
 Next we identified those taxa were associated with ORs that were significantly associated with having a normal colon or the presence of adenomas or carcinomas. No taxa had a significant OR for the presence of adenomas when we used data collected from stool or tissue samples (Table S3 & S4). In contrast, `r length(crc_OR_stool$measure)` taxa had significant ORs for the presence of carcinomas using data from stool samples. Of these, 4 are commonly associated with the oral cavity: Fusobacterium (OR = `r paste(round(filter(crc_OR_stool, measure == "Fusobacterium")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Fusobacterium")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Fusobacterium")[, "ci_ub"], digits = 2))`)), Parvimonas (OR = `r paste(round(filter(crc_OR_stool, measure == "Parvimonas")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Parvimonas")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Parvimonas")[, "ci_ub"], digits = 2))`)), Porphyromonas (OR = `r paste(round(filter(crc_OR_stool, measure == "Porphyromonas")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Porphyromonas")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Porphyromonas")[, "ci_ub"], digits = 2))`)), and Peptostreptococcus (OR = `r paste(round(filter(crc_OR_stool, measure == "Peptostreptococcus")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Peptostreptococcus")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Peptostreptococcus")[, "ci_ub"], digits = 2))`)) [Table S3]. The other 4 were Clostridium XI (OR = `r paste(round(filter(crc_OR_stool, measure == "Clostridium_XI")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Clostridium_XI")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Clostridium_XI")[, "ci_ub"], digits = 2))`)), Enterobacteriaceae  (OR = `r paste(round(filter(crc_OR_stool, measure == "Enterobacteriaceae_unclassified")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Enterobacteriaceae_unclassified")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Enterobacteriaceae_unclassified")[, "ci_ub"], digits = 2))`)), Escherichia (OR = `r paste(round(filter(crc_OR_stool, measure == "Escherichia.Shigella")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Escherichia.Shigella")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Escherichia.Shigella")[, "ci_ub"], digits = 2))`)), and Ruminococcus (OR = `r paste(round(filter(crc_OR_stool, measure == "Ruminococcus")[, "rr"], digits = 2))` (`r paste(round(filter(crc_OR_stool, measure == "Ruminococcus")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_OR_stool, measure == "Ruminococcus")[, "ci_ub"], digits = 2))`)). Among the data collected from tissue samples, only unmatched carcinoma samples had taxa with a significant OR. Those included Dorea (OR = `r paste(round(filter(crc_unmatched_OR_tissue, measure == "Dorea")[, "rr"], digits = 2))` (`r paste(round(filter(crc_unmatched_OR_tissue, measure == "Dorea")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_unmatched_OR_tissue, measure == "Dorea")[, "ci_ub"], digits = 2))`)), Blautia (OR = `r paste(round(filter(crc_unmatched_OR_tissue, measure == "Blautia")[, "rr"], digits = 2))` (`r paste(round(filter(crc_unmatched_OR_tissue, measure == "Blautia")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_unmatched_OR_tissue, measure == "Blautia")[, "ci_ub"], digits = 2))`)), and Weissella (OR = `r paste(round(filter(crc_unmatched_OR_tissue, measure == "Weissella")[, "rr"], digits = 2))` (`r paste(round(filter(crc_unmatched_OR_tissue, measure == "Weissella")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_unmatched_OR_tissue, measure == "Weissella")[, "ci_ub"], digits = 2))`)). Mouth-associated genera were not significantly associated with an increased OR for carcinoma in tissue samples [Table S4]. For example, Fusobacterium had an OR of `r paste(round(filter(crc_matched_OR_tissue, measure == "Fusobacterium")[, "rr"], digits = 2))` (`r paste(round(filter(crc_matched_OR_tissue, measure == "Fusobacterium")[, "ci_lb"], digits = 2))` - `r paste(round(filter(crc_matched_OR_tissue, measure == "Fusobacterium")[, "ci_ub"], digits = 2))`; however, due to the small number of studies and considerable variation in the data, the Benjimani-Hochberg-corrected P-value was `r paste(round(filter(crc_matched_OR_tissue, measure == "Fusobacterium")[, "bh"], digits = 2))` [Table S4]. It is interesting to note that Ruminococcus and members of Clostridium group XI in stool and Dorea and Blautia in tissue had ORs that were significantly less than 1.0, which suggests that these populations are protective against the development of carcinomas. Overall, there was no overlap in the taxa with significant OR between stool and tissue samples.
 
 
-***Individual Significant OR Taxa Classify Carcinoma Poorly:***
-Since specific taxa were associated with a significant OR for carcinoma we tested whether they would also be good classifiers of carcinoma. For stool, the `r length(crc_OR_stool$measure)` significant taxa did no better at classifying those with normal colons versus those with carcinomas than chance [Figure 3A]. Likewise in unmathced tissue samples the `r length(crc_unmatched_OR_tissue$measure)` significant taxa were no better than an AUC of 0.5 [Figure 3B]. These results suggest that although these taxa are significantly associated with a decreased or increased OR of carcinoma, individually they are poor classifiers of disease.  
+***Individual taxa with a significant OR do a poor job of differentiating subjects with normal colons and those with carcinoma:***
+ We next asked whether those taxa that had a significant OR associated with having a normal colon or carcinomas could be used individually, to classify subjects as having a normal colon or carcinomas. Whereas the OR was defined based on whether the relative abundance for a taxon in a subject was above or below the median relative abundance for that taxon across all subjects in a study, we generated receiver operator characteristic (ROC) curves for each taxon in each study and calculated the area under the curve (AUC). This allowed us to use a more fluid relative abundance threshold for defining disease status. Using data from stool samples, the `r length(crc_OR_stool$measure)` taxa did no better at classifying the subjects than one would expect by chance (i.e. AUC=0.50) [Figure 3A]. The taxa that performed the best included Clostridium XI, Ruminococcus, and Escherichia and even these had median AUC values less than `r round(max(filter(ind_crc_combined_stool_auc, taxa %in% c("Escherichia", "Clostridium_XI", "Ruminococcus"))[, "auc"]), digits = 3)`. Likewise, in unmatched tissue samples the `r length(crc_OR_stool$measure)` taxa with significant ORs taxa were marginally better than one would expect by chance [Figure 3B]. The relative abundance of Dorea was the best predictor of carcinomas and its median AUC was only `r round(max(filter(ind_crc_combined_unmatched_auc, taxa == "Dorea")[, "auc"]), digits = 3)`. These results suggest that although these taxa are associated with a decreased or increased OR for the presences of carcinomas, individually, they do a poor job of classifying a subject’s disease status.
 
 
-***Select Community Models can Recapitulate Whole Community Models:***
-Since specific taxa increased or decreased the OR for carcinoma but performed poorly as an individual classifier of carcinoma and assessing ORs for adenoma we assessed whether the overall bacterial community was better at classifying disease. Three models were tested and included a full taxa model, full OTU model, and significant OR taxa model. If no taxa were significant after multiple comparison correction then no model for that specific grouping (i.e. adenoma stool) was analyzed. We first tested three model AUCs. Next, the all genera models and any significant OR taxa models were tested across all studies that were not used to train the model. 
-
-For stool, all models used had similar AUCs for both adenoma and carcinoma [Figure 4]. However, the adenoma AUCs were barely better than chance [Figure 4A]. Similarily, when analyzing the tests sets that were comprised of genera data from other studies the adenoma models performed poorly [Figure 5A]. The carcinoma models performed much better, with both the all genera and singificant OR taxa only models having a similar ability to detect individuals with carcinomas [Figure 5B]. The most common genera in the top 10 most important variables, in the full genera models used to classify carcinomas, were *Bacteroides* and *Lachnospiraceae* [Figure 6A]. Regardless of sample type, mouth-associated genera were present in models for carcinomas but not consistently across studies [Figure 6]. For the full community OTU-based models, both *Bacteroides*, *Blautia*, *Lachnospiraceae*, and *Ruminococcaceae* were present in the top 10 consistently across studies [Figure 6B]. Overall, these results suggest that multiple microbes could act as the inflammatory stimulus needed to exacerbate mutations leading each individual microbe as a poor individual classifier but much better in aggregate with others.
+***Combined taxa model classifies subjects better than using individual taxa:*** 
+Instead of attempting to classify subjects based on individual taxa, next we generated Random Forest models that combined the individual taxa and evaluated the ability to classify as subject’s disease status. For data from stool samples, the combined model had an AUC of `r round(median(filter(crc_stool_model_aucs, study == train_model, model_type == "full_model")[, "AUC"]), digits = 2)`, which was significantly higher than any of the AUC values for the individual taxa (P-value < `r round(max(stool_ind_vs_full_taxa$pvalue), digits = 3)`). For the full taxa models using stool, *Bacteroides* and *Lachnospiraceae* were the most common taxa in the top 10% mean decrease in accuracy (MDA) across studies. Similarly, using data from the unmatched tissue samples, the combined model had an AUC of `r round(median(filter(crc_tissue_model_aucs, study == train_model, model_type == "full_model", type == "unmatched")[, "AUC"]), digits = 2)`, which was significantly higher than the AUC values for Blautia and Weissella (P-value < `r round(max(filter(unmatched_tissue_ind_vs_full_taxa, taxa != "Dorea")[, "pvalue"]), digits = 3)`).  For the full taxa models using unmatched tissue, *Lachnospiraceae*, *Bacteroidaceae*, and *Ruminococcaceae* were the most common taxa in the top 10% mean decrease in accuracy across studies. Clearly, pooling the information from the taxa with significant ORs results in a model that outperforms classifications made using individual taxa.
 
 
-The tissue-based models had results that were dependent on genera or OTU level data and matched or unmatched samples [Figure S2]. Similarily to stool, the significant OR taxa performed as well as both the full taxa and OTU models [Figure S3B]. When analyzing the tests sets that were comprised of genera data from other studies, all models performed poorly with one exception being carcinoma classification in unmatched tissue [Figure S4]. Unlike stool, the test sets for the significant OR taxa did not perform as well as the all genera-based models [Figure S4C]. For the full genera models built using either matched or unmatched samples, showed no consistent taxa representation in the top 10 most important model variables across study [Figure S4A & S4B]. Conversely, the OTU-based models built using either matched or unmatched samples showed more commonalities [Figure S4C & S4D]. In models built using matched samples *Lachnospiraceae*, *Fusobacteriaceae*, *Comamonadaceae*, and *Bacteroidaceae* appeared in the top 10 percent in the majority of studies [Figure S4C]. Although models built with unmatched samples also had *Lachnospiraceae* and *Bacteroidaceae*, a major difference was the presence of *Ruminococcaceae* in the top 10 of every study [Figure S4D]. This results suggests that either the colon tissue microbiota is study or person dependent or that that kit and/or other types of contamination associated with low biomass samples may be skewing the results.
+***Performance of models based on taxa relative abundance in full community are not significantly better than those based on taxa with significant ORs:*** 
+Next, we asked whether a Random Forest classification model built using all of the taxa found in the communities would outperform the models generated using those taxa with a significant OR. Similar to our inability to identify taxa associated with a significant OR for the presence of adenomas, the median AUCs to classify subjects as having normal colons or having adenomas using data from stool or tissue samples were marginally better than 0.5 for any study[Figure 4A & S3A]. In contrast, the models for classifying subjects as having normal colons or having carcinomas using data from stool or tissue samples yielded AUC values meaningfully higher than 0.5 [Figure 4B & S3B-C]. When we compared the models based on all of the taxa in a community to models based on the taxa with significant ORs, the results were mixed. Using the data from stool samples we found that although the AUC for 6 of 7 studies increased (mean decrease = `r round(mean((filter(crc_stool_model_aucs, study == train_model, model_type == "full_model", study != "flemer")[, "AUC"] - filter(crc_stool_model_aucs, study == train_model, model_type == "select_model", study != "flemer")[, "AUC"])*100), digits = 2)`%), the more expansive models performed worse for 1 of the studies (decrease = `r round(abs(mean((filter(crc_stool_model_aucs, study == train_model, model_type == "full_model", study == "flemer")[, "AUC"] - filter(crc_stool_model_aucs, study == train_model, model_type == "select_model", study == "flemer")[, "AUC"])*100)), digits = 2)`%). The overall improvement in performance was statistically significant (one-tailed paired T-test; P-value = `r round(t.test(filter(crc_stool_model_aucs, study == train_model, model_type == "full_model")[, "AUC"], filter(crc_stool_model_aucs, study == train_model, model_type == "select_model")[, "AUC"], alternative = "greater", paired = TRUE)$p.value, digits = 3)`). Of the `r length(crc_OR_stool$measure)` taxa with significant ORs, all `r length(crc_OR_stool$measure)` were among the top 10% most important taxa as measured by mean decrease in accuracy, in at least one study . Similarly, using the data from unmatched tissue samples we found that the AUC for 4 out of 4 studies decreased between full versus select OR models (mean decrease = `r round(mean((filter(crc_tissue_model_aucs, study == train_model, model_type == "full_model", type == "unmatched")[, "AUC"] - filter(crc_tissue_model_aucs, study == train_model, model_type == "select_model", type == "unmatched")[, "AUC"])*100), digits = 2)`%, one-tailed paired T-test; P-value = `r round(t.test(filter(crc_tissue_model_aucs, study == train_model, model_type == "full_model", type == "unmatched")[, "AUC"], filter(crc_tissue_model_aucs, study == train_model, model_type == "select_model", type == "unmatched")[, "AUC"], alternative = "greater", paired = TRUE)$p.value, digits = 3)`). Of the `r length(crc_unmatched_OR_tissue$measure)` taxa with significant ORs, all `r length(crc_unmatched_OR_tissue$measure)` were among the top 10% most important taxa as measured by mean decrease in accuracy, in at least one study. These results were surprising because it demonstrated that the ability to classify subjects could be done based on a limited characterization of the communities.
+
+
+
+***Performance of models based on OTU relative abundance in full community are not significantly better than those based on taxa with significant ORs:*** 
+The previous models were based on relative abundance data where sequences were assigned to coarse taxonomic assignments (i.e. typically genus or family level). To determine whether model performance improved with a more fine scale classification, we assigned sequences to operational taxonomic units (OTUs) where the similarity among sequences within an OTU was more than 97%. We again found that classification models built using all of the sequence data for a community did a poor job of differentiating between subjects with normal colons and those with adenomas (median AUC: `r round(median(filter(adn_stool_model_aucs, model_type == "full_otu")[, "AUC"]), digits = 2)` [`r round(min(filter(adn_stool_model_aucs, model_type == "full_otu")[, "AUC"]), digits = 2)`- `r round(max(filter(adn_stool_model_aucs, model_type == "full_otu")[, "AUC"]), digits = 2)`]), but did a good job of differentiating between subjects with normal colons and those with carcinomas (median AUC: `r round(median(filter(crc_stool_model_aucs, model_type == "full_otu")[, "AUC"]), digits = 2)` [`r round(min(filter(crc_stool_model_aucs, model_type == "full_otu")[, "AUC"]), digits = 2)`- `r round(max(filter(crc_stool_model_aucs, model_type == "full_otu")[, "AUC"]), digits = 2)`]). The OTU-based models performed similarly to those constructed using the taxa with significant ORs (one-tailed paired T-test; P-value = `r round(t.test(filter(crc_tissue_model_aucs, study == train_model, model_type == "select_model", type == "unmatched")[, "AUC"], filter(crc_tissue_model_aucs, study == train_model, model_type == "full_otu", type == "unmatched")[, "AUC"], alternative = "greater", paired = TRUE)$p.value, digits = 3)`) and those using all taxa (one-tailed paired T-test; P-value = `r round(t.test(filter(crc_tissue_model_aucs, study == train_model, model_type == "full_model", type == "unmatched")[, "AUC"], filter(crc_tissue_model_aucs, study == train_model, model_type == "full_otu", type == "unmatched")[, "AUC"], alternative = "greater", paired = TRUE)$p.value, digits = 3)`). Among the OTUs that had the highest mean decrease in accuracy for the OTU-based models, we found that OTUs that affiliated with all of the `r length(crc_OR_stool$measure)` taxa that had a significant OR were within the top 10% for at least one study. Again, this result was surprising as it indicated that a finer scale classification of the sequence data and thus a larger number of features to select from, did not yield improved classification of the subjects.
+
+
+***Generalizability of taxon-based models trained on one dataset to the other datasets:*** 
+Considering the good performance of the Random Forest models using taxa with a significant OR and using all of the taxa, we next asked how well the models would perform when given data from a different subject cohort. For instance, if a model was trained using data from the Ahn study, we wanted to know how well it would perform using the data from the Baxter study. We found the models trained using the taxa with a significant OR all had a higher median AUC than the models trained using all of the taxa when tested on the other datasets [Figure 5]. As might be expected, the difference between the performance of the modelling approaches appeared to vary with the size of the training cohort. These data suggest that given a sufficient number of subjects with normal colons and carcinomas, Random Forest models trained using a small number of taxa can accurately classify individuals from a different cohort.
+
 
 
 
 \newpage
 
 ## Discussion
+
+
+Select subset community you can do as well as OTUs or genera when using all of the information and that these models perform well when trained on one cohort and tested on another.
+
+Why didn’t the whole community work better? Communities are patchy and higher level taxonomic information pools some of that patchiness
+There isn’t one single bug associated with disease – why ? possibly because multiple bugs can carry out the same function (e.g. inflammation). Tell some examples (Esch Fuso, pepto)
+Also, interesting that the loss of bacteria can be associated with disease. These appear to be commonly thought as beneficial bacteria that ferment to produce SCFAs
+
+Adenomas suck. 
+Which is kind of at odds with Baxter, but Baxter looked at lesions and also included FIT
+Also, variation in how adenomas are defined – small polyps vs larger neopplasias (e.g. baxter), but we couldn’t do this for the current study because we didn’t have that level of detail and most studies are small
+This isn’t such a novel result (Nich Chia)
+Stool may not be the best place to look for early stage adenomas
+
+Tissue vs. Stool
+Not much overlap between stool and tissue biomarkers
+Stool for diagnostic – does as well as tissue for classifying carcinomas
+Carcinoma result surprising (e.g. lack of Fuso) – largely because small studies?
+
+Missing microbes
+ETBfrag, Strepto, etc.
+B – is a lot of things that we might lose – good and bad; mucosal, right sided tumors? We might not see with stool
+
+Meta analysis are important (eg. obesity, crc), we need more. We learned that these are hard because…
+Inaccessible datasets
+Missing/vague metadata
+Varying sequence quality
+Small datasets
+
+Looking forward
+Potential for using microbiome as a diagnostic tool
+We’re excited that we were able to validate a set of biomarkes across multiple studies
+Found a phenotype we can relate to the microbiome, it’s replicable and it’s strong
+
 
 *Targeting the identification of tumor microbial biomarkers within stool seems logical since it offers an easy and cost-effective way to stratify risk of disease. The current gold standard for diagnosis, a colonoscopy, can be time-consuming and is not without risk of complications. Although stool represents an easy and less invasive way to assess risk, it is not clear how well this sample reflects adenoma- and carcinoma- associated microbial communities. Some studies have tried to assess this in health and disease but are limited by their sample size [@flemer_tumour-associated_2017; @Flynn_preprint_2017]. Sampling the microbiota directly associated with colon tissue may provide clearer answers but is not without their own limitations. After the colonoscopy bowel prep the bacterial community sampled may reflect the better adhered microbiota versus the resident community. Additionally, these samples contain more host DNA, potentially limiting the types of analysis that can be done. It is well known that low biomass samples can be very difficult to work with and results can be study dependent due to the randomness of contamination [@Salter_contamination_2014].* 
 
