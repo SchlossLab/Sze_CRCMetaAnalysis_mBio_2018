@@ -117,6 +117,7 @@ adn_tissue_graph <- adn_tissue %>%
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu"))) %>% 
   ggplot(aes(model_type, as.numeric(AUC), color = study, group = type)) + 
+  geom_hline(yintercept = 0.5, color = "gray", linetype = "dashed") + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) +
   geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
@@ -144,6 +145,7 @@ adn_stool_graph <- adn_stool %>%
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
   ggplot(aes(model_type, as.numeric(AUC), color = study)) + 
+  geom_hline(yintercept = 0.5, color = "gray", linetype = "dashed") + 
   geom_point(width = 0.2, size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
@@ -174,6 +176,7 @@ crc_tissue_graph <- crc_tissue %>%
                         levels = c("burns", "chen", "dejea", "flemer", "geng", "sana"), 
                         labels = c("Burns", "Chen", "Dejea", "Flemer", "Geng", "Sanapareddy"))) %>% 
   ggplot(aes(model_type, AUC, color = study, group = type)) + 
+  geom_hline(yintercept = 0.5, color = "gray", linetype = "dashed") + 
   geom_point(width = 0.2, size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
@@ -201,6 +204,7 @@ crc_stool_graph <- crc_stool %>%
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
   ggplot(aes(model_type, AUC, color = study)) + 
+  geom_hline(yintercept = 0.5, color = "gray", linetype = "dashed") + 
   geom_point(width = 0.2, size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
