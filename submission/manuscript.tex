@@ -585,141 +585,106 @@ individuals with carcinomas.
 
 \subsection{Methods}\label{methods}
 
-\textbf{\emph{Obtaining Data Sets:}} The studies used for this
-meta-analysis were identified through the review articles written by
-Keku, \emph{et al.} and Vogtmann, \emph{et al.} (40, 41) and additional
-studies not mentioned in the reviews were obtained based on the authors'
-knowledge of the literature. Studies that used tissue or feces as their
-sample source for 454 or Illumina 16S rRNA gene sequencing analysis and
-had data sets with sequences available for analysis were included. Some
-studies were excluded because they did not have publicly available
-sequences or did not have metadata in which the authors were able to
-share. After these filtering steps, the following studies remained: Ahn,
+\textbf{\emph{Datasets:}} The studies used for this meta-analysis were
+identified through the review articles written by Keku, et al. (40) and
+Vogtmann, et al. (41). Additional studies, not mentioned in those
+reviews were obtained based on the authors' knowledge of the literature.
+Studies were included that used tissue or feces as their sample source
+for 454 or Illumina 16S rRNA gene sequencing. Some studies (N = 12) were
+excluded because they did not have publicly available sequences or did
+not have metadata in which the authors were able to share. We were able
+to obtain sequence data and metadata from the following studies: Ahn,
 \emph{et al.} (11), Baxter, \emph{et al.} (12), Brim, \emph{et al.}
 (29), Burns, \emph{et al.} (15), Chen, \emph{et al.} (13), Dejea,
 \emph{et al.} (20), Flemer, \emph{et al.} (17), Geng, \emph{et al.}
 (19), Hale, \emph{et al.} (27), Kostic, \emph{et al.} (42), Lu, \emph{et
 al.} (26), Sanapareddy, \emph{et al.} (25), Wang, \emph{et al.} (14),
 Weir, \emph{et al.} (23), and Zeller, \emph{et al.} (16). The Zackular
-(43) study was not included because the 90 individuals analyzed within
-the study are contained within the larger Baxter study (12). After
-sequence processing, all the case samples for the Kostic study had 100
-or less sequences remaining and was excluded, leaving a total of 14
-studies that analysis could be completed on.
+(43) study was excluded because their 90 individuals were contained
+within the larger Baxter study (12). The Kostic study was excluded
+because after we processed the sequences, all of the case samples had
+100 or fewer sequences. The final analysis included 14 studies (Tables 1
+and 2). There were seven studies with only fecal samples (Ahn, Baxter,
+Brim, Hale, Wang, Weir, and Zeller), five studies with only tissue
+samples (Burns, Dejea, Geng, Lu, Sanapareddy), and two studies with both
+fecal and tissue samples (Chen and Flemer). After curating the
+sequences, 1737 stool samples and 492 tissue samples remained in the
+analysis {[}Tables 1 and 2{]}.
 
-\textbf{\emph{Data Set Breakdown:}} In total, there were seven studies
-with only fecal samples (Ahn, Baxter, Brim, Hale, Wang, Weir, and
-Zeller), five studies with only tissue samples (Burns, Dejea, Geng, Lu,
-Sanapareddy), and two studies with both fecal and tissue samples (Chen
-and Flemer). The total number of individuals analyzed after sequence
-processing for feces was 1737 {[}Table 1{]}. The total number of matched
-and unmatched tissue samples that were analyzed after sequence
-processing was 492 {[}Table 2{]}.
+\textbf{\emph{Sequence Processing:}} Raw sequence data and metadata were
+primarily obtained from the Sequence Read Archive (SRA) and dbGaP. Other
+sequence and metadata were obtained directly from the authors (n = 4,
+(17, 23, 25, 27)). Each dataset was processed separately using mothur
+(v1.39.3) (44) using the default quality filtering methods for both 454
+and Illumina sequence data. If it was not possible to use the defaults
+because the sequences were trimmed too much, then the stated quality
+cut-offs from the original study were used. Chimeric sequences were
+identified and removed using VSEARCH (45). The curated sequences were
+assigned to OTUs at 97\% similarity using the OptiClust algorithm (46)
+and classified to the deepest taxonomic level that had 80\% support
+using the naïve Bayesian classifier trained on the RDP taxonomy outline
+(version 14, (47)).
 
-\textbf{\emph{Sequence Processing:}} For the majority of studies, raw
-sequences were downloaded from the Sequence Read Archive (SRA)
-(\url{ftp://ftp-trace.ncbi.nih.gov/sra/sra-instant/reads/ByStudy/sra/SRP/})
-and metadata were obtained by searching the respective accession number
-of the study at the following website:
-\url{http://www.ncbi.nlm.nih.gov/Traces/study/}. Of the studies that did
-not have sequences and metadata on the SRA, data was obtained from DBGap
-(n = 1, (11)) and directly from the authors (n = 4, (17, 23, 25, 27)).
-Each study was processed using the mothur (v1.39.3) software program
-(44) and quality filtering utilized the default methods for both 454 and
-Illumina based sequencing. If it was not possible to use the defaults,
-the stated quality cut-offs, from the study itself, were used instead.
-Sequences that were made up of an artificial combination of two or more
-different sequences and commonly known as chimeras were identified and
-removed using VSEARCH (45) before \emph{de novo} OTU clustering at 97\%
-similarity was completed using the OptiClust algorithm (46).
+\textbf{\emph{Community analysis:}} We calculated alpha diversity
+metrics (i.e.~OTU richness, evenness, and Shannon diversity) for each
+sample. Within each dataset, we ensured that the data followed a normal
+distribution using power transformations. Using the transformed data, we
+tested the hypothesis that individuals with normal colons, adenomas, and
+carcinomas had significantly different alpha diversity metrics using
+linear mixed-effect models. We also calculated the OR for each study and
+metric by considering any value above the median alpha diversity value
+to be positive. We measured the dissimilarity between individuals by
+calculating the pairwise Bray-Curtis index and used PERMANOVA (48) to
+test whether individuals with normal colons were significantly different
+from those with adenomas or carcinomas. Finally, after binning sequences
+into the deepest taxa that the naïve Bayesian classifier could calssify
+the sequences, we quantified the ORs for individuals having an adenoma
+or carcinoma and corrected for multiple comparisons using the
+Benjamini-Hochberg method (49). Again, for each taxon, if the relative
+abundance was greater than the median relative abundance for that taxon
+in the study, the individual was considered to be positive.
 
-\textbf{\emph{Study Analysis Overview:}} OTU richness, evenness, and
-Shannon diversity were first assessed for differences between controls,
-adenoma tumors, and carcinoma turmors using both linear mixed-effect
-models and ORs. For each individual study the Bray-Curtis index was used
-to assess differences between control-adenoma and control-carcinoma
-individuals. Next, all common genera were assessed for differences in
-ORs for individuals having an adenoma or carcinoma and corrected for
-multiple comparisons using the Benjamini-Hochberg method (47). We then
-built Random Forest models based on all genera, all OTUs, or significant
-OR taxa (only using taxa still significant after multiple comparison
-correction). For both the full genera and significant OR taxa, models
-were trained on one study then tested on the remaining studies using
-genera-based relative abundances. The OTU-based models were built using
-OTU level data and a 10-fold CV over 100 different iterations, based on
-random 80/20 splitting of the data, was used to generate a range of
-expected AUCs. This process was repeated for every study in the
-meta-analysis. Comparisons of the initial trained model AUCs for the
-full genera and significant OR taxa were made to the mean AUC generated
-from the 100 different 10-fold CV runs of the respective OTU-based
-model. For comparisons in which only control versus adenoma individuals
-were made, the carcinoma individuals were excluded from each respective
-study. Similarly, for comparisons in which control versus carcinoma
-individuals were made the adenoma individuals were excluded from each
-respective study. For all analysis completed fecal and tissue samples
-were kept separate. Within the tissue groups the data were further
-divided between samples from the same individual (matched) and those
-from different individuals (unmatched).
-
-\textbf{\emph{Obtaining Genera Relative Abundance and Significant OR
-Taxa Models:}} For the genera analysis of the ORs, OTUs were added
-together based on the genus or lowest available taxonomic classification
-level and the total average counts, for 100 different subsamplings was
-obtained. The significant OR taxa models for the Random Forest models
-utilized all taxa that had significant ORs after multiple comparison
-correction. This meant only models for the carcinoma stool (8 variables)
-and carcinoma unmatched (3 variables) samples were possible to be
-created and analyzed.
-
-\textbf{\emph{Matched versus Unmatched Tissue Samples:}} In general,
-tissue samples with control and tumor samples from different individuals
-were classified as unmatched while samples that belonged to the same
-individual were classified as matched. Studies with matched data
-included Burns, Dejea, Geng, and Lu while those with unmatched data were
-from Burns, Flemer, Chen, and Sanapareddy. For some studies samples
-became unmatched when a corresponding matched sample did not make it
-through sequence processing. All samples, from both matched and
-unmatched tissue samples, were analyzed together for the linear
-mixed-effect models with samples from the same individual being
-corrected for. All other analysis, where it is not specified explicitly,
-matched and unmatched samples were analyzed separately using the
-statistical approaches mentioned in the Statistical Analysis section.
-
-\textbf{\emph{Assessing Important Random Forest Model Variables:}} Using
-Mean Decrease in Accuracy (MDA) the top 10 most important variables to
-the Random Forest model were obtained for the full models of the two
-different approaches used. For the first approach utilizing genus-based
-models, the number of times that a specific taxa showed up in the top 10
-of the training set across each study was counted. For the second
-approach, that utilized the OTU-based models, the medians for each OTU
-across 100 different 80/20 splits of the data was generated and the top
-10 OTUs then counted for each study. Common taxa were then identified by
-using the lowest classification for each of the specific OTUs obtained
-from these counts and the number of times this classification occurred
-across the top 10 of each study was recorded. Finally, the two studies
-that had adenoma tumor tissue (Lu and Flemer) were equally divided
-between matched and unmatched studies and were grouped together for the
-counting of the top 10 genera and OTUs for both Random Forest
-approaches.
+\textbf{\emph{Random Forest classification analysis:}} To classify
+individuals as having normal colons or tumors, we built Random Forest
+classification models for each dataset and comparison using taxa with
+significant ORs (after multiple comparison correction), all taxa, or
+OTUs. Because no taxa were identified as having a significant OR
+associated with adenomas using stool samples or tissue samples,
+classification models based on OR data were not constructed to classify
+individuals as having normal colons or adenomas. Within the training
+dataset, 10-fold cross validation (5-fold cross validation for small
+datasets) was used to build a model using the default mtry setting that
+was then evaluated on the testing set. For the models constructed using
+the taxa with significant ORs, the default mtry setting was used to
+train the model and this model was tested on the other datasets in the
+meta-analysis. The reported AUC values are the average AUCs for the
+application of the model on the test sets. For the OTU-based models,
+hyperparameters were fit splitting the dataset into training (80\% of
+samples) and testing (20\%) sets. Within the training dataset, 10-fold
+cross validation was used to identify the best hyperparameters, which
+were then used to build a model that was then evaluated on the testing
+set. The original 80/20 split and fitting was repeated 100 times. The
+Mean Decrease in Accuracy (MDA), a measure of the importance of each
+taxon to the overall model was used to rank the taxa used in each model.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
-sequence processing utilized the R (v3.4.3) software package (48). For
+sequence processing utilized the R (v3.4.3) software package (50). For
 OTU richness, evenness, and Shannon diversity analysis, values were
-power transformed using the rcompanion (v1.11.1) package (49) and then
-Z-score normalized using the car (v2.1.6) package (50). Testing for OTU
+power transformed using the rcompanion (v1.11.1) package (51) and then
+Z-score normalized using the car (v2.1.6) package (52). Testing for OTU
 richness, evenness, and Shannon diversity differences utilized linear
-mixed-effect models created using the lme4 (v1.1.15) package (51) to
+mixed-effect models created using the lme4 (v1.1.15) package (53) to
 correct for study, repeat sampling of individuals (tissue only), and 16S
 hyper-variable region used. Odds ratios (OR) were analyzed using both
-the epiR (v0.9.93) and metafor (v2.0.0) packages (52, 53) by assessing
+the epiR (v0.9.93) and metafor (v2.0.0) packages (54, 55) by assessing
 how many individuals with and without disease were above and below the
 overall median value within each specific study. OR significance testing
 utilized the chi-squared test. Diversity differences measured by the
 Bray-Curtis index utilized the creation of distance matrix and testing
-with PERMANOVA executed with the vegan (v2.4.5) package (54). Random
+with PERMANOVA executed with the vegan (v2.4.5) package (56). Random
 Forest models were built using both the caret (v6.0.78) and randomForest
-(v4.6.12) packages (55, 56). All figures were created using both ggplot2
-(v2.2.1) and gridExtra (v2.3) packages (57, 58).
+(v4.6.12) packages (57, 58). All figures were created using both ggplot2
+(v2.2.1) and gridExtra (v2.3) packages (59, 60).
 
 \textbf{\emph{Reproducible Methods:}} The code and analysis can be found
 at
@@ -1131,32 +1096,45 @@ open source tool for metagenomics. PeerJ \textbf{4}:e2584.
 OptiClust, an Improved Method for Assigning Amplicon-Based Sequence Data
 to Operational Taxonomic Units. mSphere \textbf{2}.
 
+\hypertarget{ref-rdp_Wang2007}{}
+47. \textbf{Wang, Q.}, \textbf{G. M. Garrity}, \textbf{J. M. Tiedje},
+and \textbf{J. R. Cole}. 2007. Naive bayesian classifier for rapid
+assignment of rRNA sequences into the new bacterial taxonomy. Applied
+and Environmental Microbiology. American Society for Microbiology
+\textbf{73}:5261--5267.
+
+\hypertarget{ref-permanova_Anderson2013}{}
+48. \textbf{Anderson, M. J.}, and \textbf{D. C. I. Walsh}. 2013.
+PERMANOVA, ANOSIM, and the mantel test in the face of heterogeneous
+dispersions: What null hypothesis are you testing? Ecological
+Monographs. Wiley-Blackwell \textbf{83}:557--574.
+
 \hypertarget{ref-benjamini_controlling_1995}{}
-47. \textbf{Benjamini, Y.}, and \textbf{Y. Hochberg}. 1995. Controlling
+49. \textbf{Benjamini, Y.}, and \textbf{Y. Hochberg}. 1995. Controlling
 the false discovery rate: A practical and powerful approach to multiple
 testing. Journal of the Royal Statistical Society. Series B
 (Methodological) \textbf{57}:289--300.
 
 \hypertarget{ref-r_citation_2017}{}
-48. \textbf{R Core Team}. 2017. R: A language and environment for
+50. \textbf{R Core Team}. 2017. R: A language and environment for
 statistical computing. R Foundation for Statistical Computing, Vienna,
 Austria.
 
 \hypertarget{ref-rcompanion_citation_2017}{}
-49. \textbf{Mangiafico, S.} 2017. Rcompanion: Functions to support
+51. \textbf{Mangiafico, S.} 2017. Rcompanion: Functions to support
 extension education program evaluation.
 
 \hypertarget{ref-car_citation_2011}{}
-50. \textbf{Fox, J.}, and \textbf{S. Weisberg}. 2011. An R companion to
+52. \textbf{Fox, J.}, and \textbf{S. Weisberg}. 2011. An R companion to
 applied regressionSecond. Sage, Thousand Oaks CA.
 
 \hypertarget{ref-lme4_citation_2015}{}
-51. \textbf{Bates, D.}, \textbf{M. Mächler}, \textbf{B. Bolker}, and
+53. \textbf{Bates, D.}, \textbf{M. Mächler}, \textbf{B. Bolker}, and
 \textbf{S. Walker}. 2015. Fitting linear mixed-effects models using
 lme4. Journal of Statistical Software \textbf{67}:1--48.
 
 \hypertarget{ref-epir_citation_2017}{}
-52. \textbf{Telmo Nunes, M. S. with contributions from}, \textbf{C.
+54. \textbf{Telmo Nunes, M. S. with contributions from}, \textbf{C.
 Heuer}, \textbf{J. Marshall}, \textbf{J. Sanchez}, \textbf{R. Thornton},
 \textbf{J. Reiczigel}, \textbf{J. Robison-Cox}, \textbf{P. Sebastiani},
 \textbf{P. Solymos}, \textbf{K. Yoshida}, \textbf{G. Jones}, \textbf{S.
@@ -1164,18 +1142,18 @@ Pirikahu}, \textbf{S. Firestone}, and \textbf{R. Kyle.} 2017. EpiR:
 Tools for the analysis of epidemiological data.
 
 \hypertarget{ref-metafor_citation_2010}{}
-53. \textbf{Viechtbauer, W.} 2010. Conducting meta-analyses in R with
+55. \textbf{Viechtbauer, W.} 2010. Conducting meta-analyses in R with
 the metafor package. Journal of Statistical Software \textbf{36}:1--48.
 
 \hypertarget{ref-vegan_citation_2017}{}
-54. \textbf{Oksanen, J.}, \textbf{F. G. Blanchet}, \textbf{M. Friendly},
+56. \textbf{Oksanen, J.}, \textbf{F. G. Blanchet}, \textbf{M. Friendly},
 \textbf{R. Kindt}, \textbf{P. Legendre}, \textbf{D. McGlinn}, \textbf{P.
 R. Minchin}, \textbf{R. B. O'Hara}, \textbf{G. L. Simpson}, \textbf{P.
 Solymos}, \textbf{M. H. H. Stevens}, \textbf{E. Szoecs}, and \textbf{H.
 Wagner}. 2017. Vegan: Community ecology package.
 
 \hypertarget{ref-caret_citation_2017}{}
-55. \textbf{Jed Wing, M. K. C. from}, \textbf{S. Weston}, \textbf{A.
+57. \textbf{Jed Wing, M. K. C. from}, \textbf{S. Weston}, \textbf{A.
 Williams}, \textbf{C. Keefer}, \textbf{A. Engelhardt}, \textbf{T.
 Cooper}, \textbf{Z. Mayer}, \textbf{B. Kenkel}, \textbf{the R Core
 Team}, \textbf{M. Benesty}, \textbf{R. Lescarbeau}, \textbf{A. Ziem},
@@ -1183,15 +1161,15 @@ Team}, \textbf{M. Benesty}, \textbf{R. Lescarbeau}, \textbf{A. Ziem},
 \textbf{T. Hunt.} 2017. Caret: Classification and regression training.
 
 \hypertarget{ref-randomforest_citation_2002}{}
-56. \textbf{Liaw, A.}, and \textbf{M. Wiener}. 2002. Classification and
+58. \textbf{Liaw, A.}, and \textbf{M. Wiener}. 2002. Classification and
 regression by randomForest. R News \textbf{2}:18--22.
 
 \hypertarget{ref-ggplot2_citation_2009}{}
-57. \textbf{Wickham, H.} 2009. Ggplot2: Elegant graphics for data
+59. \textbf{Wickham, H.} 2009. Ggplot2: Elegant graphics for data
 analysis. Springer-Verlag New York.
 
 \hypertarget{ref-gridextra_citation_2017}{}
-58. \textbf{Auguie, B.} 2017. GridExtra: Miscellaneous functions for
+60. \textbf{Auguie, B.} 2017. GridExtra: Miscellaneous functions for
 ``grid'' graphics.
 
 \newpage
