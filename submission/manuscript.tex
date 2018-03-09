@@ -254,7 +254,7 @@ the presence of carcinoma.
 \subsection{Results}\label{results}
 
 \textbf{\emph{Lower bacterial diversity is associated with increased
-odds ratio (OR) of tumors:}} We first assessed whether variation in
+odds ratio (OR) of tumors.}} We first assessed whether variation in
 broad community metrics like total number of operational taxonomic units
 (OTUs) (i.e.~richness), the evenness of their abundance, and the overall
 diversity was associated with disease stage after controlling for study
@@ -289,7 +289,7 @@ from the results using stool, and the relatively small number of studies
 and size of studies used in the analysis.
 
 \textbf{\emph{Disease progression is associated with community-wide
-changes in composition and abundance:}} Based on the differences in
+changes in composition and abundance.}} Based on the differences in
 evenness and diversity, we next asked whether there were community-wide
 differences in the structure of the communities associated with
 different disease stages. We identified significant bacterial community
@@ -310,7 +310,7 @@ the relatively small sample sizes among the studies that characterized
 the tissue microbiota.
 
 \textbf{\emph{Individual taxa are associated with significant ORs for
-carcinomas:}} Next we identified those taxa were associated with ORs
+carcinomas.}} Next we identified those taxa were associated with ORs
 that were significantly associated with having a normal colon or the
 presence of adenomas or carcinomas. No taxa had a significant OR for the
 presence of adenomas when we used data collected from stool or tissue
@@ -340,7 +340,7 @@ carcinomas. Overall, there was no overlap in the taxa with significant
 OR between stool and tissue samples.
 
 \textbf{\emph{Individual taxa with a significant OR do a poor job of
-differentiating subjects with normal colons and those with carcinoma:}}
+differentiating subjects with normal colons and those with carcinoma.}}
 We next asked whether those taxa that had a significant OR associated
 with having a normal colon or carcinomas could be used individually, to
 classify subjects as having a normal colon or carcinomas. OR values were
@@ -364,7 +364,7 @@ or increased OR for the presences of carcinomas, individually, they do a
 poor job of classifying a subject's disease status.
 
 \textbf{\emph{Combined taxa model classifies subjects better than using
-individual taxa:}} Instead of attempting to classify subjects based on
+individual taxa.}} Instead of attempting to classify subjects based on
 individual taxa, next we combined information from the individual taxa
 and evaluated the ability to classify a subject's disease status using
 Random Forest models. For data from stool samples, the combined model
@@ -391,7 +391,7 @@ classifications made using individual taxa.
 
 \textbf{\emph{Performance of models based on taxa relative abundance in
 full community are better than those based on taxa with significant
-ORs:}} Next, we asked whether a Random Forest classification model built
+ORs.}} Next, we asked whether a Random Forest classification model built
 using all of the taxa found in the communities would outperform the
 models generated using those taxa with a significant OR. Similar to our
 inability to identify taxa associated with a significant OR for the
@@ -418,7 +418,7 @@ model accuracy.
 
 \textbf{\emph{Performance of models based on OTU relative abundance in
 full community are not significantly better than those based on taxa
-with significant ORs:}} The previous models were based on relative
+with significant ORs.}} The previous models were based on relative
 abundance data where sequences were classified to coarse taxonomic
 assignments (i.e.~typically genus or family level). To determine whether
 model performance improved with finer scale classification, we assigned
@@ -441,8 +441,8 @@ number of features to select from, did not yield improved classification
 of the subjects.
 
 \textbf{\emph{Generalizability of taxon-based models trained on one
-dataset to the other datasets:}} Considering the good performance of the
-Random Forest models using taxa with a significant OR and using all of
+dataset to the other datasets.}} Considering the good performance of the
+Random Forest models using taxa with a significant R and using all of
 the taxa, we next asked how well the models would perform when given
 data from a different subject cohort. For instance, if a model was
 trained using data from the Ahn study, we wanted to know how well it
@@ -640,7 +640,7 @@ that can be mediated by multiple, diverse bacteria.
 
 \subsection{Methods}\label{methods}
 
-\textbf{\emph{Datasets:}} The studies used for this meta-analysis were
+\textbf{\emph{Datasets.}} The studies used for this meta-analysis were
 identified through the review articles written by Keku, et al. (41) and
 Vogtmann, et al. (42). Additional studies, not mentioned in those
 reviews were obtained based on the authors' knowledge of the literature.
@@ -666,7 +666,7 @@ fecal and tissue samples (Chen and Flemer). After curating the
 sequences, 1737 stool samples and 492 tissue samples remained in the
 analysis {[}Tables 1 and 2{]}.
 
-\textbf{\emph{Sequence Processing:}} Raw sequence data and metadata were
+\textbf{\emph{Sequence Processing.}} Raw sequence data and metadata were
 primarily obtained from the Sequence Read Archive (SRA) and dbGaP. Other
 sequence and metadata were obtained directly from the authors (n = 4,
 (17, 23, 25, 27)). Each dataset was processed separately using mothur
@@ -680,7 +680,7 @@ and classified to the deepest taxonomic level that had 80\% support
 using the naïve Bayesian classifier trained on the RDP taxonomy outline
 (version 14, (48)).
 
-\textbf{\emph{Community analysis:}} We calculated alpha diversity
+\textbf{\emph{Community analysis.}} We calculated alpha diversity
 metrics (i.e.~OTU richness, evenness, and Shannon diversity) for each
 sample. Within each dataset, we ensured that the data followed a normal
 distribution using power transformations. Using the transformed data, we
@@ -699,7 +699,7 @@ Benjamini-Hochberg method (50). Again, for each taxon, if the relative
 abundance was greater than the median relative abundance for that taxon
 in the study, the individual was considered to be positive.
 
-\textbf{\emph{Random Forest classification analysis:}} To classify
+\textbf{\emph{Random Forest classification analysis.}} To classify
 individuals as having normal colons or tumors, we built Random Forest
 classification models for each dataset and comparison using taxa with
 significant ORs (after multiple comparison correction), all taxa, or
@@ -725,7 +725,7 @@ taxa used in each model. For all models, the default setting used was
 Normally, \(\sqrt{p}\) has been found to be what is chosen as the ideal
 mtry (51).
 
-\textbf{\emph{Statistical Analysis:}} All statistical analysis after
+\textbf{\emph{Statistical Analysis.}} All statistical analysis after
 sequence processing utilized the R (v3.4.3) software package (52). For
 OTU richness, evenness, and Shannon diversity analysis, values were
 power transformed using the rcompanion (v1.11.1) package (53) and then
@@ -744,7 +744,7 @@ Forest models were built using both the caret (v6.0.78) and randomForest
 (v4.6.12) packages (59, 60). All figures were created using both ggplot2
 (v2.2.1) and gridExtra (v2.3) packages (61, 62).
 
-\textbf{\emph{Reproducible Methods:}} The code and analysis can be found
+\textbf{\emph{Reproducible Methods.}} The code and analysis can be found
 at
 \url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017}.
 Unless otherwise mentioned, the accession number of raw sequences from
