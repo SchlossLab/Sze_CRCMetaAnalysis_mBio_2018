@@ -653,19 +653,20 @@ associated with adenomas using stool samples or tissue samples,
 classification models based on OR data were not constructed to classify
 individuals as having normal colons or adenomas. Within the training
 dataset, 10-fold cross validation (5-fold cross validation for small
-datasets) was used to build a model using the default mtry setting that
-was then evaluated on the testing set. For the models constructed using
-the taxa with significant ORs, the default mtry setting was used to
-train the model and this model was tested on the other datasets in the
-meta-analysis. The reported AUC values are the AUCs for the application
-of the model on the test sets. For the OTU-based models, hyperparameters
-were fit splitting the dataset into training (80\% of samples) and
-testing (20\%) sets. Within the OTU dataset, 10-fold cross validation
-(5-fold cross validation for small datasets) was used to identify the
-best hyperparameters. The original 80/20 split and fitting was repeated
-100 times and the average AUC from these 100 repeats was reported. The
-Mean Decrease in Accuracy (MDA), a measure of the importance of each
-taxon to the overall model was used to rank the taxa used in each model.
+datasets) was used to build a model that was then evaluated on the
+testing set. For the models constructed using the taxa with significant
+ORs, the default mtry setting was used to train the model and this model
+was tested on the other datasets in the meta-analysis. The reported AUC
+values are the AUCs for the application of the model on the test sets.
+For the OTU-based models, the dataset was split into training (80\% of
+samples) and testing (20\%) sets and 10-fold cross validation (5-fold
+cross validation for small datasets) on the training set was used to
+generate the model for the testing set. The original 80/20 split and
+fitting was repeated 100 times and the average AUC from these 100
+repeats was reported. The Mean Decrease in Accuracy (MDA), a measure of
+the importance of each taxon to the overall model was used to rank the
+taxa used in each model. For all models, the default setting used was
+\(\sqrt{p}\), where p is all the variables used in the respective model.
 
 \textbf{\emph{Statistical Analysis:}} All statistical analysis after
 sequence processing utilized the R (v3.4.3) software package (50). For
