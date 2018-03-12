@@ -490,9 +490,15 @@ code/make_ind_genera_auc_graph.R
 	R -e "source('code/make_ind_genera_auc_graph.R')"
 
 
-# Run code to create Figure 4 and S2
+# Run code to create Figure 4
+$(FIGS)/Figure4.pdf : $(TABLES)/ALL_genus_stool_RF_select_imp_vars.csv\
+$(TABLES)/ALL_genus_unmatched_tissue_RF_select_imp_vars.csv code/make_select_imp_otu_graph.R
+	R -e "source('code/make_select_imp_otu_graph.R')"
+
+
+# Run code to create Figure 5 and S4
 $(FIGS)/FigureS4.pdf\
-$(FIGS)/Figure4.pdf : $(TABLES)/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(FIGS)/Figure5.pdf : $(TABLES)/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
@@ -501,11 +507,6 @@ $(TABLES)/genus_stool_RF_fullvsselect_pvalue_summary.csv\
 code/make_rf_auc_full_versus_specific_graph.R
 	R -e "source('code/make_rf_auc_full_versus_specific_graph.R')"
 
-
-# Run code to create Figure 5
-$(FIGS)/Figure5.pdf : $(TABLES)/crc_RF_genera_stool_top10_mda.csv\
-$(TABLES)/crc_RF_otu_stool_top10_mda.csv code/make_stool_imp_otu_graph.R
-	R -e "source('code/make_stool_imp_otu_graph.R')"
 
 
 # Run code to make supplemental Figure 1
