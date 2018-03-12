@@ -146,7 +146,7 @@ adn_stool_graph <- adn_stool %>%
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
   ggplot(aes(model_type, as.numeric(AUC), color = study)) + 
   geom_hline(yintercept = 0.5, color = "gray", linetype = "dashed") + 
-  geom_point(width = 0.2, size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
+  geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
@@ -177,7 +177,7 @@ crc_tissue_graph <- crc_tissue %>%
                         labels = c("Burns", "Chen", "Dejea", "Flemer", "Geng", "Sanapareddy"))) %>% 
   ggplot(aes(model_type, AUC, color = study, group = type)) + 
   geom_hline(yintercept = 0.5, color = "gray", linetype = "dashed") + 
-  geom_point(width = 0.2, size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
+  geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ type) + coord_cartesian(ylim = c(0, 1.05)) + 
@@ -205,7 +205,7 @@ crc_stool_graph <- crc_stool %>%
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
   ggplot(aes(model_type, AUC, color = study)) + 
   geom_hline(yintercept = 0.5, color = "gray", linetype = "dashed") + 
-  geom_point(width = 0.2, size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
+  geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   coord_cartesian(ylim = c(0, 1.05)) + 
