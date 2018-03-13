@@ -312,7 +312,7 @@ The authors would like to thank all the study participants who were a part of ea
 \newpage
 
 
-**Table 1: Total Individuals in each Study Included in the Stool Analysis**
+**Table 1: Total Individuals in each Study Included in the Fecal Analysis**
 
 \footnotesize
 
@@ -373,17 +373,17 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 
 
-**Figure 1: Significant Bacterial Community Metrics for Adenoma or Carcinoma in Stool.** A) Adenoma evenness. B) Carcinoma evenness. C) Carcinoma Shannon diversity. Blue represents controls and red represents either adenoma (panel A) or carcinoma (panel B and C). The black lines represent the median value for each repsective group. 
+**Figure 1: Significant Bacterial Community Metrics for Adenoma or Carcinoma in Feces** A) Adenoma evenness. B) Carcinoma evenness. C) Carcinoma Shannon diversity. Blue represents controls and red represents either adenoma (panel A) or carcinoma (panel B and C). The black lines represent the median value for each repsective group. 
 
-**Figure 2: Odds Ratio for Adenoma or Carcinoma based on Bacterial Community Metrics in Stool.** A) Community-based odds ratio for adenoma. B) Community-based odds ratio for carcinoma. Colors represent the different variable regions used within the respective study. 
+**Figure 2: Odds Ratio for Adenoma or Carcinoma based on Bacterial Community Metrics in Feces.** A) Community-based odds ratio for adenoma. B) Community-based odds ratio for carcinoma. Colors represent the different variable regions used within the respective study. 
 
-**Figure 3: The AUC of Indivdiual Significant OR Taxa to classify Carcinoma.** A) Stool samples. B) Unmatched tissue samples. The larger circle represents the median AUC of all studies and the smaller circles represent the individual AUC for a particular study. The dotted line denotes an AUC of 0.5. 
+**Figure 3: The AUC of Indivdiual Significant OR Taxa to classify Carcinoma.** A) Fecal samples. B) Unmatched tissue samples. The larger circle represents the median AUC of all studies and the smaller circles represent the individual AUC for a particular study. The dotted line denotes an AUC of 0.5. 
 
-**Figure 4: Most Important Members in Significant OR Taxa Carcinoma Models.** A) Common taxa in the top 10 percent for carcinoma Random Forest stool-based models. B) Common taxa in the top 10 percent for carcinoma Random Forest unmatched tissue-based models. Blue represents less important and red represents more important to the Random Forest Model. White means that particular taxa was not in the top 10%.
+**Figure 4: Most Important Members in Significant OR Taxa Carcinoma Models.** A) Common taxa in the top 10 percent for carcinoma Random Forest fecal-based models. B) Common taxa in the top 10 percent for carcinoma Random Forest unmatched tissue-based models. Blue represents less important and red represents more important to the Random Forest Model. White means that particular taxa was not in the top 10%.
 
-**Figure 5: Stool Random Forest Model Train AUCs.** A) Adenoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa. B) Carcinoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa. The black line represents the median AUC for the respective group. If no values are present in the singificant OR taxa group then there were no significant taxa identified and no model was tested.
+**Figure 5: Fecal Sample Random Forest Model Train AUCs.** A) Adenoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa. B) Carcinoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa. The black line represents the median AUC for the respective group. If no values are present in the singificant OR taxa group then there were no significant taxa identified and no model was tested.
 
-**Figure 6: Stool Random Forest Genus-Based Model Test AUCs.** A) Test AUCs of adenoma models using all genera across study. B) Test AUCs of carcinoma models using all genera or significant OR taxa only. The black line represents the AUC at 0.5. The red lines represent the median AUC of all test AUCs for a specific study.  
+**Figure 6: Fecal Sample Random Forest Genus-Based Model Test AUCs.** A) Test AUCs of adenoma models using all genera across study. B) Test AUCs of carcinoma models using all genera or significant OR taxa only. The black line represents the AUC at 0.5. The red lines represent the median AUC of all test AUCs for a specific study.  
 
 
 
@@ -396,7 +396,7 @@ kable(table2, format = "markdown", align = 'c', padding = 2)
 
 **Figure S2: Tissue Random Forest Model Train AUCs.** A) Adenoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa in unmatched and matched tissue. B) Carcinoma random forest model AUCs between all genera, all OTU, and select model based on significant OR taxa in unmatched and matched tissue. The black line represents the median AUC for the respective group. If no values are present in the singificant OR taxa group then there were no significant taxa identified and no model was tested.
 
-**Figure S3: Most Common Taxa Across Carcinoma Full Community Stool Study Models.** A) Common taxa in the top 10 percent for carcinoma Random Forest all taxa-based models. B) Common taxa in the top 10 percent for carcinoma Random Forest all OTU-based models. Blue represents less important and red represents more important to the Random Forest Model. White means that particular taxa was not in the top 10%.
+**Figure S3: Most Common Taxa Across Carcinoma Full Community Fecal Sample Study Models.** A) Common taxa in the top 10 percent for carcinoma Random Forest all taxa-based models. B) Common taxa in the top 10 percent for carcinoma Random Forest all OTU-based models. Blue represents less important and red represents more important to the Random Forest Model. White means that particular taxa was not in the top 10%.
 
 **Figure S4: Most Common Genera Across Full Community Tissue Study Models.** A) Common genera in the top 10 percent for matched carcinoma Random Forest all genera-based models. B) Common genera in the top 10 percent for unmatched carcinoma Random Forest all genera-based models. C) Common genera in the top 10 percent for matched carcinoma Random Forest all OTU-based models. D) Common genera in the top 10 percent for unmatched carcinoma Random Forest all OTU-based models. Blue represents less important and red represents more important to the Random Forest Model. White means that particular taxa was not in the top 10%.
 

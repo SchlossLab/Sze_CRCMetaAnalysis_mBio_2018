@@ -444,40 +444,39 @@ classification models built using all of the sequence data for a
 community did a poor job of differentiating between subjects with normal
 colons and those with adenomas (median AUC: 0.53 (0.37- 0.56)). However,
 they did a good job of differentiating between subjects with normal
-colons and those with carcinomas (median AUC: 0.71 (0.50- 0.904)). The
+colons and those with carcinomas (median AUC: 0.71 (0.50- 0.90)). The
 OTU-based models performed similarly to those constructed using the taxa
-with significant ORs (one-tailed paired T-test; P-value = 0.966) and
-those using all taxa (one-tailed paired T-test; P-value = 0.146)
-{[}Figure 4{]}. Among the OTUs that had the highest mean decrease in
-accuracy for the OTU-based models, we found that OTUs that affiliated
-with all of the 8 taxa that had a significant OR were within the top
-10\% for at least one study. This result was surprising as it indicated
-that a finer scale classification of the sequences and thus a larger
-number of features to select from, did not yield improved classification
-of the subjects.
+with significant ORs (one-tailed paired T-test; P-value=0.966) and those
+using all taxa (one-tailed paired T-test; P-value=0.146) {[}Figure 4{]}.
+Among the OTUs that had the highest mean decrease in accuracy for the
+OTU-based models, we found that OTUs that affiliated with all of the 8
+taxa that had a significant OR were within the top 10\% for at least one
+study. This result was surprising as it indicated that a finer scale
+classification of the sequences and thus a larger number of features to
+select from, did not yield improved classification of the subjects.
 
 \textbf{\emph{Generalizability of taxon-based models trained on one
 dataset to the other datasets.}} Considering the good performance of the
-Random Forest models using taxa with a significant OR and using all of
-the taxa, we next asked how well the models would perform when given
-data from a different subject cohort. For instance, if a model was
-trained using data from the Ahn study, we wanted to know how well it
-would perform using the data from the Baxter study. We found the models
-trained using the taxa with a significant OR all had a higher median AUC
-than the models trained using all of the taxa when tested on the other
-datasets {[}Figure 6 \& S5{]}. As might be expected, the difference
-between the performance of the modelling approaches appeared to vary
-with the size of the training cohort (R\textsuperscript{2} = 0.66)
-{[}Figure 6{]}. These data suggest that given a sufficient number of
-subjects with normal colons and carcinomas, Random Forest models trained
-using a small number of taxa can accurately classify individuals from a
-different cohort.
+Random Forest models trained using the relative abundance of taxa with
+significant ORs and models trained using the relative abundance of all
+taxa, we next asked how well the models would perform when given data
+from a different cohort. For instance, if a model was trained using data
+from the Ahn study, we wanted to know how well it would perform using
+the data from the Baxter study. The models trained using the taxa with
+significant ORs all had a higher median AUC than the models trained
+using all of the taxa when tested on the other datasets {[}Figure 6 \&
+S5{]}. As might be expected, the difference between the performance of
+the modeling approaches appeared to vary with the size of the training
+cohort (R\textsuperscript{2}=0.66) {[}Figure 6{]}. These data suggest
+that given a sufficient number of subjects with normal colons and
+carcinomas, Random Forest models trained using a small number of taxa
+can accurately classify individuals from a different cohort.
 
 \newpage
 
 \subsection{Discussion}\label{discussion}
 
-We performed a meta-analysis to identify and validate microbiome-base
+We performed a meta-analysis to identify and validate microbiota-base
 biomarkers that could be used to classify individuals as having normal
 colons or colonic tumors using fecal or tissue samples. To our surprise,
 Random Forest classification models constructed to differentiate
@@ -492,41 +491,41 @@ assigned sequences to the family or genus level. When we attempted to
 improve the specificity of the classification by using an OTU-based
 approach the resulting models performed as well as those constructed
 using coarse taxonomic assignments. These results are significant
-because they strengthen the growing literature indicating a role of the
-microbiome in tumorigenesis (9) and as a potential tool as a
-non-invasive diagnostic and for assessing risk of disease and recurrence
-(12, 30).
+because they strengthen the growing literature indicating a role for the
+colonic microbiota in tumorigenesis, as a potential tool as a
+non-invasive diagnostic, and for assessing risk of disease and
+recurrence (9, 12, 30).
 
-These results suggested that fine scale classification of sequences into
-OTUs does not improve our classification models. This has been suggested
-in previous literature where shotgun metagenomic data did not perform
-better than 16S rRNA gene sequencing data in classifying individuals
-with normal colons and those with carcinomas (31). We hypothesize that
-fine scale classification may not result in better classification
-because distribution of microbiota between individuals is patchy. In
-contrast, models using coarser taxonomic assignments will pool the fine
-scale diversity, resulting in less patchiness and better classification.
-Furthermore, the ability of models trained using a subset of the
-community to outperform those using the full community when testing the
-models on the other datasets may also be a product of the patchiness of
-the human-associated microbiota. The models based on the 8 taxa that had
-significant ORs used taxa that were found in every study and tended to
-have higher relative abundances. Similar to the OTU-based models, those
-models based on the full community taxonomy assignments were still
-sensitive to the patchy distribution of taxa. Regardless, it is
-encouraging that a collection of 8 taxa could reliably classify
-individuals as having carcinomas considering the differences in cohorts,
-DNA extraction procedures, regions of the 16S rRNA gene, and sequencing
-methods.
+Fine scale classification of sequences into OTUs did not improve our
+classification models. This was also tested in earlier efforts to use
+shotgun metagenomic data to classify individuals as having normal colons
+or tumors; however, it was shown that analyses performed using shotgun
+metagenomic data did not perform better than using 16S rRNA gene
+sequencing data (31). We hypothesize that fine scale classification may
+not result in better classification because distribution of microbiota
+between individuals is patchy. In contrast, models using coarser
+taxonomic assignments will pool the fine scale diversity, resulting in
+less patchiness and better classification. Furthermore, the ability of
+models trained using a subset of the community to outperform those using
+the full community when testing the models on the other datasets may
+also be a product of the patchiness of the human-associated microbiota.
+The models based on the 8 taxa that had significant ORs used taxa that
+were found in every study and tended to have higher relative abundances.
+Similar to the OTU-based models, those models based on the full
+community taxonomy assignments were still sensitive to the patchy
+distribution of taxa. Regardless, it is encouraging that a collection of
+8 taxa could reliably classify individuals as having carcinomas
+considering the differences in cohorts, DNA extraction procedures,
+regions of the 16S rRNA gene, and sequencing methods.
 
-When used separately to classify individuals with carcinomas, the taxa
-with significant ORs could not reliably classify individuals {[}Figure
-3{]}. This result further supports the hypothesis that
+When used to classify individuals with carcinomas, the taxa with
+significant ORs could not reliably classify individuals on their own
+{[}Figure 3{]}. This result further supports the hypothesis that
 carcinoma-associated microbiota have a patchy distribution. Two
 individuals may have had the same classification, based on the relative
 abundance of different populations within this group of 8 taxa. Although
 these results only reflect associations with disease, it is tempting to
-hypothesize that the patchiness represents distinct mechanisms of
+hypothesize that the patchiness is indicative of distinct mechanisms of
 exacerbating tumorigenesis or that multiple taxa have the same mechanism
 of exacerbating tumorigenesis. For example, strains of \emph{Escherichia
 coli} and \emph{Fusobacterium nucleatum} have been shown to worsen
@@ -535,53 +534,54 @@ the patchiness of the taxa that were positively associated with
 carcinomas, potentially beneficial taxa had a more consistent
 association {[}Figure 6{]}. This result was particularly interesting
 because members of these taxa (i.e. \emph{Ruminococcus} and
-\emph{Clostridium XI} in stool and \emph{Dorea} and \emph{Blautia} in
-tissue) are thought to be beneficial due to their involvement in
-production of anti-inflammatory short chain fatty acids (32--34).
+\emph{Clostridium XI} in fecal samples and \emph{Dorea} and
+\emph{Blautia} in tissue) are thought to be beneficial due to their
+involvement in production of anti-inflammatory short chain fatty acids
+(32--34).
 
-All of the adenoma classification models performed poorly and is not
-inconsistent with previous studies (27, 30). However, the classification
+All of the adenoma classification models performed poorly, which is
+consistent with previous studies (27, 30). However, the classification
 results are at odds with results of the multitarget microbiota test
-(MMT) from Baxter, \emph{et al.} (12) who observed an AUC of 0.755 when
-applied to individuals with adenomas. There are two major differences
-between the models generated in this meta-analysis and that analysis.
-The MMT attempted to classify individuals as having a normal colon or
-having colonic lesions (i.e.~adenomas or carcinomas) and not adenomas
-alone. Further, the MMT incorporated fecal immunoglobulin test (FIT)
-data while our models only used 16S rRNA gene sequencing data. Because
-FIT data were not available for the other studies in our meta-analysis,
-it was not possible to validate the MMT approach. The ability to
-differentiate between individuals with and without adenomas is an
-important problem since early detection of tumors is critical. However,
-it is possible that we might have been able to detect differences in the
-bacterial community if individuals with non-advanced and advanced
-adenomas were separated. This is a clinically relevant distinction since
-advanced adenomas are at highest risk of progressing to a carcinoma. The
-initial changes of the microbiota during tumorigenesis could be focal to
-where the initial adenoma develops and would not be easily assessed
-using fecal samples from an individual with non-advanced adenomas.
-Unfortunately, distinguishing between individuals with advanced and
-non-advanced adenomas was not possible in our meta-analysis since the
-studies did not provide the clinical data needed to make that
-distinction.
+(MMT) from Baxter, et al. (12) who observed an AUC of 0.755 when the
+test was applied to individuals with adenomas. There are two major
+differences between the models generated in this meta-analysis and that
+analysis. The MMT attempted to classify individuals as having a normal
+colon or having colonic lesions (i.e.~adenomas or carcinomas) and not
+adenomas alone. Further, the MMT incorporated fecal immunoglobulin test
+(FIT) data while our models only used 16S rRNA gene sequencing data.
+Because FIT data were not available for the other studies in our
+meta-analysis, it was not possible to validate the MMT approach. The
+ability to differentiate between individuals with and without adenomas
+is an important problem since early detection of tumors is critical to
+patient survivorship. However, it is possible that we might have been
+able to detect differences in the bacterial community if individuals
+with non-advanced and advanced adenomas were separated. This is a
+clinically relevant distinction since advanced adenomas are at highest
+risk of progressing to carcinomas. The initial changes of the microbiota
+during tumorigenesis could be focal to where the initial adenoma
+develops and would not be easily assessed using fecal samples from an
+individual with non-advanced adenomas. Unfortunately, distinguishing
+between individuals with advanced and non-advanced adenomas was not
+possible in our meta-analysis since the studies did not provide the
+clinical data needed to make that distinction.
 
-Stool samples represent a non-invasive approach to assessing the
-structure of the gut microbiota and are potentially useful for
-diagnosing individuals as having colonic tumors. However, they do not
-reflect the structure of the mucosal microbiota (35). Regardless, the
-taxa that were the most important in the stool-based models overlapped
-with those from the models trained using the data from unmatched and
-matched colon tissue samples {[}Figure S3{]}. Mucosal biopsies are
-preferred for focused mechanistic studies and have offered researchers
-the opportunity to sample healthy and diseased tissue from the same
-individuals (i.e.~matched) using each individual as their own control or
-in a cross sectional design (i.e.~unmatched). Because obtaining these
-samples is invasive, carries risks to the individual, and is expensive,
-studies investigating the structure of the mucosal microbiota generally
-have a limited number of participants. Thus, it was not surprising that
+Fecal samples represent a non-invasive approach to assess the structure
+of the gut microbiota and are potentially useful for diagnosing
+individuals as having colonic tumors. However, they do not reflect the
+structure of the mucosal microbiota (35). Regardless, the taxa that were
+the most important in the feces-based models overlapped with those from
+the models trained using the data from unmatched and matched colon
+tissue samples {[}Figure S3{]}. Mucosal biopsies are preferred for
+focused mechanistic studies and have offered researchers the opportunity
+to sample healthy and diseased tissue from the same individuals
+(i.e.~matched) using each individual as their own control or in a
+cross-sectional design (i.e.~unmatched). Because obtaining these samples
+is invasive, carries risks to the individual, and is expensive, studies
+investigating the structure of the mucosal microbiota generally have a
+limited number of participants. Thus, it was not surprising that
 tissue-based studies did not provide clearer associations between the
 mucosal microbiota and the presence of tumors. Interestingly,
-Fusobacterium, which has received increased recent attention for its
+\emph{Fusobacterium}, which has received increased attention for its
 potential role in tumorigenesis (6) was not consistently identified
 across the studies in our meta-analysis. This could be due to the
 relatively small number of individuals in the limited number of studies.
@@ -596,7 +596,7 @@ bacterial biomass (36). The lack of replication among the tissue-based
 biomarkers may be a product of the relatively small number of studies
 and individuals per study and possible reagent contamination.
 
-Among our stool samples, we failed to identify several notable
+Among the fecal sample data, we failed to identify several notable
 populations that are commonly associated with carcinomas including an
 enterotoxigenic strain of \emph{Bacteroides fragilis} (ETBF) and
 \emph{Streptococcus gallolyticus} subsp. \emph{gallolyticus} (22, 24).
@@ -604,17 +604,17 @@ ETBF have been found in tumors in the proximal colon where they tend to
 form biofilms (20, 37). Considering DNA from bacteria that are more
 prevalent in the proximal colon may be degraded by the time it leaves
 the body, it is not surprising that we failed to identify a significant
-OR for Bacteroides with carcinomas. In addition, since our approach
-could only classify sequences to the genus level and there are likely
-multiple Bacteroides populations in the colon, it is possible that
-sequences from ETBF and non-oncogenic Bacteroides were pooled. This
-would then reduce the OR between Bacterioides and whether an individual
-had carcinomas. It is also necessary to distinguish between populations
-that are biomarkers for a disease and those that are known to cause
-disease. The former may also have a causative role in the disease.
-Although the latter have been shown to have a causative role, they may
-appear at low relative abundance, be found in specific locations, or may
-have a highly patchy distribution among affected individuals.
+OR for \emph{Bacteroides} with carcinomas. In addition, since our
+approach could only classify sequences to the genus level and there are
+likely multiple \emph{Bacteroides} populations in the colon, it is
+possible that sequences from ETBF and non-oncogenic \emph{Bacteroides}
+were pooled. This would then reduce the OR between \emph{Bacterioides}
+and whether an individual had carcinomas. It is also necessary to
+distinguish between populations that are biomarkers for a disease and
+those that are known to cause disease. Although the latter have been
+shown to have a causative role, they may appear at low relative
+abundance, be found in specific locations, or may have a highly patchy
+distribution among affected individuals.
 
 Meta-analyses are a useful tool in microbiome research because they can
 demonstrate whether a result can be replicated and facilitate new
@@ -622,21 +622,20 @@ discoveries by pooling multiple independent investigations. There have
 been several meta-analyses similar to this study that have sought
 biomarkers for obesity (38--40), inflammatory bowel disease (39), and
 colorectal cancer (28). Considering microbiome research is particularly
-prone to hype and overgeneralization of results, these analyses are
-critical. For example, previous meta-analyses have demonstrated that
-there are no clear fecal biomarkers for obesity (39, 40). Such
-meta-analyses are difficult to perform because the underlying 16S rRNA
-gene sequence data are not publicly available, metadata are missing,
-incomplete, or vague, sequence data are of poor quality or derived by
-non-standard approaches, and the original studies were significantly
-underpowered. Reluctance to publish negative results (i.e.~the ``file
-drawer effect'') is also likely to skew our understanding of the
-relationship between microbiota and disease. Better attention to these
-specifics will increase the reproducibility and replicability of
-microbiota studies and make it easier to perform these crucial
-meta-analyses. Moving forward, meta-analyses will be important tools to
-help aggregate and find commonalities across studies when investigating
-the microbiota in the context of a specific disease (28, 38--40).
+prone to hype and overgeneralization of results (41), these analyses are
+critical. Meta-analyses are difficult to perform because the underlying
+16S rRNA gene sequence data are not publicly available, metadata are
+missing, incomplete, or vague, sequence data are of poor quality or
+derived by non-standard approaches, and the original studies may be
+significantly underpowered. Reluctance to publish negative results
+(i.e.~the ``file drawer effect'') is also likely to skew our
+understanding of the relationship between microbiota and disease. Better
+attention to these specific issues will increase the reproducibility and
+replicability of microbiota studies and make it easier to perform these
+crucial meta-analyses. Moving forward, meta-analyses will be important
+tools to help aggregate and find commonalities across studies when
+investigating the microbiota in the context of a specific disease (28,
+38--40).
 
 Our meta-analysis suggests a strong association between the gut
 microbiota and colon tumorigenesis. By aggregating the results from
@@ -657,44 +656,44 @@ that can be mediated by multiple, diverse bacteria.
 \subsection{Methods}\label{methods}
 
 \textbf{\emph{Datasets.}} The studies used for this meta-analysis were
-identified through the review articles written by Keku, et al. (41) and
-Vogtmann, et al. (42). Additional studies, not mentioned in those
+identified through the review articles written by Keku, et al. (42) and
+Vogtmann, et al. (43). Additional studies, not mentioned in those
 reviews were obtained based on the authors' knowledge of the literature.
 Studies were included that used tissue or feces as their sample source
-for 454 or Illumina 16S rRNA gene sequencing. Some studies (N = 12) were
-excluded because they did not have publicly available sequences, did not
-use 454 or Illumina machines, or did not have metadata in which the
-authors were able to share. We were able to obtain sequence data and
-metadata from the following studies: Ahn, \emph{et al.} (11), Baxter,
-\emph{et al.} (12), Brim, \emph{et al.} (29), Burns, \emph{et al.} (15),
-Chen, \emph{et al.} (13), Dejea, \emph{et al.} (20), Flemer, \emph{et
-al.} (17), Geng, \emph{et al.} (19), Hale, \emph{et al.} (27), Kostic,
-\emph{et al.} (43), Lu, \emph{et al.} (26), Sanapareddy, \emph{et al.}
-(25), Wang, \emph{et al.} (14), Weir, \emph{et al.} (23), and Zeller,
-\emph{et al.} (16). The Zackular (44) study was excluded because their
-90 individuals were contained within the larger Baxter study (12). The
-Kostic study was excluded because after we processed the sequences, all
-of the case samples had 100 or fewer sequences. The final analysis
-included 14 studies (Tables 1 and 2). There were seven studies with only
-fecal samples (Ahn, Baxter, Brim, Hale, Wang, Weir, and Zeller), five
-studies with only tissue samples (Burns, Dejea, Geng, Lu, Sanapareddy),
-and two studies with both fecal and tissue samples (Chen and Flemer).
-After curating the sequences, 1737 stool samples and 492 tissue samples
-remained in the analysis {[}Tables 1 and 2{]}.
+for 454 or Illumina 16S rRNA gene sequencing. A significant number of
+studies (N=12) were excluded from the meta-analysis because they did not
+have publicly available sequences, did not use 454 or Illumina
+sequencing platforms, or did not have metadata that the authors were
+able to share. We were able to obtain sequence data and metadata from
+the following studies: Ahn, et al. (11), Baxter, et al. (12), Brim, et
+al. (29), Burns, et al. (15), Chen, et al. (13), Dejea, et al. (20),
+Flemer, et al. (17), Geng, et al. (19), Hale, et al. (27), Kostic, et
+al. (44), Lu, et al. (26), Sanapareddy, et al. (25), Wang, et al. (14),
+Weir, et al. (23), and Zeller, et al. (16). The Zackular (45) study was
+excluded because the individuals studied were included within the larger
+Baxter study (12). The Kostic study was excluded because after we
+processed the sequences, all of the case samples had 100 or fewer
+sequences. The final analysis included 14 studies (Tables 1 and 2).
+There were seven studies with only fecal samples (Ahn, Baxter, Brim,
+Hale, Wang, Weir, and Zeller), five studies with only tissue samples
+(Burns, Dejea, Geng, Lu, Sanapareddy), and two studies with both fecal
+and tissue samples (Chen and Flemer). After curating the sequences, 1737
+fecal samples and 492 tissue samples remained in the analysis {[}Tables
+1 and 2{]}.
 
 \textbf{\emph{Sequence Processing.}} Raw sequence data and metadata were
 primarily obtained from the Sequence Read Archive (SRA) and dbGaP. Other
-sequence and metadata were obtained directly from the authors (n = 4,
-(17, 23, 25, 27)). Each dataset was processed separately using mothur
-(v1.39.3) (45) using the default quality filtering methods for both 454
-and Illumina sequence data. If it was not possible to use the defaults
-because the sequences were trimmed too much, then the stated quality
+sequence and metadata were obtained directly from the authors (n=4, (17,
+23, 25, 27)). Each dataset was processed separately using mothur
+(v1.39.3) using the default quality filtering methods for both 454 and
+Illumina sequence data (46). If it was not possible to use the defaults
+because the trimmed sequences were too short, then the stated quality
 cut-offs from the original study were used. Chimeric sequences were
-identified and removed using VSEARCH (46). The curated sequences were
-assigned to OTUs at 97\% similarity using the OptiClust algorithm (47)
+identified and removed using VSEARCH (47). The curated sequences were
+assigned to OTUs at 97\% similarity using the OptiClust algorithm (48)
 and classified to the deepest taxonomic level that had 80\% support
 using the naïve Bayesian classifier trained on the RDP taxonomy outline
-(version 14, (48)).
+(version 14, (49)).
 
 \textbf{\emph{Community analysis.}} We calculated alpha diversity
 metrics (i.e.~OTU richness, evenness, and Shannon diversity) for each
@@ -705,13 +704,13 @@ carcinomas had significantly different alpha diversity metrics using
 linear mixed-effect models. We also calculated the OR for each study and
 metric by considering any value above the median alpha diversity value
 to be positive. We measured the dissimilarity between individuals by
-calculating the pairwise Bray-Curtis index and used PERMANOVA (49) to
+calculating the pairwise Bray-Curtis index and used PERMANOVA (50) to
 test whether individuals with normal colons were significantly different
 from those with adenomas or carcinomas. Finally, after binning sequences
 into the deepest taxa that the naïve Bayesian classifier could calssify
 the sequences, we quantified the ORs for individuals having an adenoma
 or carcinoma and corrected for multiple comparisons using the
-Benjamini-Hochberg method (50). Again, for each taxon, if the relative
+Benjamini-Hochberg method (51). Again, for each taxon, if the relative
 abundance was greater than the median relative abundance for that taxon
 in the study, the individual was considered to be positive.
 
@@ -739,30 +738,30 @@ the importance of each taxon to the overall model was used to rank the
 taxa used in each model. For all models, the default setting used was
 \(\sqrt{p}\), where p is all the variables used in the respective model.
 Normally, \(\sqrt{p}\) has been found to be what is chosen as the ideal
-mtry after model tuneing (51).
+mtry after model tuneing (52).
 
 \textbf{\emph{Statistical Analysis.}} All statistical analysis after
-sequence processing utilized the R (v3.4.3) software package (52). For
+sequence processing utilized the R (v3.4.3) software package (53). For
 OTU richness, evenness, and Shannon diversity analysis, values were
-power transformed using the rcompanion (v1.11.1) package (53) and then
-Z-score normalized using the car (v2.1.6) package (54). Testing for OTU
+power transformed using the rcompanion (v1.11.1) package (54) and
+Z-score normalized using the car (v2.1.6) package (55). Testing for OTU
 richness, evenness, and Shannon diversity differences utilized linear
-mixed-effect models created using the lme4 (v1.1.15) package (55) to
-correct for study, repeat sampling of individuals (tissue only), and 16S
-hyper-variable region used. Odds ratios (OR) were analyzed using both
-the epiR (v0.9.93) and metafor (v2.0.0) packages (56, 57) by assessing
-how many individuals with and without disease were above and below the
-overall median value within each specific study. OR significance testing
-utilized the chi-squared test. Diversity differences measured by the
-Bray-Curtis index utilized the creation of distance matrix and testing
-with PERMANOVA executed with the vegan (v2.4.5) package (58). Random
-Forest models were built using both the caret (v6.0.78) and randomForest
-(v4.6.12) packages (59, 60). All figures were created using both ggplot2
-(v2.2.1) and gridExtra (v2.3) packages (61, 62).
+mixed-effect models to correct for study, repeat sampling of individuals
+(tissue only), and 16S rRNA gene sequence region used using the lme4
+(v1.1.15) package (56). ORs were analyzed using both the epiR (v0.9.93)
+and metafor (v2.0.0) packages (57, 58) by assessing how many individuals
+with and without disease were above and below the overall median value
+within each specific study. OR significance testing utilized the
+chi-squared test. Community structure differences were calculated using
+the Bray-Curtis dissimilarity index and PERMANOVA was used to test for
+tumor-associated differences in structure with the vegan (v2.4.5)
+package (59). Random Forest models were built using both the caret
+(v6.0.78) and randomForest (v4.6.12) packages (60, 61). All figures were
+created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages (62,
+63).
 
-\textbf{\emph{Reproducible Methods.}} The code and analysis can be found
-at
-\url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_Microbiome_2017}.
+\textbf{\emph{Reproducible Methods.}} The analysis code can be found at
+\url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_mBio_2017}.
 Unless otherwise mentioned, the accession number of raw sequences from
 the studies used in this analysis can be found directly in the
 respective batch file in the GitHub repository or in the original
@@ -1086,19 +1085,24 @@ Laurent}, and \textbf{K. S. Pollard}. 2014. A taxonomic signature of
 obesity in the microbiome? Getting to the guts of the matter. PLoS ONE.
 Public Library of Science (PLoS) \textbf{9}:e84689.
 
+\hypertarget{ref-Hanage2014}{}
+41. \textbf{Hanage, W. P.} 2014. Microbiology: Microbiome science needs
+a healthy dose of scepticism. Nature. Springer Nature
+\textbf{512}:247--248.
+
 \hypertarget{ref-keku_gastrointestinal_2015}{}
-41. \textbf{Keku, T. O.}, \textbf{S. Dulal}, \textbf{A. Deveaux},
+42. \textbf{Keku, T. O.}, \textbf{S. Dulal}, \textbf{A. Deveaux},
 \textbf{B. Jovov}, and \textbf{X. Han}. 2015. The gastrointestinal
 microbiota and colorectal cancer. American Journal of Physiology -
 Gastrointestinal and Liver Physiology \textbf{308}:G351--G363.
 
 \hypertarget{ref-vogtmann_epidemiologic_2016}{}
-42. \textbf{Vogtmann, E.}, and \textbf{J. J. Goedert}. 2016.
+43. \textbf{Vogtmann, E.}, and \textbf{J. J. Goedert}. 2016.
 Epidemiologic studies of the human microbiome and cancer. British
 Journal of Cancer \textbf{114}:237--242.
 
 \hypertarget{ref-kostic_genomic_2012}{}
-43. \textbf{Kostic, A. D.}, \textbf{D. Gevers}, \textbf{C. S.
+44. \textbf{Kostic, A. D.}, \textbf{D. Gevers}, \textbf{C. S.
 Pedamallu}, \textbf{M. Michaud}, \textbf{F. Duke}, \textbf{A. M. Earl},
 \textbf{A. I. Ojesina}, \textbf{J. Jung}, \textbf{A. J. Bass},
 \textbf{J. Tabernero}, \textbf{J. Baselga}, \textbf{C. Liu}, \textbf{R.
@@ -1108,13 +1112,13 @@ Genomic analysis identifies association of Fusobacterium with colorectal
 carcinoma. Genome Research \textbf{22}:292--298.
 
 \hypertarget{ref-zackular_human_2014}{}
-44. \textbf{Zackular, J. P.}, \textbf{M. A. M. Rogers}, \textbf{M. T.
+45. \textbf{Zackular, J. P.}, \textbf{M. A. M. Rogers}, \textbf{M. T.
 Ruffin}, and \textbf{P. D. Schloss}. 2014. The human gut microbiome as a
 screening tool for colorectal cancer. Cancer Prevention Research
 (Philadelphia, Pa.) \textbf{7}:1112--1121.
 
 \hypertarget{ref-schloss_introducing_2009}{}
-45. \textbf{Schloss, P. D.}, \textbf{S. L. Westcott}, \textbf{T.
+46. \textbf{Schloss, P. D.}, \textbf{S. L. Westcott}, \textbf{T.
 Ryabin}, \textbf{J. R. Hall}, \textbf{M. Hartmann}, \textbf{E. B.
 Hollister}, \textbf{R. A. Lesniewski}, \textbf{B. B. Oakley}, \textbf{D.
 H. Parks}, \textbf{C. J. Robinson}, \textbf{J. W. Sahl}, \textbf{B.
@@ -1125,58 +1129,58 @@ Comparing Microbial Communities. Appl.Environ.Microbiol.
 \textbf{75}:7537--7541.
 
 \hypertarget{ref-rognes_vsearch_2016}{}
-46. \textbf{Rognes, T.}, \textbf{T. Flouri}, \textbf{B. Nichols},
+47. \textbf{Rognes, T.}, \textbf{T. Flouri}, \textbf{B. Nichols},
 \textbf{C. Quince}, and \textbf{F. Mahé}. 2016. VSEARCH: A versatile
 open source tool for metagenomics. PeerJ \textbf{4}:e2584.
 
 \hypertarget{ref-westcott_opticlust_2017}{}
-47. \textbf{Westcott, S. L.}, and \textbf{P. D. Schloss}. 2017.
+48. \textbf{Westcott, S. L.}, and \textbf{P. D. Schloss}. 2017.
 OptiClust, an Improved Method for Assigning Amplicon-Based Sequence Data
 to Operational Taxonomic Units. mSphere \textbf{2}.
 
 \hypertarget{ref-rdp_Wang2007}{}
-48. \textbf{Wang, Q.}, \textbf{G. M. Garrity}, \textbf{J. M. Tiedje},
+49. \textbf{Wang, Q.}, \textbf{G. M. Garrity}, \textbf{J. M. Tiedje},
 and \textbf{J. R. Cole}. 2007. Naive bayesian classifier for rapid
 assignment of rRNA sequences into the new bacterial taxonomy. Applied
 and Environmental Microbiology. American Society for Microbiology
 \textbf{73}:5261--5267.
 
 \hypertarget{ref-permanova_Anderson2013}{}
-49. \textbf{Anderson, M. J.}, and \textbf{D. C. I. Walsh}. 2013.
+50. \textbf{Anderson, M. J.}, and \textbf{D. C. I. Walsh}. 2013.
 PERMANOVA, ANOSIM, and the mantel test in the face of heterogeneous
 dispersions: What null hypothesis are you testing? Ecological
 Monographs. Wiley-Blackwell \textbf{83}:557--574.
 
 \hypertarget{ref-benjamini_controlling_1995}{}
-50. \textbf{Benjamini, Y.}, and \textbf{Y. Hochberg}. 1995. Controlling
+51. \textbf{Benjamini, Y.}, and \textbf{Y. Hochberg}. 1995. Controlling
 the false discovery rate: A practical and powerful approach to multiple
 testing. Journal of the Royal Statistical Society. Series B
 (Methodological) \textbf{57}:289--300.
 
 \hypertarget{ref-Breiman2001}{}
-51. \textbf{Breiman, L.} 2001. Machine Learning. Springer Nature
+52. \textbf{Breiman, L.} 2001. Machine Learning. Springer Nature
 \textbf{45}:5--32.
 
 \hypertarget{ref-r_citation_2017}{}
-52. \textbf{R Core Team}. 2017. R: A language and environment for
+53. \textbf{R Core Team}. 2017. R: A language and environment for
 statistical computing. R Foundation for Statistical Computing, Vienna,
 Austria.
 
 \hypertarget{ref-rcompanion_citation_2017}{}
-53. \textbf{Mangiafico, S.} 2017. Rcompanion: Functions to support
+54. \textbf{Mangiafico, S.} 2017. Rcompanion: Functions to support
 extension education program evaluation.
 
 \hypertarget{ref-car_citation_2011}{}
-54. \textbf{Fox, J.}, and \textbf{S. Weisberg}. 2011. An R companion to
+55. \textbf{Fox, J.}, and \textbf{S. Weisberg}. 2011. An R companion to
 applied regressionSecond. Sage, Thousand Oaks CA.
 
 \hypertarget{ref-lme4_citation_2015}{}
-55. \textbf{Bates, D.}, \textbf{M. Mächler}, \textbf{B. Bolker}, and
+56. \textbf{Bates, D.}, \textbf{M. Mächler}, \textbf{B. Bolker}, and
 \textbf{S. Walker}. 2015. Fitting linear mixed-effects models using
 lme4. Journal of Statistical Software \textbf{67}:1--48.
 
 \hypertarget{ref-epir_citation_2017}{}
-56. \textbf{Telmo Nunes, M. S. with contributions from}, \textbf{C.
+57. \textbf{Telmo Nunes, M. S. with contributions from}, \textbf{C.
 Heuer}, \textbf{J. Marshall}, \textbf{J. Sanchez}, \textbf{R. Thornton},
 \textbf{J. Reiczigel}, \textbf{J. Robison-Cox}, \textbf{P. Sebastiani},
 \textbf{P. Solymos}, \textbf{K. Yoshida}, \textbf{G. Jones}, \textbf{S.
@@ -1184,18 +1188,18 @@ Pirikahu}, \textbf{S. Firestone}, and \textbf{R. Kyle.} 2017. EpiR:
 Tools for the analysis of epidemiological data.
 
 \hypertarget{ref-metafor_citation_2010}{}
-57. \textbf{Viechtbauer, W.} 2010. Conducting meta-analyses in R with
+58. \textbf{Viechtbauer, W.} 2010. Conducting meta-analyses in R with
 the metafor package. Journal of Statistical Software \textbf{36}:1--48.
 
 \hypertarget{ref-vegan_citation_2017}{}
-58. \textbf{Oksanen, J.}, \textbf{F. G. Blanchet}, \textbf{M. Friendly},
+59. \textbf{Oksanen, J.}, \textbf{F. G. Blanchet}, \textbf{M. Friendly},
 \textbf{R. Kindt}, \textbf{P. Legendre}, \textbf{D. McGlinn}, \textbf{P.
 R. Minchin}, \textbf{R. B. O'Hara}, \textbf{G. L. Simpson}, \textbf{P.
 Solymos}, \textbf{M. H. H. Stevens}, \textbf{E. Szoecs}, and \textbf{H.
 Wagner}. 2017. Vegan: Community ecology package.
 
 \hypertarget{ref-caret_citation_2017}{}
-59. \textbf{Jed Wing, M. K. C. from}, \textbf{S. Weston}, \textbf{A.
+60. \textbf{Jed Wing, M. K. C. from}, \textbf{S. Weston}, \textbf{A.
 Williams}, \textbf{C. Keefer}, \textbf{A. Engelhardt}, \textbf{T.
 Cooper}, \textbf{Z. Mayer}, \textbf{B. Kenkel}, \textbf{the R Core
 Team}, \textbf{M. Benesty}, \textbf{R. Lescarbeau}, \textbf{A. Ziem},
@@ -1203,20 +1207,20 @@ Team}, \textbf{M. Benesty}, \textbf{R. Lescarbeau}, \textbf{A. Ziem},
 \textbf{T. Hunt.} 2017. Caret: Classification and regression training.
 
 \hypertarget{ref-randomforest_citation_2002}{}
-60. \textbf{Liaw, A.}, and \textbf{M. Wiener}. 2002. Classification and
+61. \textbf{Liaw, A.}, and \textbf{M. Wiener}. 2002. Classification and
 regression by randomForest. R News \textbf{2}:18--22.
 
 \hypertarget{ref-ggplot2_citation_2009}{}
-61. \textbf{Wickham, H.} 2009. Ggplot2: Elegant graphics for data
+62. \textbf{Wickham, H.} 2009. Ggplot2: Elegant graphics for data
 analysis. Springer-Verlag New York.
 
 \hypertarget{ref-gridextra_citation_2017}{}
-62. \textbf{Auguie, B.} 2017. GridExtra: Miscellaneous functions for
+63. \textbf{Auguie, B.} 2017. GridExtra: Miscellaneous functions for
 ``grid'' graphics.
 
 \newpage
 
-\textbf{Table 1: Total Individuals in each Study Included in the Stool
+\textbf{Table 1: Total Individuals in each Study Included in the Fecal
 Analysis}
 
 \footnotesize
@@ -1265,43 +1269,43 @@ Sanapareddy & Author & V1-2 & 38 & 0 & 33\tabularnewline
 \newpage
 
 \textbf{Figure 1: Significant Bacterial Community Metrics for Adenoma or
-Carcinoma in Stool.} A) Adenoma evenness. B) Carcinoma evenness. C)
+Carcinoma in Feces} A) Adenoma evenness. B) Carcinoma evenness. C)
 Carcinoma Shannon diversity. Blue represents controls and red represents
 either adenoma (panel A) or carcinoma (panel B and C). The black lines
 represent the median value for each repsective group.
 
 \textbf{Figure 2: Odds Ratio for Adenoma or Carcinoma based on Bacterial
-Community Metrics in Stool.} A) Community-based odds ratio for adenoma.
+Community Metrics in Feces.} A) Community-based odds ratio for adenoma.
 B) Community-based odds ratio for carcinoma. Colors represent the
 different variable regions used within the respective study.
 
 \textbf{Figure 3: The AUC of Indivdiual Significant OR Taxa to classify
-Carcinoma.} A) Stool samples. B) Unmatched tissue samples. The larger
+Carcinoma.} A) Fecal samples. B) Unmatched tissue samples. The larger
 circle represents the median AUC of all studies and the smaller circles
 represent the individual AUC for a particular study. The dotted line
 denotes an AUC of 0.5.
 
 \textbf{Figure 4: Most Important Members in Significant OR Taxa
 Carcinoma Models.} A) Common taxa in the top 10 percent for carcinoma
-Random Forest stool-based models. B) Common taxa in the top 10 percent
+Random Forest fecal-based models. B) Common taxa in the top 10 percent
 for carcinoma Random Forest unmatched tissue-based models. Blue
 represents less important and red represents more important to the
 Random Forest Model. White means that particular taxa was not in the top
 10\%.
 
-\textbf{Figure 5: Stool Random Forest Model Train AUCs.} A) Adenoma
-random forest model AUCs between all genera, all OTU, and select model
-based on significant OR taxa. B) Carcinoma random forest model AUCs
-between all genera, all OTU, and select model based on significant OR
-taxa. The black line represents the median AUC for the respective group.
-If no values are present in the singificant OR taxa group then there
-were no significant taxa identified and no model was tested.
+\textbf{Figure 5: Fecal Sample Random Forest Model Train AUCs.} A)
+Adenoma random forest model AUCs between all genera, all OTU, and select
+model based on significant OR taxa. B) Carcinoma random forest model
+AUCs between all genera, all OTU, and select model based on significant
+OR taxa. The black line represents the median AUC for the respective
+group. If no values are present in the singificant OR taxa group then
+there were no significant taxa identified and no model was tested.
 
-\textbf{Figure 6: Stool Random Forest Genus-Based Model Test AUCs.} A)
-Test AUCs of adenoma models using all genera across study. B) Test AUCs
-of carcinoma models using all genera or significant OR taxa only. The
-black line represents the AUC at 0.5. The red lines represent the median
-AUC of all test AUCs for a specific study.
+\textbf{Figure 6: Fecal Sample Random Forest Genus-Based Model Test
+AUCs.} A) Test AUCs of adenoma models using all genera across study. B)
+Test AUCs of carcinoma models using all genera or significant OR taxa
+only. The black line represents the AUC at 0.5. The red lines represent
+the median AUC of all test AUCs for a specific study.
 
 \newpage
 
@@ -1321,9 +1325,9 @@ group. If no values are present in the singificant OR taxa group then
 there were no significant taxa identified and no model was tested.
 
 \textbf{Figure S3: Most Common Taxa Across Carcinoma Full Community
-Stool Study Models.} A) Common taxa in the top 10 percent for carcinoma
-Random Forest all taxa-based models. B) Common taxa in the top 10
-percent for carcinoma Random Forest all OTU-based models. Blue
+Fecal Sample Study Models.} A) Common taxa in the top 10 percent for
+carcinoma Random Forest all taxa-based models. B) Common taxa in the top
+10 percent for carcinoma Random Forest all OTU-based models. Blue
 represents less important and red represents more important to the
 Random Forest Model. White means that particular taxa was not in the top
 10\%.

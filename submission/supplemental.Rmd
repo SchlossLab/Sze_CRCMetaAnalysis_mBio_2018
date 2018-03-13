@@ -91,7 +91,7 @@ kable(combined_table_S3, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
-**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Stool and Tissue**
+**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Feces and Tissue**
 
 ```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -105,7 +105,7 @@ table_s1 <- temp_t1 %>%
                                       c("brim", "zeller", "baxter", "hale"), 
                                       c("Brim", "Zeller", "Baxter", "Hale")), 
          comparison = "Adenoma", 
-         sample_type = "Stool") %>% 
+         sample_type = "Feces") %>% 
   select(fstat, r2, pvalue, study, comparison, sample_type)
 
 colnames(table_s1) <- c("F statistic", "R2", "P-value", "Study", "Tumor", "Sample Type")
@@ -120,7 +120,7 @@ table_s2 <- temp_t2 %>%
                                       c("wang", "weir", "ahn", "zeller", "baxter", "hale", "flemer"), 
                                       c("Wang", "Weir", "Ahn", "Zeller", "Baxter", "Hale", "Flemer")), 
          comparison = "Carcinoma", 
-         sample_type = "Stool") %>% 
+         sample_type = "Feces") %>% 
   select(fstat, r2, pvalue, study, comparison, sample_type)
 
 
@@ -175,7 +175,7 @@ kable(combined_table_s1, format = "markdown", align = 'c', padding = 2)
 
 
 
-**Table S3: OR in Stool of Tumor by Individual Genera with Initial P-Value under 0.05**
+**Table S3: OR in Feces or Tumor by Individual Genera with Initial P-Value under 0.05**
 
 \footnotesize
 
