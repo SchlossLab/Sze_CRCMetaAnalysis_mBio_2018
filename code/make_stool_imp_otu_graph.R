@@ -73,7 +73,7 @@ crc_otu <- stool_otu_mda %>%
 stool_graph <- grid.arrange(crc_genera, crc_otu, nrow = 1, ncol = 2)
 
 
-ggsave("results/figures/FigureS2.pdf", 
+ggsave("results/figures/FigureS3.pdf", 
        stool_graph, width = 10, height = 11, dpi = 300)
 
 
