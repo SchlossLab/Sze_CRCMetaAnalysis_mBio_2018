@@ -57,7 +57,7 @@ crc_tissue <- crc_tissue_unmatched %>% bind_rows(crc_tissue_matched) %>%
       mutate(type = "matched", 
              model_type = "full_otu", 
              train_model = study, 
-             act_mean_auc = as.numeric(act_mean_auc)) %>% 
+             act_mean_auc = 1 - as.numeric(act_mean_auc)) %>% 
       rename(AUC = act_mean_auc) %>% 
       select(pvalue, study, train_model, type, model_type, AUC) %>% 
       bind_rows(

@@ -71,7 +71,7 @@ stool_graph <- grid.arrange(imp_stool_model, imp_unmatched_tissue_model, nrow = 
 
 
 ggsave("results/figures/Figure4.pdf", 
-       stool_graph, width = 11, height = 11, dpi = 300)
+       stool_graph, width = 11, height = 6, dpi = 300)
 
 
 
