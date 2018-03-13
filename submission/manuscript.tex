@@ -371,26 +371,17 @@ individual taxa, next we combined information from the individual taxa
 and evaluated the ability to classify a subject's disease status using
 Random Forest models. For data from stool samples, the combined model
 had an AUC of 0.75, which was significantly higher than any of the AUC
-values for the individual taxa (P-value \textless{} 0.033). For the full
-taxa models using stool, \emph{Bacteroides} and \emph{Lachnospiraceae}
-were the most common taxa in the top 10\% mean decrease in accuracy
-(MDA) across studies {[}Figure S2{]}. Of the 3 taxa with significant
-ORs, all 3 were among the top 10\% most important taxa as measured by
-mean decrease in accuracy, in at least one study. Within the significant
-OR taxa only models the most important taxa across study for stool were
-\emph{Ruminococcus} and \emph{Clostridium XI} based on mean decrease in
-accuracy {[}Figure 4A{]}. Similarly, using data from the unmatched
-tissue samples, the combined model had an AUC of 0.77, which was
-significantly higher than the AUC values for \emph{Blautia} and
-\emph{Weissella} (P-value \textless{} 0.037). For the full taxa models
-using unmatched tissue, \emph{Lachnospiraceae}, \emph{Bacteroidaceae},
-and \emph{Ruminococcaceae} were the most common taxa in the top 10\%
-mean decrease in accuracy across studies {[}Figure S3{]}. For the
-significant OR taxa unmatched tissue models both \emph{Dorea} and
-\emph{Blautia} were the most important based on mean decrease in
-accuracy {[}Figure 4B{]}. Pooling the information from the taxa with
-significant ORs results in a model that outperforms classifications made
-using individual taxa.
+values for the individual taxa (P-value \textless{} 0.033). Within the
+significant OR taxa only models the most important taxa across study for
+stool were \emph{Ruminococcus} and \emph{Clostridium XI} based on mean
+decrease in accuracy {[}Figure 4A{]}. Similarly, using data from the
+unmatched tissue samples, the combined model had an AUC of 0.77, which
+was significantly higher than the AUC values for \emph{Blautia} and
+\emph{Weissella} (P-value \textless{} 0.037). For the significant OR
+taxa unmatched tissue models both \emph{Dorea} and \emph{Blautia} were
+the most important based on mean decrease in accuracy {[}Figure 4B{]}.
+Pooling the information from the taxa with significant ORs results in a
+model that outperforms classifications made using individual taxa.
 
 \textbf{\emph{Performance of models based on taxa relative abundance in
 full community are better than those based on taxa with significant
@@ -401,23 +392,29 @@ inability to identify taxa associated with a significant OR for the
 presence of adenomas, the median AUCs to classify subjects as having
 normal colons or having adenomas using data from stool or tissue samples
 were only marginally better than 0.5 for any study (median AUC = 0.549
-(0.367 - 0.971)(min-max)) {[}Figure 5A \& S4A{]}. In contrast, the
+(0.367 - 0.971)(min-max)) {[}Figure 5A \& S2A{]}. In contrast, the
 models for classifying subjects as having normal colons or having
 carcinomas using data from stool or tissue samples yielded AUC values
-meaningfully higher than 0.5 {[}Figure 5B \& S4B-C{]}. When we compared
+meaningfully higher than 0.5 {[}Figure 5B \& S2B-C{]}. When we compared
 the models based on all of the taxa in a community to models based on
 the taxa with significant ORs, the results were mixed. Using the data
 from stool samples we found that the AUC for 6 of 7 studies increased by
 an average of 14.8\%) and AUC for the Flemer study decreased by 0.54\%).
 The overall improvement in performance was statistically significant
-(mean = 12.61\%, one-tailed paired T-test; P-value = 0.005). Similarly,
+(mean = 12.61\%, one-tailed paired T-test; P-value = 0.005). For these
+full taxa models using stool, \emph{Bacteroides} and
+\emph{Lachnospiraceae} were the most common taxa in the top 10\% mean
+decrease in accuracy (MDA) across studies {[}Figure S3{]}. Similarly,
 using the data from unmatched tissue samples we found that the AUC of
 studies increased by an average of 19.11\% when we used all of the taxa
 rather than the 3 taxa with significant ORs (one-tailed paired T-test;
-P-value = 0.03). Although the significant OR taxa models can classify
-individuals with and without carcinoma tumors, they are still missing
-taxa from the full community models that can increase the model
-accuracy.
+P-value = 0.03). For the full taxa models using unmatched tissue,
+\emph{Lachnospiraceae}, \emph{Bacteroidaceae}, and
+\emph{Ruminococcaceae} were the most common taxa in the top 10\% mean
+decrease in accuracy across studies {[}Figure S4{]}. Although the
+significant OR taxa models can classify individuals with and without
+carcinoma tumors, they are still missing taxa from the full community
+models that can increase the model accuracy.
 
 \textbf{\emph{Performance of models based on OTU relative abundance in
 full community are not significantly better than those based on taxa
