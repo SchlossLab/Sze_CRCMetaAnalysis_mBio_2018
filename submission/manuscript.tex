@@ -134,42 +134,51 @@ Co-author e-mails:
 
 \subsection{Abstract}\label{abstract}
 
-\textbf{Background.} An increasing body of literature suggests that both
-individual and collections of bacteria are associated with the
-progression of colorectal cancer. As the number of studies investigating
-these associations increases and the number of subjects in each study
+An increasing body of literature suggests that both individual and
+collections of bacteria are associated with the progression of
+colorectal cancer. As the number of studies investigating these
+associations increases and the number of subjects in each study
 increases, a meta-analysis to identify the associations that are the
-most predictive of disease progression is warranted. For our
-meta-analysis, we analyzed previously published 16S rRNA gene sequencing
-data collected from feces (1737 individuals from 8 studies) and colon
-tissue (492 total samples from 350 individuals from 7 studies).
+most predictive of disease progression is warranted. We analyzed
+previously published 16S rRNA gene sequencing data collected from feces
+and colon tissue.
 
-\textbf{Results.} We quantified the odds ratios for individual bacterial
-taxa that were associated with an individual having tumors relative to a
-normal colon. Among the stool samples, there were no taxa that had a
-significant odds ratio associated with adenoma and there were 8 taxa
-with significant odds ratios (ORs) associated with carcinoma. Similarly,
-among the tissue samples, there were no taxa that had a significant odds
-ratio associated with adenoma and there were 3 taxa with significant
-odds ratios associated with carcinoma. Among the significant odds
-ratios, the association between individual taxa and tumor diagnosis was
-equal or below 7.11. Because individual taxa had limited association
-with tumor diagnosis, we trained Random Forest classification models
-using only the taxa that had significant ORs, using the entire
-collection of taxa found in each study, and using operational taxonomic
-units defined based on a 97\% similarity threshold. All training
-approaches yielded similar classification success as measured using the
-Area Under the Curve. The ability to correctly classify individuals with
-adenomas was poor and the ability to classify individuals with
-carcinomas was considerably better using sequences from stool or tissue.
+We quantified the odds ratios (ORs) for individual bacterial taxa that
+were associated with an individual having tumors relative to a normal
+colon. Among the fecal samples, there were no taxa that had a
+significant ORs associated with adenoma and there were 8 taxa with
+significant ORs associated with carcinoma. Similarly, among the tissue
+samples, there were no taxa that had a significant OR associated with
+adenoma and there were 3 taxa with significant ORs associated with
+carcinoma. Among the significant ORs, the association between individual
+taxa and tumor diagnosis was equal or below 7.11. Because individual
+taxa had limited association with tumor diagnosis, we trained Random
+Forest classification models using only the taxa that had significant
+ORs, using the entire collection of taxa found in each study, and using
+operational taxonomic units defined based on a 97\% similarity
+threshold. All training approaches yielded similar classification
+success as measured using the Area Under the Curve. The ability to
+correctly classify individuals with adenomas was poor and the ability to
+classify individuals with carcinomas was considerably better using
+sequences from fecal or tissue.
 
 \newpage
 
-\textbf{Importance.} This meta-analysis confirms previous results
-indicating that individuals with adenomas cannot be readily classified
-based on their bacterial community, but that those with carcinomas can.
-Regardless of the dataset, we found a subset of the fecal community that
-was associated with carcinomas was as predictive as the full community.
+\subsection{Importance}\label{importance}
+
+Colorectal cancer is a significant and growing health problem in which
+animal models and epidemiological data suggest that the colonic
+microbiota have a role in tumorigenesis. These observations indicate
+that the colonic microbiota is a reservoir of biomarkers that may
+improve our ability to detect colonic tumors using non-invasive
+approaches. This meta-analysis identifies and validates a set of 8
+bacterial taxa that can be used within a Random Forest modeling
+framework to differentiate individuals as having normal colons or
+carcinomas. When models trained using one dataset were tested on other
+datasets, the models performed well. These results lend support to the
+use of fecal biomarkers for the detection of tumors. Furthermore, these
+biomarkers are plausible candidates for further mechanistic studies into
+the role of the gut microbiota in tumorigenesis.
 
 \subsubsection{Keywords}\label{keywords}
 
@@ -187,60 +196,64 @@ community (8--10) in tumorigenesis. Numerous case-control studies have
 characterized the microbiota of individuals with colonic adenomas and
 carcinomas in an attempt to identify biomarkers of disease progression
 (6, 11--17). Because current CRC screening recommendations are poorly
-adhered to due to socioeconomic status, test invasiveness, and frequency
-of tests, development and validation of microbiome-associated biomarkers
-for CRC progression could further attempts to develop non-invasive
-diagnostics (18).
+adhered to due to person's socioeconomic status, test invasiveness, and
+frequency of tests, development and validation of microbiota-associated
+biomarkers for CRC progression could further attempts to develop
+non-invasive diagnostics (18).
 
 Recently, there has been an intense focus on identifying
 microbiota-based biomarkers yielding a seemingly endless number of
 candidate taxa. Some studies point towards mouth-associated genera such
-as Fusobacterium, Peptostreptococcus, Parvimonas, and Porphyromonas that
-are enriched in people with carcinomas (6, 11--17). Other studies have
-identified members of \emph{Akkermansia}, \emph{Bacteroides},
-\emph{Enterococcus}, \emph{Escherichia}, \emph{Klebsiella},
-\emph{Mogibacterium}, \emph{Streptococcus}, and \emph{Providencia} are
-also associated with carciomas (13--15). Additionally, \emph{Roseburia}
-has been found in some studies to be more abundant in people with tumors
-but in other studies it has been found to be either less abundant or no
-different than what is found in subjects with normal colons (14, 17, 19,
-20). There are strong results from tissue culture and murine models that
+as \emph{Fusobacterium}, \emph{Peptostreptococcus}, \emph{Parvimonas},
+and \emph{Porphyromonas} that are enriched in people with carcinomas (6,
+11--17). Other studies have identified members of \emph{Akkermansia},
+\emph{Bacteroides}, \emph{Enterococcus}, \emph{Escherichia},
+\emph{Klebsiella}, \emph{Mogibacterium}, \emph{Streptococcus}, and
+\emph{Providencia} (13--15). Additionally, \emph{Roseburia} has been
+found in some studies to be more abundant in people with tumors but in
+other studies it has been found to be less abundant than what is found
+in subjects with normal colons (14, 17, 19, 20). There is support from
+mechanistic studies using tissue culture and murine models that
 \emph{Fusobacterium nucleatum}, pks-positive strains of
 \emph{Escherichia coli}, \emph{Streptococcus gallolyticus}, and an
 entertoxin-producing strain of \emph{Bacteroides fragilis} are important
-in the pathogenesis of CRC (5, 14, 21--24). These results point to a
-causative role for the microbiota in CRC pathogenesis as well as their
-potential as diagnostic biomarkers.
+in tumorigenesis (5, 14, 21--24). These results point to a causative
+role for the microbiota in tumorigenesis as well as their potential as
+diagnostic biomarkers.
 
 Most studies have focused on identifying biomarkers in patients with
-carcinomas but there is a greater clinical need to identify biomarkers
-associated with adenomas. Studies focusing on broad scale community
-metrics have found that measures such as the total number of Operational
-Taxonomic Units (OTUs) are decreased in those with adenomas versus
-controls (25). Other studies have identified \emph{Acidovorax},
-\emph{Bilophila}, \emph{Cloacibacterium}, \emph{Desulfovibrio},
-\emph{Helicobacter}, \emph{Lactobacillus}, \emph{Lactococcus},
-\emph{Mogibacterium}, and \emph{Pseudomonas} to be enriched in those
-with adenomas (25--27). There are few genera that are enriched in
-patients with adenoma or carcinoma tumors.
+carcinomas but there is a clinical need to identify biomarkers
+associated with adenomas to facilitate early detection of the tumors.
+Studies focusing on broad scale community metrics have found that
+measures such as the total number of taxa (i.e.~richness) are lower in
+those with adenomas versus controls (25). Other studies have identified
+\emph{Acidovorax}, \emph{Bilophila}, \emph{Cloacibacterium},
+\emph{Desulfovibrio}, \emph{Helicobacter}, \emph{Lactobacillus},
+\emph{Lactococcus}, \emph{Mogibacterium}, and \emph{Pseudomonas} to be
+enriched in those with adenomas (25--27). The ability to classify
+individuals as having normal colons or adenomas based solely on the taxa
+within fecal samples has been limited. However, when 16S rRNA gene
+sequence data was combined with the results of a fecal immunochemical
+test (FIT), the ability to diagnose individuals with adenomas was
+improved relative to using the FIT results alone (12).
 
-Confirming some of these previous findings, a recent meta-analysis found
-that 16S rRNA gene sequences from members of \emph{Akkermansia},
-\emph{Fusobacterium}, and \emph{Parvimonas} were fecal biomarkers for
-the presence of carcinomas (28). Contrary to previous studies they found
-sequences similar to members of \emph{Lactobacillus} and
-\emph{Ruminococcus} to be enriched in patients with adenoma or carcinoma
-relative to those with normal colons (12, 15, 16). In addition, they
-found 16S rRNA gene sequences from members of \emph{Haemophilus},
-\emph{Methanosphaera}, \emph{Prevotella}, \emph{Succinovibrio} were
-enriched in patients with adenoma and \emph{Pantoea} were enriched in
-patients with carcinomas. Although this meta-analysis was helpful for
-distilling a large number of possible biomarkers, the aggregate number
-of samples included in the analysis (n = 509) was smaller than several
-larger case-control studies that have since been published (12, 27)
+A recent meta-analysis found that 16S rRNA gene sequences from members
+of \emph{Akkermansia}, \emph{Fusobacterium}, and \emph{Parvimonas} were
+fecal biomarkers for the presence of carcinomas (28). Contrary to
+previous studies they found sequences similar to members of
+\emph{Lactobacillus} and \emph{Ruminococcus} to be enriched in patients
+with adenoma or carcinoma relative to those with normal colons (12, 15,
+16). In addition, they found that 16S rRNA gene sequences from members
+of \emph{Haemophilus}, \emph{Methanosphaera}, \emph{Prevotella}, and
+\emph{Succinovibrio} were enriched in patients with adenomas and
+\emph{Pantoea} were enriched in patients with carcinomas. Although this
+meta-analysis was helpful for distilling a large number of possible
+biomarkers, the aggregate number of samples included in the analysis
+(n=509) was smaller than several larger case-control studies that have
+since been published (12, 27)
 
 Here we provide an updated meta-analysis using 16S rRNA gene sequence
-data from both feces (n = 1737) and colon tissue (492 samples from 350
+data from both feces (n=1737) and colon tissue (492 samples from 350
 individuals) from 14 studies (11--17, 19, 20, 23, 25--27, 29) {[}Table 1
 \& 2{]}. We expand both the breadth and scope of the previous
 meta-analysis to investigate whether biomarkers describing the bacterial
@@ -254,92 +267,91 @@ presence of carcinoma.
 
 \subsection{Results}\label{results}
 
-\textbf{\emph{Lower bacterial diversity is associated with increased
-odds ratio (OR) of tumors.}} We first assessed whether variation in
-broad community metrics like total number of operational taxonomic units
+\textbf{\emph{Lower bacterial diversity is associated with higher odds
+ratio (OR) of tumors.}} We first assessed whether variation in broad
+community metrics like total number of operational taxonomic units
 (OTUs) (i.e.~richness), the evenness of their abundance, and the overall
-diversity was associated with disease stage after controlling for study
-and variable region differences. In stool, there was a significant
-decrease in both evenness and diversity as disease severity progressed
-from normal to adenoma to carcinoma (P-value = 0.025 and 0.043,
-respectively) {[}Figure 1{]}; there was no significant difference for
-richness (P-value = 0.21). We next tested whether the decrease in these
+diversity of the communities were associated with disease stage after
+controlling for study and variable region differences. In fecal samples,
+both evenness and diversity were significantly lower in successive
+disease severity categories (evenness P-value=0.025 and diversity
+P-value=0.043) {[}Figure 1{]}; there was no significant difference for
+richness (P-value=0.21). We next tested whether the lower value of these
 community metrics translated into significant ORs for having an adenoma
 or carcinoma. For fecal samples, the ORs for richness were not
-significantly greater than 1.0 for adenoma or carcinoma (P-value = 0.40)
+significantly greater than 1.0 for adenoma or carcinoma (P-value=0.40)
 {[}Figure 2A{]}. The ORs for evenness were significantly higher than 1.0
-for adenoma (OR = 1.3 (1.02 - 1.65)(95\% Confidence Interval), P-value =
-0.035) and carcinoma (OR = 1.66 (1.2 - 2.3), P-value = 0.0021) {[}Figure
-2B{]}. The ORs for diversity were only significantly greater than 1.0
-for carcinoma (OR = 1.61 (1.14 - 2.28), P-value = 0.0069), but not for
-adenoma (P-value = 0.11) {[}Figure 2C{]}. Although these OR are
-significantly greater than 1.0, it is doubtful that these are clinically
-meaningful values.
+for adenoma (OR=1.3 (95\% Confidence Interval: 1.02 - 1.65),
+P-value=0.035) and carcinoma (OR=1.66 (1.2 - 2.3), P-value=0.0021)
+{[}Figure 2B{]}. The ORs for diversity were only significantly greater
+than 1.0 for carcinoma (OR=1.61 (1.14 - 2.28), P-value=0.0069), but not
+for adenoma (P-value=0.11) {[}Figure 2C{]}. Although these ORs are
+significantly greater than 1.0, it is doubtful that they are clinically
+meaningful.
 
-Similar to our analysis of sequences obtained from stool samples, we
+Similar to our analysis of sequences obtained from fecal samples, we
 repeated the analysis using sequences obtained from colon tissue. There
-were no significant changes in richness, evenness, or diversity as
+were no significant differences in richness, evenness, or diversity as
 disease severity progressed from control to adenoma to carcinoma
-(P-value \textgreater{} 0.05). We next analyzed the OR, for matched
+(P-values \textgreater{} 0.05). We next analyzed the ORs, for matched
 (i.e.~where unaffected tissue and tumors were obtained from the same
 individual) and unmatched (i.e.~where unaffected tissue and tumor tissue
 were not obtained from the same individual) tissue samples. The ORs for
-adenoma and carcinoma by any measure were not significantly different
-from 1.0 (P-value \textgreater{} 0.05) {[}Figure S1 \& Table S1{]}. This
-is likely due to the combination of a small effect size, as suggested
-from the results using stool, and the relatively small number of studies
-and size of studies used in the analysis.
+adenoma and carcinoma were not significantly different from 1.0 for any
+measure (P-values \textgreater{} 0.05) {[}Figure S1 \& Table S1{]}. This
+is likely due to the combination of a small effect size and the
+relatively small number of studies and size of studies used in the
+analysis.
 
-\textbf{\emph{Disease progression is associated with community-wide
-changes in composition and abundance.}} Based on the differences in
-evenness and diversity, we next asked whether there were community-wide
-differences in the structure of the communities associated with
-different disease stages. We identified significant bacterial community
-differences in the stool of patients with adenomas relative to those
-with normal colons in 1 of 4 studies and in patients with carcinomas
-relative to those with normal colons in 6 of 7 studies (PERMANOVA;
-P-value \textless{} 0.05) {[}Table S2{]}. Similar to the analyses using
-stool samples, there were significant differences in bacterial community
-structure between subjects with normal colons and those with adenoma (1
-of 2 studies) and carcinoma (1 of 3 studies) {[}Table S2{]}. For studies
-that used matched samples no differences in bacterial community
-structures were observed {[}Table S2{]}. Combined, these results
-indicate that there are consistent and significant community-wide
-changes in the fecal community structure of subjects with carcinomas.
-However, the signal observed in subjects with adenomas or when using
-tissue samples was not as consistent. This is likely due to a smaller
-effect size or the relatively small sample sizes among the studies that
-characterized the tissue microbiota.
+\textbf{\emph{Disease progression is associated with changes in
+community structure.}} Based on the differences in evenness and
+diversity, we next asked whether there were community-wide differences
+in the structure of the communities associated with different disease
+stages. We identified significant bacterial community differences in the
+feces of patients with adenomas relative to those with normal colons in
+1 of 4 studies and in patients with carcinomas relative to those with
+normal colons in 6 of 7 studies (PERMANOVA; P-value \textless{} 0.05)
+{[}Table S2{]}. Similar to the analyses using fecal samples, there were
+significant differences in the bacterial community structure of subjects
+with normal colons and those with adenomas (1 of 2 studies) and
+carcinomas (1 of 3 studies) {[}Table S2{]}. For studies that used
+matched samples, we did not observe any differences in bacterial
+community structures {[}Table S2{]}. Combined, these results indicate
+that there were consistent and significant community-wide changes in the
+fecal community structure of subjects with carcinomas. However, the
+signal observed in subjects with adenomas or when using tissue samples
+was not as consistent. This is likely due to a smaller effect size or
+the relatively small sample sizes among the studies that characterized
+the tissue microbiota.
 
 \textbf{\emph{Individual taxa are associated with significant ORs for
-carcinomas.}} Next we identified those taxa that were associated with
-ORs that were significantly associated with having a normal colon or the
-presence of adenomas or carcinomas. No taxa had a significant OR for the
-presence of adenomas when we used data collected from stool or tissue
-samples (Table S3 \& S4). In contrast, 8 taxa had significant ORs for
-the presence of carcinomas using data from stool samples. Of these, 4
-are commonly associated with the oral cavity: \emph{Fusobacterium} (OR =
-2.74 (1.95 - 3.85)), \emph{Parvimonas} (OR = 3.07 (2.11 - 4.46)),
-\emph{Porphyromonas} (OR = 3.2 (2.26 - 4.54)), and
-\emph{Peptostreptococcus} (OR = 7.11 (3.84 - 13.17)) {[}Table S3{]}. The
-other 4 were \emph{Clostridium XI} (OR = 0.65 (0.49 - 0.86)),
-\emph{Enterobacteriaceae} (OR = 1.79 (1.33 - 2.41)), \emph{Escherichia}
-(OR = 2.15 (1.57 - 2.95)), and \emph{Ruminococcus} (OR = 0.63 (0.48 -
-0.83)). Among the data collected from tissue samples, only unmatched
-carcinoma samples had taxa with a significant OR. Those included
-\emph{Dorea} (OR = 0.35 (0.22 - 0.55)), \emph{Blautia} (OR = 0.47 (0.3 -
-0.73)), and \emph{Weissella} (OR = 5.15 (2.02 - 13.14)).
-Mouth-associated genera were not significantly associated with an
-increased OR for carcinoma in tissue samples {[}Table S4{]}. For
-example, \emph{Fusobacterium} had an OR of 3.98 (1.19 - 13.24; however,
-due to the small number of studies and considerable variation in the
-data, the Benjimani-Hochberg corrected P-value was 0.93 {[}Table S4{]}.
-It is interesting to note that \emph{Ruminococcus} and members of
-\emph{Clostridium XI} in stool and \emph{Dorea} and \emph{Blautia} in
-tissue had ORs that were significantly less than 1.0, which suggests
-that these populations are protective against the development of
-carcinomas. Overall, there was no overlap in the taxa with significant
-OR between stool and tissue samples.
+carcinomas.}} Next we identified those taxa that had ORs that were
+significantly associated with having a normal colon or the presence of
+adenomas or carcinomas. No taxa had a significant OR for the presence of
+adenomas when we used data collected from fecal or tissue samples (Table
+S3 \& S4). In contrast, 8 taxa had significant ORs for the presence of
+carcinomas using data from fecal samples. Of these, 4 are commonly
+associated with the oral cavity: \emph{Fusobacterium} (OR=2.74 (1.95 -
+3.85)), \emph{Parvimonas} (OR=3.07 (2.11 - 4.46)), \emph{Porphyromonas}
+(OR=3.2 (2.26 - 4.54)), and \emph{Peptostreptococcus} (OR=7.11 (3.84 -
+13.17)) {[}Table S3{]}. The other 4 were \emph{Clostridium XI} (OR=0.65
+(0.49 - 0.86)), \emph{Enterobacteriaceae} (OR=1.79 (1.33 - 2.41)),
+\emph{Escherichia} (OR = 2.15 (1.57 - 2.95)), and \emph{Ruminococcus}
+(OR=0.63 (0.48 - 0.83)). Among the data collected from tissue samples,
+only unmatched carcinoma samples had taxa with a significant OR. Those
+included \emph{Dorea} (OR=0.35 (0.22 - 0.55)), \emph{Blautia} (OR=0.47
+(0.3 - 0.73)), and \emph{Weissella} (OR=5.15 (2.02 - 13.14)).
+Mouth-associated genera were not significantly associated with a higher
+OR for carcinoma in tissue samples {[}Table S4{]}. For example,
+\emph{Fusobacterium} had an OR of 3.98 (1.19 - 13.24; however, due to
+the small number of studies and considerable variation in the data, the
+Benjimani-Hochberg corrected P-value was 0.93 {[}Table S4{]}. It is
+interesting to note that \emph{Ruminococcus} and members of
+\emph{Clostridium XI} in fecal samples and \emph{Dorea} and
+\emph{Blautia} in tissue had ORs that were significantly less than 1.0,
+which suggests that these populations are protective against the
+development of carcinomas. Overall, there was no overlap in the taxa
+with significant OR between fecal and tissue samples.
 
 \textbf{\emph{Individual taxa with a significant OR do a poor job of
 differentiating subjects with normal colons and those with carcinoma.}}
@@ -352,92 +364,97 @@ across all subjects in a study. To measure the ability of these taxa to
 classify individuals we instead generated receiver operator
 characteristic (ROC) curves for each taxon in each study and calculated
 the area under the curve (AUC). This allowed us to use a more fluid
-relative abundance threshold for defining disease status. Using data
-from stool samples, the 8 taxa did no better at classifying the subjects
-than one would expect by chance (i.e.~AUC=0.50) {[}Figure 3A{]}. The
-taxa that performed the best included \emph{Clostridium XI},
-\emph{Ruminococcus}, and \emph{Escherichia}, however, these had median
-AUC values less than 0.588. Likewise, in unmatched tissue samples the 3
-taxa with significant OR taxa were marginally better than one would
-expect by chance {[}Figure 3B{]}. The relative abundance of \emph{Dorea}
-was the best predictor of carcinomas and its median AUC was only 0.62.
-These results suggest that although these taxa are associated with a
-decreased or increased OR for the presences of carcinomas, individually,
-they do a poor job of classifying a subject's disease status.
+relative abundance threshold for classifying individuals by their
+disease status. Using data from fecal samples, the 8 taxa did no better
+at classifying the subjects than one would expect by chance
+(i.e.~AUC=0.50) {[}Figure 3A{]}. The taxa that performed the best
+included \emph{Clostridium XI}, \emph{Ruminococcus}, and
+\emph{Escherichia}. However, these had median AUC values less than 0.588
+ndicating their limited value as biomarkers when used individually.
+Likewise, in unmatched tissue samples the 3 taxa with significant OR
+taxa had AUC values that were marginally better than one would expect by
+chance {[}Figure 3B{]}. The relative abundance of \emph{Dorea} was the
+best predictor of carcinomas and its median AUC was only 0.62. These
+results suggest that although these taxa are associated with a
+significant OR for the presences of carcinomas, they do a poor job of
+classifying a subject's disease status when used individually.
 
 \textbf{\emph{Combined taxa model classifies subjects better than using
 individual taxa.}} Instead of attempting to classify subjects based on
 individual taxa, next we combined information from the individual taxa
 and evaluated the ability to classify a subject's disease status using
-Random Forest models. For data from stool samples, the combined model
+Random Forest models. For data from fecal samples, the combined model
 had an AUC of 0.75, which was significantly higher than any of the AUC
-values for the individual taxa (P-value \textless{} 0.033). Within the
-significant OR taxa only models the most important taxa across study for
-stool were \emph{Ruminococcus} and \emph{Clostridium XI} based on mean
-decrease in accuracy {[}Figure 4A{]}. Similarly, using data from the
-unmatched tissue samples, the combined model had an AUC of 0.77, which
-was significantly higher than the AUC values for \emph{Blautia} and
-\emph{Weissella} (P-value \textless{} 0.037). For the significant OR
-taxa unmatched tissue models both \emph{Dorea} and \emph{Blautia} were
-the most important based on mean decrease in accuracy {[}Figure 4B{]}.
-Pooling the information from the taxa with significant ORs results in a
-model that outperforms classifications made using individual taxa.
+values for the individual taxa (P-value \textless{} 0.033). When this
+approach was used to train models using data from each study, the most
+important taxa were \emph{Ruminococcus} and \emph{Clostridium XI}
+{[}Figure 4A{]}. Similarly, using data from the unmatched tissue
+samples, the combined model had an AUC of 0.77, which was significantly
+higher than the AUC values for classifying based on the relative
+abundances of \emph{Blautia} and \emph{Weissella} individually (P-value
+\textless{} 0.037). Both \emph{Dorea} and \emph{Blautia} were the most
+important taxa in the tissue-based models {[}Figure 4B{]}. Pooling the
+information from the taxa with significant ORs resulted in models that
+outperformed classifications made using the same taxa individually.
 
 \textbf{\emph{Performance of models based on taxa relative abundance in
-full community are better than those based on taxa with significant
-ORs.}} Next, we asked whether a Random Forest classification model built
-using all of the taxa found in the communities would outperform the
-models generated using those taxa with a significant OR. Similar to our
-inability to identify taxa associated with a significant OR for the
-presence of adenomas, the median AUCs to classify subjects as having
-normal colons or having adenomas using data from stool or tissue samples
-were only marginally better than 0.5 for any study (median AUC = 0.549
-(0.367 - 0.971)(min-max)) {[}Figure 5A \& S2A{]}. In contrast, the
-models for classifying subjects as having normal colons or having
-carcinomas using data from stool or tissue samples yielded AUC values
+full community is better than that of models based on taxa with
+significant ORs.}} Next, we asked whether a Random Forest classification
+model built using all of the taxa found in the communities would
+outperform the models generated using those taxa with a significant OR.
+Similar to our inability to identify taxa associated with a significant
+OR for the presence of adenomas, the median AUCs to classify subjects as
+having normal colons or having adenomas using data from fecal or tissue
+samples were only marginally better than 0.5 for any study (median
+AUC=0.549 (range: 0.367 - 0.971)) {[}Figure 5A \& S2A{]}. In contrast,
+the models for classifying subjects as having normal colons or having
+carcinomas using data from fecal or tissue samples yielded AUC values
 meaningfully higher than 0.5 {[}Figure 5B \& S2B-C{]}. When we compared
 the models based on all of the taxa in a community to models based on
 the taxa with significant ORs, the results were mixed. Using the data
-from stool samples we found that the AUC for 6 of 7 studies increased by
-an average of 14.8\%) and AUC for the Flemer study decreased by 0.54\%).
-The overall improvement in performance was statistically significant
-(mean = 12.61\%, one-tailed paired T-test; P-value = 0.005). For these
-full taxa models using stool, \emph{Bacteroides} and
+from fecal samples, we found that the AUC for 6 of 7 studies were an
+average of 14.8\% higher and AUC for the Flemer study was 0.54\% lower
+when using the relative abundance data from all taxa relative to using
+the relative abundance of only the taxa with significant ORs. The
+overall improvement in performance was statistically significant
+(mean=12.61\%, one-tailed paired T-test; P-value=0.005). Among the
+models trained using data from fecal samples, \emph{Bacteroides} and
 \emph{Lachnospiraceae} were the most common taxa in the top 10\% mean
-decrease in accuracy (MDA) across studies {[}Figure S3{]}. Similarly,
-using the data from unmatched tissue samples we found that the AUC of
-studies increased by an average of 19.11\% when we used all of the taxa
-rather than the 3 taxa with significant ORs (one-tailed paired T-test;
-P-value = 0.03). For the full taxa models using unmatched tissue,
-\emph{Lachnospiraceae}, \emph{Bacteroidaceae}, and
+decrease in accuracy across studies {[}Figure S3{]}. Using data from
+unmatched tissue samples to train classification models, we found that
+the AUC of studies was an average 19.11\% higher when we used all of the
+taxa rather than the 3 taxa with significant ORs (one-tailed paired
+T-test; P-value=0.03). For the models trained using data from unmatched
+tissue samples, \emph{Lachnospiraceae}, \emph{Bacteroidaceae}, and
 \emph{Ruminococcaceae} were the most common taxa in the top 10\% mean
-decrease in accuracy across studies {[}Figure S4{]}. Although the
-significant OR taxa models can classify individuals with and without
-carcinoma tumors, they are still missing taxa from the full community
-models that can increase the model accuracy.
+decrease in accuracy across studies {[}Figure S4{]}. Although the models
+trained using those taxa with a significant OR perform well for
+classifying individuals with and without carcinomas, models trained
+using data from the full community perform better.
 
-\textbf{\emph{Performance of models based on OTU relative abundance in
-full community are not significantly better than those based on taxa
-with significant ORs.}} The previous models were based on relative
-abundance data where sequences were classified to coarse taxonomic
-assignments (i.e.~typically genus or family level). To determine whether
-model performance improved with finer scale classification, we assigned
+\textbf{\emph{Performance of models based on OTU relative abundances are
+not significantly better than those based on taxa with significant
+ORs.}} The previous models were based on relative abundance data where
+sequences were classified to coarse taxonomic assignments
+(i.e.~typically genus or family level). To determine whether model
+performance improved with finer scale classification, we assigned
 sequences to operational taxonomic units (OTUs) where the similarity
 among sequences within an OTU was more than 97\%. We again found that
 classification models built using all of the sequence data for a
 community did a poor job of differentiating between subjects with normal
-colons and those with adenomas (median AUC: 0.53 (0.37- 0.56)), but did
-a good job of differentiating between subjects with normal colons and
-those with carcinomas (median AUC: 0.71 (0.5- 0.9)). The OTU-based
-models performed similarly to those constructed using the taxa with
-significant ORs (one-tailed paired T-test; P-value = 0.966) and those
-using all taxa (one-tailed paired T-test; P-value = 0.146) {[}Figure
-4{]}. Among the OTUs that had the highest mean decrease in accuracy for
-the OTU-based models, we found that OTUs that affiliated with all of the
-8 taxa that had a significant OR were within the top 10\% for at least
-one study. This result was surprising as it indicated that a finer scale
-classification of the sequences and thus a larger number of features to
-select from, did not yield improved classification of the subjects.
+colons and those with adenomas (median AUC: 0.53 (0.37- 0.56)). However,
+they did a good job of differentiating between subjects with normal
+colons and those with carcinomas (median AUC: 0.71 (0.50- 0.904)). The
+OTU-based models performed similarly to those constructed using the taxa
+with significant ORs (one-tailed paired T-test; P-value = 0.966) and
+those using all taxa (one-tailed paired T-test; P-value = 0.146)
+{[}Figure 4{]}. Among the OTUs that had the highest mean decrease in
+accuracy for the OTU-based models, we found that OTUs that affiliated
+with all of the 8 taxa that had a significant OR were within the top
+10\% for at least one study. This result was surprising as it indicated
+that a finer scale classification of the sequences and thus a larger
+number of features to select from, did not yield improved classification
+of the subjects.
 
 \textbf{\emph{Generalizability of taxon-based models trained on one
 dataset to the other datasets.}} Considering the good performance of the
