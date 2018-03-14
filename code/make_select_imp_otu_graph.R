@@ -25,6 +25,13 @@ unmatched_tissue_mda <- read_csv("data/process/tables/ALL_genus_unmatched_tissue
   ungroup()
 
 
+stool_vars <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = median(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
+unmatched_tissue_vars <- unmatched_tissue_mda %>% group_by(otu) %>% summarise(median_zscore = median(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
+
 ##############################################################################################
 ############################## List of code to make figures ##################################
 ##############################################################################################
@@ -33,7 +40,10 @@ unmatched_tissue_mda <- read_csv("data/process/tables/ALL_genus_unmatched_tissue
 imp_stool_model <- stool_mda %>% 
   mutate(study = factor(study, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
-                        labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")))) %>% 
+                        labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))), 
+         otu = factor(otu, 
+                      levels = stool_vars$otu, 
+                      labels = stool_vars$otu)) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
   scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
@@ -49,7 +59,10 @@ imp_stool_model <- stool_mda %>%
 imp_unmatched_tissue_model <- unmatched_tissue_mda %>% 
   mutate(study = factor(study, 
                         levels = c("burns", "chen", "flemer", "sana"), 
-                        labels= c(c("Burns", "Chen", "Flemer", "Sanapareddy")))) %>% 
+                        labels= c(c("Burns", "Chen", "Flemer", "Sanapareddy"))), 
+         otu = factor(otu, 
+                      levels = unmatched_tissue_vars$otu, 
+                      labels = unmatched_tissue_vars$otu)) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
   scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
