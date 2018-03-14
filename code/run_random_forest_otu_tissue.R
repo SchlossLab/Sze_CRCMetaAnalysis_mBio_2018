@@ -53,9 +53,8 @@ get_data <- function(i, metadata){
   # i is the study of interest
   
   # grabs subsampled data and assigns rownames from sample names to table
-  shared_data <- read.delim(paste("data/process/", i, "/", i, ".0.03.subsample.shared", 
-                                  sep = ""), header = T, stringsAsFactors = F) %>% 
-    select(-label, -numOtus)
+  shared_data <- as.data.frame(read_tsv(paste("data/process/", i, "/", i, ".0.03.subsample.shared", sep = "")) %>% 
+    select(-label, -numOtus))
   # grabs the meta data and transforms polyp to control (polyp/control vs cancer) 
   study_meta <- metadata %>% filter(study == i)
   
@@ -167,7 +166,7 @@ make_rf_model <- function(run_marker, study, train_data){
     
   fitControl <- trainControl(## 10-fold CV
     method = method_used,
-    number = 2,
+    number = 5,
     p = 0.8,
     classProbs = TRUE, 
     summaryFunction = twoClassSummary, 
