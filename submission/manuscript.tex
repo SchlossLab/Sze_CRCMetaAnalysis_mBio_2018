@@ -446,8 +446,8 @@ colons and those with adenomas (median AUC: 0.53 (0.37- 0.56)). However,
 they did a good job of differentiating between subjects with normal
 colons and those with carcinomas (median AUC: 0.71 (0.50- 0.90)). The
 OTU-based models performed similarly to those constructed using the taxa
-with significant ORs (one-tailed paired T-test; P-value=0.966) and those
-using all taxa (one-tailed paired T-test; P-value=0.146) {[}Figure 4{]}.
+with significant ORs (one-tailed paired T-test; P-value=0.979) and those
+using all taxa (one-tailed paired T-test; P-value=0.184) {[}Figure 4{]}.
 Among the OTUs that had the highest mean decrease in accuracy for the
 OTU-based models, we found that OTUs that affiliated with all of the 8
 taxa that had a significant OR were within the top 10\% for at least one
@@ -583,16 +583,17 @@ tissue-based studies did not provide clearer associations between the
 mucosal microbiota and the presence of tumors. Interestingly,
 \emph{Fusobacterium}, which has received increased attention for its
 potential role in tumorigenesis (6) was not consistently identified
-across the studies in our meta-analysis. This could be due to the
-relatively small number of individuals in the limited number of studies.
-The classification models trained using the tissue-based data performed
-well when tested with the training data (Figure S4), but performed
-poorly when tested on the other tissue-associated datasets (Figure S5).
+across the studies in our meta-analysis which is consistent with a
+recent replicability study (36). This could be due to the relatively
+small number of individuals in the limited number of studies. The
+classification models trained using the tissue-based data performed well
+when tested with the training data (Figure S4), but performed poorly
+when tested on the other tissue-associated datasets (Figure S5).
 Disturbingly, taxa that are commonly associated with reagent
 contamination (e.g. \emph{Novosphingobium}, \emph{Acidobacteria Gp2},
 \emph{Sphingomonas}, etc.) were detected within the tissue datasets.
 Such contamination is common in studies where there is relatively low
-bacterial biomass (36). The lack of replication among the tissue-based
+bacterial biomass (37). The lack of replication among the tissue-based
 biomarkers may be a product of the relatively small number of studies
 and individuals per study and possible reagent contamination.
 
@@ -601,7 +602,7 @@ populations that are commonly associated with carcinomas including an
 enterotoxigenic strain of \emph{Bacteroides fragilis} (ETBF) and
 \emph{Streptococcus gallolyticus} subsp. \emph{gallolyticus} (22, 24).
 ETBF have been found in tumors in the proximal colon where they tend to
-form biofilms (20, 37). Considering DNA from bacteria that are more
+form biofilms (20, 38). Considering DNA from bacteria that are more
 prevalent in the proximal colon may be degraded by the time it leaves
 the body, it is not surprising that we failed to identify a significant
 OR for \emph{Bacteroides} with carcinomas. In addition, since our
@@ -620,9 +621,9 @@ Meta-analyses are a useful tool in microbiome research because they can
 demonstrate whether a result can be replicated and facilitate new
 discoveries by pooling multiple independent investigations. There have
 been several meta-analyses similar to this study that have sought
-biomarkers for obesity (38--40), inflammatory bowel disease (39), and
+biomarkers for obesity (39--41), inflammatory bowel disease (40), and
 colorectal cancer (28). Considering microbiome research is particularly
-prone to hype and overgeneralization of results (41), these analyses are
+prone to hype and overgeneralization of results (42), these analyses are
 critical. Meta-analyses are difficult to perform because the underlying
 16S rRNA gene sequence data are not publicly available, metadata are
 missing, incomplete, or vague, sequence data are of poor quality or
@@ -635,7 +636,7 @@ replicability of microbiota studies and make it easier to perform these
 crucial meta-analyses. Moving forward, meta-analyses will be important
 tools to help aggregate and find commonalities across studies when
 investigating the microbiota in the context of a specific disease (28,
-38--40).
+39--41).
 
 Our meta-analysis suggests a strong association between the gut
 microbiota and colon tumorigenesis. By aggregating the results from
@@ -656,8 +657,8 @@ that can be mediated by multiple, diverse bacteria.
 \subsection{Methods}\label{methods}
 
 \textbf{\emph{Datasets.}} The studies used for this meta-analysis were
-identified through the review articles written by Keku, et al. (42) and
-Vogtmann, et al. (43). Additional studies, not mentioned in those
+identified through the review articles written by Keku, et al. (43) and
+Vogtmann, et al. (44). Additional studies, not mentioned in those
 reviews were obtained based on the authors' knowledge of the literature.
 Studies were included that used tissue or feces as their sample source
 for 454 or Illumina 16S rRNA gene sequencing. A significant number of
@@ -668,8 +669,8 @@ able to share. We were able to obtain sequence data and metadata from
 the following studies: Ahn, et al. (11), Baxter, et al. (12), Brim, et
 al. (29), Burns, et al. (15), Chen, et al. (13), Dejea, et al. (20),
 Flemer, et al. (17), Geng, et al. (19), Hale, et al. (27), Kostic, et
-al. (44), Lu, et al. (26), Sanapareddy, et al. (25), Wang, et al. (14),
-Weir, et al. (23), and Zeller, et al. (16). The Zackular (45) study was
+al. (45), Lu, et al. (26), Sanapareddy, et al. (25), Wang, et al. (14),
+Weir, et al. (23), and Zeller, et al. (16). The Zackular (46) study was
 excluded because the individuals studied were included within the larger
 Baxter study (12). The Kostic study was excluded because after we
 processed the sequences, all of the case samples had 100 or fewer
@@ -686,14 +687,14 @@ primarily obtained from the Sequence Read Archive (SRA) and dbGaP. Other
 sequence and metadata were obtained directly from the authors (n=4, (17,
 23, 25, 27)). Each dataset was processed separately using mothur
 (v1.39.3) using the default quality filtering methods for both 454 and
-Illumina sequence data (46). If it was not possible to use the defaults
+Illumina sequence data (47). If it was not possible to use the defaults
 because the trimmed sequences were too short, then the stated quality
 cut-offs from the original study were used. Chimeric sequences were
-identified and removed using VSEARCH (47). The curated sequences were
-assigned to OTUs at 97\% similarity using the OptiClust algorithm (48)
+identified and removed using VSEARCH (48). The curated sequences were
+assigned to OTUs at 97\% similarity using the OptiClust algorithm (49)
 and classified to the deepest taxonomic level that had 80\% support
 using the naïve Bayesian classifier trained on the RDP taxonomy outline
-(version 14, (49)).
+(version 14, (50)).
 
 \textbf{\emph{Community analysis.}} We calculated alpha diversity
 metrics (i.e.~OTU richness, evenness, and Shannon diversity) for each
@@ -704,13 +705,13 @@ carcinomas had significantly different alpha diversity metrics using
 linear mixed-effect models. We also calculated the OR for each study and
 metric by considering any value above the median alpha diversity value
 to be positive. We measured the dissimilarity between individuals by
-calculating the pairwise Bray-Curtis index and used PERMANOVA (50) to
+calculating the pairwise Bray-Curtis index and used PERMANOVA (51) to
 test whether individuals with normal colons were significantly different
 from those with adenomas or carcinomas. Finally, after binning sequences
 into the deepest taxa that the naïve Bayesian classifier could calssify
 the sequences, we quantified the ORs for individuals having an adenoma
 or carcinoma and corrected for multiple comparisons using the
-Benjamini-Hochberg method (51). Again, for each taxon, if the relative
+Benjamini-Hochberg method (52). Again, for each taxon, if the relative
 abundance was greater than the median relative abundance for that taxon
 in the study, the individual was considered to be positive.
 
@@ -725,7 +726,7 @@ individuals as having normal colons or adenomas. For all models the
 hyperparameters for ntree was set to 500 and the mtry set to the sqaure
 root of the number of taxa or OTUs within the model
 (\(\sqrt{total~variables}\)). The \(\sqrt{total~variables}\) has been
-found to approximate the optimum mtry chosen after model tuneing (52).
+found to approximate the optimum mtry chosen after model tuneing (53).
 All fecal models were built using a 10-fold cross validation (CV) while
 tissue models were built using 5-fold CV due to study sample size. One
 exception to this rule was the Weir study which was built using a 2-fold
@@ -739,24 +740,24 @@ from these 100 repeats was reported. The Mean Decrease in Accuracy
 was used to rank the taxa used in each model.
 
 \textbf{\emph{Statistical Analysis.}} All statistical analysis after
-sequence processing utilized the R (v3.4.3) software package (53). For
+sequence processing utilized the R (v3.4.3) software package (54). For
 OTU richness, evenness, and Shannon diversity analysis, values were
-power transformed using the rcompanion (v1.11.1) package (54) and
-Z-score normalized using the car (v2.1.6) package (55). Testing for OTU
+power transformed using the rcompanion (v1.11.1) package (55) and
+Z-score normalized using the car (v2.1.6) package (56). Testing for OTU
 richness, evenness, and Shannon diversity differences utilized linear
 mixed-effect models to correct for study, repeat sampling of individuals
 (tissue only), and 16S rRNA gene sequence region used using the lme4
-(v1.1.15) package (56). ORs were analyzed using both the epiR (v0.9.93)
-and metafor (v2.0.0) packages (57, 58) by assessing how many individuals
+(v1.1.15) package (57). ORs were analyzed using both the epiR (v0.9.93)
+and metafor (v2.0.0) packages (58, 59) by assessing how many individuals
 with and without disease were above and below the overall median value
 within each specific study. OR significance testing utilized the
 chi-squared test. Community structure differences were calculated using
 the Bray-Curtis dissimilarity index and PERMANOVA was used to test for
 tumor-associated differences in structure with the vegan (v2.4.5)
-package (59). Random Forest models were built using both the caret
-(v6.0.78) and randomForest (v4.6.12) packages (60, 61). All figures were
-created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages (62,
-63).
+package (60). Random Forest models were built using both the caret
+(v6.0.78) and randomForest (v4.6.12) packages (61, 62). All figures were
+created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages (63,
+64).
 
 \textbf{\emph{Reproducible Methods.}} The analysis code can be found at
 \url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_mBio_2017}.
@@ -1052,8 +1053,15 @@ Turgeon}, and \textbf{P. D. Schloss}. 2017. Spatial variation of the
 native colon microbiota in healthy adults. Cold Spring Harbor
 Laboratory.
 
+\hypertarget{ref-Repass2018}{}
+36. \textbf{Repass, J.}, \textbf{E. Iorns}, \textbf{A. Denis},
+\textbf{S. R. Williams}, \textbf{N. Perfito}, and \textbf{T. M. E. and}.
+2018. Replication study: Fusobacterium nucleatum infection is prevalent
+in human colorectal carcinoma. eLife. eLife Sciences Organisation, Ltd.
+\textbf{7}.
+
 \hypertarget{ref-Salter_contamination_2014}{}
-36. \textbf{Salter, S. J.}, \textbf{M. J. Cox}, \textbf{E. M. Turek},
+37. \textbf{Salter, S. J.}, \textbf{M. J. Cox}, \textbf{E. M. Turek},
 \textbf{S. T. Calus}, \textbf{W. O. Cookson}, \textbf{M. F. Moffatt},
 \textbf{P. Turner}, \textbf{J. Parkhill}, \textbf{N. J. Loman}, and
 \textbf{A. W. Walker}. 2014. Reagent and laboratory contamination can
@@ -1061,46 +1069,46 @@ critically impact sequence-based microbiome analyses. BMC Biology.
 Springer Nature \textbf{12}.
 
 \hypertarget{ref-Purcell2017}{}
-37. \textbf{Purcell, R. V.}, \textbf{J. Pearson}, \textbf{A. Aitchison},
+38. \textbf{Purcell, R. V.}, \textbf{J. Pearson}, \textbf{A. Aitchison},
 \textbf{L. Dixon}, \textbf{F. A. Frizelle}, and \textbf{J. I. Keenan}.
 2017. Colonization with enterotoxigenic bacteroides fragilis is
 associated with early-stage colorectal neoplasia. PLOS ONE. Public
 Library of Science (PLoS) \textbf{12}:e0171602.
 
 \hypertarget{ref-Sze2016}{}
-38. \textbf{Sze, M. A.}, and \textbf{P. D. Schloss}. 2016. Looking for a
+39. \textbf{Sze, M. A.}, and \textbf{P. D. Schloss}. 2016. Looking for a
 signal in the noise: Revisiting obesity and the microbiome. mBio.
 American Society for Microbiology \textbf{7}:e01018--16.
 
 \hypertarget{ref-Walters2014}{}
-39. \textbf{Walters, W. A.}, \textbf{Z. Xu}, and \textbf{R. Knight}.
+40. \textbf{Walters, W. A.}, \textbf{Z. Xu}, and \textbf{R. Knight}.
 2014. Meta-analyses of human gut microbes associated with obesity and
 IBD. FEBS Letters. Wiley-Blackwell \textbf{588}:4223--4233.
 
 \hypertarget{ref-Finucane2014}{}
-40. \textbf{Finucane, M. M.}, \textbf{T. J. Sharpton}, \textbf{T. J.
+41. \textbf{Finucane, M. M.}, \textbf{T. J. Sharpton}, \textbf{T. J.
 Laurent}, and \textbf{K. S. Pollard}. 2014. A taxonomic signature of
 obesity in the microbiome? Getting to the guts of the matter. PLoS ONE.
 Public Library of Science (PLoS) \textbf{9}:e84689.
 
 \hypertarget{ref-Hanage2014}{}
-41. \textbf{Hanage, W. P.} 2014. Microbiology: Microbiome science needs
+42. \textbf{Hanage, W. P.} 2014. Microbiology: Microbiome science needs
 a healthy dose of scepticism. Nature. Springer Nature
 \textbf{512}:247--248.
 
 \hypertarget{ref-keku_gastrointestinal_2015}{}
-42. \textbf{Keku, T. O.}, \textbf{S. Dulal}, \textbf{A. Deveaux},
+43. \textbf{Keku, T. O.}, \textbf{S. Dulal}, \textbf{A. Deveaux},
 \textbf{B. Jovov}, and \textbf{X. Han}. 2015. The gastrointestinal
 microbiota and colorectal cancer. American Journal of Physiology -
 Gastrointestinal and Liver Physiology \textbf{308}:G351--G363.
 
 \hypertarget{ref-vogtmann_epidemiologic_2016}{}
-43. \textbf{Vogtmann, E.}, and \textbf{J. J. Goedert}. 2016.
+44. \textbf{Vogtmann, E.}, and \textbf{J. J. Goedert}. 2016.
 Epidemiologic studies of the human microbiome and cancer. British
 Journal of Cancer \textbf{114}:237--242.
 
 \hypertarget{ref-kostic_genomic_2012}{}
-44. \textbf{Kostic, A. D.}, \textbf{D. Gevers}, \textbf{C. S.
+45. \textbf{Kostic, A. D.}, \textbf{D. Gevers}, \textbf{C. S.
 Pedamallu}, \textbf{M. Michaud}, \textbf{F. Duke}, \textbf{A. M. Earl},
 \textbf{A. I. Ojesina}, \textbf{J. Jung}, \textbf{A. J. Bass},
 \textbf{J. Tabernero}, \textbf{J. Baselga}, \textbf{C. Liu}, \textbf{R.
@@ -1110,13 +1118,13 @@ Genomic analysis identifies association of Fusobacterium with colorectal
 carcinoma. Genome Research \textbf{22}:292--298.
 
 \hypertarget{ref-zackular_human_2014}{}
-45. \textbf{Zackular, J. P.}, \textbf{M. A. M. Rogers}, \textbf{M. T.
+46. \textbf{Zackular, J. P.}, \textbf{M. A. M. Rogers}, \textbf{M. T.
 Ruffin}, and \textbf{P. D. Schloss}. 2014. The human gut microbiome as a
 screening tool for colorectal cancer. Cancer Prevention Research
 (Philadelphia, Pa.) \textbf{7}:1112--1121.
 
 \hypertarget{ref-schloss_introducing_2009}{}
-46. \textbf{Schloss, P. D.}, \textbf{S. L. Westcott}, \textbf{T.
+47. \textbf{Schloss, P. D.}, \textbf{S. L. Westcott}, \textbf{T.
 Ryabin}, \textbf{J. R. Hall}, \textbf{M. Hartmann}, \textbf{E. B.
 Hollister}, \textbf{R. A. Lesniewski}, \textbf{B. B. Oakley}, \textbf{D.
 H. Parks}, \textbf{C. J. Robinson}, \textbf{J. W. Sahl}, \textbf{B.
@@ -1127,58 +1135,58 @@ Comparing Microbial Communities. Appl.Environ.Microbiol.
 \textbf{75}:7537--7541.
 
 \hypertarget{ref-rognes_vsearch_2016}{}
-47. \textbf{Rognes, T.}, \textbf{T. Flouri}, \textbf{B. Nichols},
+48. \textbf{Rognes, T.}, \textbf{T. Flouri}, \textbf{B. Nichols},
 \textbf{C. Quince}, and \textbf{F. Mahé}. 2016. VSEARCH: A versatile
 open source tool for metagenomics. PeerJ \textbf{4}:e2584.
 
 \hypertarget{ref-westcott_opticlust_2017}{}
-48. \textbf{Westcott, S. L.}, and \textbf{P. D. Schloss}. 2017.
+49. \textbf{Westcott, S. L.}, and \textbf{P. D. Schloss}. 2017.
 OptiClust, an Improved Method for Assigning Amplicon-Based Sequence Data
 to Operational Taxonomic Units. mSphere \textbf{2}.
 
 \hypertarget{ref-rdp_Wang2007}{}
-49. \textbf{Wang, Q.}, \textbf{G. M. Garrity}, \textbf{J. M. Tiedje},
+50. \textbf{Wang, Q.}, \textbf{G. M. Garrity}, \textbf{J. M. Tiedje},
 and \textbf{J. R. Cole}. 2007. Naive bayesian classifier for rapid
 assignment of rRNA sequences into the new bacterial taxonomy. Applied
 and Environmental Microbiology. American Society for Microbiology
 \textbf{73}:5261--5267.
 
 \hypertarget{ref-permanova_Anderson2013}{}
-50. \textbf{Anderson, M. J.}, and \textbf{D. C. I. Walsh}. 2013.
+51. \textbf{Anderson, M. J.}, and \textbf{D. C. I. Walsh}. 2013.
 PERMANOVA, ANOSIM, and the mantel test in the face of heterogeneous
 dispersions: What null hypothesis are you testing? Ecological
 Monographs. Wiley-Blackwell \textbf{83}:557--574.
 
 \hypertarget{ref-benjamini_controlling_1995}{}
-51. \textbf{Benjamini, Y.}, and \textbf{Y. Hochberg}. 1995. Controlling
+52. \textbf{Benjamini, Y.}, and \textbf{Y. Hochberg}. 1995. Controlling
 the false discovery rate: A practical and powerful approach to multiple
 testing. Journal of the Royal Statistical Society. Series B
 (Methodological) \textbf{57}:289--300.
 
 \hypertarget{ref-Breiman2001}{}
-52. \textbf{Breiman, L.} 2001. Machine Learning. Springer Nature
+53. \textbf{Breiman, L.} 2001. Machine Learning. Springer Nature
 \textbf{45}:5--32.
 
 \hypertarget{ref-r_citation_2017}{}
-53. \textbf{R Core Team}. 2017. R: A language and environment for
+54. \textbf{R Core Team}. 2017. R: A language and environment for
 statistical computing. R Foundation for Statistical Computing, Vienna,
 Austria.
 
 \hypertarget{ref-rcompanion_citation_2017}{}
-54. \textbf{Mangiafico, S.} 2017. Rcompanion: Functions to support
+55. \textbf{Mangiafico, S.} 2017. Rcompanion: Functions to support
 extension education program evaluation.
 
 \hypertarget{ref-car_citation_2011}{}
-55. \textbf{Fox, J.}, and \textbf{S. Weisberg}. 2011. An R companion to
+56. \textbf{Fox, J.}, and \textbf{S. Weisberg}. 2011. An R companion to
 applied regressionSecond. Sage, Thousand Oaks CA.
 
 \hypertarget{ref-lme4_citation_2015}{}
-56. \textbf{Bates, D.}, \textbf{M. Mächler}, \textbf{B. Bolker}, and
+57. \textbf{Bates, D.}, \textbf{M. Mächler}, \textbf{B. Bolker}, and
 \textbf{S. Walker}. 2015. Fitting linear mixed-effects models using
 lme4. Journal of Statistical Software \textbf{67}:1--48.
 
 \hypertarget{ref-epir_citation_2017}{}
-57. \textbf{Telmo Nunes, M. S. with contributions from}, \textbf{C.
+58. \textbf{Telmo Nunes, M. S. with contributions from}, \textbf{C.
 Heuer}, \textbf{J. Marshall}, \textbf{J. Sanchez}, \textbf{R. Thornton},
 \textbf{J. Reiczigel}, \textbf{J. Robison-Cox}, \textbf{P. Sebastiani},
 \textbf{P. Solymos}, \textbf{K. Yoshida}, \textbf{G. Jones}, \textbf{S.
@@ -1186,18 +1194,18 @@ Pirikahu}, \textbf{S. Firestone}, and \textbf{R. Kyle.} 2017. EpiR:
 Tools for the analysis of epidemiological data.
 
 \hypertarget{ref-metafor_citation_2010}{}
-58. \textbf{Viechtbauer, W.} 2010. Conducting meta-analyses in R with
+59. \textbf{Viechtbauer, W.} 2010. Conducting meta-analyses in R with
 the metafor package. Journal of Statistical Software \textbf{36}:1--48.
 
 \hypertarget{ref-vegan_citation_2017}{}
-59. \textbf{Oksanen, J.}, \textbf{F. G. Blanchet}, \textbf{M. Friendly},
+60. \textbf{Oksanen, J.}, \textbf{F. G. Blanchet}, \textbf{M. Friendly},
 \textbf{R. Kindt}, \textbf{P. Legendre}, \textbf{D. McGlinn}, \textbf{P.
 R. Minchin}, \textbf{R. B. O'Hara}, \textbf{G. L. Simpson}, \textbf{P.
 Solymos}, \textbf{M. H. H. Stevens}, \textbf{E. Szoecs}, and \textbf{H.
 Wagner}. 2017. Vegan: Community ecology package.
 
 \hypertarget{ref-caret_citation_2017}{}
-60. \textbf{Jed Wing, M. K. C. from}, \textbf{S. Weston}, \textbf{A.
+61. \textbf{Jed Wing, M. K. C. from}, \textbf{S. Weston}, \textbf{A.
 Williams}, \textbf{C. Keefer}, \textbf{A. Engelhardt}, \textbf{T.
 Cooper}, \textbf{Z. Mayer}, \textbf{B. Kenkel}, \textbf{the R Core
 Team}, \textbf{M. Benesty}, \textbf{R. Lescarbeau}, \textbf{A. Ziem},
@@ -1205,15 +1213,15 @@ Team}, \textbf{M. Benesty}, \textbf{R. Lescarbeau}, \textbf{A. Ziem},
 \textbf{T. Hunt.} 2017. Caret: Classification and regression training.
 
 \hypertarget{ref-randomforest_citation_2002}{}
-61. \textbf{Liaw, A.}, and \textbf{M. Wiener}. 2002. Classification and
+62. \textbf{Liaw, A.}, and \textbf{M. Wiener}. 2002. Classification and
 regression by randomForest. R News \textbf{2}:18--22.
 
 \hypertarget{ref-ggplot2_citation_2009}{}
-62. \textbf{Wickham, H.} 2009. Ggplot2: Elegant graphics for data
+63. \textbf{Wickham, H.} 2009. Ggplot2: Elegant graphics for data
 analysis. Springer-Verlag New York.
 
 \hypertarget{ref-gridextra_citation_2017}{}
-63. \textbf{Auguie, B.} 2017. GridExtra: Miscellaneous functions for
+64. \textbf{Auguie, B.} 2017. GridExtra: Miscellaneous functions for
 ``grid'' graphics.
 
 \newpage
