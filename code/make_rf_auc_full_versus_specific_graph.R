@@ -153,7 +153,7 @@ adn_stool_graph <- adn_stool %>%
   labs(x = "", y = "Model AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(values = c('#8968CD', '#34618DFF', '#006400', '#FDE725FF'), 
                      guide = guide_legend(nrow = 1, ncol = 4)) + 
-  annotate("text", label = paste("Adenoma (Stool)"), x = 0.80, y = 1.05, size = 2.5) + 
+  annotate("text", label = paste("Adenoma (Feces)"), x = 0.80, y = 1.05, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.position = "bottom", 
         legend.text = element_text(size = 6),
@@ -213,7 +213,7 @@ crc_stool_graph <- crc_stool %>%
   scale_color_manual(name = "", 
                      values = c('#B0C4DE', '#8968CD', '#ED9121', '#006400', '#97D83FFF', '#8B4513', '#FDE725FF'), 
                      guide = guide_legend(nrow = 2, ncol = 4)) + 
-  annotate("text", label = paste("Carcinoma (Stool)"), x = 0.8, y = 1.05, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Feces)"), x = 0.8, y = 1.05, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.position = "bottom", 
         legend.text = element_text(size = 6),

@@ -123,7 +123,7 @@ adn_tissue_graph <- adn_all_tissue %>%
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(Matched)"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_point(size = 3.5, show.legend = T) + 
+  geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
@@ -155,7 +155,7 @@ adn_stool_graph <- adn_all_stool %>%
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.2, size = 3.5, show.legend = T) + 
+  geom_point(position = position_dodge(width = 0.5), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
@@ -164,7 +164,7 @@ adn_stool_graph <- adn_all_stool %>%
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
                      values = c('#8968CD', '#34618DFF', '#006400', '#FDE725FF')) + 
-  annotate("text", label = paste("Adenoma (Stool)"), x = 1.0, y = 1.07, size = 2.5) + 
+  annotate("text", label = paste("Adenoma (Feces)"), x = 1.0, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.09, size = 20), 
         legend.position = "bottom", 
         legend.text = element_text(size = 6),
@@ -187,7 +187,7 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
                         levels = c("burns", "chen", "flemer", "sana"), 
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.25, size = 3.5, show.legend = T) + 
+  geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
@@ -219,7 +219,7 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
                         levels = c("burns", "dejea", "geng"), 
                         labels = c("Burns", "Dejea", "Geng"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.25, size = 3.5, show.legend = T) + 
+  geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "red", geom = "crossbar", size = 0.5, width = 0.5)  + 
   facet_grid(. ~ model_type) + 
@@ -251,7 +251,7 @@ crc_stool_graph <- crc_all_stool %>%
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
-  geom_jitter(width = 0.2, size = 3.5, show.legend = T) + 
+  geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) +
@@ -261,7 +261,7 @@ crc_stool_graph <- crc_all_stool %>%
   scale_color_manual(name = "Study", 
                      values = c('#B0C4DE', '#8968CD', '#ED9121', '#006400', 
                                 '#97D83FFF', '#8B4513', '#FDE725FF')) + 
-  annotate("text", label = paste("Carcinoma (Stool)"), x = 1.4, y = 1.07, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Feces)"), x = 1.4, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.09, size = 20), 
         legend.position = "bottom", 
         legend.text = element_text(size = 6),

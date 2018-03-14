@@ -65,7 +65,7 @@ stool_graph <- stool_data %>%
   theme_bw() + 
   scale_color_manual(name = "", values = c('#B0C4DE', '#8968CD', '#ED9121', '#006400', '#97D83FFF', '#8B4513', '#FDE725FF')) + 
   labs(x = "AUC", y = "") + ggtitle("A") + 
-  annotate("text", label = paste("Carcinoma (Stool)"), x = 0.15, y = 8.4, size = 2.5) + 
+  annotate("text", label = paste("Carcinoma (Feces)"), x = 0.15, y = 8.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
