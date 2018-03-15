@@ -25,10 +25,10 @@ unmatched_tissue_mda <- read_csv("data/process/tables/ALL_genus_unmatched_tissue
   ungroup()
 
 
-stool_vars <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = median(zscore)) %>% 
+stool_vars <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
   arrange(median_zscore) %>% ungroup()
 
-unmatched_tissue_vars <- unmatched_tissue_mda %>% group_by(otu) %>% summarise(median_zscore = median(zscore)) %>% 
+unmatched_tissue_vars <- unmatched_tissue_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
   arrange(median_zscore) %>% ungroup()
 
 
@@ -46,7 +46,7 @@ imp_stool_model <- stool_mda %>%
                       labels = stool_vars$otu)) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
+  scale_fill_gradient2(name = "Z-Score MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("A") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 
@@ -65,7 +65,7 @@ imp_unmatched_tissue_model <- unmatched_tissue_mda %>%
                       labels = unmatched_tissue_vars$otu)) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
+  scale_fill_gradient2(name = "Z-Score MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("B") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 

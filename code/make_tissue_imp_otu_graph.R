@@ -28,6 +28,13 @@ crc_matched_genera <- read_csv("data/process/tables/adn_RF_genera_matched_tissue
   ungroup() %>% filter(otu != "NA/")
 
 
+unmatched_genera_labs <- crc_unmatched_genera %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
+matched_genera_labs <- crc_matched_genera %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
+
 crc_unmatched_otu <- read_csv("data/process/tables/crc_RF_otu_unmatched_tissue_top10_mda.csv") %>% 
   mutate(genus = str_replace_all(genus, "_unclassified", ""), 
          genus = str_replace_all(genus, "\\.", "/"), 
@@ -50,6 +57,12 @@ crc_matched_otu <- read_csv("data/process/tables/adn_RF_otu_matched_tissue_top10
   group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
   ungroup()
 
+unmatched_otu_labs <- crc_unmatched_otu %>% group_by(genus) %>% summarise(median_zscore = mean(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
+matched_otu_labs <- crc_matched_otu %>% group_by(genus) %>% summarise(median_zscore = mean(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
 
 crc_unmatched_sets <- 4
 crc_matched_sets <- 3
@@ -61,10 +74,13 @@ crc_matched_sets <- 3
 crc_matched_genera_graph <- crc_matched_genera %>% 
   mutate(study = factor(study, 
                         levels = c("burns", "dejea", "geng"), 
-                        labels= c("Burns", "Dejea", "Geng"))) %>% 
+                        labels= c("Burns", "Dejea", "Geng")), 
+         otu = factor(otu, 
+                      levels = matched_genera_labs$otu, 
+                      labels = matched_genera_labs$otu)) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
+  scale_fill_gradient2(name = "Z-Score MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("A") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 
@@ -77,10 +93,13 @@ crc_matched_genera_graph <- crc_matched_genera %>%
 crc_unmatched_genera_graph <- crc_unmatched_genera %>% 
   mutate(study = factor(study, 
                         levels = c("burns", "chen", "flemer", "sana"), 
-                        labels= c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
+                        labels= c("Burns", "Chen", "Flemer", "Sanapareddy")), 
+         otu = factor(otu, 
+                      levels = unmatched_genera_labs$otu, 
+                      labels = unmatched_genera_labs$otu)) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
+  scale_fill_gradient2(name = "Z-Score MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("B") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 
@@ -93,10 +112,13 @@ crc_unmatched_genera_graph <- crc_unmatched_genera %>%
 crc_matched_otu_graph <- crc_matched_otu %>% 
   mutate(study = factor(study, 
                         levels = c("burns", "dejea", "geng"), 
-                        labels= c("Burns", "Dejea", "Geng"))) %>% 
+                        labels= c("Burns", "Dejea", "Geng")), 
+         genus = factor(genus, 
+                      levels = matched_otu_labs$genus, 
+                      labels = matched_otu_labs$genus)) %>% 
   ggplot(aes(study, genus, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
+  scale_fill_gradient2(name = "Z-Score MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("C") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 
@@ -109,10 +131,13 @@ crc_matched_otu_graph <- crc_matched_otu %>%
 crc_unmatched_otu_graph <- crc_unmatched_otu %>% 
   mutate(study = factor(study, 
                         levels = c("burns", "chen", "flemer", "sana"), 
-                        labels= c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
+                        labels= c("Burns", "Chen", "Flemer", "Sanapareddy")), 
+         genus = factor(genus, 
+                        levels = unmatched_otu_labs$genus, 
+                        labels = unmatched_otu_labs$genus)) %>% 
   ggplot(aes(study, genus, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
+  scale_fill_gradient2(name = "Z-Score MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("D") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 

@@ -28,6 +28,13 @@ stool_otu_mda <- read_csv("data/process/tables/crc_RF_otu_stool_top10_mda.csv") 
 crc_stool_sets <- 7
 
 
+stool_taxa_labs <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
+stool_otu_labels <- stool_otu_mda %>% group_by(genus) %>% summarise(median_zscore = mean(zscore)) %>% 
+  arrange(median_zscore) %>% ungroup()
+
+
 ##############################################################################################
 ############################## List of code to make figures ##################################
 ##############################################################################################
@@ -36,10 +43,13 @@ crc_stool_sets <- 7
 crc_genera <- stool_mda %>% 
   mutate(study = factor(study, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
-                        labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")))) %>% 
+                        labels= c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")), 
+         otu = factor(otu, 
+                      levels = stool_taxa_labs$otu, 
+                      labels = stool_taxa_labs$otu)) %>% 
   ggplot(aes(study, otu, fill = zscore)) + 
   geom_tile(color = "white") + 
-  scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
+  scale_fill_gradient2(name = "Z-Score MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
   theme_bw() + ggtitle("A") + 
   labs(x = "", y = "") + 
   theme(panel.grid.major = element_blank(), 
@@ -52,7 +62,10 @@ crc_genera <- stool_mda %>%
 crc_otu <- stool_otu_mda %>% 
   mutate(study = factor(study, 
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
-                        labels= c(c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")))) %>% 
+                        labels= c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")), 
+         genus = factor(genus, 
+                      levels = stool_otu_labels$genus, 
+                      labels = stool_otu_labels$genus)) %>% 
   ggplot(aes(study, genus, fill = zscore)) + 
   geom_tile(color = "white") + 
   scale_fill_gradient2(name = "Z-Score Median MDA", low = "blue", mid = "white", high = "red", midpoint = 0) + 
