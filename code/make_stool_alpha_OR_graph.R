@@ -29,7 +29,7 @@ crc_all_stool <- read_csv("data/process/tables/alpha_OR_composite.csv") %>%
 
 ### Used the `viridis_pal()(7)` to choose colors to use
 #### zeller = V4 - #FFB90F
-#### hale = V3-V5 - #443A83FF
+#### hale = V3-V5 - #FF00FF
 #### brim = V1-V3 - #31688EFF
 #### baxter = V4 - #FFB90F
 #### weir = V4 - #FFB90F
@@ -37,9 +37,9 @@ crc_all_stool <- read_csv("data/process/tables/alpha_OR_composite.csv") %>%
 ### flemer = V3-V4 - #35B779FF
 ### ahn = V3-V4 - #35B779FF
 ### lu = V3-V4 - #35B779FF
-### dejea = V3-V5 - #443A83FF
-### geng = V1-V2 - #8FD744FF
-### sana = V1-V2 - #8FD744FF
+### dejea = V3-V5 - #FF00FF
+### geng = V1-V2 - #B0171F
+### sana = V1-V2 - #B0171F
 ### burns = V5-V6 - #FDE725FF
 ### chen = V1-V3 - #31688EFF
 
@@ -64,7 +64,7 @@ adn_stool_graph <- adn_all_stool %>%
   geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
   labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("A") + 
-  scale_color_manual(name = "Variable Region", values = c( '#000000', '#FFB90F', '#443A83FF', '#31688EFF')) + 
+  scale_color_manual(name = "Variable Region", values = c( '#000000', '#FFB90F', '#FF00FF', '#31688EFF')) + 
   annotate("text", label = paste("Adenoma (Feces)"), x = -2.75, y = 5.5, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 
@@ -93,7 +93,7 @@ crc_stool_graph <- crc_all_stool %>%
   facet_grid(. ~ measure) + 
   labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Variable Region", 
-                     values = c('#000000', '#FFC1C1', '#FFB90F', '#35B779FF', '#443A83FF')) + 
+                     values = c('#000000', '#FFC1C1', '#FFB90F', '#35B779FF', '#FF00FF')) + 
   annotate("text", label = paste("Carcinoma (Feces)"), x = -2.70, y = 8.4, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
         panel.grid.major = element_blank(), 

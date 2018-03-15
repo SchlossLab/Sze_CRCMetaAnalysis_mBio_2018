@@ -20,14 +20,14 @@ crc_all_tissue <- read_csv("data/process/tables/alpha_OR_tissue_composite.csv") 
   rename(est = rr, lower = ci_lb, upper = ci_ub) %>% 
   mutate(study = "composite") %>% 
   bind_rows(read_csv("data/process/tables/alpha_OR_ind_tissue_results.csv")) %>% 
-  mutate(region = c(rep("combined", 3), rep("V3-V5", 3), rep("V1-V2", 6), rep("V5-V6", 3), 
-                    rep("V3-V4", 3), rep("V1-V3", 3)))
+  mutate(region = c(rep("combined", 3), rep("V5-V6", 3), rep("V1-V3", 3), rep("V3-V4", 3), 
+                    rep("V1-V2", 3), rep("V3-V5", 3), rep("V1-V2", 3)))
 
 
 
 ### Used the `viridis_pal()(7)` to choose colors to use
 #### zeller = V4 - #440154FF
-#### hale = V3-V5 - #443A83FF
+#### hale = V3-V5 - #FF00FF
 #### brim = V1-V3 - #31688EFF
 #### baxter = V4 - #440154FF
 #### weir = V4 - #440154FF
@@ -35,9 +35,9 @@ crc_all_tissue <- read_csv("data/process/tables/alpha_OR_tissue_composite.csv") 
 ### flemer = V3-V4 - #35B779FF
 ### ahn = V3-V4 - #35B779FF
 ### lu = V3-V4 - #35B779FF
-### dejea = V3-V5 - #443A83FF
-### geng = V1-V2 - #8FD744FF
-### sana = V1-V2 - #8FD744FF
+### dejea = V3-V5 - #FF00FF
+### geng = V1-V2 - #B0171F
+### sana = V1-V2 - #B0171F
 ### burns = V5-V6 - #FDE725FF
 ### chen = V1-V3 - #31688EFF
 
@@ -88,8 +88,8 @@ crc_tissue_graph <- crc_all_tissue %>%
   geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
   labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("B") + 
-  scale_color_manual(name = "Variable Region", values = c('#000000', '#8FD744FF', '#31688EFF', 
-                                '#35B779FF', '#443A83FF', '#FDE725FF')) + 
+  scale_color_manual(name = "Variable Region", values = c('#000000', '#B0171F', '#31688EFF', 
+                                '#35B779FF', '#FF00FF', '#FDE725FF')) + 
   annotate("text", label = paste("Carcinoma\n(Tissue)"), x = -4.4, y = 7, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.14, size = 20), 
         panel.grid.major = element_blank(), 

@@ -133,7 +133,7 @@ stool_data <- get_combined_table(c(stool_sets, both_sets), "stool") %>%
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller")), 
          disease = factor(disease, 
                           levels = c("control", "cancer"), 
-                          labels = c("Control", "Carcinoma")))
+                          labels = c("Normal", "Carcinoma")))
 
 adn_stool_data <- get_combined_table(c(stool_sets, both_sets), "stool") %>% 
   bind_rows() %>% 
@@ -145,7 +145,7 @@ adn_stool_data <- get_combined_table(c(stool_sets, both_sets), "stool") %>%
                         labels = c("Baxter", "Brim", "Hale", "Zeller")), 
          disease = factor(disease, 
                           levels = c("control", "polyp"), 
-                          labels = c("Control", "Adenoma")))
+                          labels = c("Normal", "Adenoma")))
 
 
 ##############################################################################################
