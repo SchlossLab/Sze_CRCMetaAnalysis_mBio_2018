@@ -28,10 +28,10 @@ stool_otu_mda <- read_csv("data/process/tables/crc_RF_otu_stool_top10_mda.csv") 
 crc_stool_sets <- 7
 
 
-stool_taxa_labs <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+stool_taxa_labs <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
-stool_otu_labels <- stool_otu_mda %>% group_by(genus) %>% summarise(median_zscore = mean(zscore)) %>% 
+stool_otu_labels <- stool_otu_mda %>% group_by(genus) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
 

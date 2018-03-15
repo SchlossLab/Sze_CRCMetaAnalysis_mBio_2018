@@ -25,10 +25,10 @@ unmatched_tissue_mda <- read_csv("data/process/tables/ALL_genus_unmatched_tissue
   ungroup()
 
 
-stool_vars <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+stool_vars <- stool_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
-unmatched_tissue_vars <- unmatched_tissue_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+unmatched_tissue_vars <- unmatched_tissue_mda %>% group_by(otu) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
 

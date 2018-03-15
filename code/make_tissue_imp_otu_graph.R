@@ -28,10 +28,10 @@ crc_matched_genera <- read_csv("data/process/tables/adn_RF_genera_matched_tissue
   ungroup() %>% filter(otu != "NA/")
 
 
-unmatched_genera_labs <- crc_unmatched_genera %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+unmatched_genera_labs <- crc_unmatched_genera %>% group_by(otu) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
-matched_genera_labs <- crc_matched_genera %>% group_by(otu) %>% summarise(median_zscore = mean(zscore)) %>% 
+matched_genera_labs <- crc_matched_genera %>% group_by(otu) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
 
@@ -57,10 +57,10 @@ crc_matched_otu <- read_csv("data/process/tables/adn_RF_otu_matched_tissue_top10
   group_by(study) %>% mutate(zscore = scale(mda_median)) %>% 
   ungroup()
 
-unmatched_otu_labs <- crc_unmatched_otu %>% group_by(genus) %>% summarise(median_zscore = mean(zscore)) %>% 
+unmatched_otu_labs <- crc_unmatched_otu %>% group_by(genus) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
-matched_otu_labs <- crc_matched_otu %>% group_by(genus) %>% summarise(median_zscore = mean(zscore)) %>% 
+matched_otu_labs <- crc_matched_otu %>% group_by(genus) %>% summarise(median_zscore = mean(zscore, na.rm = T)) %>% 
   arrange(median_zscore) %>% ungroup()
 
 
