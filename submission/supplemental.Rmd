@@ -35,7 +35,7 @@ loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown", "stringr"))
 ```
 
 
-**Table S1: Alpha Diversity Metrics OR in Tissue**
+**Table S1: Comparison of odds ratios calculated using alpha diversity community metrics associated with the presence of adenomas or carcinoma relative to those in individuals with normal colons using data collected from tissue samples.**
 
 \footnotesize
 
@@ -50,7 +50,7 @@ alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_
          comparison = "Adenoma", 
          tissue_type = "Combined")
 
-colnames(alpha_RR_adn_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
+colnames(alpha_RR_adn_tissue) <- c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure", 
                                    "Tumor", "Tissue Group")
 
 
@@ -63,7 +63,7 @@ alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/al
          comparison = "Carcinoma", 
          tissue_type = "Unmatched")
 
-colnames(alpha_RR_crc_unmatch_tissue) <- c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
+colnames(alpha_RR_crc_unmatch_tissue) <- c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure", 
                                            "Tumor", "Tissue Group")
 
 
@@ -76,7 +76,7 @@ alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alph
          comparison = "Carcinoma", 
          tissue_type = "Matched")
 
-colnames(alpha_RR_crc_match_tissue) <-  c("Odds Ratio", "Lower Bound", "Upper Bound", "P-value", "Measure", 
+colnames(alpha_RR_crc_match_tissue) <-  c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure", 
                                           "Tumor", "Tissue Group")
 
 combined_table_S3 <- alpha_RR_adn_tissue %>% bind_rows(alpha_RR_crc_unmatch_tissue, alpha_RR_crc_match_tissue)
@@ -91,7 +91,7 @@ kable(combined_table_S3, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
-**Table S2: Bray-Curtis Distance Matrix Analyzed by PERMANOVA for Feces and Tissue**
+**Table S2: Comparison of community dissimilarity between individuals with normal colons and those with adenomas and carcinomas as calculated using Bray-Curtis distance and tested using PERMANOVA.**
 
 ```{r supplemental_table1, echo=FALSE, message=FALSE, warning=FALSE}
 
@@ -106,9 +106,9 @@ table_s1 <- temp_t1 %>%
                                       c("Brim", "Zeller", "Baxter", "Hale")), 
          comparison = "Adenoma", 
          sample_type = "Feces") %>% 
-  select(fstat, r2, pvalue, study, comparison, sample_type)
+  select(study, comparison, sample_type, r2, pvalue)
 
-colnames(table_s1) <- c("F statistic", "R2", "P-value", "Study", "Tumor", "Sample Type")
+colnames(table_s1) <- c("Study", "Tumor", "Sample Type", "R2", "P-value")
 
 temp_t2 <- read_csv("../data/process/tables/beta_perm_stool_summary.csv")
 
@@ -121,10 +121,10 @@ table_s2 <- temp_t2 %>%
                                       c("Wang", "Weir", "Ahn", "Zeller", "Baxter", "Hale", "Flemer")), 
          comparison = "Carcinoma", 
          sample_type = "Feces") %>% 
-  select(fstat, r2, pvalue, study, comparison, sample_type)
+  select(study, comparison, sample_type, r2, pvalue)
 
 
-colnames(table_s2) <- c("F statistic", "R2", "P-value", "Study", "Tumor", "Sample Type")
+colnames(table_s2) <- c("Study", "Tumor", "Sample Type", "R2", "P-value")
 
 combined_table_s1 <- table_s1 %>% bind_rows(table_s2)
 
@@ -139,9 +139,9 @@ table_s3 <- temp_t3a %>%
          study = c("Lu", "Flemer", "Lu (Matched)"), 
          comparison = "Adenoma", 
          sample_type = "Tissue") %>% 
-  select(fstat, r2, pvalue, study, comparison, sample_type)
+  select(study, comparison, sample_type, r2, pvalue)
 
-colnames(table_s3) <- c("F statistic", "R2", "P-value", "Study", "Tumor", "Sample Type")
+colnames(table_s3) <- c("Study", "Tumor", "Sample Type", "R2", "P-value")
 
 
 temp_t4a <- read_csv("../data/process/tables/beta_perm_unmatched_tissue_summary.csv")
@@ -156,11 +156,11 @@ table_s4 <- temp_t4a %>%
                    "Dejea (Matched)", "Geng (Matched)", "Burns (Matched)"), 
          comparison = "Carcinoma", 
          sample_type = "Tissue") %>% 
-  select(fstat, r2, pvalue, study, comparison, sample_type)
+  select(study, comparison, sample_type, r2, pvalue)
 
 
 
-colnames(table_s4) <- c("F statistic", "R2", "P-value", "Study", "Tumor", "Sample Type")
+colnames(table_s4) <- c("Study", "Tumor", "Sample Type", "R2", "P-value")
 
 combined_table_s2 <- table_s3 %>% bind_rows(table_s4)
 
@@ -175,7 +175,7 @@ kable(combined_table_s1, format = "markdown", align = 'c', padding = 2)
 
 
 
-**Table S3: OR in Feces or Tumor by Individual Genera with Initial P-Value under 0.05**
+**Table S3: ORs for individual taxa associated with individuals who had a normal colon or adenomas or carcinomas using data collected from stool.** The listed P-values were less than 0.05 prior to using a Benjimani-Hochberg correction for multiple comparisons.
 
 \footnotesize
 
@@ -191,9 +191,9 @@ temp_8 <- read_csv("../data/process/tables/adn_select_genus_OR_stool_composite.c
          bh = format(bh, scientific = T, digits = 3), 
          measure = str_replace_all(measure, "_unclassified", ""), 
          comparison = "Adenoma") %>% 
-  select(rr, ci_lb, ci_ub, pvalue, bh, measure, comparison)
+  select(measure, comparison, rr, ci_lb, ci_ub, pvalue, bh)
   
-colnames(temp_8) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Taxa ID", "Tumor")
+colnames(temp_8) <- c("Taxon", "Tumor", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
 temp_10 <- read_csv("../data/process/tables/select_genus_OR_stool_composite.csv") %>% 
   mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
@@ -205,9 +205,9 @@ temp_10 <- read_csv("../data/process/tables/select_genus_OR_stool_composite.csv"
          bh = format(bh, scientific = T, digits = 3), 
          measure = str_replace_all(measure, "_unclassified", ""), 
          comparison = "Carcinoma") %>% 
-  select(rr, ci_lb, ci_ub, pvalue, bh, measure, comparison)
+  select(measure, comparison, rr, ci_lb, ci_ub, pvalue, bh)
 
-colnames(temp_10) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Taxa ID", "Tumor")
+colnames(temp_10) <- c("Taxon", "Tumor", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
 combined_table_S4 <- temp_8 %>% bind_rows(temp_10)
 
@@ -219,8 +219,10 @@ kable(combined_table_S4, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
+\blandscape
 
-**Table S4: OR in Tissue of Tumor by Individual Genera with Initial P-Value under 0.05**
+**Table S4: ORs for individual taxa associated with individuals who had a normal colon or adenomas or carcinomas using data collected from tissue samples.** The listed P-values were less than 0.05 prior to using a Benjimani-Hochberg correction for multiple comparisons.
+
 
 \footnotesize
 
@@ -237,10 +239,9 @@ temp_9 <- read_csv("../data/process/tables/adn_select_genus_OR_tissue_composite.
          measure = str_replace_all(measure, "_unclassified", ""), 
          comparison = "Adenoma", 
          tissue_type = "Combined") %>% 
-  select(rr, ci_lb, ci_ub, pvalue, bh, measure, comparison, tissue_type)
+  select(measure, comparison, tissue_type, rr, ci_lb, ci_ub, pvalue, bh)
   
-colnames(temp_9) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Taxa ID", 
-                      "Tumor", "Tissue Group")
+colnames(temp_9) <- c("Taxon", "Tumor", "Tissue Group", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
 temp_11 <- read_csv("../data/process/tables/select_genus_OR_unmatched_tissue_composite.csv") %>% 
   mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
@@ -253,10 +254,9 @@ temp_11 <- read_csv("../data/process/tables/select_genus_OR_unmatched_tissue_com
          measure = str_replace_all(measure, "_unclassified", ""), 
          comparison = "Carcinoma", 
          tissue_type = "Unmatched") %>% 
-  select(rr, ci_lb, ci_ub, pvalue, bh, measure, comparison, tissue_type)
+  select(measure, comparison, tissue_type, rr, ci_lb, ci_ub, pvalue, bh)
   
-colnames(temp_11) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Taxa ID", 
-                      "Tumor", "Tissue Group")
+colnames(temp_11) <- c("Taxon", "Tumor", "Tissue Group", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
 temp_12 <- read_csv("../data/process/tables/select_genus_OR_matched_tissue_composite.csv") %>% 
   mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
@@ -269,10 +269,9 @@ temp_12 <- read_csv("../data/process/tables/select_genus_OR_matched_tissue_compo
          measure = str_replace_all(measure, "_unclassified", ""), 
          comparison = "Carcinoma", 
          tissue_type = "Matched") %>% 
-  select(rr, ci_lb, ci_ub, pvalue, bh, measure, comparison, tissue_type)
+  select(measure, comparison, tissue_type, rr, ci_lb, ci_ub, pvalue, bh)
   
-colnames(temp_12) <- c("OR", "Lower Bound", "Upper Bound", "P-value", "BH", "Lowest Taxa ID", 
-                      "Tumor", "Tissue Group")
+colnames(temp_12) <- c("Taxon", "Tumor", "Tissue Group", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
 combined_table_S5 <- temp_9 %>% bind_rows(temp_11, temp_12)
 
@@ -282,6 +281,7 @@ kable(combined_table_S5, format = "markdown", align = 'c', padding = 2)
 
 \normalsize
 
+\elandscape
 \newpage
 
 
