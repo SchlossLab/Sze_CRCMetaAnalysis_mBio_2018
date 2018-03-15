@@ -125,9 +125,9 @@ adn_tissue_graph <- adn_all_tissue %>%
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
-               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+               colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
-  geom_hline(yintercept = 0.5, linetype = "dashed") + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
@@ -157,9 +157,9 @@ adn_stool_graph <- adn_all_stool %>%
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_point(position = position_dodge(width = 0.5), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
-               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+               colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
-  geom_hline(yintercept = 0.5, linetype = "dashed") + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
@@ -189,9 +189,9 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
-               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+               colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
-  geom_hline(yintercept = 0.5, linetype = "dashed") + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("C") + 
   scale_color_manual(name = "Study", 
@@ -221,9 +221,9 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
-               colour = "red", geom = "crossbar", size = 0.5, width = 0.5)  + 
+               colour = "black", geom = "crossbar", size = 0.5, width = 0.5)  + 
   facet_grid(. ~ model_type) + 
-  geom_hline(yintercept = 0.5, linetype = "dashed") + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
@@ -253,9 +253,9 @@ crc_stool_graph <- crc_all_stool %>%
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
-               colour = "red", geom = "crossbar", size = 0.5, width = 0.5) + 
+               colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) +
-  geom_hline(yintercept = 0.5, linetype = "dashed") + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
