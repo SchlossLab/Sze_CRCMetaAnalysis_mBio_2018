@@ -98,6 +98,10 @@
 
 \usepackage{mathtools}
 
+\usepackage{lscape}
+\newcommand{\blandscape}{\begin{landscape}}
+\newcommand{\elandscape}{\end{landscape}}
+
 \begin{document}
 
 \section{Making Sense of the Noise: Leveraging Existing 16S rRNA Gene
@@ -1226,8 +1230,8 @@ analysis. Springer-Verlag New York.
 
 \newpage
 
-\textbf{Table 1: Total Individuals in each Study Included in the Fecal
-Analysis}
+\textbf{Table 1: Characteristics of the datasets included in the
+fecal-based analysis}
 
 \footnotesize
 
@@ -1251,7 +1255,8 @@ Zeller & SRA & V4 & 50 & 37 & 41\tabularnewline
 \normalsize
 \newpage
 
-\textbf{Table 2: Studies with Tissue Samples Included in the Analysis}
+\textbf{Table 2: Characteristics of the datasets included in the
+tissue-based analyses}
 
 \footnotesize
 
@@ -1274,87 +1279,96 @@ Sanapareddy & Author & V1-2 & 38 & 0 & 33\tabularnewline
 \normalsize
 \newpage
 
-\textbf{Figure 1: Significant Bacterial Community Metrics for Adenoma or
-Carcinoma in Feces} A) Adenoma evenness. B) Carcinoma evenness. C)
-Carcinoma Shannon diversity. Blue represents controls and red represents
-either adenoma (panel A) or carcinoma (panel B and C). The black lines
-represent the median value for each repsective group.
+\textbf{Figure 1: Comparison of alpha diversity indices that were
+significant between individuals with normal colons, and those with
+adenomas or carcinomas using data collected from fecal samples} A)
+Comparison of evenness between individuals with normal colons and
+adenomas. B) Comparison of evenness between individuals with normal
+colons and carcinomas. C) Comparison of Shannon diversity between
+individuals with normal colons and carcinomas. Blue points represent
+individuals with normal colons and red points represent individuals with
+either adenomas (panel A) or carcinomas (panel B and C). The black lines
+represent the median value for each group.
 
-\textbf{Figure 2: Odds Ratio for Adenoma or Carcinoma based on Bacterial
-Community Metrics in Feces.} A) Community-based odds ratio for adenoma.
-B) Community-based odds ratio for carcinoma. Colors represent the
-different variable regions used within the respective study.
+\textbf{Figure 2: Comparison of odds ratios calculated using alpha
+diversity community metrics associated with the presence of adenomas (A)
+or carcinoma (B) relative to those in individuals with normal colons
+using data collected from stool samples.}
 
-\textbf{Figure 3: The AUC of Indivdiual Significant OR Taxa to classify
-Carcinoma.} A) Fecal samples. B) Unmatched tissue samples. The larger
-circle represents the median AUC of all studies and the smaller circles
-represent the individual AUC for a particular study. The dotted line
-denotes an AUC of 0.5.
+\textbf{Figure 3: AUC values when classifing individuals as having
+normal colons or carcinomas using taxa with significant ORs when using
+stool samples (A) and unmatched tissue samples (B).} We did not identify
+any taxa as having a significant OR to differentiate individuals with
+normal colons and adenomas or using matched tissue samples. The large
+black circles represent the median AUC of all studies and the smaller
+circles represent the individual AUC for a particular study. The dotted
+line denotes an AUC of 0.5.
 
-\textbf{Figure 4: Most Important Members in Significant OR Taxa
-Carcinoma Models.} A) Common taxa in the top 10 percent for carcinoma
-Random Forest fecal-based models. B) Common taxa in the top 10 percent
-for carcinoma Random Forest unmatched tissue-based models. Blue
-represents less important and red represents more important to the
-Random Forest Model. White means that particular taxa was not in the top
-10\%.
+\textbf{Figure 4: Relative importance of taxa with significant ORs in
+Random Forest models for differentiating between individuals with normal
+colons and carcinomas using stool samples (A) or unmatched tissue
+samples (B).} The colors indicate the z-transformed (i.e.~mean of 0.0
+and standard deviation of 1.0) mean decrease in accuracy values
+calculated from the model for each study. The taxa are ranked by their
+mean z-score-transformed mean decrease in accuracy.
 
-\textbf{Figure 5: Fecal Sample Random Forest Model Train AUCs.} A)
-Adenoma random forest model AUCs between all genera, all OTU, and select
-model based on significant OR taxa. B) Carcinoma random forest model
-AUCs between all genera, all OTU, and select model based on significant
-OR taxa. The black line represents the median AUC for the respective
-group. If no values are present in the singificant OR taxa group then
-there were no significant taxa identified and no model was tested.
+\textbf{Figure 5: Comparison of Random Forest modeling approaches to
+classify individuals as having normal colons or adenomas (A) or
+carcinomas (B) when training the models using the taxa with significant
+ORs, all taxa in a community, or all OTUs in a community when using
+stool samples.} No taxa had a significant OR associated with the
+presence of adenomas using stool samples. The black line represents the
+median AUC for the respective group. The dashed gray line indicates an
+AUC of 0.5.
 
-\textbf{Figure 6: Fecal Sample Random Forest Genus-Based Model Test
-AUCs.} A) Test AUCs of adenoma models using all genera across study. B)
-Test AUCs of carcinoma models using all genera or significant OR taxa
-only. The black line represents the AUC at 0.5. The red lines represent
-the median AUC of all test AUCs for a specific study.
+\textbf{Figure 6: Testing of Random Forest models to classify
+individuals as having normal colons or adenomas (A) or carcinomas (B)
+when using sequence data obtained from stool samples.} Models were
+trained on data from each study (Figure 5) and tested on the other
+studies. The black lines represent the median AUC of all test AUCs for a
+specific study. The dashed gray line represents the AUC at 0.5.
 
 \newpage
 
-\textbf{Figure S1: Odds Ratio for Adenoma or Carcinoma based on
-Bacterial Community Metrics in Tissue.} A) Community-based odds ratio
-for adenoma. B) Community-based odds ratio for carcinoma. Colors
-represent the different variable regions used within the respective
-study.
+\textbf{Figure S1: Comparison of Odds Ratios associated with normal
+colons or adenomas (A) or carcinomas (B) calculated using alpha
+diversity indices with sequence data generated from tissue samples.} The
+pooled results are from the aggregation of data across all studies. The
+horizontal lines indicate the 95\% confidence interval for the OR.
 
-\textbf{Figure S2: Tissue Random Forest Model Train AUCs.} A) Adenoma
-random forest model AUCs between all genera, all OTU, and select model
-based on significant OR taxa in unmatched and matched tissue. B)
-Carcinoma random forest model AUCs between all genera, all OTU, and
-select model based on significant OR taxa in unmatched and matched
-tissue. The black line represents the median AUC for the respective
-group. If no values are present in the singificant OR taxa group then
-there were no significant taxa identified and no model was tested.
+\textbf{Figure S2: Relative importance of taxa (A) and OTUs (B) in
+Random Forest models for differentiating between individuals with normal
+colons and carcinomas using stool samples.} These taxa and OTUs were
+among the top 10\% most important features in each model. The colors
+indicate the z-transformed (i.e.~mean of 0.0 and standard deviation of
+1.0) mean decrease in accuracy values calculated from the model for each
+study. The taxa are ranked by their mean z-score-transformed mean
+decrease in accuracy.
 
-\textbf{Figure S3: Most Common Taxa Across Carcinoma Full Community
-Fecal Sample Study Models.} A) Common taxa in the top 10 percent for
-carcinoma Random Forest all taxa-based models. B) Common taxa in the top
-10 percent for carcinoma Random Forest all OTU-based models. Blue
-represents less important and red represents more important to the
-Random Forest Model. White means that particular taxa was not in the top
-10\%.
+\textbf{Figure S3: Relative importance of taxa (A, B) and OTUs (C, D) in
+Random Forest models for differentiating between individuals with normal
+colons and carcinomas using matched (A, C) and unmatched (B, D) tissue
+samples.} hese taxa and OTUs were among the top 10\% most important
+features in each model. The colors indicate the z-transformed (i.e.~mean
+of 0.0 and standard deviation of 1.0) mean decrease in accuracy values
+calculated from the model for each study. The taxa are ranked by their
+mean z-score-transformed mean decrease in accuracy.
 
-\textbf{Figure S4: Most Common Genera Across Full Community Tissue Study
-Models.} A) Common genera in the top 10 percent for matched carcinoma
-Random Forest all genera-based models. B) Common genera in the top 10
-percent for unmatched carcinoma Random Forest all genera-based models.
-C) Common genera in the top 10 percent for matched carcinoma Random
-Forest all OTU-based models. D) Common genera in the top 10 percent for
-unmatched carcinoma Random Forest all OTU-based models. Blue represents
-less important and red represents more important to the Random Forest
-Model. White means that particular taxa was not in the top 10\%.
+\textbf{Figure S4: Comparison of Random Forest modeling approaches to
+classify individuals as having normal colons or adenomas (A) or
+carcinomas (B) when training the models using the taxa with significant
+ORs, all taxa in a community, or all OTUs in a community when using data
+from tissue samples.} No taxa had a significant OR associated with the
+presence of adenomas using tissue samples. The black line represents the
+median AUC for the respective group. The dashed gray line indicates an
+AUC of 0.5.
 
-\textbf{Figure S5: Tissue Random Forest Genus-Based Model Test AUCs.} A)
-Test AUCs of adenoma models using all genera across study. B) Test AUCs
-of carcinoma models using all genera for matched tissue studies. C) Test
-AUCs of carcinoma models using all genera or significant OR taxa only
-for unmatched tissue studies The black line represents the AUC at 0.5.
-The red lines represent the median AUC of all test AUCs for a specific
-study.
+\textbf{Figure S5: Testing of Random Forest models to classify
+individuals as having normal colons or adenomas (A) or carcinomas (B, C)
+when using sequence data obtained from tissue samples.} Models were
+trained on data from each study (Figure S5) and tested on the other
+studies. The black lines represent the median AUC of all test AUCs for a
+specific study. The dashed gray line represents the AUC at 0.5.
 
 \newpage
 
