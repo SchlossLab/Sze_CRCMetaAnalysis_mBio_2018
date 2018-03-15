@@ -123,11 +123,11 @@ adn_tissue_graph <- adn_all_tissue %>%
                         levels = c("flemer", "lu"), 
                         labels = c("Flemer", "Lu\n(Matched)"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
-  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
@@ -155,11 +155,11 @@ adn_stool_graph <- adn_all_stool %>%
                         levels = c("baxter", "brim", "hale", "zeller"), 
                         labels = c("Baxter", "Brim", "Hale", "Zeller"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   geom_point(position = position_dodge(width = 0.5), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
-  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
@@ -187,11 +187,11 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
                         levels = c("burns", "chen", "flemer", "sana"), 
                         labels = c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) + 
-  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("C") + 
   scale_color_manual(name = "Study", 
@@ -219,11 +219,11 @@ crc_matched_tissue_graph <- crc_all_matched_tissue %>%
                         levels = c("burns", "dejea", "geng"), 
                         labels = c("Burns", "Dejea", "Geng"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5)  + 
   facet_grid(. ~ model_type) + 
-  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
@@ -251,11 +251,11 @@ crc_stool_graph <- crc_all_stool %>%
                         levels = c("ahn", "baxter", "flemer", "hale", "wang", "weir", "zeller"), 
                         labels = c("Ahn", "Baxter", "Flemer", "Hale", "Wang", "Weir", "Zeller"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
+  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
   stat_summary(fun.y = median, fun.ymin = median, fun.ymax = median, 
                colour = "black", geom = "crossbar", size = 0.5, width = 0.5) + 
   facet_grid(. ~ model_type) +
-  geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Study", 
