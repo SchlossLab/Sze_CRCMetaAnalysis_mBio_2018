@@ -41,42 +41,42 @@ loadLibs(c("tidyverse", "scales", "knitr", "rmarkdown", "stringr"))
 
 ```{r supplemental_table3, echo=FALSE, message=FALSE, warning=FALSE}
 
-alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_OR_tissue_composite.csv")) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = round(pvalue, digits = 2), 
-         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
-         comparison = "Adenoma", 
+alpha_RR_adn_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_adn_OR_tissue_composite.csv")) %>%
+  mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = round(pvalue, digits = 2),
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"),
+         comparison = "Adenoma",
          tissue_type = "Combined")
 
-colnames(alpha_RR_adn_tissue) <- c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure", 
+colnames(alpha_RR_adn_tissue) <- c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure",
                                    "Tumor", "Tissue Group")
 
 
 
-alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_unmatched_tissue_composite.csv")) %>%   mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = round(pvalue, digits = 2), 
-         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
-         comparison = "Carcinoma", 
+alpha_RR_crc_unmatch_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_unmatched_tissue_composite.csv")) %>%   mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = round(pvalue, digits = 2),
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"),
+         comparison = "Carcinoma",
          tissue_type = "Unmatched")
 
-colnames(alpha_RR_crc_unmatch_tissue) <- c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure", 
+colnames(alpha_RR_crc_unmatch_tissue) <- c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure",
                                            "Tumor", "Tissue Group")
 
 
-alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_matched_tissue_composite.csv")) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = round(pvalue, digits = 2), 
-         measure = c("OTU Richness", "Shannon Diversity", "Evenness"), 
-         comparison = "Carcinoma", 
+alpha_RR_crc_match_tissue <- as.data.frame(read_csv("../data/process/tables/alpha_OR_matched_tissue_composite.csv")) %>%
+  mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = round(pvalue, digits = 2),
+         measure = c("OTU Richness", "Shannon Diversity", "Evenness"),
+         comparison = "Carcinoma",
          tissue_type = "Matched")
 
-colnames(alpha_RR_crc_match_tissue) <-  c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure", 
+colnames(alpha_RR_crc_match_tissue) <-  c("Odds Ratio", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "Measure",
                                           "Tumor", "Tissue Group")
 
 combined_table_S3 <- alpha_RR_adn_tissue %>% bind_rows(alpha_RR_crc_unmatch_tissue, alpha_RR_crc_match_tissue)
@@ -97,30 +97,30 @@ kable(combined_table_S3, format = "markdown", align = 'c', padding = 2)
 
 temp_t1 <- read_csv("../data/process/tables/beta_perm_adn_stool_summary.csv")
 
-table_s1 <- temp_t1 %>% 
-  mutate(fstat = round(fstat, digits = 2), 
-         r2 = round(r2, digits = 3), 
-         pvalue = round(pvalue, digits = 4), 
-         study = stringr::str_replace(study, 
-                                      c("brim", "zeller", "baxter", "hale"), 
-                                      c("Brim", "Zeller", "Baxter", "Hale")), 
-         comparison = "Adenoma", 
-         sample_type = "Feces") %>% 
+table_s1 <- temp_t1 %>%
+  mutate(fstat = round(fstat, digits = 2),
+         r2 = round(r2, digits = 3),
+         pvalue = round(pvalue, digits = 4),
+         study = stringr::str_replace(study,
+                                      c("brim", "zeller", "baxter", "hale"),
+                                      c("Brim", "Zeller", "Baxter", "Hale")),
+         comparison = "Adenoma",
+         sample_type = "Feces") %>%
   select(study, comparison, sample_type, r2, pvalue)
 
 colnames(table_s1) <- c("Study", "Tumor", "Sample Type", "R2", "P-value")
 
 temp_t2 <- read_csv("../data/process/tables/beta_perm_stool_summary.csv")
 
-table_s2 <- temp_t2 %>% 
-  mutate(fstat = round(fstat, digits = 2), 
-         r2 = round(r2, digits = 3), 
-         pvalue = round(pvalue, digits = 4), 
-         study = stringr::str_replace(study, 
-                                      c("wang", "weir", "ahn", "zeller", "baxter", "hale", "flemer"), 
-                                      c("Wang", "Weir", "Ahn", "Zeller", "Baxter", "Hale", "Flemer")), 
-         comparison = "Carcinoma", 
-         sample_type = "Feces") %>% 
+table_s2 <- temp_t2 %>%
+  mutate(fstat = round(fstat, digits = 2),
+         r2 = round(r2, digits = 3),
+         pvalue = round(pvalue, digits = 4),
+         study = stringr::str_replace(study,
+                                      c("wang", "weir", "ahn", "zeller", "baxter", "hale", "flemer"),
+                                      c("Wang", "Weir", "Ahn", "Zeller", "Baxter", "Hale", "Flemer")),
+         comparison = "Carcinoma",
+         sample_type = "Feces") %>%
   select(study, comparison, sample_type, r2, pvalue)
 
 
@@ -131,14 +131,14 @@ combined_table_s1 <- table_s1 %>% bind_rows(table_s2)
 temp_t3a <- read_csv("../data/process/tables/beta_perm_adn_unmatched_tissue_summary.csv")
 temp_t3b <- read_csv("../data/process/tables/beta_perm_adn_matched_tissue_summary.csv")
 
-table_s3 <- temp_t3a %>% 
-  bind_rows(temp_t3b) %>% 
-  mutate(fstat = round(fstat, digits = 2), 
-         r2 = round(r2, digits = 3), 
-         pvalue = round(pvalue, digits = 4), 
-         study = c("Lu", "Flemer", "Lu (Matched)"), 
-         comparison = "Adenoma", 
-         sample_type = "Tissue") %>% 
+table_s3 <- temp_t3a %>%
+  bind_rows(temp_t3b) %>%
+  mutate(fstat = round(fstat, digits = 2),
+         r2 = round(r2, digits = 3),
+         pvalue = round(pvalue, digits = 4),
+         study = c("Lu", "Flemer", "Lu (Matched)"),
+         comparison = "Adenoma",
+         sample_type = "Tissue") %>%
   select(study, comparison, sample_type, r2, pvalue)
 
 colnames(table_s3) <- c("Study", "Tumor", "Sample Type", "R2", "P-value")
@@ -147,15 +147,15 @@ colnames(table_s3) <- c("Study", "Tumor", "Sample Type", "R2", "P-value")
 temp_t4a <- read_csv("../data/process/tables/beta_perm_unmatched_tissue_summary.csv")
 temp_t4b <- read_csv("../data/process/tables/beta_perm_matched_tissue_summary.csv")
 
-table_s4 <- temp_t4a %>% 
-  bind_rows(temp_t4b) %>% 
-  mutate(fstat = round(fstat, digits = 2), 
-         r2 = round(r2, digits = 3), 
-         pvalue = round(pvalue, digits = 4), 
-         study = c("Sanapareddy", "Burns", "Flemer", "Chen", 
-                   "Dejea (Matched)", "Geng (Matched)", "Burns (Matched)"), 
-         comparison = "Carcinoma", 
-         sample_type = "Tissue") %>% 
+table_s4 <- temp_t4a %>%
+  bind_rows(temp_t4b) %>%
+  mutate(fstat = round(fstat, digits = 2),
+         r2 = round(r2, digits = 3),
+         pvalue = round(pvalue, digits = 4),
+         study = c("Sanapareddy", "Burns", "Flemer", "Chen",
+                   "Dejea (Matched)", "Geng (Matched)", "Burns (Matched)"),
+         comparison = "Carcinoma",
+         sample_type = "Tissue") %>%
   select(study, comparison, sample_type, r2, pvalue)
 
 
@@ -177,34 +177,34 @@ kable(combined_table_s1, format = "markdown", align = 'c', padding = 2)
 
 **Table S3: ORs for individual taxa associated with individuals who had a normal colon or adenomas or carcinomas using data collected from stool.** The listed P-values were less than 0.05 prior to using a Benjimani-Hochberg correction for multiple comparisons.
 
-\footnotesize
+\scriptsize
 
 ```{r supplemental_table8, echo=FALSE, message=FALSE, warning=FALSE}
 
-temp_8 <- read_csv("../data/process/tables/adn_select_genus_OR_stool_composite.csv") %>% 
-  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
-  arrange(bh, pvalue, rr) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = format(pvalue, scientific = T, digits = 3), 
-         bh = format(bh, scientific = T, digits = 3), 
-         measure = str_replace_all(measure, "_unclassified", ""), 
-         comparison = "Adenoma") %>% 
+temp_8 <- read_csv("../data/process/tables/adn_select_genus_OR_stool_composite.csv") %>%
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>%
+  arrange(bh, pvalue, rr) %>%
+  mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = format(pvalue, scientific = T, digits = 3),
+         bh = format(bh, scientific = T, digits = 3),
+         measure = str_replace_all(measure, "_unclassified", ""),
+         comparison = "Adenoma") %>%
   select(measure, comparison, rr, ci_lb, ci_ub, pvalue, bh)
-  
+
 colnames(temp_8) <- c("Taxon", "Tumor", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
-temp_10 <- read_csv("../data/process/tables/select_genus_OR_stool_composite.csv") %>% 
-  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
-  arrange(bh, pvalue, rr) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = format(pvalue, scientific = T, digits = 3), 
-         bh = format(bh, scientific = T, digits = 3), 
-         measure = str_replace_all(measure, "_unclassified", ""), 
-         comparison = "Carcinoma") %>% 
+temp_10 <- read_csv("../data/process/tables/select_genus_OR_stool_composite.csv") %>%
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>%
+  arrange(bh, pvalue, rr) %>%
+  mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = format(pvalue, scientific = T, digits = 3),
+         bh = format(bh, scientific = T, digits = 3),
+         measure = str_replace_all(measure, "_unclassified", ""),
+         comparison = "Carcinoma") %>%
   select(measure, comparison, rr, ci_lb, ci_ub, pvalue, bh)
 
 colnames(temp_10) <- c("Taxon", "Tumor", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
@@ -219,70 +219,61 @@ kable(combined_table_S4, format = "markdown", align = 'c', padding = 2)
 
 \newpage
 
-\blandscape
 
 **Table S4: ORs for individual taxa associated with individuals who had a normal colon or adenomas or carcinomas using data collected from tissue samples.** The listed P-values were less than 0.05 prior to using a Benjimani-Hochberg correction for multiple comparisons.
 
 
-\footnotesize
+\scriptsize
 
 ```{r supplemental_table9, echo=FALSE, message=FALSE, warning=FALSE}
 
-temp_9 <- read_csv("../data/process/tables/adn_select_genus_OR_tissue_composite.csv") %>% 
-  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
-  arrange(bh, pvalue, rr) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = format(pvalue, scientific = T, digits = 3), 
-         bh = format(bh, scientific = T, digits = 3), 
-         measure = str_replace_all(measure, "_unclassified", ""), 
-         comparison = "Adenoma", 
-         tissue_type = "Combined") %>% 
+temp_9 <- read_csv("../data/process/tables/adn_select_genus_OR_tissue_composite.csv") %>%
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>%
+  arrange(bh, pvalue, rr) %>%
+  mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = format(pvalue, scientific = T, digits = 3),
+         bh = format(bh, scientific = T, digits = 3),
+         measure = str_replace_all(measure, "_unclassified", ""),
+         comparison = "Adenoma",
+         tissue_type = "Combined") %>%
   select(measure, comparison, tissue_type, rr, ci_lb, ci_ub, pvalue, bh)
-  
+
 colnames(temp_9) <- c("Taxon", "Tumor", "Tissue Group", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
-temp_11 <- read_csv("../data/process/tables/select_genus_OR_unmatched_tissue_composite.csv") %>% 
-  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
-  arrange(bh, pvalue, rr) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = format(pvalue, scientific = T, digits = 3), 
-         bh = format(bh, scientific = T, digits = 3), 
-         measure = str_replace_all(measure, "_unclassified", ""), 
-         comparison = "Carcinoma", 
-         tissue_type = "Unmatched") %>% 
+temp_11 <- read_csv("../data/process/tables/select_genus_OR_unmatched_tissue_composite.csv") %>%
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>%
+  arrange(bh, pvalue, rr) %>%
+  mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = format(pvalue, scientific = T, digits = 3),
+         bh = format(bh, scientific = T, digits = 3),
+         measure = str_replace_all(measure, "_unclassified", ""),
+         comparison = "Carcinoma",
+         tissue_type = "Unmatched") %>%
   select(measure, comparison, tissue_type, rr, ci_lb, ci_ub, pvalue, bh)
-  
+
 colnames(temp_11) <- c("Taxon", "Tumor", "Tissue Group", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
-temp_12 <- read_csv("../data/process/tables/select_genus_OR_matched_tissue_composite.csv") %>% 
-  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>% 
-  arrange(bh, pvalue, rr) %>% 
-  mutate(rr = round(rr, digits = 2), 
-         ci_lb = round(ci_lb, digits = 2), 
-         ci_ub = round(ci_ub, digits = 2), 
-         pvalue = format(pvalue, scientific = T, digits = 3), 
-         bh = format(bh, scientific = T, digits = 3), 
-         measure = str_replace_all(measure, "_unclassified", ""), 
-         comparison = "Carcinoma", 
-         tissue_type = "Matched") %>% 
+temp_12 <- read_csv("../data/process/tables/select_genus_OR_matched_tissue_composite.csv") %>%
+  mutate(bh = p.adjust(pvalue, method = "BH")) %>% filter(pvalue < 0.05) %>%
+  arrange(bh, pvalue, rr) %>%
+  mutate(rr = round(rr, digits = 2),
+         ci_lb = round(ci_lb, digits = 2),
+         ci_ub = round(ci_ub, digits = 2),
+         pvalue = format(pvalue, scientific = T, digits = 3),
+         bh = format(bh, scientific = T, digits = 3),
+         measure = str_replace_all(measure, "_unclassified", ""),
+         comparison = "Carcinoma",
+         tissue_type = "Matched") %>%
   select(measure, comparison, tissue_type, rr, ci_lb, ci_ub, pvalue, bh)
-  
+
 colnames(temp_12) <- c("Taxon", "Tumor", "Tissue Group", "OR", "95% CI (Lower Bound)", "95% CI (Upper Bound)", "P-value", "BH")
 
 combined_table_S5 <- temp_9 %>% bind_rows(temp_11, temp_12)
 
-kable(combined_table_S5, format = "markdown", align = 'c', padding = 2)
+kable(combined_table_S5, format = "markdown", align = 'c', padding = 0)
 
 ```
-
-\normalsize
-
-\elandscape
-\newpage
-
-
-
