@@ -149,16 +149,16 @@ and colon tissue.
 
 We quantified the odds ratios (ORs) for individual bacterial taxa that
 were associated with an individual having tumors relative to a normal
-colon. Among the fecal samples, there were no taxa that had a
-significant ORs associated with adenoma and there were 8 taxa with
-significant ORs associated with carcinoma. Similarly, among the tissue
-samples, there were no taxa that had a significant OR associated with
-adenoma and there were 3 taxa with significant ORs associated with
-carcinoma. Among the significant ORs, the association between individual
-taxa and tumor diagnosis was equal or below 7.11. Because individual
-taxa had limited association with tumor diagnosis, we trained Random
-Forest classification models using only the taxa that had significant
-ORs, using the entire collection of taxa found in each study, and using
+colon. Among the fecal samples, there were no taxa that had significant
+ORs associated with adenoma and there were 8 taxa with significant ORs
+associated with carcinoma. Similarly, among the tissue samples, there
+were no taxa that had a significant OR associated with adenoma and there
+were 3 taxa with significant ORs associated with carcinoma. Among the
+significant ORs, the association between individual taxa and tumor
+diagnosis was equal or below 7.11. Because individual taxa had limited
+association with tumor diagnosis, we trained Random Forest
+classification models using only the taxa that had significant ORs,
+using the entire collection of taxa found in each study, and using
 operational taxonomic units defined based on a 97\% similarity
 threshold. All training approaches yielded similar classification
 success as measured using the Area Under the Curve. The ability to
@@ -200,10 +200,10 @@ community (8--10) in tumorigenesis. Numerous case-control studies have
 characterized the microbiota of individuals with colonic adenomas and
 carcinomas in an attempt to identify biomarkers of disease progression
 (6, 11--17). Because current CRC screening recommendations are poorly
-adhered to due to person's socioeconomic status, test invasiveness, and
-frequency of tests, development and validation of microbiota-associated
-biomarkers for CRC progression could further attempts to develop
-non-invasive diagnostics (18).
+adhered to due to a person's socioeconomic status, test invasiveness,
+and frequency of tests, development and validation of
+microbiota-associated biomarkers for CRC progression could further
+attempts to develop non-invasive diagnostics (18).
 
 Recently, there has been an intense focus on identifying
 microbiota-based biomarkers yielding a seemingly endless number of
@@ -244,7 +244,7 @@ improved relative to using the FIT results alone (12).
 A recent meta-analysis found that 16S rRNA gene sequences from members
 of \emph{Akkermansia}, \emph{Fusobacterium}, and \emph{Parvimonas} were
 fecal biomarkers for the presence of carcinomas (28). Contrary to
-previous studies they found sequences similar to members of
+previous studies, they found sequences similar to members of
 \emph{Lactobacillus} and \emph{Ruminococcus} to be enriched in patients
 with adenoma or carcinoma relative to those with normal colons (12, 15,
 16). In addition, they found that 16S rRNA gene sequences from members
@@ -278,8 +278,8 @@ community metrics like total number of operational taxonomic units
 diversity of the communities were associated with disease stage after
 controlling for study and variable region differences. In fecal samples,
 both evenness and diversity were significantly lower in successive
-disease severity categories (evenness P-value=0.025 and diversity
-P-value=0.043) {[}Figure 1{]}; there was no significant difference for
+disease severity categories (P-value=0.025 and P-value=0.043,
+respectively) {[}Figure 1{]}; there was no significant difference for
 richness (P-value=0.21). We next tested whether the lower value of these
 community metrics translated into significant ORs for having an adenoma
 or carcinoma. For fecal samples, the ORs for richness were not
@@ -329,7 +329,7 @@ the relatively small sample sizes among the studies that characterized
 the tissue microbiota.
 
 \textbf{\emph{Individual taxa are associated with significant ORs for
-carcinomas.}} Next we identified those taxa that had ORs that were
+carcinomas.}} We next identified those taxa that had ORs that were
 significantly associated with having a normal colon or the presence of
 adenomas or carcinomas. No taxa had a significant OR for the presence of
 adenomas when we used data collected from fecal or tissue samples (Table
@@ -340,14 +340,14 @@ associated with the oral cavity: \emph{Fusobacterium} (OR=2.74 (1.95 -
 (OR=3.2 (2.26 - 4.54)), and \emph{Peptostreptococcus} (OR=7.11 (3.84 -
 13.17)) {[}Table S3{]}. The other 4 were \emph{Clostridium XI} (OR=0.65
 (0.49 - 0.86)), \emph{Enterobacteriaceae} (OR=1.79 (1.33 - 2.41)),
-\emph{Escherichia} (OR = 2.15 (1.57 - 2.95)), and \emph{Ruminococcus}
+\emph{Escherichia} (OR=2.15 (1.57 - 2.95)), and \emph{Ruminococcus}
 (OR=0.63 (0.48 - 0.83)). Among the data collected from tissue samples,
 only unmatched carcinoma samples had taxa with a significant OR. Those
 included \emph{Dorea} (OR=0.35 (0.22 - 0.55)), \emph{Blautia} (OR=0.47
 (0.3 - 0.73)), and \emph{Weissella} (OR=5.15 (2.02 - 13.14)).
 Mouth-associated genera were not significantly associated with a higher
 OR for carcinoma in tissue samples {[}Table S4{]}. For example,
-\emph{Fusobacterium} had an OR of 3.98 (1.19 - 13.24; however, due to
+\emph{Fusobacterium} had an OR of 3.98 (1.19 - 13.24); however, due to
 the small number of studies and considerable variation in the data, the
 Benjimani-Hochberg corrected P-value was 0.93 {[}Table S4{]}. It is
 interesting to note that \emph{Ruminococcus} and members of
@@ -374,7 +374,7 @@ at classifying the subjects than one would expect by chance
 (i.e.~AUC=0.50) {[}Figure 3A{]}. The taxa that performed the best
 included \emph{Clostridium XI}, \emph{Ruminococcus}, and
 \emph{Escherichia}. However, these had median AUC values less than 0.588
-ndicating their limited value as biomarkers when used individually.
+indicating their limited value as biomarkers when used individually.
 Likewise, in unmatched tissue samples the 3 taxa with significant OR
 taxa had AUC values that were marginally better than one would expect by
 chance {[}Figure 3B{]}. The relative abundance of \emph{Dorea} was the
@@ -480,7 +480,7 @@ can accurately classify individuals from a different cohort.
 
 \subsection{Discussion}\label{discussion}
 
-We performed a meta-analysis to identify and validate microbiota-base
+We performed a meta-analysis to identify and validate microbiota-based
 biomarkers that could be used to classify individuals as having normal
 colons or colonic tumors using fecal or tissue samples. To our surprise,
 Random Forest classification models constructed to differentiate
@@ -727,21 +727,24 @@ OTUs. Because no taxa were identified as having a significant OR
 associated with adenomas using stool samples or tissue samples,
 classification models based on OR data were not constructed to classify
 individuals as having normal colons or adenomas. For all models the
-hyperparameters for ntree was set to 500 and the mtry set to the sqaure
-root of the number of taxa or OTUs within the model
-(\(\sqrt{total~variables}\)). The \(\sqrt{total~variables}\) has been
-found to approximate the optimum mtry chosen after model tuneing (53).
-All fecal models were built using a 10-fold cross validation (CV) while
-tissue models were built using 5-fold CV due to study sample size. One
-exception to this rule was the Weir study which was built using a 2-fold
-CV due to extremely low sample number. For significant OR and all taxa
-data, models were trained on a single study and then tested on the
-remaining studies with AUCs recorded during both train and testing
-phases. For the OTU data, 100 10-fold CVs were run to generate a range
-of AUCs that could be reasonably expected to occur and the average AUC
-from these 100 repeats was reported. The Mean Decrease in Accuracy
-(MDA), a measure of the importance of each taxon to the overall model
-was used to rank the taxa used in each model.
+value of trees included (i.e.~ntree) was set to 500 and the number of
+variables that were randomly tested (i.e.~mtry) was set to the square
+root of the number of taxa or OTUs within the model. Using the square
+root of the total number of features as the number of features to test
+has been found to reliably approximate the optimum value after model
+tuning (53). All fecal models were built using a 10-fold cross
+validation (CV) while tissue models were built using 5-fold CV due to
+study sample size. One exception to this were the models constructed
+using data from the Weir study, which was built using a 2-fold CV due to
+the small number of samples sample. For models constructed based on the
+taxa that had a significant OR or using all of the taxa, we trained the
+models using a single study and then tested on the remaining studies
+with AUCs recorded during both train and testing phases. For the models
+constructed using OTU data, 100 10-fold CVs were run to generate a range
+of AUCs that could be reasonably expected to occur. The average AUC from
+these 100 repeats was reported. The Mean Decrease in Accuracy (MDA), a
+measure of the importance of each taxon to the overall model, was used
+to rank the taxa used in each model.
 
 \textbf{\emph{Statistical Analysis.}} All statistical analysis after
 sequence processing utilized the R (v3.4.3) software package (54). For
@@ -757,14 +760,14 @@ with and without disease were above and below the overall median value
 within each specific study. OR significance testing utilized the
 chi-squared test. Community structure differences were calculated using
 the Bray-Curtis dissimilarity index and PERMANOVA was used to test for
-tumor-associated differences in structure with the vegan (v2.4.5)
+tumor-associated differences in structure with the vegan (v2.4.4)
 package (60). Random Forest models were built using both the caret
-(v6.0.78) and randomForest (v4.6.12) packages (61, 62). All figures were
-created using both ggplot2 (v2.2.1) and gridExtra (v2.3) packages (63,
-64).
+(v6.0.77) and randomForest (v4.6.12) packages (61, 62). All figures were
+created using both ggplot2 (v2.2.1.9000) and gridExtra (v2.3) packages
+(63, 64).
 
 \textbf{\emph{Reproducible Methods.}} The analysis code can be found at
-\url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_mBio_2017}.
+\url{https://github.com/SchlossLab/Sze_CRCMetaAnalysis_mBio_2018}.
 Unless otherwise mentioned, the accession number of raw sequences from
 the studies used in this analysis can be found directly in the
 respective batch file in the GitHub repository or in the original
@@ -787,389 +790,421 @@ the formulation of this manuscript.
 
 \hypertarget{refs}{}
 \hypertarget{ref-siegel_cancer_2016}{}
-1. \textbf{Siegel, R. L.}, \textbf{K. D. Miller}, and \textbf{A. Jemal}.
-2016. Cancer statistics, 2016. CA: a cancer journal for clinicians
+1. \textbf{Siegel RL}, \textbf{Miller KD}, \textbf{Jemal A}. 2016.
+Cancer statistics, 2016. CA: a cancer journal for clinicians
 \textbf{66}:7--30.
+doi:\href{https://doi.org/10.3322/caac.21332}{10.3322/caac.21332}.
 
 \hypertarget{ref-flynn_metabolic_2016}{}
-2. \textbf{Flynn, K. J.}, \textbf{N. T. Baxter}, and \textbf{P. D.
-Schloss}. 2016. Metabolic and Community Synergy of Oral Bacteria in
-Colorectal Cancer. mSphere \textbf{1}.
+2. \textbf{Flynn KJ}, \textbf{Baxter NT}, \textbf{Schloss PD}. 2016.
+Metabolic and Community Synergy of Oral Bacteria in Colorectal Cancer.
+mSphere \textbf{1}.
+doi:\href{https://doi.org/10.1128/mSphere.00102-16}{10.1128/mSphere.00102-16}.
 
 \hypertarget{ref-goodwin_polyamine_2011}{}
-3. \textbf{Goodwin, A. C.}, \textbf{C. E. Destefano Shields}, \textbf{S.
-Wu}, \textbf{D. L. Huso}, \textbf{X. Wu}, \textbf{T. R. Murray-Stewart},
-\textbf{A. Hacker-Prietz}, \textbf{S. Rabizadeh}, \textbf{P. M. Woster},
-\textbf{C. L. Sears}, and \textbf{R. A. Casero}. 2011. Polyamine
-catabolism contributes to enterotoxigenic Bacteroides fragilis-induced
-colon tumorigenesis. Proceedings of the National Academy of Sciences of
-the United States of America \textbf{108}:15354--15359.
+3. \textbf{Goodwin AC}, \textbf{Destefano Shields CE}, \textbf{Wu S},
+\textbf{Huso DL}, \textbf{Wu X}, \textbf{Murray-Stewart TR},
+\textbf{Hacker-Prietz A}, \textbf{Rabizadeh S}, \textbf{Woster PM},
+\textbf{Sears CL}, \textbf{Casero RA}. 2011. Polyamine catabolism
+contributes to enterotoxigenic Bacteroides fragilis-induced colon
+tumorigenesis. Proceedings of the National Academy of Sciences of the
+United States of America \textbf{108}:15354--15359.
+doi:\href{https://doi.org/10.1073/pnas.1010203108}{10.1073/pnas.1010203108}.
 
 \hypertarget{ref-abed_fap2_2016}{}
-4. \textbf{Abed, J.}, \textbf{J. E. M. Emgård}, \textbf{G. Zamir},
-\textbf{M. Faroja}, \textbf{G. Almogy}, \textbf{A. Grenov}, \textbf{A.
-Sol}, \textbf{R. Naor}, \textbf{E. Pikarsky}, \textbf{K. A. Atlan},
-\textbf{A. Mellul}, \textbf{S. Chaushu}, \textbf{A. L. Manson},
-\textbf{A. M. Earl}, \textbf{N. Ou}, \textbf{C. A. Brennan}, \textbf{W.
-S. Garrett}, and \textbf{G. Bachrach}. 2016. Fap2 Mediates Fusobacterium
-nucleatum Colorectal Adenocarcinoma Enrichment by Binding to
-Tumor-Expressed Gal-GalNAc. Cell Host \& Microbe \textbf{20}:215--225.
+4. \textbf{Abed J}, \textbf{Emgård JEM}, \textbf{Zamir G},
+\textbf{Faroja M}, \textbf{Almogy G}, \textbf{Grenov A}, \textbf{Sol A},
+\textbf{Naor R}, \textbf{Pikarsky E}, \textbf{Atlan KA}, \textbf{Mellul
+A}, \textbf{Chaushu S}, \textbf{Manson AL}, \textbf{Earl AM}, \textbf{Ou
+N}, \textbf{Brennan CA}, \textbf{Garrett WS}, \textbf{Bachrach G}. 2016.
+Fap2 Mediates Fusobacterium nucleatum Colorectal Adenocarcinoma
+Enrichment by Binding to Tumor-Expressed Gal-GalNAc. Cell Host \&
+Microbe \textbf{20}:215--225.
+doi:\href{https://doi.org/10.1016/j.chom.2016.07.006}{10.1016/j.chom.2016.07.006}.
 
 \hypertarget{ref-arthur_intestinal_2012}{}
-5. \textbf{Arthur, J. C.}, \textbf{E. Perez-Chanona}, \textbf{M.
-Mühlbauer}, \textbf{S. Tomkovich}, \textbf{J. M. Uronis}, \textbf{T.-J.
-Fan}, \textbf{B. J. Campbell}, \textbf{T. Abujamel}, \textbf{B. Dogan},
-\textbf{A. B. Rogers}, \textbf{J. M. Rhodes}, \textbf{A. Stintzi},
-\textbf{K. W. Simpson}, \textbf{J. J. Hansen}, \textbf{T. O. Keku},
-\textbf{A. A. Fodor}, and \textbf{C. Jobin}. 2012. Intestinal
-inflammation targets cancer-inducing activity of the microbiota. Science
-(New York, N.Y.) \textbf{338}:120--123.
+5. \textbf{Arthur JC}, \textbf{Perez-Chanona E}, \textbf{Mühlbauer M},
+\textbf{Tomkovich S}, \textbf{Uronis JM}, \textbf{Fan T-J},
+\textbf{Campbell BJ}, \textbf{Abujamel T}, \textbf{Dogan B},
+\textbf{Rogers AB}, \textbf{Rhodes JM}, \textbf{Stintzi A},
+\textbf{Simpson KW}, \textbf{Hansen JJ}, \textbf{Keku TO}, \textbf{Fodor
+AA}, \textbf{Jobin C}. 2012. Intestinal inflammation targets
+cancer-inducing activity of the microbiota. Science (New York, NY)
+\textbf{338}:120--123.
+doi:\href{https://doi.org/10.1126/science.1224820}{10.1126/science.1224820}.
 
 \hypertarget{ref-kostic_fusobacterium_2013}{}
-6. \textbf{Kostic, A. D.}, \textbf{E. Chun}, \textbf{L. Robertson},
-\textbf{J. N. Glickman}, \textbf{C. A. Gallini}, \textbf{M. Michaud},
-\textbf{T. E. Clancy}, \textbf{D. C. Chung}, \textbf{P. Lochhead},
-\textbf{G. L. Hold}, \textbf{E. M. El-Omar}, \textbf{D. Brenner},
-\textbf{C. S. Fuchs}, \textbf{M. Meyerson}, and \textbf{W. S. Garrett}.
-2013. Fusobacterium nucleatum potentiates intestinal tumorigenesis and
-modulates the tumor-immune microenvironment. Cell Host \& Microbe
-\textbf{14}:207--215.
+6. \textbf{Kostic AD}, \textbf{Chun E}, \textbf{Robertson L},
+\textbf{Glickman JN}, \textbf{Gallini CA}, \textbf{Michaud M},
+\textbf{Clancy TE}, \textbf{Chung DC}, \textbf{Lochhead P}, \textbf{Hold
+GL}, \textbf{El-Omar EM}, \textbf{Brenner D}, \textbf{Fuchs CS},
+\textbf{Meyerson M}, \textbf{Garrett WS}. 2013. Fusobacterium nucleatum
+potentiates intestinal tumorigenesis and modulates the tumor-immune
+microenvironment. Cell Host \& Microbe \textbf{14}:207--215.
+doi:\href{https://doi.org/10.1016/j.chom.2013.07.007}{10.1016/j.chom.2013.07.007}.
 
 \hypertarget{ref-wu_human_2009}{}
-7. \textbf{Wu, S.}, \textbf{K.-J. Rhee}, \textbf{E. Albesiano},
-\textbf{S. Rabizadeh}, \textbf{X. Wu}, \textbf{H.-R. Yen}, \textbf{D. L.
-Huso}, \textbf{F. L. Brancati}, \textbf{E. Wick}, \textbf{F.
-McAllister}, \textbf{F. Housseau}, \textbf{D. M. Pardoll}, and
-\textbf{C. L. Sears}. 2009. A human colonic commensal promotes colon
-tumorigenesis via activation of T helper type 17 T cell responses.
-Nature Medicine \textbf{15}:1016--1022.
+7. \textbf{Wu S}, \textbf{Rhee K-J}, \textbf{Albesiano E},
+\textbf{Rabizadeh S}, \textbf{Wu X}, \textbf{Yen H-R}, \textbf{Huso DL},
+\textbf{Brancati FL}, \textbf{Wick E}, \textbf{McAllister F},
+\textbf{Housseau F}, \textbf{Pardoll DM}, \textbf{Sears CL}. 2009. A
+human colonic commensal promotes colon tumorigenesis via activation of T
+helper type 17 T cell responses. Nature Medicine \textbf{15}:1016--1022.
+doi:\href{https://doi.org/10.1038/nm.2015}{10.1038/nm.2015}.
 
 \hypertarget{ref-zackular_manipulation_2016}{}
-8. \textbf{Zackular, J. P.}, \textbf{N. T. Baxter}, \textbf{G. Y. Chen},
-and \textbf{P. D. Schloss}. 2016. Manipulation of the Gut Microbiota
-Reveals Role in Colon Tumorigenesis. mSphere \textbf{1}.
+8. \textbf{Zackular JP}, \textbf{Baxter NT}, \textbf{Chen GY},
+\textbf{Schloss PD}. 2016. Manipulation of the Gut Microbiota Reveals
+Role in Colon Tumorigenesis. mSphere \textbf{1}.
+doi:\href{https://doi.org/10.1128/mSphere.00001-15}{10.1128/mSphere.00001-15}.
 
 \hypertarget{ref-zackular_gut_2013}{}
-9. \textbf{Zackular, J. P.}, \textbf{N. T. Baxter}, \textbf{K. D.
-Iverson}, \textbf{W. D. Sadler}, \textbf{J. F. Petrosino}, \textbf{G. Y.
-Chen}, and \textbf{P. D. Schloss}. 2013. The gut microbiome modulates
-colon tumorigenesis. mBio \textbf{4}:e00692--00613.
+9. \textbf{Zackular JP}, \textbf{Baxter NT}, \textbf{Iverson KD},
+\textbf{Sadler WD}, \textbf{Petrosino JF}, \textbf{Chen GY},
+\textbf{Schloss PD}. 2013. The gut microbiome modulates colon
+tumorigenesis. mBio \textbf{4}:e00692--00613.
+doi:\href{https://doi.org/10.1128/mBio.00692-13}{10.1128/mBio.00692-13}.
 
 \hypertarget{ref-baxter_structure_2014}{}
-10. \textbf{Baxter, N. T.}, \textbf{J. P. Zackular}, \textbf{G. Y.
-Chen}, and \textbf{P. D. Schloss}. 2014. Structure of the gut microbiome
-following colonization with human feces determines colonic tumor burden.
+10. \textbf{Baxter NT}, \textbf{Zackular JP}, \textbf{Chen GY},
+\textbf{Schloss PD}. 2014. Structure of the gut microbiome following
+colonization with human feces determines colonic tumor burden.
 Microbiome \textbf{2}:20.
+doi:\href{https://doi.org/10.1186/2049-2618-2-20}{10.1186/2049-2618-2-20}.
 
 \hypertarget{ref-ahn_human_2013}{}
-11. \textbf{Ahn, J.}, \textbf{R. Sinha}, \textbf{Z. Pei}, \textbf{C.
-Dominianni}, \textbf{J. Wu}, \textbf{J. Shi}, \textbf{J. J. Goedert},
-\textbf{R. B. Hayes}, and \textbf{L. Yang}. 2013. Human gut microbiome
-and risk for colorectal cancer. Journal of the National Cancer Institute
+11. \textbf{Ahn J}, \textbf{Sinha R}, \textbf{Pei Z}, \textbf{Dominianni
+C}, \textbf{Wu J}, \textbf{Shi J}, \textbf{Goedert JJ}, \textbf{Hayes
+RB}, \textbf{Yang L}. 2013. Human gut microbiome and risk for colorectal
+cancer. Journal of the National Cancer Institute
 \textbf{105}:1907--1911.
+doi:\href{https://doi.org/10.1093/jnci/djt300}{10.1093/jnci/djt300}.
 
 \hypertarget{ref-baxter_microbiota-based_2016}{}
-12. \textbf{Baxter, N. T.}, \textbf{M. T. Ruffin}, \textbf{M. A. M.
-Rogers}, and \textbf{P. D. Schloss}. 2016. Microbiota-based model
-improves the sensitivity of fecal immunochemical test for detecting
-colonic lesions. Genome Medicine \textbf{8}:37.
+12. \textbf{Baxter NT}, \textbf{Ruffin MT}, \textbf{Rogers MAM},
+\textbf{Schloss PD}. 2016. Microbiota-based model improves the
+sensitivity of fecal immunochemical test for detecting colonic lesions.
+Genome Medicine \textbf{8}:37.
+doi:\href{https://doi.org/10.1186/s13073-016-0290-3}{10.1186/s13073-016-0290-3}.
 
 \hypertarget{ref-chen_human_2012}{}
-13. \textbf{Chen, W.}, \textbf{F. Liu}, \textbf{Z. Ling}, \textbf{X.
-Tong}, and \textbf{C. Xiang}. 2012. Human intestinal lumen and
-mucosa-associated microbiota in patients with colorectal cancer. PloS
-One \textbf{7}:e39743.
+13. \textbf{Chen W}, \textbf{Liu F}, \textbf{Ling Z}, \textbf{Tong X},
+\textbf{Xiang C}. 2012. Human intestinal lumen and mucosa-associated
+microbiota in patients with colorectal cancer. PloS One
+\textbf{7}:e39743.
+doi:\href{https://doi.org/10.1371/journal.pone.0039743}{10.1371/journal.pone.0039743}.
 
 \hypertarget{ref-wang_structural_2012}{}
-14. \textbf{Wang, T.}, \textbf{G. Cai}, \textbf{Y. Qiu}, \textbf{N.
-Fei}, \textbf{M. Zhang}, \textbf{X. Pang}, \textbf{W. Jia}, \textbf{S.
-Cai}, and \textbf{L. Zhao}. 2012. Structural segregation of gut
-microbiota between colorectal cancer patients and healthy volunteers.
-The ISME journal \textbf{6}:320--329.
+14. \textbf{Wang T}, \textbf{Cai G}, \textbf{Qiu Y}, \textbf{Fei N},
+\textbf{Zhang M}, \textbf{Pang X}, \textbf{Jia W}, \textbf{Cai S},
+\textbf{Zhao L}. 2012. Structural segregation of gut microbiota between
+colorectal cancer patients and healthy volunteers. The ISME journal
+\textbf{6}:320--329.
+doi:\href{https://doi.org/10.1038/ismej.2011.109}{10.1038/ismej.2011.109}.
 
 \hypertarget{ref-burns_virulence_2015}{}
-15. \textbf{Burns, M. B.}, \textbf{J. Lynch}, \textbf{T. K. Starr},
-\textbf{D. Knights}, and \textbf{R. Blekhman}. 2015. Virulence genes are
-a signature of the microbiome in the colorectal tumor microenvironment.
+15. \textbf{Burns MB}, \textbf{Lynch J}, \textbf{Starr TK},
+\textbf{Knights D}, \textbf{Blekhman R}. 2015. Virulence genes are a
+signature of the microbiome in the colorectal tumor microenvironment.
 Genome Medicine \textbf{7}:55.
+doi:\href{https://doi.org/10.1186/s13073-015-0177-8}{10.1186/s13073-015-0177-8}.
 
 \hypertarget{ref-zeller_potential_2014}{}
-16. \textbf{Zeller, G.}, \textbf{J. Tap}, \textbf{A. Y. Voigt},
-\textbf{S. Sunagawa}, \textbf{J. R. Kultima}, \textbf{P. I. Costea},
-\textbf{A. Amiot}, \textbf{J. Böhm}, \textbf{F. Brunetti}, \textbf{N.
-Habermann}, \textbf{R. Hercog}, \textbf{M. Koch}, \textbf{A. Luciani},
-\textbf{D. R. Mende}, \textbf{M. A. Schneider}, \textbf{P.
-Schrotz-King}, \textbf{C. Tournigand}, \textbf{J. Tran Van Nhieu},
-\textbf{T. Yamada}, \textbf{J. Zimmermann}, \textbf{V. Benes},
-\textbf{M. Kloor}, \textbf{C. M. Ulrich}, \textbf{M. von Knebel
-Doeberitz}, \textbf{I. Sobhani}, and \textbf{P. Bork}. 2014. Potential
-of fecal microbiota for early-stage detection of colorectal cancer.
-Molecular Systems Biology \textbf{10}:766.
+16. \textbf{Zeller G}, \textbf{Tap J}, \textbf{Voigt AY},
+\textbf{Sunagawa S}, \textbf{Kultima JR}, \textbf{Costea PI},
+\textbf{Amiot A}, \textbf{Böhm J}, \textbf{Brunetti F},
+\textbf{Habermann N}, \textbf{Hercog R}, \textbf{Koch M},
+\textbf{Luciani A}, \textbf{Mende DR}, \textbf{Schneider MA},
+\textbf{Schrotz-King P}, \textbf{Tournigand C}, \textbf{Tran Van Nhieu
+J}, \textbf{Yamada T}, \textbf{Zimmermann J}, \textbf{Benes V},
+\textbf{Kloor M}, \textbf{Ulrich CM}, \textbf{Knebel Doeberitz M von},
+\textbf{Sobhani I}, \textbf{Bork P}. 2014. Potential of fecal microbiota
+for early-stage detection of colorectal cancer. Molecular Systems
+Biology \textbf{10}:766.
 
 \hypertarget{ref-flemer_tumour-associated_2017}{}
-17. \textbf{Flemer, B.}, \textbf{D. B. Lynch}, \textbf{J. M. R. Brown},
-\textbf{I. B. Jeffery}, \textbf{F. J. Ryan}, \textbf{M. J. Claesson},
-\textbf{M. O'Riordain}, \textbf{F. Shanahan}, and \textbf{P. W.
-O'Toole}. 2017. Tumour-associated and non-tumour-associated microbiota
-in colorectal cancer. Gut \textbf{66}:633--643.
+17. \textbf{Flemer B}, \textbf{Lynch DB}, \textbf{Brown JMR},
+\textbf{Jeffery IB}, \textbf{Ryan FJ}, \textbf{Claesson MJ},
+\textbf{O'Riordain M}, \textbf{Shanahan F}, \textbf{O'Toole PW}. 2017.
+Tumour-associated and non-tumour-associated microbiota in colorectal
+cancer. Gut \textbf{66}:633--643.
+doi:\href{https://doi.org/10.1136/gutjnl-2015-309595}{10.1136/gutjnl-2015-309595}.
 
 \hypertarget{ref-GimenoGarca2012}{}
-18. \textbf{García, A. Z. G.} 2012. Factors influencing colorectal
-cancer screening participation. Gastroenterology Research and Practice.
-Hindawi Limited \textbf{2012}:1--8.
+18. \textbf{García AZG}. 2012. Factors influencing colorectal cancer
+screening participation. Gastroenterology Research and Practice
+\textbf{2012}:1--8.
+doi:\href{https://doi.org/10.1155/2012/483417}{10.1155/2012/483417}.
 
 \hypertarget{ref-geng_diversified_2013}{}
-19. \textbf{Geng, J.}, \textbf{H. Fan}, \textbf{X. Tang}, \textbf{H.
-Zhai}, and \textbf{Z. Zhang}. 2013. Diversified pattern of the human
-colorectal cancer microbiome. Gut Pathogens \textbf{5}:2.
+19. \textbf{Geng J}, \textbf{Fan H}, \textbf{Tang X}, \textbf{Zhai H},
+\textbf{Zhang Z}. 2013. Diversified pattern of the human colorectal
+cancer microbiome. Gut Pathogens \textbf{5}:2.
+doi:\href{https://doi.org/10.1186/1757-4749-5-2}{10.1186/1757-4749-5-2}.
 
 \hypertarget{ref-dejea_microbiota_2014}{}
-20. \textbf{Dejea, C. M.}, \textbf{E. C. Wick}, \textbf{E. M.
-Hechenbleikner}, \textbf{J. R. White}, \textbf{J. L. Mark Welch},
-\textbf{B. J. Rossetti}, \textbf{S. N. Peterson}, \textbf{E. C.
-Snesrud}, \textbf{G. G. Borisy}, \textbf{M. Lazarev}, \textbf{E. Stein},
-\textbf{J. Vadivelu}, \textbf{A. C. Roslani}, \textbf{A. A. Malik},
-\textbf{J. W. Wanyiri}, \textbf{K. L. Goh}, \textbf{I. Thevambiga},
-\textbf{K. Fu}, \textbf{F. Wan}, \textbf{N. Llosa}, \textbf{F.
-Housseau}, \textbf{K. Romans}, \textbf{X. Wu}, \textbf{F. M.
-McAllister}, \textbf{S. Wu}, \textbf{B. Vogelstein}, \textbf{K. W.
-Kinzler}, \textbf{D. M. Pardoll}, and \textbf{C. L. Sears}. 2014.
+20. \textbf{Dejea CM}, \textbf{Wick EC}, \textbf{Hechenbleikner EM},
+\textbf{White JR}, \textbf{Mark Welch JL}, \textbf{Rossetti BJ},
+\textbf{Peterson SN}, \textbf{Snesrud EC}, \textbf{Borisy GG},
+\textbf{Lazarev M}, \textbf{Stein E}, \textbf{Vadivelu J},
+\textbf{Roslani AC}, \textbf{Malik AA}, \textbf{Wanyiri JW}, \textbf{Goh
+KL}, \textbf{Thevambiga I}, \textbf{Fu K}, \textbf{Wan F}, \textbf{Llosa
+N}, \textbf{Housseau F}, \textbf{Romans K}, \textbf{Wu X},
+\textbf{McAllister FM}, \textbf{Wu S}, \textbf{Vogelstein B},
+\textbf{Kinzler KW}, \textbf{Pardoll DM}, \textbf{Sears CL}. 2014.
 Microbiota organization is a distinct feature of proximal colorectal
 cancers. Proceedings of the National Academy of Sciences of the United
 States of America \textbf{111}:18321--18326.
+doi:\href{https://doi.org/10.1073/pnas.1406199111}{10.1073/pnas.1406199111}.
 
 \hypertarget{ref-ecoli_Arthur_2014}{}
-21. \textbf{Arthur, J. C.}, \textbf{R. Z. Gharaibeh}, \textbf{M.
-Mühlbauer}, \textbf{E. Perez-Chanona}, \textbf{J. M. Uronis}, \textbf{J.
-McCafferty}, \textbf{A. A. Fodor}, and \textbf{C. Jobin}. 2014.
-Microbial genomic analysis reveals the essential role of inflammation in
-bacteria-induced colorectal cancer. Nature Communications. Springer
-Nature \textbf{5}:4724.
+21. \textbf{Arthur JC}, \textbf{Gharaibeh RZ}, \textbf{Mühlbauer M},
+\textbf{Perez-Chanona E}, \textbf{Uronis JM}, \textbf{McCafferty J},
+\textbf{Fodor AA}, \textbf{Jobin C}. 2014. Microbial genomic analysis
+reveals the essential role of inflammation in bacteria-induced
+colorectal cancer. Nature Communications \textbf{5}:4724.
+doi:\href{https://doi.org/10.1038/ncomms5724}{10.1038/ncomms5724}.
 
 \hypertarget{ref-strep_Aymeric_2017}{}
-22. \textbf{Aymeric, L.}, \textbf{F. Donnadieu}, \textbf{C. Mulet},
-\textbf{L. du Merle}, \textbf{G. Nigro}, \textbf{A. Saffarian},
-\textbf{M. Bérard}, \textbf{C. Poyart}, \textbf{S. Robine}, \textbf{B.
-Regnault}, \textbf{P. Trieu-Cuot}, \textbf{P. J. Sansonetti}, and
-\textbf{S. Dramsi}. 2017. Colorectal cancer specific conditions
+22. \textbf{Aymeric L}, \textbf{Donnadieu F}, \textbf{Mulet C},
+\textbf{Merle L du}, \textbf{Nigro G}, \textbf{Saffarian A},
+\textbf{Bérard M}, \textbf{Poyart C}, \textbf{Robine S},
+\textbf{Regnault B}, \textbf{Trieu-Cuot P}, \textbf{Sansonetti PJ},
+\textbf{Dramsi S}. 2017. Colorectal cancer specific conditions
 promoteStreptococcus gallolyticusgut colonization. Proceedings of the
-National Academy of Sciences. Proceedings of the National Academy of
-Sciences \textbf{115}:E283--E291.
+National Academy of Sciences \textbf{115}:E283--E291.
+doi:\href{https://doi.org/10.1073/pnas.1715112115}{10.1073/pnas.1715112115}.
 
 \hypertarget{ref-weir_stool_2013}{}
-23. \textbf{Weir, T. L.}, \textbf{D. K. Manter}, \textbf{A. M. Sheflin},
-\textbf{B. A. Barnett}, \textbf{A. L. Heuberger}, and \textbf{E. P.
-Ryan}. 2013. Stool microbiome and metabolome differences between
-colorectal cancer patients and healthy adults. PloS One
-\textbf{8}:e70803.
+23. \textbf{Weir TL}, \textbf{Manter DK}, \textbf{Sheflin AM},
+\textbf{Barnett BA}, \textbf{Heuberger AL}, \textbf{Ryan EP}. 2013.
+Stool microbiome and metabolome differences between colorectal cancer
+patients and healthy adults. PloS One \textbf{8}:e70803.
+doi:\href{https://doi.org/10.1371/journal.pone.0070803}{10.1371/journal.pone.0070803}.
 
 \hypertarget{ref-bfrag_Boleij_2014}{}
-24. \textbf{Boleij, A.}, \textbf{E. M. Hechenbleikner}, \textbf{A. C.
-Goodwin}, \textbf{R. Badani}, \textbf{E. M. Stein}, \textbf{M. G.
-Lazarev}, \textbf{B. Ellis}, \textbf{K. C. Carroll}, \textbf{E.
-Albesiano}, \textbf{E. C. Wick}, \textbf{E. A. Platz}, \textbf{D. M.
-Pardoll}, and \textbf{C. L. Sears}. 2014. The bacteroides fragilis toxin
-gene is prevalent in the colon mucosa of colorectal cancer patients.
-Clinical Infectious Diseases. Oxford University Press (OUP)
+24. \textbf{Boleij A}, \textbf{Hechenbleikner EM}, \textbf{Goodwin AC},
+\textbf{Badani R}, \textbf{Stein EM}, \textbf{Lazarev MG}, \textbf{Ellis
+B}, \textbf{Carroll KC}, \textbf{Albesiano E}, \textbf{Wick EC},
+\textbf{Platz EA}, \textbf{Pardoll DM}, \textbf{Sears CL}. 2014. The
+bacteroides fragilis toxin gene is prevalent in the colon mucosa of
+colorectal cancer patients. Clinical Infectious Diseases
 \textbf{60}:208--215.
+doi:\href{https://doi.org/10.1093/cid/ciu787}{10.1093/cid/ciu787}.
 
 \hypertarget{ref-sanapareddy_increased_2012}{}
-25. \textbf{Sanapareddy, N.}, \textbf{R. M. Legge}, \textbf{B. Jovov},
-\textbf{A. McCoy}, \textbf{L. Burcal}, \textbf{F. Araujo-Perez},
-\textbf{T. A. Randall}, \textbf{J. Galanko}, \textbf{A. Benson},
-\textbf{R. S. Sandler}, \textbf{J. F. Rawls}, \textbf{Z. Abdo},
-\textbf{A. A. Fodor}, and \textbf{T. O. Keku}. 2012. Increased rectal
-microbial richness is associated with the presence of colorectal
-adenomas in humans. The ISME journal \textbf{6}:1858--1868.
+25. \textbf{Sanapareddy N}, \textbf{Legge RM}, \textbf{Jovov B},
+\textbf{McCoy A}, \textbf{Burcal L}, \textbf{Araujo-Perez F},
+\textbf{Randall TA}, \textbf{Galanko J}, \textbf{Benson A},
+\textbf{Sandler RS}, \textbf{Rawls JF}, \textbf{Abdo Z}, \textbf{Fodor
+AA}, \textbf{Keku TO}. 2012. Increased rectal microbial richness is
+associated with the presence of colorectal adenomas in humans. The ISME
+journal \textbf{6}:1858--1868.
+doi:\href{https://doi.org/10.1038/ismej.2012.43}{10.1038/ismej.2012.43}.
 
 \hypertarget{ref-lu_mucosal_2016}{}
-26. \textbf{Lu, Y.}, \textbf{J. Chen}, \textbf{J. Zheng}, \textbf{G.
-Hu}, \textbf{J. Wang}, \textbf{C. Huang}, \textbf{L. Lou}, \textbf{X.
-Wang}, and \textbf{Y. Zeng}. 2016. Mucosal adherent bacterial dysbiosis
-in patients with colorectal adenomas. Scientific Reports
-\textbf{6}:26337.
+26. \textbf{Lu Y}, \textbf{Chen J}, \textbf{Zheng J}, \textbf{Hu G},
+\textbf{Wang J}, \textbf{Huang C}, \textbf{Lou L}, \textbf{Wang X},
+\textbf{Zeng Y}. 2016. Mucosal adherent bacterial dysbiosis in patients
+with colorectal adenomas. Scientific Reports \textbf{6}:26337.
+doi:\href{https://doi.org/10.1038/srep26337}{10.1038/srep26337}.
 
 \hypertarget{ref-hale_shifts_2017}{}
-27. \textbf{Hale, V. L.}, \textbf{J. Chen}, \textbf{S. Johnson},
-\textbf{S. C. Harrington}, \textbf{T. C. Yab}, \textbf{T. C. Smyrk},
-\textbf{H. Nelson}, \textbf{L. A. Boardman}, \textbf{B. R. Druliner},
-\textbf{T. R. Levin}, \textbf{D. K. Rex}, \textbf{D. J. Ahnen},
-\textbf{P. Lance}, \textbf{D. A. Ahlquist}, and \textbf{N. Chia}. 2017.
-Shifts in the Fecal Microbiota Associated with Adenomatous Polyps.
-Cancer Epidemiology, Biomarkers \& Prevention: A Publication of the
-American Association for Cancer Research, Cosponsored by the American
-Society of Preventive Oncology \textbf{26}:85--94.
+27. \textbf{Hale VL}, \textbf{Chen J}, \textbf{Johnson S},
+\textbf{Harrington SC}, \textbf{Yab TC}, \textbf{Smyrk TC},
+\textbf{Nelson H}, \textbf{Boardman LA}, \textbf{Druliner BR},
+\textbf{Levin TR}, \textbf{Rex DK}, \textbf{Ahnen DJ}, \textbf{Lance P},
+\textbf{Ahlquist DA}, \textbf{Chia N}. 2017. Shifts in the Fecal
+Microbiota Associated with Adenomatous Polyps. Cancer Epidemiology,
+Biomarkers \& Prevention: A Publication of the American Association for
+Cancer Research, Cosponsored by the American Society of Preventive
+Oncology \textbf{26}:85--94.
+doi:\href{https://doi.org/10.1158/1055-9965.EPI-16-0337}{10.1158/1055-9965.EPI-16-0337}.
 
 \hypertarget{ref-shah_leveraging_2017}{}
-28. \textbf{Shah, M. S.}, \textbf{T. Z. DeSantis}, \textbf{T.
-Weinmaier}, \textbf{P. J. McMurdie}, \textbf{J. L. Cope}, \textbf{A.
-Altrichter}, \textbf{J.-M. Yamal}, and \textbf{E. B. Hollister}. 2017.
-Leveraging sequence-based faecal microbial community survey data to
-identify a composite biomarker for colorectal cancer. Gut.
+28. \textbf{Shah MS}, \textbf{DeSantis TZ}, \textbf{Weinmaier T},
+\textbf{McMurdie PJ}, \textbf{Cope JL}, \textbf{Altrichter A},
+\textbf{Yamal J-M}, \textbf{Hollister EB}. 2017. Leveraging
+sequence-based faecal microbial community survey data to identify a
+composite biomarker for colorectal cancer. Gut.
+doi:\href{https://doi.org/10.1136/gutjnl-2016-313189}{10.1136/gutjnl-2016-313189}.
 
 \hypertarget{ref-brim_microbiome_2013}{}
-29. \textbf{Brim, H.}, \textbf{S. Yooseph}, \textbf{E. G. Zoetendal},
-\textbf{E. Lee}, \textbf{M. Torralbo}, \textbf{A. O. Laiyemo},
-\textbf{B. Shokrani}, \textbf{K. Nelson}, and \textbf{H. Ashktorab}.
-2013. Microbiome analysis of stool samples from African Americans with
-colon polyps. PloS One \textbf{8}:e81352.
+29. \textbf{Brim H}, \textbf{Yooseph S}, \textbf{Zoetendal EG},
+\textbf{Lee E}, \textbf{Torralbo M}, \textbf{Laiyemo AO},
+\textbf{Shokrani B}, \textbf{Nelson K}, \textbf{Ashktorab H}. 2013.
+Microbiome analysis of stool samples from African Americans with colon
+polyps. PloS One \textbf{8}:e81352.
+doi:\href{https://doi.org/10.1371/journal.pone.0081352}{10.1371/journal.pone.0081352}.
 
 \hypertarget{ref-Sze2017}{}
-30. \textbf{Sze, M. A.}, \textbf{N. T. Baxter}, \textbf{M. T. Ruffin},
-\textbf{M. A. M. Rogers}, and \textbf{P. D. Schloss}. 2017.
-Normalization of the microbiota in patients after treatment for colonic
-lesions. Microbiome. Springer Nature \textbf{5}.
+30. \textbf{Sze MA}, \textbf{Baxter NT}, \textbf{Ruffin MT},
+\textbf{Rogers MAM}, \textbf{Schloss PD}. 2017. Normalization of the
+microbiota in patients after treatment for colonic lesions. Microbiome
+\textbf{5}.
+doi:\href{https://doi.org/10.1186/s40168-017-0366-3}{10.1186/s40168-017-0366-3}.
 
 \hypertarget{ref-Hannigan2017}{}
-31. \textbf{Hannigan, G. D.}, \textbf{M. B. Duhaime}, \textbf{M. T.
-Ruffin}, \textbf{C. C. Koumpouras}, and \textbf{P. D. Schloss}. 2017.
-Diagnostic potential \& the interactive dynamics of the colorectal
-cancer virome. Cold Spring Harbor Laboratory.
+31. \textbf{Hannigan GD}, \textbf{Duhaime MB}, \textbf{Ruffin MT},
+\textbf{Koumpouras CC}, \textbf{Schloss PD}. 2017. Diagnostic potential
+\& the interactive dynamics of the colorectal cancer virome.
+doi:\href{https://doi.org/10.1101/152868}{10.1101/152868}.
 
 \hypertarget{ref-Venkataraman2016}{}
-32. \textbf{Venkataraman, A.}, \textbf{J. R. Sieber}, \textbf{A. W.
-Schmidt}, \textbf{C. Waldron}, \textbf{K. R. Theis}, and \textbf{T. M.
-Schmidt}. 2016. Variable responses of human microbiomes to dietary
-supplementation with resistant starch. Microbiome. Springer Nature
-\textbf{4}.
+32. \textbf{Venkataraman A}, \textbf{Sieber JR}, \textbf{Schmidt AW},
+\textbf{Waldron C}, \textbf{Theis KR}, \textbf{Schmidt TM}. 2016.
+Variable responses of human microbiomes to dietary supplementation with
+resistant starch. Microbiome \textbf{4}.
+doi:\href{https://doi.org/10.1186/s40168-016-0178-x}{10.1186/s40168-016-0178-x}.
 
 \hypertarget{ref-Herrmann2018}{}
-33. \textbf{Herrmann, E.}, \textbf{W. Young}, \textbf{V.
-Reichert-Grimm}, \textbf{S. Weis}, \textbf{C. Riedel}, \textbf{D.
-Rosendale}, \textbf{H. Stoklosinski}, \textbf{M. Hunt}, and \textbf{M.
-Egert}. 2018. In vivo assessment of resistant starch degradation by the
-caecal microbiota of mice using RNA-based stable isotope probingA
-proof-of-principle study. Nutrients. MDPI AG \textbf{10}:179.
+33. \textbf{Herrmann E}, \textbf{Young W}, \textbf{Reichert-Grimm V},
+\textbf{Weis S}, \textbf{Riedel C}, \textbf{Rosendale D},
+\textbf{Stoklosinski H}, \textbf{Hunt M}, \textbf{Egert M}. 2018. In
+vivo assessment of resistant starch degradation by the caecal microbiota
+of mice using RNA-based stable isotope probingA proof-of-principle
+study. Nutrients \textbf{10}:179.
+doi:\href{https://doi.org/10.3390/nu10020179}{10.3390/nu10020179}.
 
 \hypertarget{ref-Reichardt2017}{}
-34. \textbf{Reichardt, N.}, \textbf{M. Vollmer}, \textbf{G. Holtrop},
-\textbf{F. M. Farquharson}, \textbf{D. Wefers}, \textbf{M. Bunzel},
-\textbf{S. H. Duncan}, \textbf{J. E. Drew}, \textbf{L. M. Williams},
-\textbf{G. Milligan}, \textbf{T. Preston}, \textbf{D. Morrison},
-\textbf{H. J. Flint}, and \textbf{P. Louis}. 2017. Specific
-substrate-driven changes in human faecal microbiota composition contrast
-with functional redundancy in short-chain fatty acid production. The
-ISME Journal. Springer Nature \textbf{12}:610--622.
+34. \textbf{Reichardt N}, \textbf{Vollmer M}, \textbf{Holtrop G},
+\textbf{Farquharson FM}, \textbf{Wefers D}, \textbf{Bunzel M},
+\textbf{Duncan SH}, \textbf{Drew JE}, \textbf{Williams LM},
+\textbf{Milligan G}, \textbf{Preston T}, \textbf{Morrison D},
+\textbf{Flint HJ}, \textbf{Louis P}. 2017. Specific substrate-driven
+changes in human faecal microbiota composition contrast with functional
+redundancy in short-chain fatty acid production. The ISME Journal
+\textbf{12}:610--622.
+doi:\href{https://doi.org/10.1038/ismej.2017.196}{10.1038/ismej.2017.196}.
 
-\hypertarget{ref-Flynn_preprint_2017}{}
-35. \textbf{Flynn, K. J.}, \textbf{M. T. Ruffin}, \textbf{D. K.
-Turgeon}, and \textbf{P. D. Schloss}. 2017. Spatial variation of the
-native colon microbiota in healthy adults. Cold Spring Harbor
-Laboratory.
+\hypertarget{ref-Flynn_2018}{}
+35. \textbf{Flynn KJ}, \textbf{Ruffin MT}, \textbf{Turgeon DK},
+\textbf{Schloss PD}. 2018. Spatial variation of the native colon
+microbiota in healthy adults. Cancer Prevention and Research \textbf{In
+Press}.
 
 \hypertarget{ref-Repass2018}{}
-36. \textbf{Repass, J.}, \textbf{E. Iorns}, \textbf{A. Denis},
-\textbf{S. R. Williams}, \textbf{N. Perfito}, and \textbf{T. M. E. and}.
-2018. Replication study: Fusobacterium nucleatum infection is prevalent
-in human colorectal carcinoma. eLife. eLife Sciences Organisation, Ltd.
-\textbf{7}.
+36. \textbf{Repass J}, \textbf{Iorns E}, \textbf{Denis A},
+\textbf{Williams SR}, \textbf{Perfito N}, \textbf{and TME}. 2018.
+Replication study: Fusobacterium nucleatum infection is prevalent in
+human colorectal carcinoma. eLife \textbf{7}.
+doi:\href{https://doi.org/10.7554/elife.25801}{10.7554/elife.25801}.
 
 \hypertarget{ref-Salter_contamination_2014}{}
-37. \textbf{Salter, S. J.}, \textbf{M. J. Cox}, \textbf{E. M. Turek},
-\textbf{S. T. Calus}, \textbf{W. O. Cookson}, \textbf{M. F. Moffatt},
-\textbf{P. Turner}, \textbf{J. Parkhill}, \textbf{N. J. Loman}, and
-\textbf{A. W. Walker}. 2014. Reagent and laboratory contamination can
-critically impact sequence-based microbiome analyses. BMC Biology.
-Springer Nature \textbf{12}.
+37. \textbf{Salter SJ}, \textbf{Cox MJ}, \textbf{Turek EM},
+\textbf{Calus ST}, \textbf{Cookson WO}, \textbf{Moffatt MF},
+\textbf{Turner P}, \textbf{Parkhill J}, \textbf{Loman NJ},
+\textbf{Walker AW}. 2014. Reagent and laboratory contamination can
+critically impact sequence-based microbiome analyses. BMC Biology
+\textbf{12}.
+doi:\href{https://doi.org/10.1186/s12915-014-0087-z}{10.1186/s12915-014-0087-z}.
 
 \hypertarget{ref-Purcell2017}{}
-38. \textbf{Purcell, R. V.}, \textbf{J. Pearson}, \textbf{A. Aitchison},
-\textbf{L. Dixon}, \textbf{F. A. Frizelle}, and \textbf{J. I. Keenan}.
-2017. Colonization with enterotoxigenic bacteroides fragilis is
-associated with early-stage colorectal neoplasia. PLOS ONE. Public
-Library of Science (PLoS) \textbf{12}:e0171602.
+38. \textbf{Purcell RV}, \textbf{Pearson J}, \textbf{Aitchison A},
+\textbf{Dixon L}, \textbf{Frizelle FA}, \textbf{Keenan JI}. 2017.
+Colonization with enterotoxigenic bacteroides fragilis is associated
+with early-stage colorectal neoplasia. PLOS ONE \textbf{12}:e0171602.
+doi:\href{https://doi.org/10.1371/journal.pone.0171602}{10.1371/journal.pone.0171602}.
 
 \hypertarget{ref-Sze2016}{}
-39. \textbf{Sze, M. A.}, and \textbf{P. D. Schloss}. 2016. Looking for a
-signal in the noise: Revisiting obesity and the microbiome. mBio.
-American Society for Microbiology \textbf{7}:e01018--16.
+39. \textbf{Sze MA}, \textbf{Schloss PD}. 2016. Looking for a signal in
+the noise: Revisiting obesity and the microbiome. mBio
+\textbf{7}:e01018--16.
+doi:\href{https://doi.org/10.1128/mbio.01018-16}{10.1128/mbio.01018-16}.
 
 \hypertarget{ref-Walters2014}{}
-40. \textbf{Walters, W. A.}, \textbf{Z. Xu}, and \textbf{R. Knight}.
-2014. Meta-analyses of human gut microbes associated with obesity and
-IBD. FEBS Letters. Wiley-Blackwell \textbf{588}:4223--4233.
+40. \textbf{Walters WA}, \textbf{Xu Z}, \textbf{Knight R}. 2014.
+Meta-analyses of human gut microbes associated with obesity and IBD.
+FEBS Letters \textbf{588}:4223--4233.
+doi:\href{https://doi.org/10.1016/j.febslet.2014.09.039}{10.1016/j.febslet.2014.09.039}.
 
 \hypertarget{ref-Finucane2014}{}
-41. \textbf{Finucane, M. M.}, \textbf{T. J. Sharpton}, \textbf{T. J.
-Laurent}, and \textbf{K. S. Pollard}. 2014. A taxonomic signature of
-obesity in the microbiome? Getting to the guts of the matter. PLoS ONE.
-Public Library of Science (PLoS) \textbf{9}:e84689.
+41. \textbf{Finucane MM}, \textbf{Sharpton TJ}, \textbf{Laurent TJ},
+\textbf{Pollard KS}. 2014. A taxonomic signature of obesity in the
+microbiome? Getting to the guts of the matter. PLoS ONE
+\textbf{9}:e84689.
+doi:\href{https://doi.org/10.1371/journal.pone.0084689}{10.1371/journal.pone.0084689}.
 
 \hypertarget{ref-Hanage2014}{}
-42. \textbf{Hanage, W. P.} 2014. Microbiology: Microbiome science needs
-a healthy dose of scepticism. Nature. Springer Nature
-\textbf{512}:247--248.
+42. \textbf{Hanage WP}. 2014. Microbiology: Microbiome science needs a
+healthy dose of scepticism. Nature \textbf{512}:247--248.
+doi:\href{https://doi.org/10.1038/512247a}{10.1038/512247a}.
 
 \hypertarget{ref-keku_gastrointestinal_2015}{}
-43. \textbf{Keku, T. O.}, \textbf{S. Dulal}, \textbf{A. Deveaux},
-\textbf{B. Jovov}, and \textbf{X. Han}. 2015. The gastrointestinal
-microbiota and colorectal cancer. American Journal of Physiology -
-Gastrointestinal and Liver Physiology \textbf{308}:G351--G363.
+43. \textbf{Keku TO}, \textbf{Dulal S}, \textbf{Deveaux A},
+\textbf{Jovov B}, \textbf{Han X}. 2015. The gastrointestinal microbiota
+and colorectal cancer. American Journal of Physiology - Gastrointestinal
+and Liver Physiology \textbf{308}:G351--G363.
+doi:\href{https://doi.org/10.1152/ajpgi.00360.2012}{10.1152/ajpgi.00360.2012}.
 
 \hypertarget{ref-vogtmann_epidemiologic_2016}{}
-44. \textbf{Vogtmann, E.}, and \textbf{J. J. Goedert}. 2016.
-Epidemiologic studies of the human microbiome and cancer. British
-Journal of Cancer \textbf{114}:237--242.
+44. \textbf{Vogtmann E}, \textbf{Goedert JJ}. 2016. Epidemiologic
+studies of the human microbiome and cancer. British Journal of Cancer
+\textbf{114}:237--242.
+doi:\href{https://doi.org/10.1038/bjc.2015.465}{10.1038/bjc.2015.465}.
 
 \hypertarget{ref-kostic_genomic_2012}{}
-45. \textbf{Kostic, A. D.}, \textbf{D. Gevers}, \textbf{C. S.
-Pedamallu}, \textbf{M. Michaud}, \textbf{F. Duke}, \textbf{A. M. Earl},
-\textbf{A. I. Ojesina}, \textbf{J. Jung}, \textbf{A. J. Bass},
-\textbf{J. Tabernero}, \textbf{J. Baselga}, \textbf{C. Liu}, \textbf{R.
-A. Shivdasani}, \textbf{S. Ogino}, \textbf{B. W. Birren}, \textbf{C.
-Huttenhower}, \textbf{W. S. Garrett}, and \textbf{M. Meyerson}. 2012.
-Genomic analysis identifies association of Fusobacterium with colorectal
-carcinoma. Genome Research \textbf{22}:292--298.
+45. \textbf{Kostic AD}, \textbf{Gevers D}, \textbf{Pedamallu CS},
+\textbf{Michaud M}, \textbf{Duke F}, \textbf{Earl AM}, \textbf{Ojesina
+AI}, \textbf{Jung J}, \textbf{Bass AJ}, \textbf{Tabernero J},
+\textbf{Baselga J}, \textbf{Liu C}, \textbf{Shivdasani RA},
+\textbf{Ogino S}, \textbf{Birren BW}, \textbf{Huttenhower C},
+\textbf{Garrett WS}, \textbf{Meyerson M}. 2012. Genomic analysis
+identifies association of Fusobacterium with colorectal carcinoma.
+Genome Research \textbf{22}:292--298.
+doi:\href{https://doi.org/10.1101/gr.126573.111}{10.1101/gr.126573.111}.
 
 \hypertarget{ref-zackular_human_2014}{}
-46. \textbf{Zackular, J. P.}, \textbf{M. A. M. Rogers}, \textbf{M. T.
-Ruffin}, and \textbf{P. D. Schloss}. 2014. The human gut microbiome as a
-screening tool for colorectal cancer. Cancer Prevention Research
-(Philadelphia, Pa.) \textbf{7}:1112--1121.
+46. \textbf{Zackular JP}, \textbf{Rogers MAM}, \textbf{Ruffin MT},
+\textbf{Schloss PD}. 2014. The human gut microbiome as a screening tool
+for colorectal cancer. Cancer Prevention Research (Philadelphia, Pa)
+\textbf{7}:1112--1121.
+doi:\href{https://doi.org/10.1158/1940-6207.CAPR-14-0129}{10.1158/1940-6207.CAPR-14-0129}.
 
 \hypertarget{ref-schloss_introducing_2009}{}
-47. \textbf{Schloss, P. D.}, \textbf{S. L. Westcott}, \textbf{T.
-Ryabin}, \textbf{J. R. Hall}, \textbf{M. Hartmann}, \textbf{E. B.
-Hollister}, \textbf{R. A. Lesniewski}, \textbf{B. B. Oakley}, \textbf{D.
-H. Parks}, \textbf{C. J. Robinson}, \textbf{J. W. Sahl}, \textbf{B.
-Stres}, \textbf{G. G. Thallinger}, \textbf{D. J. Van Horn}, and
-\textbf{C. F. Weber}. 2009. Introducing mothur: Open-Source,
-Platform-Independent, Community-Supported Software for Describing and
-Comparing Microbial Communities. Appl.Environ.Microbiol.
-\textbf{75}:7537--7541.
+47. \textbf{Schloss PD}, \textbf{Westcott SL}, \textbf{Ryabin T},
+\textbf{Hall JR}, \textbf{Hartmann M}, \textbf{Hollister EB},
+\textbf{Lesniewski RA}, \textbf{Oakley BB}, \textbf{Parks DH},
+\textbf{Robinson CJ}, \textbf{Sahl JW}, \textbf{Stres B},
+\textbf{Thallinger GG}, \textbf{Van Horn DJ}, \textbf{Weber CF}. 2009.
+Introducing mothur: Open-Source, Platform-Independent,
+Community-Supported Software for Describing and Comparing Microbial
+Communities. ApplEnvironMicrobiol \textbf{75}:7537--7541.
 
 \hypertarget{ref-rognes_vsearch_2016}{}
-48. \textbf{Rognes, T.}, \textbf{T. Flouri}, \textbf{B. Nichols},
-\textbf{C. Quince}, and \textbf{F. Mahé}. 2016. VSEARCH: A versatile
-open source tool for metagenomics. PeerJ \textbf{4}:e2584.
+48. \textbf{Rognes T}, \textbf{Flouri T}, \textbf{Nichols B},
+\textbf{Quince C}, \textbf{Mahé F}. 2016. VSEARCH: A versatile open
+source tool for metagenomics. PeerJ \textbf{4}:e2584.
+doi:\href{https://doi.org/10.7717/peerj.2584}{10.7717/peerj.2584}.
 
 \hypertarget{ref-westcott_opticlust_2017}{}
-49. \textbf{Westcott, S. L.}, and \textbf{P. D. Schloss}. 2017.
-OptiClust, an Improved Method for Assigning Amplicon-Based Sequence Data
-to Operational Taxonomic Units. mSphere \textbf{2}.
+49. \textbf{Westcott SL}, \textbf{Schloss PD}. 2017. OptiClust, an
+Improved Method for Assigning Amplicon-Based Sequence Data to
+Operational Taxonomic Units. mSphere \textbf{2}.
+doi:\href{https://doi.org/10.1128/mSphereDirect.00073-17}{10.1128/mSphereDirect.00073-17}.
 
 \hypertarget{ref-rdp_Wang2007}{}
-50. \textbf{Wang, Q.}, \textbf{G. M. Garrity}, \textbf{J. M. Tiedje},
-and \textbf{J. R. Cole}. 2007. Naive bayesian classifier for rapid
-assignment of rRNA sequences into the new bacterial taxonomy. Applied
-and Environmental Microbiology. American Society for Microbiology
-\textbf{73}:5261--5267.
+50. \textbf{Wang Q}, \textbf{Garrity GM}, \textbf{Tiedje JM},
+\textbf{Cole JR}. 2007. Naive bayesian classifier for rapid assignment
+of rRNA sequences into the new bacterial taxonomy. Applied and
+Environmental Microbiology \textbf{73}:5261--5267.
+doi:\href{https://doi.org/10.1128/aem.00062-07}{10.1128/aem.00062-07}.
 
 \hypertarget{ref-permanova_Anderson2013}{}
-51. \textbf{Anderson, M. J.}, and \textbf{D. C. I. Walsh}. 2013.
-PERMANOVA, ANOSIM, and the mantel test in the face of heterogeneous
-dispersions: What null hypothesis are you testing? Ecological
-Monographs. Wiley-Blackwell \textbf{83}:557--574.
+51. \textbf{Anderson MJ}, \textbf{Walsh DCI}. 2013. PERMANOVA, ANOSIM,
+and the mantel test in the face of heterogeneous dispersions: What null
+hypothesis are you testing? Ecological Monographs \textbf{83}:557--574.
+doi:\href{https://doi.org/10.1890/12-2010.1}{10.1890/12-2010.1}.
 
 \hypertarget{ref-benjamini_controlling_1995}{}
-52. \textbf{Benjamini, Y.}, and \textbf{Y. Hochberg}. 1995. Controlling
-the false discovery rate: A practical and powerful approach to multiple
-testing. Journal of the Royal Statistical Society. Series B
+52. \textbf{Benjamini Y}, \textbf{Hochberg Y}. 1995. Controlling the
+false discovery rate: A practical and powerful approach to multiple
+testing. Journal of the Royal Statistical Society Series B
 (Methodological) \textbf{57}:289--300.
 
 \hypertarget{ref-Breiman2001}{}
-53. \textbf{Breiman, L.} 2001. Machine Learning. Springer Nature
-\textbf{45}:5--32.
+53. \textbf{Breiman L}. 2001. Machine Learning \textbf{45}:5--32.
+doi:\href{https://doi.org/10.1023/a:1010933404324}{10.1023/a:1010933404324}.
 
 \hypertarget{ref-r_citation_2017}{}
 54. \textbf{R Core Team}. 2017. R: A language and environment for
@@ -1177,55 +1212,56 @@ statistical computing. R Foundation for Statistical Computing, Vienna,
 Austria.
 
 \hypertarget{ref-rcompanion_citation_2017}{}
-55. \textbf{Mangiafico, S.} 2017. Rcompanion: Functions to support
+55. \textbf{Mangiafico S}. 2017. Rcompanion: Functions to support
 extension education program evaluation.
 
 \hypertarget{ref-car_citation_2011}{}
-56. \textbf{Fox, J.}, and \textbf{S. Weisberg}. 2011. An R companion to
-applied regressionSecond. Sage, Thousand Oaks CA.
+56. \textbf{Fox J}, \textbf{Weisberg S}. 2011. An R companion to applied
+regressionSecond. Sage, Thousand Oaks CA.
 
 \hypertarget{ref-lme4_citation_2015}{}
-57. \textbf{Bates, D.}, \textbf{M. Mächler}, \textbf{B. Bolker}, and
-\textbf{S. Walker}. 2015. Fitting linear mixed-effects models using
-lme4. Journal of Statistical Software \textbf{67}:1--48.
+57. \textbf{Bates D}, \textbf{Mächler M}, \textbf{Bolker B},
+\textbf{Walker S}. 2015. Fitting linear mixed-effects models using lme4.
+Journal of Statistical Software \textbf{67}:1--48.
+doi:\href{https://doi.org/10.18637/jss.v067.i01}{10.18637/jss.v067.i01}.
 
 \hypertarget{ref-epir_citation_2017}{}
-58. \textbf{Telmo Nunes, M. S. with contributions from}, \textbf{C.
-Heuer}, \textbf{J. Marshall}, \textbf{J. Sanchez}, \textbf{R. Thornton},
-\textbf{J. Reiczigel}, \textbf{J. Robison-Cox}, \textbf{P. Sebastiani},
-\textbf{P. Solymos}, \textbf{K. Yoshida}, \textbf{G. Jones}, \textbf{S.
-Pirikahu}, \textbf{S. Firestone}, and \textbf{R. Kyle.} 2017. EpiR:
+58. \textbf{Telmo Nunes MS with contributions from}, \textbf{Heuer C},
+\textbf{Marshall J}, \textbf{Sanchez J}, \textbf{Thornton R},
+\textbf{Reiczigel J}, \textbf{Robison-Cox J}, \textbf{Sebastiani P},
+\textbf{Solymos P}, \textbf{Yoshida K}, \textbf{Jones G},
+\textbf{Pirikahu S}, \textbf{Firestone S}, \textbf{Kyle. R}. 2017. EpiR:
 Tools for the analysis of epidemiological data.
 
 \hypertarget{ref-metafor_citation_2010}{}
-59. \textbf{Viechtbauer, W.} 2010. Conducting meta-analyses in R with
-the metafor package. Journal of Statistical Software \textbf{36}:1--48.
+59. \textbf{Viechtbauer W}. 2010. Conducting meta-analyses in R with the
+metafor package. Journal of Statistical Software \textbf{36}:1--48.
 
 \hypertarget{ref-vegan_citation_2017}{}
-60. \textbf{Oksanen, J.}, \textbf{F. G. Blanchet}, \textbf{M. Friendly},
-\textbf{R. Kindt}, \textbf{P. Legendre}, \textbf{D. McGlinn}, \textbf{P.
-R. Minchin}, \textbf{R. B. O'Hara}, \textbf{G. L. Simpson}, \textbf{P.
-Solymos}, \textbf{M. H. H. Stevens}, \textbf{E. Szoecs}, and \textbf{H.
-Wagner}. 2017. Vegan: Community ecology package.
+60. \textbf{Oksanen J}, \textbf{Blanchet FG}, \textbf{Friendly M},
+\textbf{Kindt R}, \textbf{Legendre P}, \textbf{McGlinn D},
+\textbf{Minchin PR}, \textbf{O'Hara RB}, \textbf{Simpson GL},
+\textbf{Solymos P}, \textbf{Stevens MHH}, \textbf{Szoecs E},
+\textbf{Wagner H}. 2017. Vegan: Community ecology package.
 
 \hypertarget{ref-caret_citation_2017}{}
-61. \textbf{Jed Wing, M. K. C. from}, \textbf{S. Weston}, \textbf{A.
-Williams}, \textbf{C. Keefer}, \textbf{A. Engelhardt}, \textbf{T.
-Cooper}, \textbf{Z. Mayer}, \textbf{B. Kenkel}, \textbf{the R Core
-Team}, \textbf{M. Benesty}, \textbf{R. Lescarbeau}, \textbf{A. Ziem},
-\textbf{L. Scrucca}, \textbf{Y. Tang}, \textbf{C. Candan}, and
-\textbf{T. Hunt.} 2017. Caret: Classification and regression training.
+61. \textbf{Jed Wing MKC from}, \textbf{Weston S}, \textbf{Williams A},
+\textbf{Keefer C}, \textbf{Engelhardt A}, \textbf{Cooper T},
+\textbf{Mayer Z}, \textbf{Kenkel B}, \textbf{R Core Team},
+\textbf{Benesty M}, \textbf{Lescarbeau R}, \textbf{Ziem A},
+\textbf{Scrucca L}, \textbf{Tang Y}, \textbf{Candan C}, \textbf{Hunt.
+T}. 2017. Caret: Classification and regression training.
 
 \hypertarget{ref-randomforest_citation_2002}{}
-62. \textbf{Liaw, A.}, and \textbf{M. Wiener}. 2002. Classification and
+62. \textbf{Liaw A}, \textbf{Wiener M}. 2002. Classification and
 regression by randomForest. R News \textbf{2}:18--22.
 
 \hypertarget{ref-ggplot2_citation_2009}{}
-63. \textbf{Wickham, H.} 2009. Ggplot2: Elegant graphics for data
+63. \textbf{Wickham H}. 2009. Ggplot2: Elegant graphics for data
 analysis. Springer-Verlag New York.
 
 \hypertarget{ref-gridextra_citation_2017}{}
-64. \textbf{Auguie, B.} 2017. GridExtra: Miscellaneous functions for
+64. \textbf{Auguie B}. 2017. GridExtra: Miscellaneous functions for
 ``grid'' graphics.
 
 \newpage
