@@ -51,5 +51,5 @@ An increasing body of literature suggests that both individual and collections o
 * R (v. 3.4.2) should be located in the user's PATH  
 
 #### Running analysis  
-```git clone https://github.com/SchlossLab/Sze_CRCMetaAnalysis_XXXX_2016.git```  
+```git clone https://github.com/SchlossLab/Sze_CRCMetaAnalysis_mBio_2018```  
 ```make write.paper```
