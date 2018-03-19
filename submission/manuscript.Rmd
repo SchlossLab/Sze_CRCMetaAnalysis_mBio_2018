@@ -143,7 +143,7 @@ correlation_data <- as.data.frame(crc_stool_model_aucs %>% filter(model_type == 
 
 
 
-# Making Sense of the Noise: Leveraging Existing 16S rRNA Gene Surveys to Identify Key Community Members in Colorectal Tumors
+# Leveraging Existing 16S rRNA Gene Surveys to Identify Reproducible Biomarkers in Individuals with Colorectal Tumors
 
 \begin{center}
 \vspace{25mm}

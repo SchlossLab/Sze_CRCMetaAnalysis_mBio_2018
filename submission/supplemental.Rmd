@@ -11,7 +11,7 @@ geometry: margin=1.0in
 bibliography: null
 ---
 
-# Making Sense of the Noise: Leveraging Existing 16S rRNA Gene Surveys to Identify Key Community Members in Colorectal Tumors
+# Leveraging Existing 16S rRNA Gene Surveys to Identify Reproducible Biomarkers in Individuals with Colorectal Tumors
 
 \vspace{10mm}
 
