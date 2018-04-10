@@ -300,8 +300,8 @@ $(TABLES)/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv : $(GENERA_FILE)\
 $(SUB_GENERA_FILE) $(METADATA)\
 code/run_random_forest_genus_stool.R\
 code/run_adn_random_forest_genus_stool.R
-	R -e "source('code/run_random_forest_genus_stool.R')"
-	R -e "source('code/run_adn_random_forest_genus_stool.R')"
+	R -e "source('code/run_non_common_RF_genera_stool.R')"
+	R -e "source('code/run_adn_non_common_RF_genera_stool.R')"
 
 
 # Create Variables for the tissue dependencies
@@ -369,8 +369,8 @@ $(TABLES)adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv : $(GENERA_
 $(SUB_GENERA_FILE) $(TABLES)/alpha_tissue_matched_data.csv\
 $(TABLES)/alpha_tissue_unmatched_data.csv\
 code/run_random_forest_genus_tissue.R code/run_adn_random_forest_genus_tissue.R
-	R -e "source('code/run_random_forest_genus_tissue.R')"
-	R -e "source('code/run_adn_random_forest_genus_tissue.R')"
+	R -e "source('code/run_non_common_RF_genera_tissue.R')"
+	R -e "source('code/run_adn_non_common_RF_genera_tissue.R')"
 
 
 
