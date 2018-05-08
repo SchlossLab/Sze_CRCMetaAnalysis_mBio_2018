@@ -286,8 +286,8 @@ G_ADN_SELECT_STOOL_ROC=$(addsuffix _raw_roc_data.csv,$(G_ADN_STOOL_SELECT))
 O_CRC_STOOL_FULL = $(foreach S, $(CRC_STOOL_STUDY), $(TABLES)/$(S))
 O_ADN_STOOL_FULL = $(foreach S, $(ADN_STOOL_STUDY), $(TABLES)/adn_$(S))
 
-O_CRC_FULL_STOOL_IMP=$(addsuffix _imp_otu_table.csv,$(G_CRC_STOOL_FULL))
-O_ADN_FULL_STOOL_IMP=$(addsuffix _imp_otu_table.csv,$(G_ADN_STOOL_FULL))
+O_CRC_FULL_STOOL_IMP=$(addsuffix _imp_otu_table.csv,$(O_CRC_STOOL_FULL))
+O_ADN_FULL_STOOL_IMP=$(addsuffix _imp_otu_table.csv,$(O_ADN_STOOL_FULL))
 
 # Run the Stool Genera Random Forest Models
 $(G_CRC_FULL_STOOL_PVALUE) $(G_CRC_FULL_STOOL_ROC)\
@@ -351,7 +351,7 @@ O_ADN_TISSUE_FULL = $(foreach S, $(ADN_TISSUE_STUDY), $(TABLES)/adn_$(S))
 
 O_CRC_FULL_MATCH_T_IMP=$(addsuffix _matched_tissue_imp_otu_table.csv,$(O_CRC_MATCH_T_FULL))
 O_CRC_FULL_UNMATCH_T_IMP=$(addsuffix _unmatched_tissue_imp_otu_table.csv,$(O_CRC_UNMATCH_T_FULL))
-O_ADN_FULL_STOOL_IMP=$(addsuffix _tissue_imp_otu_table.csv,$(G_ADN_STOOL_FULL))
+O_ADN_TISSUE_FULL_T_IMP=$(addsuffix _tissue_imp_otu_table.csv,$(O_ADN_TISSUE_FULL))
 
 # Run the Tissue Genera Random Forest Models
 $(G_CRC_FULL_MATCH_T_PVALUE) $(G_CRC_FULL_MATCH_T_ROC)\
@@ -373,6 +373,8 @@ code/run_random_forest_genus_tissue.R code/run_adn_random_forest_genus_tissue.R
 	R -e "source('code/run_adn_non_common_RF_genera_tissue.R')"
 
 
+
+#$(O_ADN_FULL_STOOL_IMP)\
 
 # Run the Stool OTU Random Forest Models
 $(TABLES)/stool_rf_otu_roc.csv\
@@ -400,7 +402,7 @@ $(TABLES)/matched_tissue_rf_otu_roc.csv\
 $(TABLES)/matched_tissue_rf_otu_random_comparison_summary.csv\
 $(TABLES)/adn_tissue_rf_otu_roc.csv\
 $(O_CRC_FULL_MATCH_T_IMP) $(O_CRC_FULL_UNMATCH_T_IMP)\
-$(O_ADN_FULL_STOOL_IMP)\
+$(O_ADN_TISSUE_FULL_T_IMP)\
 $(TABLES)/adn_tissue_rf_otu_random_comparison_summary.csv : $(SUBSHARED) S(METADATA)\
 $(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
 code/run_random_forest_otu_tissue.R code/run_adn_random_forest_otu_tissue.R\
@@ -498,12 +500,16 @@ $(TABLES)/ALL_genus_unmatched_tissue_RF_select_imp_vars.csv code/make_select_imp
 
 # Run code to create Figure 5 and S4
 $(FIGS)/FigureS2.pdf\
-$(FIGS)/Figure5.pdf : $(TABLES)/adn_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
-$(TABLES)/adn_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
-$(TABLES)/adn_genus_stool_RF_fullvsselect_pvalue_summary.csv\
-$(TABLES)/genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
-$(TABLES)/genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
-$(TABLES)/genus_stool_RF_fullvsselect_pvalue_summary.csv\
+$(FIGS)/Figure5.pdf : $(TABLES)/adn_ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/adn_tissue_rf_otu_random_comparison_summary.csv\
+$(TABLES)/adn_ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/adn_stool_rf_otu_random_comparison_summary.csv\
+$(TABLES)/ALL_genus_matched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/matched_tissue_rf_otu_random_comparison_summary.csv\
+$(TABLES)/unmatched_tissue_rf_otu_random_comparison_summary.csv\
+$(TABLES)/ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv\
+$(TABLES)/stool_rf_otu_random_comparison_summary.csv\
 code/make_rf_auc_full_versus_specific_graph.R
 	R -e "source('code/make_rf_auc_full_versus_specific_graph.R')"
 
@@ -564,3 +570,22 @@ $(FIGS)/FigureS4.pdf code/Run_render_paper.R
 
 submission/response_to_reviewers.pdf : submission/response_to_reviewers.md
 	pandoc -s --include-in-header=submission/header.tex -V geometry:margin=1in -o $@ $<
+	
+	
+	
+write.revision1.paper : $(FINAL)/manuscript_R1.Rmd\
+$(FIGS)/Figure1.pdf $(FIGS)/Figure2.pdf\
+$(FIGS)/Figure3.pdf $(FIGS)/Figure4.pdf\
+$(FIGS)/Figure5.pdf $(FIGS)/FigureS1.pdf\
+$(FIGS)/FigureS2.pdf $(FIGS)/FigureS3.pdf\
+$(FIGS)/FigureS4.pdf code/Run_render_paper.R
+	R -e "source('code/Run_render_revision1_paper.R')"
+
+write.r1.marked.up : $(FINAL)/manuscript.tex\
+$(FINAL)/manuscript_R1.tex
+	latexdiff $(FINAL)/manuscript.tex $(FINAL)/manuscript_R1.tex > $(FINAL)/manuscript_R1_markedup.tex
+	pdflatex -output-directory=$(FINAL) $(FINAL)/manuscript_R1_markedup.tex
+	rm $(FINAL)/manuscript_R1_markedup.aux 
+	rm $(FINAL)/manuscript_R1_markedup.log
+	rm $(FINAL)/manuscript_R1_markedup.out	
+
