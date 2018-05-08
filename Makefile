@@ -404,7 +404,7 @@ $(O_ADN_FULL_STOOL_IMP)\
 $(TABLES)/adn_tissue_rf_otu_random_comparison_summary.csv : $(SUBSHARED) S(METADATA)\
 $(TABLES)/alpha_tissue_matched_data.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
 code/run_random_forest_otu_tissue.R code/run_adn_random_forest_otu_tissue.R\
-code/run_random_forest_select_otus_tissue.R code/run_adn_random_forest_select_otu_tissue 
+code/run_random_forest_select_otus_tissue.R code/run_adn_random_forest_select_otu_tissue
 	R -e "source('code/run_random_forest_otu_tissue.R')"
 	R -e "source('code/run_random_forest_select_otus_tissue.R')"
 	R -e "source('code/run_adn_random_forest_otu_tissue.R')"
@@ -448,7 +448,7 @@ $(TABLES)/unmatched_tissue_rf_otu_random_comparison_summary.csv\
 $(TABLES)/ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/stool_rf_otu_random_comparison_summary.csv\
 code/run_pvalue_auc_ind_vs_full_taxa.R
-	R -e "source('code/run_pvalue_auc_ind_vs_full_taxa.R')"	
+	R -e "source('code/run_pvalue_auc_ind_vs_full_taxa.R')"
 
 
 # Generate total n used in study for stool and tissue
@@ -560,3 +560,7 @@ $(FIGS)/Figure5.pdf $(FIGS)/FigureS1.pdf\
 $(FIGS)/FigureS2.pdf $(FIGS)/FigureS3.pdf\
 $(FIGS)/FigureS4.pdf code/Run_render_paper.R
 	R -e "source('code/Run_render_paper.R')"
+
+
+submission/response_to_reviewers.pdf : submission/response_to_reviewers.md
+	pandoc -s --include-in-header=submission/header.tex -V geometry:margin=1in -o $@ $<
