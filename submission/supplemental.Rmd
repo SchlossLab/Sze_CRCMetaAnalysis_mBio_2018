@@ -1,6 +1,6 @@
 ---
 title: ''
-csl: microbiome.csl
+csl: mbio.csl
 fontsize: 12pt
 output:
   pdf_document:
