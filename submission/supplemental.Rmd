@@ -7,25 +7,10 @@ output:
     includes:
       in_header: header.tex
     keep_tex: yes
-geometry: margin=1.0in
+geometry: margin=0.75in
 bibliography: null
 ---
-
-# Leveraging Existing 16S rRNA Gene Surveys to Identify Reproducible Biomarkers in Individuals with Colorectal Tumors
-
-\vspace{10mm}
-
-\begin{center}
-Marc A Sze and Patrick D Schloss
-
-\vspace{10mm}
-
-Supplemental
-\end{center}
-
-
-\newpage
-
+\pagenumbering{gobble}
 ```{r knitr_settings, eval=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
 
 source('../code/functions.R')
