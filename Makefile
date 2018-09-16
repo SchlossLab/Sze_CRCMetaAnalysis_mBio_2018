@@ -457,7 +457,7 @@ code/run_pvalue_auc_ind_vs_full_taxa.R
 $(TABLES)/stool_study_n_analyzed.csv\
 $(TABLES)/tissue_study_n_analyzed.csv : $(TABLES)/alpha_adn_group_counts_summary.csv\
 $(TABLES)/alpha_group_counts_summary.csv $(TABLES)/alpha_adn_group_counts_tissue_summary.csv\
-$(TABLES)/alpha_group_counts_matched_tissue_summary.csv $(TABLES)/alpha_group_counts_tissue_summary.csv\
+$(TABLES)/alpha_group_counts_matched_tissue_summary.csv $(TABLES)/alpha_group_counts_unmatched_tissue_summary.csv\
 code/make_study_count_table.R
 	R -e "source('code/make_study_count_table.R')"
 
