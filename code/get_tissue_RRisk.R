@@ -13,8 +13,8 @@ loadLibs(c("tidyverse", "epiR", "metafor"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
-# Remove Lu since it only has polyps and no cancer cases
-tissue_sets <- c("dejea", "geng", "sana", "burns")
+# Remove Lu and Sana since it only has polyps and no cancer cases
+tissue_sets <- c("dejea", "geng", "burns")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -41,7 +41,7 @@ combined_tissue <- tissue_unmatched %>%
                     one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")))
 
 # Remove polyp only group
-no_p_tissue_unmatched <- combined_tissue %>% filter(study != "lu")
+no_p_tissue_unmatched <- combined_tissue %>% filter(study != "lu", study != "sana")
 
 
 ##############################################################################################
@@ -172,9 +172,9 @@ run_pooled <- function(alpha_d, dataset){
 tissue_unmatched <- 
   tissue_unmatched %>% 
   select(one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")) %>% 
-  filter(study != "lu")
+  filter(study != "lu", study != "sana")
 
-unmatched_studies <- c("burns", "chen", "flemer", "sana")
+unmatched_studies <- c("burns", "chen", "flemer")
 
 # Generate RR and data tables for every study
 unmatch_ind_study_data <- sapply(unmatched_studies, 
@@ -211,7 +211,7 @@ write_csv(unmatched_pooled_results, "data/process/tables/alpha_OR_unmatched_tiss
 ############### Run the actual programs to get the data (combined) ###########################
 ##############################################################################################
 
-all_studies <- c("burns", "chen", "flemer", "sana", "dejea", "geng")
+all_studies <- c("burns", "chen", "flemer", "dejea", "geng")
 
 # Generate RR and data tables for every study
 ind_study_data <- sapply(all_studies, 
@@ -249,7 +249,7 @@ write.csv(pooled_results, "data/process/tables/alpha_OR_tissue_composite.csv", r
 tissue_matched <- 
   tissue_matched %>% 
   select(one_of("group", "study", "disease", "r_sobs", "r_shannon", "r_shannoneven")) %>% 
-  filter(study != "lu")
+  filter(study != "lu", study != "sana")
 
 matched_studies <- c("burns", "dejea", "geng")
 

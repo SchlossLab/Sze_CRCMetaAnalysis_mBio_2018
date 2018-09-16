@@ -40,7 +40,7 @@ crc_tissue_matched <- read_csv("data/process/tables/alpha_group_counts_matched_t
   select(study, control, cancer)
 
 # Read in the crc unmatched tissue files
-crc_tissue_unmatched <- read_csv("data/process/tables/alpha_group_counts_tissue_summary.csv") %>% 
+crc_tissue_unmatched <- read_csv("data/process/tables/alpha_group_counts_unmatched_tissue_summary.csv") %>% 
   filter(measure == "shannon") %>% 
   mutate(control = high_N + low_N, cancer = high_Y + low_Y) %>% 
   select(study, control, cancer)
@@ -50,11 +50,10 @@ combine_tissue <- adn_tissue %>% full_join(crc_tissue_unmatched, by = "study") %
   mutate(final_control = ifelse(is.na(control.x), invisible(control.y), invisible(control.x))) %>% 
   select(study, final_control, adenoma, cancer) %>% 
   rename(control = final_control) %>% 
-  full_join(crc_tissue_matched, by = "study") %>% 
-  mutate(control.x = ifelse(!is.na(control.y), invisible(control.x + control.y), invisible(control.x)), 
-         cancer.x = ifelse(!is.na(cancer.y), invisible(cancer.x + cancer.y), invisible(cancer.x))) %>% 
-  select(study, control.x, adenoma, cancer.x) %>% 
-  rename(control = control.x, cancer = cancer.x)
+  bind_rows(crc_tissue_matched) %>% 
+  group_by(study) %>% 
+  summarise(control = sum(control), adenoma = sum(adenoma), cancer = sum(cancer)) %>% 
+  ungroup()
 
 
 # Write out the tables

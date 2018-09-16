@@ -15,7 +15,7 @@ loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
 # Remove Lu since it only has polyps and no cancer cases
-tissue_sets <- c("lu")
+tissue_sets <- c("lu", "sana")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
