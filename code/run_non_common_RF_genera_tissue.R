@@ -8,7 +8,7 @@
 source('code/functions.R')
 
 # Load needed libraries
-loadLibs(c("dplyr", "tidyr", "caret", "pROC"))
+loadLibs(c("tidyverse", "caret", "pROC"))
 
 # Read in specific data tables to be used
 
@@ -30,16 +30,16 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
 
 
 # Get studies that contain matched samples
-# Remove Lu since it only has polyps
+# Remove Lu and Sana since it only has polyps
 matched_studies <- unique(
-  tissue_matched$study[!(tissue_matched$study %in% c("lu"))])
+  tissue_matched$study[!(tissue_matched$study %in% c("lu", "sana"))])
 
 # Get studies that contain unmatched samples
-# Need to remove dejea and lu
-# Lu only has polyps
+# Need to remove dejea and lu and sana
+# Lu and Sana only has polyps
 # Dejea only has cancer 
 unmatched_studies <- unique(
-  tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu"))]) 
+  tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu", "sana"))]) 
 
 ##############################################################################################
 ########################## Group of Functions needed to run the analysis #####################
