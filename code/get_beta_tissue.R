@@ -11,8 +11,8 @@ loadLibs(c("dplyr", "tidyr", "car", "ggplot2", "lme4", "vegan"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
-# Remove Lu since it only has polyps and no cancer cases
-tissue_sets <- c("dejea", "geng", "sana", "burns")
+# Remove Lu and Sana since it only has polyps and no cancer cases
+tissue_sets <- c("dejea", "geng", "burns")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -230,7 +230,7 @@ distance_data <- mapply(get_distance, c(tissue_sets, both_sets),
 
 # Read in data with needed metadata
 unmatched_meta <- mapply(get_metadata_data, 
-                         c("sana", "burns", both_sets), "tissue_unmatched", SIMPLIFY = F)
+                         c("burns", both_sets), "tissue_unmatched", SIMPLIFY = F)
 
 
 matched_meta <- mapply(get_metadata_data, 
@@ -238,7 +238,7 @@ matched_meta <- mapply(get_metadata_data,
 
 
 # Reorder the distance matrix to match the the metadata length
-reordered_unmatched_dist <- mapply(reorder_dist, c("sana", "burns", both_sets), 
+reordered_unmatched_dist <- mapply(reorder_dist, c("burns", both_sets), 
                                    "unmatched_meta", SIMPLIFY = F)
 
 reordered_matched_dist <- mapply(reorder_dist, c("dejea", "geng", "burns"), 
@@ -254,7 +254,7 @@ matched_total_compared <- lapply(matched_meta, function(x) table(x$is_cancer)) %
   rename(crc_n = V1, not_crc_n = V2)
 
 # Get comparisons
-beta_perm_unmatched_results <- t(mapply(make_adonis_test, c("sana", "burns", both_sets), 
+beta_perm_unmatched_results <- t(mapply(make_adonis_test, c("burns", both_sets), 
                                         "reordered_unmatched_dist", "unmatched_meta")) %>% 
   as.data.frame() %>% mutate(study = rownames(.)) %>% 
   inner_join(unmatched_total_compared, by = "study")
