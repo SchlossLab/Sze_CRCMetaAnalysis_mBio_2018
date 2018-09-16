@@ -30,16 +30,16 @@ tissue_unmatched <- read.csv("data/process/tables/alpha_tissue_unmatched_data.cs
 
 
 # Get studies that contain matched samples
-# Remove Lu since it only has polyps
+# Remove Lu and Sana since it only has polyps
 matched_studies <- unique(
-  tissue_matched$study[!(tissue_matched$study %in% c("lu"))])
+  tissue_matched$study[!(tissue_matched$study %in% c("lu", "sana"))])
 
 # Get studies that contain unmatched samples
 # Need to remove dejea and lu
-# Lu only has polyps
+# Lu and Sana only has polyps
 # Dejea only has cancer 
 unmatched_studies <- unique(
-  tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu"))]) 
+  tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu", "sana"))]) 
 
 # Tissue Studies
 studies <- unique(c(matched_studies, unmatched_studies))
