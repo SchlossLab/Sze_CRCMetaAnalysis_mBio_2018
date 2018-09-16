@@ -305,9 +305,9 @@ code/run_adn_random_forest_genus_stool.R
 
 
 # Create Variables for the tissue dependencies
-CRC_MATCH_TISSUE_STUDY = burns dejea geng
-CRC_UNMATCH_TISSUE_STUDY = burns chen flemer sana
-ADN_TISSUE_STUDY = lu flemer
+CRC_MATCH_TISSUE_STUDY = burns dejea geng 
+CRC_UNMATCH_TISSUE_STUDY = burns chen flemer 
+ADN_TISSUE_STUDY = lu flemer sana
 
 # Set up taxonomy call for important variable counting
 CRC_MATCH_T_TAX = $(foreach S, $(CRC_MATCH_TISSUE_STUDY), $(PROC)/$(S).taxonomy)
@@ -570,7 +570,6 @@ $(FIGS)/FigureS4.pdf code/Run_render_paper.R
 
 submission/response_to_reviewers.pdf : submission/response_to_reviewers.md
 	pandoc -s --include-in-header=submission/header.tex -V geometry:margin=1in -o $@ $<
-	
 	
 	
 write.revision1.paper : $(FINAL)/manuscript_R1.Rmd\
