@@ -13,8 +13,8 @@ loadLibs(c("dplyr", "tidyr", "epiR", "metafor"))
 
 # Tissue Only sets
 # Lu, Dejea, Sana, Burns, Geng
-# Remove Lu since it only has polyps and no cancer cases
-tissue_sets <- c("dejea", "geng", "sana", "burns")
+# Remove Lu and Sana since it only has polyps and no cancer cases
+tissue_sets <- c("dejea", "geng", "burns")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -23,7 +23,7 @@ tissue_sets <- c("dejea", "geng", "sana", "burns")
 both_sets <- c("flemer", "chen")
 
 # All tissue studies
-all_studies <- c("burns", "chen", "flemer", "sana", "dejea", "geng")
+all_studies <- c("burns", "chen", "flemer", "dejea", "geng")
 
 # CRC genera of interest
 crc_genera <- c("Fusobacterium", "Peptostreptococcus", "Porphyromonas", "Parvimonas")
@@ -360,15 +360,15 @@ tissue_unmatched <- tissue_unmatched %>%
 
 
 # Remove polyp only group
-no_p_tissue_matched <- tissue_matched %>% filter(study != "lu")
-no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu")
-no_p_tissue <- tissue_matched %>% bind_rows(tissue_unmatched) %>% filter(study != "lu")
+no_p_tissue_matched <- tissue_matched %>% filter(study != "lu", study != "sana")
+no_p_tissue_unmatched <- tissue_unmatched %>% filter(study != "lu", study != "sana")
+no_p_tissue <- tissue_matched %>% bind_rows(tissue_unmatched) %>% filter(study != "lu", study != "sana")
 
 # Generate RR and data tables for every study
 ind_matched_data <- sapply(c("burns", "dejea", "geng"), 
                            function(x) get_data(x, no_p_tissue_matched), simplify = F)
 
-ind_unmatched_data <- sapply(c("burns", "dejea", "sana", both_sets),  
+ind_unmatched_data <- sapply(c("burns", "dejea", both_sets),  
                              function(x) get_data(x, no_p_tissue_unmatched), simplify = F)
 
 ind_data <- sapply(all_studies,  
@@ -376,7 +376,7 @@ ind_data <- sapply(all_studies,
 
 
 same_genera_ind_matched_data <- get_same_genera(c("burns", "dejea", "geng"), ind_matched_data)
-same_genera_ind_unmatched_data <- get_same_genera(c("burns", "dejea", "sana", both_sets), ind_unmatched_data)
+same_genera_ind_unmatched_data <- get_same_genera(c("burns", "dejea", both_sets), ind_unmatched_data)
 same_genera_ind_data <- get_same_genera(all_studies, ind_data)
 
 
@@ -388,7 +388,7 @@ matched_specific_genera_list <- sapply(
                                   same_genera_ind_matched_data, ind_matched_data), simplify = F)
 
 unmatched_specific_genera_list <- sapply(
-  c("burns", "sana", both_sets), 
+  c("burns", both_sets), 
   function(x) get_specific_genera(x, colnames(same_genera_ind_unmatched_data$burns), 
                                   "study_meta", 
                                   same_genera_ind_unmatched_data, ind_unmatched_data), simplify = F)
@@ -427,7 +427,7 @@ matched_test_ind_RR <- sapply(c("burns", "dejea", "geng"),
                                                         matched_specific_genera_list), simplify = F)
 
 unmatched_test_ind_RR <- sapply(
-  c("burns", "sana", both_sets), 
+  c("burns", both_sets), 
   function(x) analyze_study(x, "disease", 
                             all_genera_unmatched, 
                             unmatched_specific_genera_list), simplify = F)
@@ -446,7 +446,7 @@ matched_RR_data <- sapply(c("burns", "dejea", "geng"),
                       simplify = F) %>% bind_rows()
 
 
-unmatched_RR_data <- sapply(c("burns", "sana", both_sets), 
+unmatched_RR_data <- sapply(c("burns", both_sets), 
                           function(x) make_list(x, all_genera_unmatched, 
                                                 "test_values", unmatched_test_ind_RR), 
                           simplify = F) %>% bind_rows()
@@ -466,7 +466,7 @@ matched_counts_data <- sapply(c("burns", "dejea", "geng"),
   spread(group, Freq)
 
 
-unmatched_counts_data <- sapply(c("burns", "sana", both_sets), 
+unmatched_counts_data <- sapply(c("burns", both_sets), 
                               function(x) make_list(x, all_genera_unmatched, "data_tbl", 
                                                     unmatched_test_ind_RR), simplify = F) %>% 
   bind_rows() %>% unite(group, high_low_vector, disease_vector, sep = "_") %>% 
