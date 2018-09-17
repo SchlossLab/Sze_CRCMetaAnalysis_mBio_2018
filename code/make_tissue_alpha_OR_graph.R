@@ -13,7 +13,7 @@ adn_all_tissue <- read_csv("data/process/tables/alpha_adn_OR_tissue_composite.cs
   rename(est = rr, lower = ci_lb, upper = ci_ub) %>% 
   mutate(study = "composite") %>% 
   bind_rows(read_csv("data/process/tables/alpha_adn_OR_ind_tissue_results.csv")) %>% 
-  mutate(region = c(rep("combined", 3), rep("V3-V4", 6)))
+  mutate(region = c(rep("combined", 3), rep("V3-V4", 3), rep("V1-V2", 3), rep("V3-V4", 3)))
 
 
 crc_all_tissue <- read_csv("data/process/tables/alpha_OR_tissue_composite.csv") %>% 
@@ -21,7 +21,7 @@ crc_all_tissue <- read_csv("data/process/tables/alpha_OR_tissue_composite.csv") 
   mutate(study = "composite") %>% 
   bind_rows(read_csv("data/process/tables/alpha_OR_ind_tissue_results.csv")) %>% 
   mutate(region = c(rep("combined", 3), rep("V5-V6", 3), rep("V1-V3", 3), rep("V3-V4", 3), 
-                    rep("V1-V2", 3), rep("V3-V5", 3), rep("V1-V2", 3)))
+                    rep("V3-V5", 3), rep("V1-V2", 3)))
 
 
 
@@ -48,11 +48,11 @@ crc_all_tissue <- read_csv("data/process/tables/alpha_OR_tissue_composite.csv") 
 
 adn_tissue_graph <- adn_all_tissue %>% 
   mutate(study = factor(study, 
-                        levels = c("composite", "flemer", "lu"), 
-                        labels = c( "Pooled", "Flemer", "Lu")), 
+                        levels = c("composite", "flemer", "lu", "sana"), 
+                        labels = c( "Pooled", "Flemer", "Lu", "Sanapareddy")), 
          region = factor(region, 
-                         levels = c("combined", "V3-V4"), 
-                         labels = c("Combined", "V3-V4")), 
+                         levels = c("combined", "V1-V2", "V3-V4"), 
+                         labels = c("Combined", "V1-V2", "V3-V4")), 
          measure = factor(measure, 
                           levels = c("sobs", "shannoneven", "shannon"), 
                           labels = c("Observed OTUs", "Evenness", "Shannon Diversity")))  %>% 
@@ -63,9 +63,9 @@ adn_tissue_graph <- adn_all_tissue %>%
   geom_point(size = 3, show.legend = T) + 
   facet_grid(. ~ measure) + 
   labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("A") + 
-  scale_color_manual(name = "Variable Region", values = c('#000000', '#35B779FF')) + 
-  annotate("text", label = paste("Adenoma\n(Tissue)"), x = -4.70, y = 3.3, size = 2.5) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.07, size = 20), 
+  scale_color_manual(name = "Variable Region", values = c('#000000', '#B0171F', '#35B779FF')) + 
+  annotate("text", label = paste("Adenoma\n(Tissue)"), x = -4.70, y = 4.3, size = 2.5) + 
+  theme(plot.title = element_text(face="bold", hjust = -0.15, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))
@@ -90,8 +90,8 @@ crc_tissue_graph <- crc_all_tissue %>%
   labs(x = expression(Log["2"]~Odds~Ratio), y = "") + theme_bw() + ggtitle("B") + 
   scale_color_manual(name = "Variable Region", values = c('#000000', '#B0171F', '#31688EFF', 
                                 '#35B779FF', '#FF00FF', '#FDE725FF')) + 
-  annotate("text", label = paste("Carcinoma\n(Tissue)"), x = -4.4, y = 7, size = 2.5) + 
-  theme(plot.title = element_text(face="bold", hjust = -0.14, size = 20), 
+  annotate("text", label = paste("Carcinoma\n(Tissue)"), x = -4.4, y = 6, size = 2.5) + 
+  theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         panel.grid.major = element_blank(), 
         panel.grid.minor = element_blank(), 
         axis.text.y = element_text(size = 10))

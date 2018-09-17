@@ -92,8 +92,8 @@ crc_matched_genera_graph <- crc_matched_genera %>%
 
 crc_unmatched_genera_graph <- crc_unmatched_genera %>% 
   mutate(study = factor(study, 
-                        levels = c("burns", "chen", "flemer", "sana"), 
-                        labels= c("Burns", "Chen", "Flemer", "Sanapareddy")), 
+                        levels = c("burns", "chen", "flemer"), 
+                        labels= c("Burns", "Chen", "Flemer")), 
          otu = factor(otu, 
                       levels = unmatched_genera_labs$otu, 
                       labels = unmatched_genera_labs$otu)) %>% 

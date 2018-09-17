@@ -55,7 +55,7 @@ adn_all_stool <- make_table(adn_stool_studies, "data/process/tables/",
                             "_pvalue_summary.csv",select_included = F)
 
 # Load needed data (adenoma -- tissue)
-adn_tissue_studies <- c("flemer", "lu")
+adn_tissue_studies <- c("flemer", "lu", "sana")
 
 adn_all_tissue <- make_table(adn_tissue_studies, "data/process/tables/", 
                             "adn_ALL_genus_unmatched_tissue_RF_full_", 
@@ -80,7 +80,7 @@ crc_all_matched_tissue <- make_table(crc_matched_tissue_studies, "data/process/t
                             "_pvalue_summary.csv", select_included = F)
 
 
-crc_unmatched_tissue_studies <- c("burns", "chen", "flemer", "sana")
+crc_unmatched_tissue_studies <- c("burns", "chen", "flemer")
 
 crc_all_unmatched_tissue <- make_table(crc_unmatched_tissue_studies, "data/process/tables/", 
                                      "ALL_genus_unmatched_tissue_RF_", 
@@ -114,14 +114,14 @@ crc_all_unmatched_tissue <- make_table(crc_unmatched_tissue_studies, "data/proce
 adn_tissue_graph <- adn_all_tissue %>% 
   filter(study != model) %>% 
   mutate(model = factor(model, 
-                        levels = c("flemer", "lu"), 
-                        labels = c("Flemer", "Lu\n(Matched)")), 
+                        levels = c("flemer", "sana", "lu"), 
+                        labels = c("Flemer", "Sanapareddy", "Lu\n(Matched)")), 
          model_type = factor(model_type, 
                              levels = c("select", "full"), 
                              labels = c("Significant\nOR Taxa", "All Taxa")), 
          study = factor(study, 
-                        levels = c("flemer", "lu"), 
-                        labels = c("Flemer", "Lu\n(Matched)"))) %>% 
+                        levels = c("flemer", "sana", "lu"), 
+                        labels = c("Flemer", "Sanapareddy", "Lu\n(Matched)"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   geom_point(size = 3.5, position = position_dodge(width = 0.3), show.legend = T) + 
@@ -131,7 +131,7 @@ adn_tissue_graph <- adn_all_tissue %>%
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("A") + 
   scale_color_manual(name = "Study", 
-                     values = c('#ED9121', '#8B7500')) + 
+                     values = c('#ED9121', '#8EE5EE', '#8B7500')) + 
   annotate("text", label = paste("Adenoma Tissue"), x = 0.8, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.position = "bottom", 
@@ -178,14 +178,14 @@ adn_stool_graph <- adn_all_stool %>%
 crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>% 
   filter(study != model) %>% 
   mutate(model = factor(model, 
-                        levels = c("burns", "chen", "flemer", "sana"), 
-                        labels = c("Burns", "Chen", "Flemer", "Sanapareddy")), 
+                        levels = c("burns", "chen", "flemer"), 
+                        labels = c("Burns", "Chen", "Flemer")), 
          model_type = factor(model_type, 
                              levels = c("select", "full"), 
                              labels = c("Significant\nOR Taxa", "All Taxa")), 
          study = factor(study, 
-                        levels = c("burns", "chen", "flemer", "sana"), 
-                        labels = c("Burns", "Chen", "Flemer", "Sanapareddy"))) %>% 
+                        levels = c("burns", "chen", "flemer"), 
+                        labels = c("Burns", "Chen", "Flemer"))) %>% 
   ggplot(aes(model, auc, color = study, group = model_type)) + 
   geom_hline(color = "gray", yintercept = 0.5, linetype = "dashed") + 
   geom_point(position = position_dodge(width = 0.3), size = 3.5, show.legend = T) + 
@@ -195,7 +195,7 @@ crc_unmatched_tissue_graph <- crc_all_unmatched_tissue %>%
   coord_cartesian(ylim = c(0, 1.05)) + 
   labs(x = "", y = "AUC") + theme_bw() + ggtitle("C") + 
   scale_color_manual(name = "Study", 
-                     values = c('#453581FF', '#CD6889', '#ED9121', '#8EE5EE')) + 
+                     values = c('#453581FF', '#CD6889', '#ED9121')) + 
   annotate("text", label = paste("Carcinoma (Unmatched Tissue)"), x = 1.6, y = 1.07, size = 2.5) + 
   theme(plot.title = element_text(face="bold", hjust = -0.1, size = 20), 
         legend.position = "bottom", 

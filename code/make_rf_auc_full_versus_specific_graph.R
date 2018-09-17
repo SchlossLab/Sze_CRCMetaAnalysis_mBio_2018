@@ -14,13 +14,13 @@ loadLibs(c("tidyverse", "gridExtra", "viridis"))
 #  mutate(type = "matched")
 adn_tissue <- 
   read_csv("data/process/tables/adn_ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
-  mutate(type = rep(c("unmatched", "matched"), 2), 
+  mutate(type = rep(c("unmatched", "matched", "unmatched"), 3), 
          pvalue = as.numeric(pvalue)) %>% 
   gather(key = model_type, value = AUC, full_model, select_model) %>% 
   mutate(AUC = as.numeric(AUC)) %>% 
   bind_rows(
     read_csv("data/process/tables/adn_tissue_rf_otu_random_comparison_summary.csv") %>% 
-      mutate(type = c("matched", "unmatched"), 
+      mutate(type = c("matched", "unmatched", "unmatched"), 
              model_type = "full_otu", 
              train_model = study, 
              act_mean_auc = as.numeric(act_mean_auc)) %>% 
