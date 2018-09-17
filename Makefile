@@ -437,6 +437,12 @@ $(O_CRC_FULL_MATCH_T_IMP) $(O_CRC_FULL_UNMATCH_T_IMP) $(O_ADN_FULL_STOOL_IMP)\
 code/run_comparison_RF_imp_otus_tissue.R
 	R -e "source('code/run_comparison_RF_imp_otus_tissue.R')"
 
+# Generate individual taxa AUCs
+$(TABLES)/ind_genera_auc_stool.csv\
+$(TABLES)/ind_genera_auc_unmatched_tissue.csv : $(GENERA_FILE) $(SUB_GENERA_FILE)\
+$(METADATA) $(TABLES)/select_genus_OR_stool_composite.csv $(TABLES)/alpha_tissue_unmatched_data.csv\
+$(TABLES)/select_genus_OR_unmatched_tissue_composite.csv code/Run_sig_taxa_AUC_generation.R
+	R -e "source('code/Run_sig_taxa_AUC_generation.R')"
 
 
 # Run the pvalue AUC analysis between ind taxa and full taxa RF models
