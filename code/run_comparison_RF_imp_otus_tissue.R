@@ -33,12 +33,12 @@ matched_studies <- unique(
 
 # Get studies that contain unmatched samples
 # Need to remove dejea and lu
-# Lu only has polyps
+# Lu and Sana only has polyps
 # Dejea only has cancer 
 unmatched_studies <- unique(
-  tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu"))]) 
+  tissue_unmatched$study[!(tissue_unmatched$study %in% c("dejea", "lu", "sana"))]) 
 
-adn_tissue <- c("flemer", "lu")
+adn_tissue <- c("flemer", "lu", "sana")
 
 rm(tissue_matched, tissue_unmatched)
 

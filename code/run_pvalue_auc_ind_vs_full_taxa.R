@@ -12,7 +12,8 @@ ind_crc_stool_auc <- read_csv("data/process/tables/ind_genera_auc_stool.csv") %>
   mutate(auc = ifelse(taxa == "Ruminococcus" | taxa == "Clostridium_XI", invisible(1-auc), invisible(auc)))
 
 ind_unmatched_tissue_crc_auc <- read_csv("data/process/tables/ind_genera_auc_unmatched_tissue.csv") %>% 
-  mutate(auc = ifelse(taxa == "Dorea" | taxa == "Blautia", invisible(1-auc), invisible(auc)))
+  mutate(auc = ifelse(taxa == "Dorea" | taxa == "Blautia", invisible(1-auc), invisible(auc))) %>% 
+  filter(study != "sana")
 
 
 crc_tissue_model_aucs <- read_csv("data/process/tables/ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>% 
