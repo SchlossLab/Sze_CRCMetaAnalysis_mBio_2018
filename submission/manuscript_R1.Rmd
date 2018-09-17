@@ -70,18 +70,18 @@ ind_crc_combined_unmatched_auc <- ind_unmatched_tissue_crc_auc %>% group_by(taxa
 #Load in AUC data between select and full taxa models
 adn_tissue_model_aucs <-
   as.data.frame(read_csv("../data/process/tables/adn_ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv") %>%
-  mutate(type = rep(c("unmatched", "matched"), 2),
-         pvalue = as.numeric(pvalue)) %>%
-  gather(key = model_type, value = AUC, full_model, select_model) %>%
-  mutate(AUC = as.numeric(AUC)) %>%
-  bind_rows(
-    read_csv("../data/process/tables/adn_tissue_rf_otu_random_comparison_summary.csv") %>%
-      mutate(type = c("matched", "unmatched"),
-             model_type = "full_otu",
-             train_model = study,
-             act_mean_auc = as.numeric(act_mean_auc)) %>%
-      rename(AUC = act_mean_auc) %>%
-      select(pvalue, study, train_model, type, model_type, AUC)))
+                  mutate(type = rep(c("unmatched", "matched", "unmatched"), 3),
+                         pvalue = as.numeric(pvalue)) %>%
+                  gather(key = model_type, value = AUC, full_model, select_model) %>%
+                  mutate(AUC = as.numeric(AUC)) %>%
+                  bind_rows(
+                    read_csv("../data/process/tables/adn_tissue_rf_otu_random_comparison_summary.csv") %>%
+                      mutate(type = c("matched", "unmatched", "unmatched"),
+                             model_type = "full_otu",
+                             train_model = study,
+                             act_mean_auc = as.numeric(act_mean_auc)) %>%
+                      rename(AUC = act_mean_auc) %>%
+                      select(pvalue, study, train_model, type, model_type, AUC)))
 
 
 adn_stool_model_aucs <- as.data.frame(read_csv("../data/process/tables/adn_ALL_genus_stool_RF_fullvsselect_pvalue_summary.csv") %>% gather(key = model_type, value = AUC, full_model, select_model) %>%

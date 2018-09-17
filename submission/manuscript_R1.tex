@@ -72,14 +72,15 @@
 }
 
 \setlength{\droptitle}{-2em}
-  \title{}
-  \pretitle{\vspace{\droptitle}}
-  \posttitle{}
-  \author{}
-  \preauthor{}\postauthor{}
-  \date{}
-  \predate{}\postdate{}
 
+  \title{}
+    \pretitle{\vspace{\droptitle}}
+  \posttitle{}
+    \author{}
+    \preauthor{}\postauthor{}
+    \date{}
+    \predate{}\postdate{}
+  
 \usepackage{helvet} % Helvetica font
 \renewcommand*\familydefault{\sfdefault} % Use the sans serif version of the font
 \usepackage[T1]{fontenc}
@@ -151,7 +152,7 @@ relative to a normal colon. Among the fecal samples, there were no taxa
 that had significant ORs associated with adenoma and there were 8 taxa
 with significant ORs associated with carcinoma. Similarly, among the
 tissue samples, there were no taxa that had a significant OR associated
-with adenoma and there were 3 taxa with significant ORs associated with
+with adenoma and there were 6 taxa with significant ORs associated with
 carcinoma. Among the significant ORs, the association between individual
 taxa and tumor diagnosis was equal or below 7.11. Because individual
 taxa had limited association with tumor diagnosis, we trained Random
@@ -255,7 +256,7 @@ biomarkers, the aggregate number of samples included in the analysis
 since been published (12, 27)
 
 Here we provide an updated meta-analysis using 16S rRNA gene sequence
-data from both feces (n=1737) and colon tissue (492 samples from 350
+data from both feces (n=1737) and colon tissue (435 samples from NA
 individuals) from 14 studies (11--17, 19, 20, 23, 25--27, 29) {[}Table 1
 \& 2{]}. We expand both the breadth and scope of the previous
 meta-analysis to investigate whether biomarkers describing the bacterial
@@ -341,19 +342,19 @@ associated with the oral cavity: \emph{Fusobacterium} (OR=2.74 (1.95 -
 \emph{Escherichia} (OR=2.15 (1.57 - 2.95)), and \emph{Ruminococcus}
 (OR=0.63 (0.48 - 0.83)). Among the data collected from tissue samples,
 only unmatched carcinoma samples had taxa with a significant OR. Those
-included \emph{Dorea} (OR=0.35 (0.22 - 0.55)), \emph{Blautia} (OR=0.47
-(0.3 - 0.73)), and \emph{Weissella} (OR=5.15 (2.02 - 13.14)).
-Mouth-associated genera were not significantly associated with a higher
-OR for carcinoma in tissue samples {[}Table S4{]}. For example,
-\emph{Fusobacterium} had an OR of 3.98 (1.19 - 13.24); however, due to
-the small number of studies and considerable variation in the data, the
-Benjimani-Hochberg corrected P-value was 0.93 {[}Table S4{]}. It is
-interesting to note that \emph{Ruminococcus} and members of
-\emph{Clostridium XI} in fecal samples and \emph{Dorea} and
-\emph{Blautia} in tissue had ORs that were significantly less than 1.0,
-which suggests that these populations are protective against the
-development of carcinomas. Overall, there was no overlap in the taxa
-with significant OR between fecal and tissue samples.
+included \emph{Dorea} (OR=0.34 (0.21 - 0.57)), \emph{Blautia} (OR=0.41
+(0.25 - 0.67)), and \emph{Weissella} (OR= ( - )). Mouth-associated
+genera were not significantly associated with a higher OR for carcinoma
+in tissue samples {[}Table S4{]}. For example, \emph{Fusobacterium} had
+an OR of 3.98 (1.19 - 13.24); however, due to the small number of
+studies and considerable variation in the data, the Benjimani-Hochberg
+corrected P-value was 0.93 {[}Table S4{]}. It is interesting to note
+that \emph{Ruminococcus} and members of \emph{Clostridium XI} in fecal
+samples and \emph{Dorea} and \emph{Blautia} in tissue had ORs that were
+significantly less than 1.0, which suggests that these populations are
+protective against the development of carcinomas. Overall, there was no
+overlap in the taxa with significant OR between fecal and tissue
+samples.
 
 \textbf{\emph{Individual taxa with a significant OR do a poor job of
 differentiating subjects with normal colons and those with carcinoma.}}
@@ -373,10 +374,10 @@ at classifying the subjects than one would expect by chance
 included \emph{Clostridium XI}, \emph{Ruminococcus}, and
 \emph{Escherichia}. However, these had median AUC values less than 0.588
 indicating their limited value as biomarkers when used individually.
-Likewise, in unmatched tissue samples the 3 taxa with significant OR
+Likewise, in unmatched tissue samples the 6 taxa with significant OR
 taxa had AUC values that were marginally better than one would expect by
 chance {[}Figure 3B{]}. The relative abundance of \emph{Dorea} was the
-best predictor of carcinomas and its median AUC was only 0.62. These
+best predictor of carcinomas and its median AUC was only 0.635. These
 results suggest that although these taxa are associated with a
 significant OR for the presences of carcinomas, they do a poor job of
 classifying a subject's disease status when used individually.
@@ -391,10 +392,10 @@ values for the individual taxa (P-value \textless{} 0.033). When this
 approach was used to train models using data from each study, the most
 important taxa were \emph{Ruminococcus} and \emph{Clostridium XI}
 {[}Figure 4A{]}. Similarly, using data from the unmatched tissue
-samples, the combined model had an AUC of 0.77, which was significantly
+samples, the combined model had an AUC of 0.88, which was significantly
 higher than the AUC values for classifying based on the relative
 abundances of \emph{Blautia} and \emph{Weissella} individually (P-value
-\textless{} 0.037). Both \emph{Dorea} and \emph{Blautia} were the most
+\textless{} 0.13). Both \emph{Dorea} and \emph{Blautia} were the most
 important taxa in the tissue-based models {[}Figure 4B{]}. Pooling the
 information from the taxa with significant ORs resulted in models that
 outperformed classifications made using the same taxa individually.
@@ -408,7 +409,7 @@ Similar to our inability to identify taxa associated with a significant
 OR for the presence of adenomas, the median AUCs to classify subjects as
 having normal colons or having adenomas using data from fecal or tissue
 samples were only marginally better than 0.5 for any study (median
-AUC=0.549 (range: 0.367 - 0.971)) {[}Figure 5A \& S2A{]}. In contrast,
+AUC=0.555 (range: 0.367 - 0.971)) {[}Figure 5A \& S2A{]}. In contrast,
 the models for classifying subjects as having normal colons or having
 carcinomas using data from fecal or tissue samples yielded AUC values
 meaningfully higher than 0.5 {[}Figure 5B \& S2B-C{]}. When we compared
@@ -424,9 +425,9 @@ models trained using data from fecal samples, \emph{Bacteroides} and
 \emph{Lachnospiraceae} were the most common taxa in the top 10\% mean
 decrease in accuracy across studies {[}Figure S3{]}. Using data from
 unmatched tissue samples to train classification models, we found that
-the AUC of studies was an average 19.11\% higher when we used all of the
+the AUC of studies was an average 22.86\% higher when we used all of the
 taxa rather than the 3 taxa with significant ORs (one-tailed paired
-T-test; P-value=0.03). For the models trained using data from unmatched
+T-test; P-value=0.053). For the models trained using data from unmatched
 tissue samples, \emph{Lachnospiraceae}, \emph{Bacteroidaceae}, and
 \emph{Ruminococcaceae} were the most common taxa in the top 10\% mean
 decrease in accuracy across studies {[}Figure S4{]}. Although the models
@@ -448,8 +449,8 @@ colons and those with adenomas (median AUC: 0.53 (0.37- 0.56)). However,
 they did a good job of differentiating between subjects with normal
 colons and those with carcinomas (median AUC: 0.71 (0.50- 0.90)). The
 OTU-based models performed similarly to those constructed using the taxa
-with significant ORs (one-tailed paired T-test; P-value=0.979) and those
-using all taxa (one-tailed paired T-test; P-value=0.184) {[}Figure 4{]}.
+with significant ORs (one-tailed paired T-test; P-value=0.945) and those
+using all taxa (one-tailed paired T-test; P-value=0.173) {[}Figure 4{]}.
 Among the OTUs that had the highest mean decrease in accuracy for the
 OTU-based models, we found that OTUs that affiliated with all of the 8
 taxa that had a significant OR were within the top 10\% for at least one
@@ -681,7 +682,7 @@ There were seven studies with only fecal samples (Ahn, Baxter, Brim,
 Hale, Wang, Weir, and Zeller), five studies with only tissue samples
 (Burns, Dejea, Geng, Lu, Sanapareddy), and two studies with both fecal
 and tissue samples (Chen and Flemer). After curating the sequences, 1737
-fecal samples and 492 tissue samples remained in the analysis {[}Tables
+fecal samples and 435 tissue samples remained in the analysis {[}Tables
 1 and 2{]}.
 
 \textbf{\emph{Sequence Processing.}} Raw sequence data and metadata were
@@ -1303,13 +1304,13 @@ Study & Data Stored & Region & Control (n) & Adenoma (n) & Carcinoma
 (n)\tabularnewline
 \midrule
 \endhead
-Burns & SRA & V5-6 & 18 & 0 & 16\tabularnewline
+Burns & SRA & V5-6 & 15 & 0 & 13\tabularnewline
 Chen & SRA & V1-3 & 9 & 0 & 9\tabularnewline
-Dejea & SRA & V3-5 & 31 & 0 & 32\tabularnewline
+Dejea & SRA & V3-5 & 15 & 0 & 13\tabularnewline
 Flemer & Author & V3-4 & 103 & 37 & 94\tabularnewline
-Geng & SRA & V1-2 & 16 & 0 & 16\tabularnewline
+Geng & SRA & V1-2 & 8 & 0 & 8\tabularnewline
 Lu & SRA & V3-4 & 20 & 20 & 0\tabularnewline
-Sanapareddy & Author & V1-2 & 38 & 0 & 33\tabularnewline
+Sanapareddy & Author & V1-2 & 38 & 33 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
