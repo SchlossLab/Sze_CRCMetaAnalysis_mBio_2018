@@ -504,7 +504,7 @@ $(TABLES)/ALL_genus_unmatched_tissue_RF_select_imp_vars.csv code/make_select_imp
 	R -e "source('code/make_select_imp_otu_graph.R')"
 
 
-# Run code to create Figure 5 and S4
+# Run code to create Figure 5 and S2
 $(FIGS)/FigureS2.pdf\
 $(FIGS)/Figure5.pdf : $(TABLES)/adn_ALL_genus_unmatched_tissue_RF_fullvsselect_pvalue_summary.csv\
 $(TABLES)/adn_tissue_rf_otu_random_comparison_summary.csv\
@@ -521,7 +521,7 @@ code/make_rf_auc_full_versus_specific_graph.R
 
 
 
-# Run code to make supplemental Figure 1
+# Run code to make supplemental Figure S1
 $(FIGS)/FigureS1.pdf : $(TABLES)/alpha_adn_OR_tissue_composite.csv\
 $(TABLES)/alpha_adn_OR_ind_tissue_results.csv $(TABLES)/alpha_OR_tissue_composite.csv\
 $(TABLES)/alpha_OR_ind_tissue_results.csv code/make_tissue_alpha_OR_graph.R
@@ -529,14 +529,14 @@ $(TABLES)/alpha_OR_ind_tissue_results.csv code/make_tissue_alpha_OR_graph.R
 
 
 
-# Run code to create Figure S4
+# Run code to create Figure S3
 $(FIGS)/FigureS3.pdf : $(TABLES)/crc_RF_genera_stool_top10.csv\
 $(TABLES)/adn_RF_genera_stool_top10.csv\
 $(TABLES)/crc_RF_otu_stool_top10.csv\
 $(TABLES)/adn_RF_otu_stool_top10.csv code/make_stool_imp_otu_graph.R
 	R -e "source('code/make_stool_imp_otu_graph.R')"
 
-# Run code to make supplemental Figure S5
+# Run code to make supplemental Figure S4
 $(FIGS)/FigureS4.pdf : $(TABLES)/crc_RF_genera_unmatched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_matched_tissue_top10.csv\
 $(TABLES)/adn_RF_genera_tissue_top10.csv\
