@@ -225,11 +225,11 @@ get_test_data <- function(train_study, i,
   # Generate roc curve infor (sens and spec) to be able to graph roc curves in the future
   overall_rocs <- sapply(i, function(x) 
     if(x != train_study){
-      roc(testdataList[[train_study]][[x]]$disease ~ test_predictions[[x]][, "polyp"])}, 
+      pROC::roc(testdataList[[train_study]][[x]]$disease ~ test_predictions[[x]][, "polyp"])}, 
     simplify = F)
   
   # add the training data roc information to this list
-  overall_rocs[[train_study]] <- roc(training_data[[train_study]]$disease ~ train_prediction[, "polyp"])
+  overall_rocs[[train_study]] <- pROC::roc(training_data[[train_study]]$disease ~ train_prediction[, "polyp"])
   
   # Write out all the roc information from every data set
   return(overall_rocs)

@@ -58,8 +58,8 @@ imp_stool_model <- stool_mda %>%
 
 imp_unmatched_tissue_model <- unmatched_tissue_mda %>% 
   mutate(study = factor(study, 
-                        levels = c("burns", "chen", "flemer", "sana"), 
-                        labels= c(c("Burns", "Chen", "Flemer", "Sanapareddy"))), 
+                        levels = c("burns", "chen", "flemer"), 
+                        labels= c(c("Burns", "Chen", "Flemer"))), 
          otu = factor(otu, 
                       levels = unmatched_tissue_vars$otu, 
                       labels = unmatched_tissue_vars$otu)) %>% 

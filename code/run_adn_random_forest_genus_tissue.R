@@ -9,9 +9,7 @@ source('code/functions.R')
 loadLibs(c("dplyr", "tidyr", "caret", "pROC"))
 
 # Tissue Only sets
-# Lu, Dejea, Sana, Burns, Geng
-# Remove Lu since it only has polyps and no cancer cases
-tissue_sets <- c("lu")
+tissue_sets <- c("lu", "sana")
 
 # Both Tissue and Stool
 # flemer sampletype = biopsy or stool
@@ -258,7 +256,7 @@ get_test_data <- function(i, train_study,
   train_prediction <- training_model$finalModel$votes %>% as.data.frame()
   # get the predictions for each of the data sets based on the training model
   test_predictions <- sapply(i, function(x) 
-    predict(training_model, testdataList[[x]], type = 'prob'), simplify = F)
+    predict(training_model, testdataList[[x]]), simplify = F)
   # Generate roc curve infor (sens and spec) to be able to graph roc curves in the future
   overall_rocs <- sapply(i, function(x) 
     roc(testdataList[[x]]$disease ~ test_predictions[[x]][, "polyp"]), simplify = F)
@@ -292,31 +290,30 @@ run_rf_tests <- function(study, rf_dataList, specific_vars = F){
   # study is the study of interest
   # rf_dataList is the genera_aligned disease column added data files 
   
-  if(specific_vars == F & study != "brim"){
-    
-    # Generate the nzv and transformations that need to be applied based on 
-    # study used for training data 
+  # if(specific_vars == F & study != "brim"){
+   #Generate the nzv and transformations that need to be applied based on
+    # study used for training data
     first_study <- get_align_info(study, rf_dataList)
-    # remove nzv columns, transform, and normalize data sets based on training set 
+    # remove nzv columns, transform, and normalize data sets based on training set
     test_dataList <- apply_preprocess(study, first_study, rf_dataList)
     # Generate the RF model from the relevant training data set
     train_model_data <- make_rf_model(first_study$train_data)
     # Test the model on each of the data sets not used in training
-    test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
+    test_dataLists <- get_test_data(names(test_dataList), study, train_model_data,
                                     first_study[["train_data"]], test_dataList)
+  #   
+  # } else{
     
-  } else{
+    # first_study <- rf_dataList[[study]]
+    # test_dataList = rf_dataList
+    # test_dataList[[study]] <- NULL
+    # # Generate the RF model from the relevant training data set
+    # train_model_data <- make_rf_model(first_study)
+    # # Test the model on each of the data sets not used in training
+    # test_dataLists <- get_test_data(names(test_dataList), study, train_model_data,
+    #                                 first_study, test_dataList)
     
-    first_study <- rf_dataList[[study]]
-    test_dataList = rf_dataList
-    test_dataList[[study]] <- NULL
-    # Generate the RF model from the relevant training data set
-    train_model_data <- make_rf_model(first_study)
-    # Test the model on each of the data sets not used in training
-    test_dataLists <- get_test_data(names(test_dataList), study, train_model_data, 
-                                    first_study, test_dataList)
-    
-  }
+  # }
   
   # output the final results from all tests
   return(test_dataLists)
