@@ -121,7 +121,7 @@ table_s3 <- temp_t3a %>%
   mutate(fstat = round(fstat, digits = 2),
          r2 = round(r2, digits = 3),
          pvalue = round(pvalue, digits = 4),
-         study = c("Lu", "Flemer", "Lu (Matched)"),
+         study = c("Lu", "Sanapareddy", "Flemer", "Lu (Matched)"),
          comparison = "Adenoma",
          sample_type = "Tissue") %>%
   select(study, comparison, sample_type, r2, pvalue)
@@ -137,7 +137,7 @@ table_s4 <- temp_t4a %>%
   mutate(fstat = round(fstat, digits = 2),
          r2 = round(r2, digits = 3),
          pvalue = round(pvalue, digits = 4),
-         study = c("Sanapareddy", "Burns", "Flemer", "Chen",
+         study = c("Burns", "Flemer", "Chen",
                    "Dejea (Matched)", "Geng (Matched)", "Burns (Matched)"),
          comparison = "Carcinoma",
          sample_type = "Tissue") %>%
